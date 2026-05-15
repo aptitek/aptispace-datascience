@@ -30,7 +30,142 @@ C'est le phénomène le plus pernicieux. Les données d'entrée semblent identiq
 
 Pour bien saisir la différence entre ces deux dérives, manipulez ce simulateur. Observez comment la ligne de décision (votre modèle figé) devient obsolète face à l'évolution du monde.
 
----
+::: {.callout-note}
+### 🚨 Simulateur Interactif : Le crash silencieux (Drift)
+Le graphique ci-dessous représente votre modèle en production. Le fond de couleur (Bleu/Rouge) représente les zones de décision figées de l'algorithme. Observez comment la précision de votre modèle s'effondre lorsque le monde réel (les points) évolue, sans même qu'une ligne de code n'ait été modifiée.
+:::
+
+```{ojs}
+//| panel: input
+// 1. Contrôles de simulation
+viewof driftMode = Inputs.radio(
+  [
+    "État Initial (Tout va bien)", 
+    "💥 Data Drift (Changement de population)", 
+    "🎭 Concept Drift (Changement de comportement)"
+  ],
+  { value: "État Initial (Tout va bien)", label: "État du Monde Réel :" }
+)
+
+```
+
+```{ojs}
+//| echo: false
+// 2. Génération des données de base (avec une seed fixe pour éviter le scintillement)
+baseData = {
+  const lcg = (a) => () => (a = (a * 16807) % 2147483647) / 2147483647;
+  const rand = lcg(42);
+  // Fonction pour distribution normale (Box-Muller)
+  const randn = () => Math.sqrt(-2.0 * Math.log(1 - rand())) * Math.cos(2.0 * Math.PI * rand());
+  
+  let pts = [];
+  // 100 Transactions Légitimes (Bleu) à gauche
+  for(let i=0; i<100; i++) {
+    pts.push({ id: i, base_x: -2.5 + randn()*0.8, base_y: randn()*1.5, base_label: "Légitime" });
+  }
+  // 100 Fraudes (Rouge) à droite
+  for(let i=0; i<100; i++) {
+    pts.push({ id: 100+i, base_x: 2.5 + randn()*0.8, base_y: randn()*1.5, base_label: "Fraude" });
+  }
+  return pts;
+}
+
+// 3. Application du Drift selon le mode sélectionné
+currentData = baseData.map(d => {
+  let x = d.base_x;
+  let y = d.base_y;
+  let label = d.base_label;
+  
+  if (driftMode.includes("Data Drift")) {
+    // Les données se déplacent physiquement (Ex: la banque cible de nouveaux clients plus risqués)
+    // Les transactions légitimes se décalent vers la droite.
+    x = d.base_x + 3.2; 
+    y = d.base_y - 0.5;
+  } 
+  else if (driftMode.includes("Concept Drift")) {
+    // Les points ne bougent pas, mais la définition de la fraude change !
+    // (Ex: Les fraudeurs ont appris à imiter le comportement des clients légitimes)
+    if (d.base_x > -2.5 && d.base_x < 0 && d.base_y > 0) {
+      label = "Fraude"; // Des points bleus deviennent soudainement rouges
+    }
+  }
+  
+  // Le modèle en production est FIGÉ : il prédit Fraude si X > 0, Légitime si X < 0.
+  let prediction = x > 0 ? "Fraude" : "Légitime";
+  let isCorrect = prediction === label;
+  
+  return { ...d, x, y, label, prediction, isCorrect };
+})
+
+// 4. Calcul de la Précision Globale
+accuracy = (currentData.filter(d => d.isCorrect).length / currentData.length) * 100;
+
+```
+
+```{ojs}
+//| echo: false
+// 5. Rendu Visuel avec Observable Plot
+import {Plot} from "@observablehq/plot"
+
+Plot.plot({
+  height: 450,
+  width: 800,
+  style: { background: "#fff", fontSize: "14px", borderRadius: "8px", border: "1px solid #e2e8f0" },
+  x: { domain: [-6, 6], label: "Caractéristique Client (ex: Score d'achat) →", grid: true },
+  y: { domain: [-4, 4], label: "← Comportement →", grid: true },
+  marks: [
+    // Zone de décision du modèle : Légitime (Bleu)
+    Plot.rect([{x1: -10, x2: 0, y1: -10, y2: 10}], {x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: "#eff6ff"}),
+    // Zone de décision du modèle : Fraude (Rouge)
+    Plot.rect([{x1: 0, x2: 10, y1: -10, y2: 10}], {x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: "#fef2f2"}),
+    
+    // Frontière de décision (Le modèle figé)
+    Plot.ruleX([0], {stroke: "#1e293b", strokeWidth: 4, strokeDasharray: "8,4"}),
+    Plot.text([{x: 0, y: 3.5}], {text: () => "Frontière du Modèle (Figée)", fill: "#1e293b", fontWeight: "bold", dy: -10}),
+
+    // Affichage des données (qui évoluent selon le monde réel)
+    Plot.dot(currentData, {
+      x: "x", 
+      y: "y", 
+      fill: d => d.label === "Légitime" ? "#3b82f6" : "#ef4444", 
+      stroke: d => d.isCorrect ? "white" : "black", // Entouré en noir si le modèle se trompe !
+      strokeWidth: d => d.isCorrect ? 1 : 2.5,
+      r: 6
+    })
+  ]
+})
+
+```
+
+```{ojs}
+//| echo: false
+// 6. Tableau de Bord et Pédagogie
+html`
+<div style="display: flex; gap: 20px; margin-top: 15px;">
+  <div style="flex: 1; padding: 20px; background: ${accuracy > 85 ? '#dcfce7' : '#fee2e2'}; border-radius: 12px; border: 1px solid ${accuracy > 85 ? '#bbf7d0' : '#fecaca'}; text-align: center; transition: background 0.5s;">
+    <div style="font-size: 0.9em; color: ${accuracy > 85 ? '#166534' : '#991b1b'}; text-transform: uppercase; font-weight: bold;">Précision en Production</div>
+    <div style="font-size: 3.5em; font-weight: 800; color: ${accuracy > 85 ? '#15803d' : '#b91c1c'};">${accuracy.toFixed(1)}%</div>
+    <div style="font-size: 0.9em; color: ${accuracy > 85 ? '#166534' : '#991b1b'}; margin-top: 5px;">
+      ${accuracy > 85 ? '✅ Modèle Fiable' : '🚨 ALERTE : Ré-entraînement requis (PSI Élevé)'}
+    </div>
+  </div>
+
+  <div style="flex: 2; padding: 20px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0;">
+    <strong>📊 Diagnostic de Dérive :</strong><br/>
+    <p style="margin-top: 10px; color: #334155; line-height: 1.5;">
+    ${driftMode.includes("Initial")
+      ? "Tout va bien. La majorité des points bleus (Légitimes) sont dans la zone bleue du modèle, et les points rouges (Fraudes) dans la zone rouge. Le modèle est parfaitement aligné avec la réalité."
+      : driftMode.includes("Data Drift")
+        ? "<b>Data Drift détecté !</b> La définition de la fraude n'a pas changé, mais la population oui. Les clients légitimes (points bleus) ont changé de comportement (ex: ils achètent plus à l'étranger) et se sont décalés vers la droite. Le modèle, figé, les perçoit comme des fraudeurs et génère une avalanche de <b>Faux Positifs</b> (les points bleus entourés de noir dans la zone rouge)."
+        : "<b>Concept Drift détecté !</b> Les points n'ont pas bougé (les comportements clients sont les mêmes), mais les règles du jeu ont changé. Les fraudeurs ont trouvé une faille et imitent désormais les clients légitimes (les points rouges à gauche de la ligne). Le modèle n'y voit que du feu et génère des <b>Faux Négatifs critiques</b>."
+    }
+    </p>
+  </div>
+</div>
+`
+
+```
+
 
 ### 🕵️‍♂️ 2. Surveillance et MLOps : La Boucle de Guérison
 

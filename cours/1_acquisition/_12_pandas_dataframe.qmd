@@ -56,7 +56,120 @@ graph LR
 Pour bien saisir pourquoi le format colonnaire est plus rapide pour l'IA, manipulez ce comparateur de structure mémoire. Observez comment le processeur accède aux données selon le type de stockage.
 
 
-Columnar vs Row Storage SCHEMA
+::: {.callout-note}
+### 🧠 Simulateur : La Mémoire RAM en action
+Modifiez le format de stockage et simulez une requête sur une colonne spécifique pour comprendre pourquoi le format "Colonne" (Parquet) est infiniment plus rapide pour l'analyse de données.
+:::
+
+```{ojs}
+//| panel: input
+// 1. Définition des contrôles interactifs
+viewof storageMode = Inputs.radio(
+  ["Orienté Ligne (ex: CSV, Pandas classique)", "Orienté Colonne (ex: Parquet, Polars, Arrow)"],
+  { value: "Orienté Ligne (ex: CSV, Pandas classique)", label: "Structure en RAM :" }
+)
+
+viewof queryCol = Inputs.radio(
+  ["Aucune", "Âge", "Salaire"],
+  { value: "Aucune", label: "Simuler une requête d'analyse sur :" }
+)
+
+```
+
+```{ojs}
+//| echo: false
+// 2. Définition des données et des couleurs
+tableData = [
+  { ID: "A1", Âge: 25, Salaire: "50k" },
+  { ID: "B2", Âge: 30, Salaire: "60k" },
+  { ID: "C3", Âge: 28, Salaire: "55k" }
+]
+
+colors = { ID: "#4299e1", Âge: "#48bb78", Salaire: "#ed8936" }
+
+// 3. Logique de rendu dynamique en HTML/CSS
+html`
+<style>
+  .ram-grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    padding: 20px; 
+    background: #f8fafc; 
+    border: 2px solid #e2e8f0; 
+    border-radius: 12px;
+    align-items: center;
+  }
+  .ram-block { 
+    padding: 12px 18px; 
+    border-radius: 6px; 
+    color: white; 
+    font-weight: 700; 
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .ram-block.active { 
+    transform: scale(1.1); 
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2); 
+    z-index: 10;
+  }
+  .ram-block.dimmed { 
+    opacity: 0.15; 
+    filter: grayscale(80%);
+  }
+  .ram-pointer { 
+    font-size: 20px; 
+    color: #94a3b8; 
+    font-weight: bold;
+    margin: 0 5px;
+  }
+  .feedback-box {
+    margin-top: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+  }
+  .feedback-bad { background: #fee2e2; color: #991b1b; border-left: 5px solid #ef4444; }
+  .feedback-good { background: #dcfce7; color: #166534; border-left: 5px solid #22c55e; }
+  .feedback-neutral { background: #f1f5f9; color: #334155; border-left: 5px solid #64748b; }
+</style>
+
+<div>
+  <div class="ram-grid">
+    ${
+      storageMode.includes("Ligne")
+        ? tableData.map(row =>
+            ["ID", "Âge", "Salaire"].map(col =>
+              `<div class="ram-block ${queryCol === "Aucune" ? "" : queryCol === col ? "active" : "dimmed"}" style="background-color: ${colors[col]}">${row[col]}</div>`
+            ).join("")
+          ).join(`<div class="ram-pointer">→</div>`)
+        : ["ID", "Âge", "Salaire"].map(col =>
+            tableData.map(row =>
+              `<div class="ram-block ${queryCol === "Aucune" ? "" : queryCol === col ? "active" : "dimmed"}" style="background-color: ${colors[col]}">${row[col]}</div>`
+            ).join("")
+          ).join(`<div class="ram-pointer">→</div>`)
+    }
+  </div>
+
+  <div class="feedback-box ${
+    queryCol === 'Aucune' ? 'feedback-neutral' : 
+    storageMode.includes('Ligne') ? 'feedback-bad' : 'feedback-good'
+  }">
+    <strong>🔍 Analyse CPU :</strong><br>
+    ${
+      queryCol === "Aucune"
+        ? "Sélectionnez une colonne ci-dessus pour observer le comportement du processeur lors de la lecture."
+        : storageMode.includes("Ligne")
+          ? `Pour lire '${queryCol}', le processeur doit scanner toute la mémoire et faire des sauts inutiles par-dessus les autres données (<strong>Cache Misses</strong>). C'est très inefficace pour l'analyse.`
+          : `Toutes les données '${queryCol}' sont stockées de manière contiguë (côte à côte). Le processeur lit le bloc entier d'un seul coup (<strong>Cache Hits</strong>) en ignorant le reste. C'est ultra-rapide !`
+    }
+  </div>
+</div>
+`
+
+```
 
 
 ---

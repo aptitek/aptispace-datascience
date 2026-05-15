@@ -1,4 +1,56 @@
 ## Algorithmes de Clustering et techniques de réduction de dimensionnalité
 
-- **Clustering** : K-Means, DBSCAN.
-- **Réduction de dimensionnalité** : PCA (Analyse en Composantes Principales).
+::: {.info header="L'art de l'exploration à l'aveugle"}
+Contrairement à la régression ou la classification, l'apprentissage non supervisé travaille sur des données **non étiquetées**. L'objectif n'est pas de prédire une réponse précise, mais d'explorer les données pour y découvrir des motifs cachés ou une structure naturelle [@ml_basics_md_2026]. Les deux grandes familles de ces algorithmes sont le *Clustering* (regroupement) et la *Réduction de dimensionnalité*.
+:::
+
+### 🎯 1. Le Clustering : Regrouper par similarité
+
+Le but du clustering est de diviser un jeu de données en groupes (clusters) de telle sorte que les points d'un même groupe soient très similaires, et très différents des autres groupes.
+
+#### Le K-Means (L'algorithme des centres de gravité)
+C'est le grand classique. Il partitionne les données en un nombre "K" de groupes en minimisant la distance entre les points et le centre de leur groupe (le **Centroïde**) [@satish_kmeans_dbscan_utk_2026].
+* **Le Fonctionnement :** On place $K$ points au hasard. Chaque donnée s'accroche au point le plus proche. Puis, on déplace le point au centre géométrique du groupe formé. On recommence jusqu'à ce que plus rien ne bouge.
+* **Les Limites :** Il nécessite de définir $K$ (le nombre de groupes) à l'avance. Surtout, il force la création de clusters de **forme sphérique** et est très vulnérable aux valeurs aberrantes [@karl_dbscan_kmeans_2024].
+
+#### Le DBSCAN (L'algorithme de la foule)
+DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*) est basé sur la **densité spatiale** [@karl_dbscan_kmeans_2024].
+* **L'Avantage :** Pas besoin de lui donner un nombre de groupes à l'avance ! Il regroupe les points fortement concentrés et peut détecter des clusters de formes arbitraires (ex: une forme de lune ou d'anneau). 
+* **Détection d'Anomalies :** Contrairement au K-Means qui force chaque point à rejoindre un groupe, DBSCAN identifie automatiquement les données isolées comme du "bruit" (valeurs aberrantes) [@karl_dbscan_kmeans_2024].
+
+---
+
+#### **Interactif : La faille du K-Means**
+Pour bien comprendre la différence entre ces deux algorithmes, observez comment ils réagissent face à des formes complexes (comme deux demi-lunes imbriquées). K-Means va les couper brutalement avec une ligne droite (car il cherche des sphères), tandis que DBSCAN va suivre la courbe de densité.
+
+```json?chameleon
+{"component":"LlmGeneratedComponent","props":{"height":"700px","prompt":"Objectif : Créer un visualiseur interactif pour comparer les algorithmes de clustering K-Means et DBSCAN.\n\nÉtat des données : \n1. Générer deux ensembles de données virtuels commutables via un menu : 'Nuages séparés' (3 groupes sphériques distincts avec un peu de bruit) et 'Demi-lunes' (deux formes courbes entrelacées avec du bruit autour).\n\nStratégie : Standard Layout (Zone de dessin principale avec contrôles sur le côté ou en dessous).\n\nContrôles (Interface en Français) :\n1. Sélecteur de jeu de données : 'Nuages (Sphères)' vs 'Demi-Lunes (Formes complexes)'.\n2. Sélecteur d'algorithme : 'K-Means' vs 'DBSCAN'.\n3. Si K-Means est sélectionné : Afficher un curseur 'Nombre de Clusters (K)' allant de 1 à 5.\n4. Si DBSCAN est sélectionné : Afficher un curseur 'Rayon de Densité (Epsilon)' et 'Points minimum'.\n5. Un bouton d'action 'Lancer le Clustering'.\n\nComportement visuel :\n- L'espace central affiche les points en gris avant le clustering.\n- K-Means : Diviser les points géométriquement. Sur les 'Demi-Lunes', K-Means doit échouer à séparer les deux lunes proprement (il doit les couper en deux moitiés gauche/droite ou haut/bas). Afficher de grosses croix pour marquer les Centroïdes.\n- DBSCAN : Mettre en couleur les formes continues. Sur les 'Demi-Lunes', il doit colorer parfaitement chaque lune d'une couleur distincte. Marquer explicitement les points isolés en noir (Bruit/Anomalies).","id":"im_025d179412b7f98e"}}
+
+```
+
+---
+
+### 🪄 2. L'Analyse en Composantes Principales (PCA)
+
+Imaginez que vous ayez une base de données avec 50 colonnes (dimensions) différentes pour décrire une maison. Comment visualiser ces maisons sur un écran en 2D ou 3D ? C'est impossible sans perdre de l'information.
+
+**La PCA (Analyse en Composantes Principales)** est une méthode de **réduction de dimensionnalité**.
+
+* **Le Concept :** Au lieu de simplement supprimer 48 colonnes, la PCA fusionne mathématiquement les 50 colonnes en créant de nouvelles "composantes" artificielles. Ces composantes sont calculées pour maximiser la variance (l'étalement et la richesse) des données originales [@ml_basics_md_2026].
+* **L'Objectif Métier :** Elle est idéale pour faciliter la visualisation de données de très grande dimension (projeter 50 dimensions sur un plan 2D) ou pour réduire le bruit (supprimer la corrélation entre les variables) avant d'appliquer d'autres algorithmes comme le K-Means.
+
+**[ACTION REQUISE] : Ajouter capture d'écran d'un graphique 2D montrant des points séparés après une réduction PCA depuis un dataset à N dimensions.**
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Retenir que K-Means force la création de sphères et est très mauvais pour détecter les formes complexes ou le bruit.
+* [ ] Privilégier DBSCAN pour segmenter des données denses ou pour de la détection d'anomalies.
+* [ ] Comprendre que la PCA sert à compresser le nombre de colonnes tout en gardant l'essence mathématique des données.
+
+### 📖 Mini-Glossaire
+
+* **Centroïde :** Le point central d'un cluster, calculé comme la position moyenne de tous les points de données qui lui sont assignés.
+* **DBSCAN :** Algorithme de regroupement spatial basé sur la densité, capable d'identifier des clusters de formes arbitraires et d'isoler automatiquement le bruit.
+* **PCA (Analyse en Composantes Principales) :** Méthode de réduction de dimensionnalité qui transforme un ensemble de données en de nouvelles composantes principales maximisant la variance.

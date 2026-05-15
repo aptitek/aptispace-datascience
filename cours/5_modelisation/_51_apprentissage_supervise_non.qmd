@@ -1,1 +1,71 @@
 ## Différences fondamentales entre l'apprentissage supervisé et non supervisé
+
+::: {.info header="Tabulaire vs Non-Structuré : Le choc des réalités"}
+Avant de plonger dans les algorithmes, il faut faire un point sur l'état de l'art. On entend beaucoup parler de Deep Learning (Réseaux de Neurones profonds), mais il faut savoir qu'ils excellent surtout sur des données *non structurées* (images, son, texte) qui possèdent une hiérarchie spatiale. 
+
+Dans le monde de l'entreprise, 90% des bases de données sont *tabulaires* (des colonnes hétérogènes : âge, revenu, statut). Sur ce terrain, les algorithmes classiques basés sur les arbres (Random Forest, XGBoost) dominent encore largement l'industrie face au Deep Learning [@nishida_tree_models_tabular_2026].
+:::
+
+Pour naviguer dans cet écosystème algorithmique, il faut d'abord comprendre la séparation philosophique majeure du Machine Learning : l'utilisation (ou non) d'étiquettes.
+
+### 👨‍🏫 1. L'Apprentissage Supervisé (Avec Étiquettes)
+
+L'apprentissage supervisé est de loin l'approche la plus utilisée en entreprise. 
+* **Le Concept :** Le modèle apprend à partir d'un jeu de données où la "réponse" (la cible à prédire) est déjà connue et fournie sous forme d'étiquette (*Label*).
+* **La Métaphore Pédagogique :** Imaginez un élève travaillant sous la tutelle d'un professeur. Le professeur donne des exercices dont les solutions sont écrites au dos de la page. L'élève fait l'exercice, compare sa réponse avec la solution, et ajuste sa méthode de calcul (ses "poids synaptiques") en fonction de son erreur pour faire mieux la prochaine fois [@kushwaha_tabular_classification_2026].
+
+
+
+#### Cas d'usage métiers :
+L'objectif est de formuler des prédictions concrètes sur de nouvelles données.
+* **Prognostic médical :** Fournir les symptômes d'un patient à l'IA pour qu'elle prédise la malignité d'une tumeur (Classification).
+* **Analyse de risque financier :** Évaluer la probabilité qu'un client fasse défaut sur son crédit immobilier.
+* **Prévision du Churn :** Déterminer si un client va résilier son abonnement le mois prochain.
+
+### 🕵️‍♂️ 2. L'Apprentissage Non Supervisé (Sans Étiquettes)
+
+Ici, il n'y a pas de professeur, pas de corrigé, et pas de cible explicite à prédire. 
+* **Le Concept :** L'algorithme est lâché dans un jeu de données brut et on lui demande de "trouver du sens" ou de découvrir des structures latentes par lui-même.
+* **La Métaphore Pédagogique :** C'est un explorateur (ou un détective) qui arrive dans une nouvelle ville sans carte. Il va regrouper les habitants par similarité (ceux qui s'habillent pareil, ceux qui fréquentent les mêmes lieux) en se basant sur une notion mathématique de "distance" [@karl_dbscan_kmeans_2024].
+
+#### Cas d'usage métiers :
+L'objectif est d'explorer et de structurer la donnée.
+* **Segmentation de clientèle (Clustering) :** Regrouper des clients aux comportements d'achat similaires pour créer des campagnes marketing ultra-ciblées, révélant des profils insoupçonnés par l'équipe marketing.
+* **Détection d'anomalies :** Identifier des transactions bancaires dont la structure diverge radicalement de la "norme" établie par les autres transactions, signalant potentiellement une fraude [@karl_dbscan_kmeans_2024].
+
+---
+
+### 🧠 Synthèse des deux mondes
+
+```{mermaid}
+flowchart TD
+    A[Machine Learning] --> B(Apprentissage Supervisé)
+    A --> C(Apprentissage Non Supervisé)
+    
+    B --> D[Données Étiquetées\nLe but : Prédire l'avenir]
+    C --> E[Données Brutes\nLe but : Trouver des structures]
+    
+    D --> F(Classification\nEx: Chien ou Chat ?)
+    D --> G(Régression\nEx: Quel prix ?)
+    
+    E --> H(Clustering\nEx: Groupes de clients)
+    E --> I(Détection d'Anomalies\nEx: Fraude)
+    
+    style B fill:#e3f2fd,stroke:#1565c0
+    style C fill:#f3e5f5,stroke:#6a1b9a
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Retenir que *Supervisé* = "On a la réponse cible (Label) dans l'historique".
+* [ ] Retenir que *Non Supervisé* = "On cherche des groupes ou des anomalies à l'aveugle".
+* [ ] Comprendre que pour les données tabulaires classiques (Excel/SQL), le Deep Learning n'est pas forcément la meilleure solution.
+
+### 📖 Mini-Glossaire
+
+* **Apprentissage Supervisé :** Approche algorithmique exploitant des données étiquetées pour lesquelles la réponse cible est connue, idéale pour des tâches de prédiction.
+* **Apprentissage Non Supervisé :** Méthode utilisée avec des données non étiquetées, visant à découvrir des structures sous-jacentes par similarité (clustering).
+* **Données Tabulaires :** Données structurées organisées sous forme de tableau (lignes et colonnes hétérogènes), constituant la majorité des bases de données d'entreprise.

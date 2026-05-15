@@ -1,5 +1,75 @@
 ## Méthodes d'ensemble pour améliorer les performances
 
-- Bagging
-- Random Forests
-- Boosting
+::: {.info header="L'intelligence collective"}
+Pourquoi se contenter d'un seul avis quand on peut consulter un jury d'experts ? C'est la philosophie des **méthodes d'ensemble** : combiner plusieurs "apprenants faibles" (souvent des arbres de décision simples) pour créer un modèle "fort" et résilient [@kushwaha_tabular_classification_2026]. Pour les données de type Excel ou SQL, ces méthodes sont aujourd'hui les championnes incontestées de la précision.
+:::
+
+Il existe deux grandes philosophies pour faire travailler les modèles en groupe : le **Bagging** et le **Boosting**.
+
+### 🗳️ 1. Le Bagging : Le vote démocratique (Random Forest)
+
+Le Bagging (*Bootstrap Aggregation*) consiste à entraîner de nombreux modèles de manière **indépendante et en parallèle** sur des sous-ensembles aléatoires de vos données.
+
+* **La Métaphore :** C'est un jury d'assises. Chaque juré étudie une partie du dossier de son côté. À la fin, on fait un vote majoritaire. Comme les erreurs de chaque juré sont aléatoires, elles tendent à s'annuler une fois agrégées [@kushwaha_tabular_classification_2026].
+* **Le champion : La Forêt Aléatoire (Random Forest).** Elle crée des centaines d'arbres de décision. Pour s'assurer qu'ils ne soient pas tous identiques, elle ajoute du hasard : chaque arbre ne voit qu'une partie des colonnes et une partie des lignes.
+* **Force :** Très robuste contre le sur-ajustement (*Overfitting*).
+
+### 🚀 2. Le Boosting : L'amélioration continue (XGBoost)
+
+Le Boosting fonctionne de manière **séquentielle**. Les modèles ne sont pas indépendants : ils apprennent les uns des autres.
+
+* **La Métaphore :** C'est un coureur de fond qui s'entraîne avec un coach. Le premier jour, il court et fait des erreurs. Le deuxième jour, il s'entraîne *uniquement* sur les points où il a échoué la veille. Chaque nouvel arbre est construit spécifiquement pour corriger les erreurs (les résidus) des précédents [@dalvs_gradient_boosting_github_2026].
+* **Les champions :** * **XGBoost :** Le standard industriel, ultra-optimisé et régularisé.
+* **LightGBM :** Développé par Microsoft, il est beaucoup plus rapide sur les très gros jeux de données car il fait croître les arbres par les feuilles plutôt que par niveaux [@nishida_tree_models_tabular_2026].
+* **CatBoost :** Le spécialiste des variables textuelles (catégorielles), capable de les gérer sans préparation manuelle complexe [@kushwaha_tabular_classification_2026].
+
+
+
+---
+
+#### **Interactif : Bagging vs Boosting**
+
+Comprenez visuellement la différence de stratégie. Dans le Bagging, les modèles s'additionnent simplement. Dans le Boosting, chaque nouveau modèle vient combler les "trous" laissés par ses prédécesseurs.
+
+---
+
+### 🥊 Synthèse : Quel camp choisir ?
+
+| Caractéristique | Bagging (Random Forest) | Boosting (XGBoost/LightGBM) |
+| --- | --- | --- |
+| **Ordre** | Parallèle (Indépendant) | Séquentiel (Correctif) |
+| **Objectif principal** | Réduire la Variance (Overfitting) | Réduire le Biais (Précision) |
+| **Vitesse** | Très rapide (Multi-thread) | Plus lent (Séquentiel par nature) |
+| **Complexité** | Facile à régler | Nécessite un réglage fin (Hyperparamètres) |
+
+### 💻 Code : Utiliser les champions avec Scikit-Learn
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
+
+# Initialisation du jury (Random Forest)
+model_bagging = RandomForestClassifier(n_estimators=100, max_depth=5)
+
+# Initialisation du coach (XGBoost)
+model_boosting = XGBClassifier(n_estimators=100, learning_rate=0.1)
+
+# L'entraînement est identique pour les deux
+model_bagging.fit(X_train, y_train)
+model_boosting.fit(X_train, y_train)
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Retenir que le Bagging (Random Forest) entraîne des modèles indépendants en parallèle.
+* [ ] Retenir que le Boosting (XGBoost) entraîne des modèles l'un après l'autre pour corriger les erreurs.
+* [ ] Utiliser Random Forest pour éviter le sur-ajustement, et le Boosting pour obtenir la performance maximale.
+
+### 📖 Mini-Glossaire
+
+* **Bagging :** Méthode consistant à entraîner plusieurs modèles en parallèle sur des échantillons de données différents et à moyenner leurs prédictions.
+* **Boosting :** Technique séquentielle où chaque nouveau modèle tente de corriger les erreurs de l'ensemble des modèles précédents.
+* **Apprenant faible (Weak Learner) :** Un modèle simple (souvent un arbre très court) qui est juste un peu meilleur que le hasard, mais qui devient puissant une fois combiné à d'autres.

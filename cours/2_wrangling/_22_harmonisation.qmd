@@ -1,1 +1,66 @@
 ## Harmonisation des formats et correction des erreurs
+
+::: {.info header="L'enfer des données saisies manuellement"}
+L'hétérogénéité des formats est un obstacle majeur au traitement algorithmique automatisé. Un algorithme de Machine Learning est d'une bêtise absolue concernant la sémantique : pour lui, "Homme", "homme" et "H " (avec un espace à la fin) sont trois catégories totalement distinctes. L'uniformité est la règle d'or pour éviter la dilution de la puissance statistique de votre modèle.
+:::
+
+L'harmonisation est une étape de nettoyage stricte visant à unifier le "grain" de la donnée. Elle repose sur deux piliers principaux : le traitement du texte libre et la standardisation temporelle.
+
+### 🔤 1. Le Nettoyage Typographique (Chaînes de caractères)
+
+Les données issues de formulaires ou de saisies manuelles sont systématiquement polluées par des erreurs typographiques. Les corriger nécessite une approche industrielle.
+
+#### Les Règles d'Or de la Typographie :
+1. **La Casse Unifiée :** Tout convertir en minuscules (ou majuscules) pour regrouper les variations d'une même entité.
+2. **Le Trim (Élagage) :** Supprimer les espaces invisibles en début et fin de chaîne.
+3. **Le Remplacement (Regex) :** Utiliser les expressions régulières pour supprimer les caractères spéciaux indésirables ou extraire des motifs précis.
+
+```python
+import pandas as pd
+
+# ❌ Avant : ['  Homme', 'homme', 'H', 'Femme ']
+df['Genre'] = df['Genre'].str.lower()       # Étape 1 : Tout en minuscules -> ['  homme', 'homme', 'h', 'femme ']
+df['Genre'] = df['Genre'].str.strip()       # Étape 2 : Enlever les espaces -> ['homme', 'homme', 'h', 'femme']
+df['Genre'] = df['Genre'].replace({'h': 'homme', 'f': 'femme'}) # Étape 3 : Mapping
+# ✅ Après : ['homme', 'homme', 'homme', 'femme']
+
+```
+
+### ⏱️ 2. La Standardisation Temporelle (Dates et Heures)
+
+Des dates saisies sous des formats multiples (`12/04/2026`, `2026-04-12`, `12 April 26`) empêchent toute agrégation cohérente et ruinent les modèles de séries temporelles.
+
+#### Le Standard Industriel : ISO 8601
+
+L'imposition du format standard international **AAAA-MM-JJ** (Année-Mois-Jour) garantit une manipulation sans erreur par toutes les bibliothèques logicielles (Python, SQL, Spark).
+
+De plus, il est souvent critique d'extraire des **Features (Caractéristiques) Temporelles** à partir d'une date (comme le jour de la semaine ou le mois) car l'algorithme ne "comprend" pas une date brute.
+
+```python
+# Convertir une colonne hétérogène en un objet Datetime standardisé
+df['Date_Achat'] = pd.to_datetime(df['Date_Achat'], format='mixed')
+
+# Extraction d'informations temporelles (Feature Engineering de base)
+df['Annee'] = df['Date_Achat'].dt.year
+df['Mois'] = df['Date_Achat'].dt.month
+df['Est_Weekend'] = df['Date_Achat'].dt.dayofweek > 4 # Retourne un booléen
+
+```
+
+::: {.warning header="Validation de Domaine"}
+Une fois vos données harmonisées, appliquez toujours une **Validation de Domaine**. S'assurer que les données respectent les plages de valeurs logiques propres au métier (ex: l'âge ne peut pas être de 250 ans, un mois ne peut pas dépasser 12) est la dernière barrière de sécurité avant la modélisation.
+:::
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Toujours unifier la casse (`.str.lower()`) et retirer les espaces vides (`.str.strip()`) des variables textuelles.
+* [ ] Convertir toutes les colonnes temporelles avec `pd.to_datetime` vers la norme ISO.
+* [ ] Penser à extraire l'année, le mois ou le jour de la semaine si ces éléments ont un pouvoir prédictif (ex: la fréquentation d'un magasin le samedi).
+
+### 📖 Mini-Glossaire
+
+* **Regex (Expressions Régulières) :** Séquence de caractères formant un motif de recherche, très utilisée pour trouver et remplacer des chaînes de texte spécifiques.
+* **Norme ISO 8601 :** Norme internationale de représentation de la date et de l'heure, conçue pour éviter toute ambiguïté (AAAA-MM-JJ).
+* **Trim (ou Strip) :** Fonction informatique permettant de supprimer les espaces "blancs" situés au début et à la fin d'une chaîne de caractères.

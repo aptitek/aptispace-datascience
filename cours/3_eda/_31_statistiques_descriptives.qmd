@@ -1,4 +1,67 @@
 ## Les statistiques descriptives de base
 
-- **Mesures de tendance centrale** : Moyenne, médiane, mode.
-- **Mesures de dispersion** : Étendue, variance, écart-type, quartiles.
+::: {.info header="L'EDA n'est pas qu'un graphique"}
+Dans l'écosystème analytique de 2026, l'Analyse Exploratoire des Données (EDA) n'est plus une simple étape visuelle : c'est une discipline d'ingénierie rigoureuse. C'est la phase critique de validation de l'intégrité structurelle de vos données *avant* de déployer le moindre algorithme IA. La première étape consiste à prendre le "pouls" de vos variables grâce aux statistiques descriptives.
+:::
+
+L'analyse univariée (l'étude d'une seule variable à la fois) constitue le premier rempart contre les données chaotiques. 
+
+### 🎯 1. Les Mesures de Tendance Centrale
+
+L'objectif est de trouver la valeur qui résume le mieux l'ensemble des données. L'arbitrage classique se fait entre la moyenne et la médiane.
+
+
+
+* **La Moyenne (Mean) :** C'est la somme de toutes les valeurs divisée par leur nombre total. Si elle est mathématiquement élégante, elle est structurellement très vulnérable aux valeurs aberrantes (Outliers) en raison de sa dépendance à chaque point de données.
+* **La Médiane (Median) :** C'est la valeur centrale une fois les données triées (elle coupe le jeu en deux moitiés de 50%). Elle offre une robustesse statistique bien supérieure face aux valeurs extrêmes. 
+  * *Attention Architecturale :* Le calcul de la médiane est beaucoup plus coûteux en ressources CPU, car il nécessite d'effectuer une opération de tri (Sort) sur des millions de lignes.
+* **Le Mode :** Représente la valeur la plus fréquente, très utile pour les variables textuelles/catégorielles.
+
+### 📏 2. Les Mesures de Dispersion
+
+Savoir où est le centre ne suffit pas ; il faut savoir si les données sont très resserrées autour de ce centre ou au contraire très étalées.
+
+* **La Variance et l'Écart-type (Standard Deviation) :** Ces mesures évaluent la fluctuation des données autour de la moyenne ($\mu$). Un écart-type ($\sigma$) élevé indique une forte volatilité des données.
+* **Quartiles et Percentiles :** Ils divisent l'ensemble de données en sections de taille égale (les quartiles divisent en 4 blocs de 25%). Ils sont à la base des graphiques "Boîtes à moustaches" (Boxplots) pour détecter visuellement les valeurs aberrantes.
+
+### ⚙️ 3. Le Défi de la Précision Numérique
+
+En tant qu'ingénieur, vous devez savoir que les statistiques sur ordinateur sont soumises aux limites du matériel.
+
+L'arithmétique en virgule flottante standard (IEEE 754) est notoirement non-associative : l'ordre des opérations modifie les décimales du résultat. Pour l'IA financière, on utilise désormais des types spécifiques comme `Decimal` (échelle fixe évitant les débordements) ou `Int128`. Là où le type classique `Int64` est limité à 9 quintillions, le `Int128` capture une plage 18 quintillions de fois plus large, évitant la saturation de la RAM lors de calculs d'agrégation massive.
+
+---
+
+### 🗺️ Synthèse : Moyenne vs Médiane
+
+```{mermaid}
+flowchart LR
+    A[Données avec Outliers ?] -->|Oui| B(Utiliser la Médiane)
+    A -->|Non| C(Utiliser la Moyenne)
+    
+    B --> D{Coût en RAM/CPU}
+    D -.->|Élevé| E[Nécessite un Tri complet]
+    
+    C --> F{Coût en RAM/CPU}
+    F -.->|Faible| G[Opération SIMD directe]
+    
+    style A fill:#ffe0b2,stroke:#ff9800
+    style B fill:#c8e6c9,stroke:#4caf50
+    style C fill:#c8e6c9,stroke:#4caf50
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Privilégier la Médiane sur la Moyenne dès lors qu'il y a des valeurs aberrantes.
+* [ ] Savoir qu'un Écart-type très élevé signifie que la moyenne n'est pas très représentative (les données sont trop étalées).
+* [ ] Garder en tête que la Médiane est plus coûteuse à calculer sur des gros volumes car elle nécessite un tri des données.
+
+### 📖 Mini-Glossaire
+
+* **Moyenne (Mean) :** Mesure de tendance centrale correspondant à la somme de toutes les valeurs divisée par leur nombre total. Très sensible aux extrêmes.
+* **Médiane (Median) :** Mesure représentant la valeur du milieu d'un ensemble trié.
+* **Variance et Écart-type :** Mesures évaluant l'étalement des données autour de la moyenne.
+* **Valeurs aberrantes (Outliers) :** Valeurs extrêmes qui s'écartent fortement des autres observations et peuvent biaiser l'analyse.

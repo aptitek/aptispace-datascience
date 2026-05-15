@@ -1,5 +1,69 @@
 ## Graphiques bidimensionnels
 
-- Nuages de points
-- Graphiques linéaires
-- Boîtes à moustaches (Boxplots)
+::: {.info header="Chercher la structure"}
+Passer d'une à deux variables, c'est comme passer d'une photo d'identité à un film : on commence à voir du mouvement et des interactions. En analyse 2D, on ne cherche plus seulement à savoir "comment est la donnée", mais "comment l'une influence l'autre" [@4_visualisation_md].
+:::
+
+### 🌌 1. Le Nuage de Points (Scatter Plot) : Le Roi de l'Exploration
+
+Le Scatter Plot est l'outil souverain pour détecter les corrélations, les groupes naturels (*clusters*) et les densités de points [@arounddatascience_matplotlib_seaborn_plotly_eda_2026].
+* **Usage :** Idéal pour deux variables numériques continues.
+* **Ce qu'il révèle :** Une ligne droite (corrélation linéaire), une courbe (non-linéaire), ou des "paquets" isolés qui suggèrent que vos données sont divisées en segments distincts (ex: clients économes vs clients dépensiers).
+
+### 📈 2. Le Graphique Linéaire (Line Plot) : La Flèche du Temps
+
+Le Line Plot connecte les points entre eux. Cette connexion n'est pas qu'esthetique : elle implique un lien de continuité ou de causalité temporelle [@4_visualisation_md].
+* **Règle d'or :** À réserver **strictement** aux séries temporelles ou aux séquences ordonnées. Si l'ordre des points sur l'axe X peut être mélangé sans perdre de sens, alors vous ne devez pas utiliser de ligne.
+
+### 📦 3. La Boîte à Moustaches (Boxplot) : Le Scanner Statistique
+
+Le Boxplot est l'instrument de précision pour comparer une variable continue (ex: Salaire) à travers plusieurs catégories (ex: Métier) [@4_visualisation_md].
+* **La Médiane :** La barre centrale, robuste aux extrêmes.
+* **La Boîte (IQR) :** Contient les 50 % centraux de vos données.
+* **Les Moustaches :** Montrent la dispersion.
+* **Les Outliers :** Les points isolés au-delà des moustaches, souvent des anomalies de capteurs ou des cas exceptionnels.
+
+---
+
+#### **Interactif : Décoder un Boxplot**
+Le Boxplot est souvent mal compris par les néophytes. Utilisez ce simulateur pour manipuler les points de données et voir comment la boîte, les moustaches et les "outliers" réagissent en temps réel.
+
+```json?chameleon
+{"component":"LlmGeneratedComponent","props":{"height":"700px","prompt":"Crée un outil interactif pédagogique : 'L'Anatomie du Boxplot'. \n\nObjectif : Expliquer visuellement les concepts de Médiane, Quartiles (Q1, Q3), Écart Interquartile (IQR) et Outliers.\n\nStructure :\n1. Un plan horizontal avec une série de points (données brutes) que l'utilisateur peut ajouter ou déplacer à la souris.\n2. Juste au-dessus, un Boxplot dynamique qui se recalcule en temps réel selon la position des points.\n3. Des étiquettes claires qui s'affichent au survol des composants du Boxplot :\n   - 'Médiane (50%)'\n   - 'Q1 (25%) et Q3 (75%)'\n   - 'Moustaches (1.5 * IQR)'\n   - 'Outliers (Valeurs aberrantes)'.\n\nComportement : Si l'utilisateur déplace un point très loin des autres, le point doit changer d'apparence (devenir une croix par exemple) et le Boxplot doit marquer ce point comme 'Outlier' au-delà des moustaches. Ajouter un bouton 'Réinitialiser' avec un jeu de données standard.","id":"im_349d6bc69ce30f83"}}
+
+```
+
+---
+
+### 🌳 Arbre de Décision Visuel 2D
+
+```{mermaid}
+flowchart TD
+    A[Analyse 2D] --> B{Types de variables ?}
+    B -->|Numérique + Numérique| C{Temporalité ?}
+    C -->|Oui| D[Line Plot]
+    C -->|Non| E[Scatter Plot]
+    
+    B -->|Numérique + Catégorielle| F[Boxplot ou Bar Plot]
+    
+    style D fill:#e1f5fe,stroke:#01579b
+    style E fill:#e1f5fe,stroke:#01579b
+    style F fill:#fff3e0,stroke:#e65100
+
+```
+
+**[ACTION REQUISE] : Ajouter capture d'écran d'un Scatter Plot avec une droite de régression et un Boxplot comparatif générés avec Plotly.**
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Ne jamais utiliser de Line Plot si l'axe X n'est pas temporel ou ordonné.
+* [ ] Utiliser le Scatter Plot pour repérer visuellement des clusters avant de lancer un algorithme de K-Means.
+* [ ] Savoir lire les 5 indicateurs d'un Boxplot d'un seul coup d'œil.
+
+### 📖 Mini-Glossaire
+
+* **Boxplot (Boîte à moustaches) :** Graphique synthétisant la distribution d'une variable via ses quartiles et sa médiane.
+* **Outlier :** Valeur située à plus de 1,5 fois l'écart interquartile (IQR) au-dessus de Q3 ou en dessous de Q1.
+* **Série Temporelle :** Suite de valeurs numériques représentant l'évolution d'une quantité spécifique au fil du temps.

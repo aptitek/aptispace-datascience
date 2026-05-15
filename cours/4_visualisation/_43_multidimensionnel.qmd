@@ -1,5 +1,72 @@
 ## Visualisation de 3 variables ou plus
 
-- Cartes de chaleur (Heatmaps)
-- Nuages de mots
-- Cartographie géospatiale
+::: {.info header="Repousser les limites cognitives"}
+L'augmentation de la dimensionnalité d'un graphique (passer de 2 à 3, 4 ou 5 variables) doit respecter une hiérarchie visuelle stricte pour éviter la saturation cognitive. Un graphique surchargé n'informe plus, il embrouille. C'est ici que l'ingénieur doit jouer avec les attributs pré-attentifs comme la couleur, la taille ou la forme [@4_visualisation_md].
+:::
+
+### 🎛️ 1. Représenter 3 variables sur un écran 2D
+
+Lorsque l'on a deux variables numériques (X et Y) et une troisième variable quantitative (Z) ou catégorielle, plusieurs stratégies s'offrent à nous.
+
+#### L'encodage par la taille (Bubble Plot)
+C'est un Scatter Plot (Nuage de points) classique, mais la taille de chaque point varie en fonction de la troisième variable (Z). 
+* **Exemple :** X = PIB par habitant, Y = Espérance de vie, Taille du point = Population du pays.
+
+#### L'encodage par la couleur (Heatmap / Carte de Chaleur)
+La Heatmap représente l'intensité ou la magnitude d'une variable Z sur un quadrillage 2D en utilisant un dégradé de couleurs.
+* **Usage phare :** Afficher une **Matrice de Corrélation**. Plutôt que de lire un grand tableau de chiffres, l'œil repère instantanément les carrés rouge foncé (forte corrélation positive) ou bleu foncé (corrélation négative) [@4_visualisation_md].
+
+### 🧊 2. Le Piège de la 3D Décorative
+
+L'ajout d'un troisième axe physique (Z) permet de créer des graphiques de surface ou des nuages de points en vraie 3D (très bien gérés par des outils comme Plotly).
+
+::: {.warning header="Proscription de la 3D inutile"}
+En dehors des surfaces topographiques réelles (la géographie) ou de la physique des matériaux, **la 3D introduit des distorsions de perspective** qui rendent la lecture des valeurs imprécise sur un écran plat. Tourner un graphique 3D est impressionnant techniquement, mais c'est souvent une erreur de design analytique majeure si une Heatmap 2D suffisait [@4_visualisation_md].
+:::
+
+### 🌍 3. Les Cartes Géographiques (Geospatial)
+
+Dès que vos données contiennent des latitudes/longitudes ou des codes postaux, le meilleur graphique est souvent une carte.
+
+* **Folium :** Basée sur la librairie JavaScript Leaflet, c'est le standard pour intégrer des cartes interactives (zoomables) avec des marqueurs directement dans un Notebook Jupyter [@papareddy_top_10_python_viz_2025].
+* **La Carte Choroplèthe :** Les régions géographiques (pays, départements) sont colorées en fonction d'une variable statistique (ex: densité de population). Cela nécessite de croiser vos données Pandas avec des fichiers de géométrie (GeoJSON ou Shapefile) gérés par **GeoPandas** [@sharma_top_6_python_viz_2024].
+
+---
+
+# 💻 Implémentation : La Matrice de Corrélation
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Calcul de la matrice de corrélation
+corr_matrix = df.corr()
+
+# Génération de la Heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(
+    corr_matrix, 
+    annot=True,        # Affiche la valeur numérique dans la case
+    cmap='coolwarm',   # Dégradé de couleurs (Bleu au Rouge)
+    vmin=-1, vmax=1    # Fixe l'échelle absolue de corrélation
+)
+plt.title("Matrice de Corrélation des Variables")
+plt.show()
+
+```
+
+**[ACTION REQUISE] : Ajouter capture d'écran d'une Heatmap générée avec Seaborn montrant un dégradé `coolwarm` clair.**
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Utiliser la taille des points (Bubble Plot) pour ajouter une 3ème dimension quantitative sur un Scatter Plot.
+* [ ] Utiliser systématiquement une Heatmap pour visualiser une matrice de corrélation (beaucoup plus lisible qu'un DataFrame de chiffres).
+* [ ] Éviter les graphiques 3D si la perspective empêche de lire les valeurs avec précision.
+
+### 📖 Mini-Glossaire
+
+* **Heatmap (Carte de Chaleur) :** Représentation graphique de données où les valeurs individuelles contenues dans une matrice sont représentées par des couleurs.
+* **Carte Choroplèthe :** Carte thématique où les régions sont colorées ou ombrées proportionnellement à la valeur d'une variable statistique (ex: taux de chômage par région).
+* **GeoPandas :** Extension de Pandas qui ajoute le support des données géospatiales (polygones, lignes, points) pour permettre l'analyse spatiale.

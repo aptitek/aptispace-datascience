@@ -1,1 +1,72 @@
 ## Encodage des variables catégorielles pour les algorithmes : Label Encoding et One-Hot Encoding
+
+::: {.info header="La barrière de la langue algorithmique"}
+Le Machine Learning est une discipline purement mathématique : il calcule des gradients, des distances et des probabilités. Par conséquent, il ne peut traiter nativement *que* des nombres. Si vous lui donnez une colonne "Ville" avec "Paris", "Lyon" et "Marseille", il plantera. La conversion des variables catégorielles (textuelles) en format numérique est donc une étape obligatoire.
+:::
+
+L'expert doit arbitrer entre plusieurs techniques d'encodage selon la nature des catégories et leur cardinalité (le nombre de valeurs uniques).
+
+### 🧮 1. Les Méthodes Classiques
+
+#### Le Label Encoding (Encodage par étiquette)
+Attribue simplement un nombre entier unique à chaque catégorie (ex: Paris=1, Lyon=2, Marseille=3).
+* **Le Piège :** Cette méthode introduit un "ordre artificiel" (2 est plus grand que 1). Si la variable est nominale (sans ordre), le modèle peut déduire à tort que Lyon est supérieur à Paris. 
+* **Quand l'utiliser ?** Uniquement pour les variables **ordinales** (ex: Tailles de vêtement S=1, M=2, L=3).
+
+#### Le One-Hot Encoding (Encodage binaire)
+Crée une nouvelle colonne binaire (0 ou 1) pour *chaque* modalité possible de la variable catégorielle.
+* **L'Avantage :** Parfait pour éviter un ordre artificiel sur des variables nominales.
+* **Le Piège :** Si vous avez une variable "Code Postal" (36 000 valeurs), vous allez créer 36 000 nouvelles colonnes ! C'est ce qu'on appelle le fléau de la dimensionnalité, qui sature la RAM et provoque du surapprentissage (*Overfitting*).
+
+---
+
+### 🚀 2. Les Méthodes Avancées (Pour la Haute Cardinalité)
+
+Quand le One-Hot Encoding fait exploser votre mémoire, il faut ruser. L'industrie utilise souvent la bibliothèque `category_encoders` pour cela.
+
+#### Le Target Encoding (La méthode puissante mais dangereuse)
+Substitue une catégorie par une statistique tirée de la variable cible (ce qu'on cherche à prédire). Par exemple, on remplace "Paris" par le *taux de fraude moyen* observé à Paris sur l'ensemble d'entraînement.
+* **Avantage :** Ne crée aucune nouvelle colonne, très performant pour les modèles basés sur les arbres (XGBoost).
+* **Danger (Target Leakage) :** Risque majeur de "fuite de la cible". Si on calcule la moyenne en incluant la ligne en cours, le modèle apprend par cœur le résultat au lieu de le prédire. Il faut appliquer un "lissage" ou calculer la moyenne en excluant la ligne actuelle (*Leave-one-out*).
+
+#### Le Hashing Encoder (L'astuce pour la cardinalité extrême)
+Projette les catégories dans un espace fini (un nombre défini de colonnes, ex: 8 bits) via une fonction de hachage (comme MD5), sans jamais stocker le dictionnaire d'origine.
+* **Avantage :** Empreinte mémoire minuscule et constante. Accepte de nouvelles catégories "inconnues" en production sans planter.
+* **Inconvénient :** Accepte les "collisions" (deux mots différents peuvent être hachés dans la même colonne), ce qui entraîne une légère perte d'information au profit de la vitesse.
+
+---
+
+### 💻 Implémentation en Python
+
+```python
+import pandas as pd
+from category_encoders import TargetEncoder, HashingEncoder
+
+# 1. One-Hot Encoding natif avec Pandas (pour faible cardinalité)
+df_onehot = pd.get_dummies(df, columns=['Genre'], drop_first=True)
+
+# 2. Target Encoding (Scikit-learn Contrib)
+# On encode la variable "Ville" en fonction de la variable cible "A_Fraude"
+target_enc = TargetEncoder(smoothing=10) # Le smoothing évite le Target Leakage
+df['Ville_Encoded'] = target_enc.fit_transform(df['Ville'], df['A_Fraude'])
+
+# 3. Hashing Encoder (Pour les très hautes cardinalités comme "ID_Produit")
+# On force le résultat sur seulement 8 colonnes (n_components=8)
+hash_enc = HashingEncoder(cols=['ID_Produit'], n_components=8)
+df_hashed = hash_enc.fit_transform(df)
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Réserver le *Label Encoding* strictement aux variables ordinales.
+* [ ] Utiliser le *One-Hot Encoding* pour les variables nominales à faible cardinalité (< 15 modalités).
+* [ ] Basculer sur *Target Encoding* ou *Hashing Encoder* pour les variables à très haute cardinalité.
+
+### 📖 Mini-Glossaire
+
+* **Fléau de la dimensionnalité :** Phénomène par lequel l'augmentation du nombre de colonnes (features) dégrade les performances d'un algorithme en nécessitant exponentiellement plus de données.
+* **Target Leakage (Fuite de la cible) :** Biais méthodologique où l'information que l'on essaie de prédire est accidentellement utilisée comme variable d'entrée pendant l'entraînement.
+* **Fonction de Hachage :** Algorithme mathématique qui transforme une chaîne de caractères de taille variable en une valeur de taille fixe (empreinte).

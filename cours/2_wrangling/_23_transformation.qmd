@@ -1,1 +1,55 @@
 ## Transformation des données : Normalisation (Min-Max, Z-score) et discrétisation (binning)
+
+::: {.info header="Le problème des échelles disparates"}
+Imaginez que vous prédisiez le prix d'une maison avec deux variables : le *Nombre de chambres* (entre 1 et 5) et le *Prix du terrain* (entre 10 000 et 1 000 000 €). Pour un algorithme mathématique (comme un réseau de neurones), la variable avec les plus grands nombres va "écraser" l'autre lors du calcul des gradients, la rendant virtuellement invisible. La transformation numérique ramène tout le monde sur un pied d'égalité.
+:::
+
+Il existe deux grandes approches pour résoudre ce problème, avec des formules et des cas d'usage très différents.
+
+### 📏 1. Normalisation (Le Min-Max Scaler)
+
+La normalisation compresse (ou étire) les données pour qu'elles s'insèrent exactement dans une plage définie, généralement entre 0 et 1. 
+
+**La mathématique (Formule LaTeX) :**
+$$X_{norm} = \frac{X - X_{min}}{X_{max} - X_{min}}$$
+
+* **Avantage :** Maintient toutes les données dans des limites strictes.
+* **Le Piège :** Comme elle utilise le $X_{min}$ et le $X_{max}$, elle est **extrêmement vulnérable aux valeurs aberrantes (Outliers)**. Si une seule maison coûte 1 milliard d'euros (une erreur de saisie), toutes les autres maisons seront écrasées autour de 0.001.
+
+### 🎯 2. Standardisation (Le Z-Score)
+
+La standardisation ne fixe pas de limites strictes. Elle décale les données pour que la distribution soit centrée sur une moyenne ($\mu$) de 0, avec un écart-type ($\sigma$) de 1.
+
+**La mathématique :**
+$$Z = \frac{X - \mu}{\sigma}$$
+
+* **Avantage :** Elle gère globalement mieux les variations naturelles et ne fige pas les données. Elle est indispensable lorsque les données sont collectées sous des conditions variables (ex: variations d'éclairage pour des images).
+* **Alternative pour les extrêmes :** S'il y a trop de valeurs aberrantes, on utilise le **Robust Scaler**. Au lieu de la moyenne, il centre sur la médiane et divise par l'écart interquartile (IQR).
+
+---
+
+### ⚠️ Le calque "So What ?" : Impact selon l'Algorithme
+
+C'est ici que l'ingénieur se distingue du débutant. Faut-il toujours "scaler" ses données ? **Non.** Cela dépend de l'algorithme choisi.
+
+#### 🟢 Indispensable (Distance & Gradients)
+Pour les modèles basés sur le calcul de distances géométriques (K-Nearest Neighbors, SVM) ou sur la descente de gradient (Réseaux de Neurones, Régression Logistique). Une variable sur une grande échelle dominerait les plus petites et ralentirait dramatiquement la convergence.
+
+#### 🔴 Inutile (Modèles basés sur les Arbres)
+Pour les algorithmes d'ensemble (Arbres de Décision, Random Forest, XGBoost, LightGBM). Pourquoi ? Parce que ces modèles divisent les données grâce à des comparaisons de seuils logiques ($Si \, X > 10$). Les transformations (Z-score ou Min-Max) sont dites **monotones** : elles préservent l'ordre absolu. Que le seuil soit 10 ou 0.85, la coupure de l'arbre sera mathématiquement identique.
+
+::: {.success header="Focus Deep Learning : Batchnorm et CMN"}
+Pour des architectures IA complexes, on intègre cette mise à l'échelle directement *dans* le modèle. Par exemple, la **Batchnorm** (Normalisation par lots) stabilise l'apprentissage à chaque couche d'un réseau de neurones. En analyse audio (reconnaissance vocale type LibriSpeech), on utilise la **CMN** (*Cepstral Mean Normalization*) pour gommer les distorsions liées au bruit ambiant.
+:::
+
+---
+
+### ✅ Aide-mémoire
+- [ ] Mémoriser la différence : Normalisation (0 à 1) vs Standardisation (moyenne 0, écart-type 1).
+- [ ] Retenir que les Random Forest et XGBoost n'ont pas besoin de scaling.
+- [ ] Penser au Robust Scaler en présence massive d'Outliers.
+
+### 📖 Mini-Glossaire
+- **Transformation Monotone :** Opération mathématique qui modifie l'échelle des valeurs tout en préservant strictement leur ordre absolu.
+- **Outlier (Valeur Aberrante) :** Point de donnée isolé qui s'écarte considérablement du reste de la distribution globale.
+- **Batchnorm :** Technique utilisée dans les réseaux de neurones pour normaliser les entrées de chaque couche afin de stabiliser et d'accélérer l'apprentissage.

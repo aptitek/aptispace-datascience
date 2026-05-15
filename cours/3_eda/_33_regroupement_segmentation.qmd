@@ -1,1 +1,62 @@
 ## Regroupement et segmentation des données avec la fonction GroupBy
+
+::: {.info header="Méfiez-vous de la moyenne globale"}
+Calculer le salaire moyen de l'ensemble d'une entreprise donne une information, mais elle masque les réalités locales. C'est en segmentant ces données (ex: Salaire moyen *par département* et *par niveau d'ancienneté*) que l'on extrait la véritable valeur métier. La transformation de données brutes en segments actionnables repose sur une mécanique que tout ingénieur Data doit maîtriser : le **Split-Apply-Combine**.
+:::
+
+### 🧩 1. Le Paradigme "Split-Apply-Combine"
+
+Derrière la célèbre fonction `.groupby()`, le moteur de calcul (qu'il s'agisse de Pandas ou de Polars) effectue toujours trois opérations distinctes :
+
+1. **Split (Diviser) :** Le jeu de données original est scindé en sous-groupes selon des clés définies (ex: le genre, la ville). Cette étape repose sur des algorithmes de hachage (hashing) en mémoire.
+2. **Apply (Appliquer) :** Une fonction d'agrégation (moyenne, somme, comptage, ou même un modèle IA) est exécutée indépendamment sur chaque sous-groupe.
+3. **Combine (Recombiner) :** Les résultats isolés sont réassemblés dans une nouvelle structure de données propre et unifiée.
+
+```{mermaid}
+flowchart TD
+    A[Données Brutes\n A:10, B:20, A:5, B:5] -->|1. Split| B(Groupe A\n 10, 5)
+    A -->|1. Split| C(Groupe B\n 20, 5)
+    
+    B -->|2. Apply \n Somme| D[15]
+    C -->|2. Apply \n Somme| E[25]
+    
+    D -->|3. Combine| F[Résultat Final\n A:15, B:25]
+    E -->|3. Combine| F
+    
+    style A fill:#e3f2fd,stroke:#1565c0
+    style F fill:#e8f5e9,stroke:#2e7d32
+
+```
+
+### 🏎️ 2. Optimisation : GroupBy vs Pivot_Table
+
+Un point de friction classique pour le Data Scientist est de choisir entre `.groupby().agg()` et `.pivot_table()`. Bien qu'elles produisent des résultats similaires, leur mécanique interne est fondamentalement différente.
+
+* **L'implémentation de `pivot_table**` utilise souvent des boucles Python pures sous le capot pour appliquer vos fonctions, ce qui est extrêmement lent.
+* **L'implémentation de `groupby().agg()**` vérifie d'abord si une fonction optimisée en **C/Cython** est disponible pour ce que vous demandez (comme `sum` ou `mean`). Si oui, le moteur court-circuite Python et utilise le code C compilé. Sur des millions de lignes, `groupby` peut être jusqu'à **60 fois plus rapide**.
+
+### ⚙️ 3. L'évolution Moderne : Groupes Non-Observés et Polars
+
+Face à l'explosion volumétrique, les bibliothèques ont dû repenser leur comportement par défaut.
+
+#### La norme Pandas 3.0
+
+Dans les anciennes versions, si vous groupiez par une catégorie existante dans le dictionnaire mais non présente dans les données (un "groupe non-observé"), Pandas générait une ligne vide remplie de `NaN`, saturant inutilement la RAM. Dans **Pandas 3.0**, le paramètre `observed=True` est devenu la norme par défaut : seules les catégories réellement présentes sont traitées, améliorant radicalement les performances.
+
+### L'approche Polars
+
+Polars pousse l'optimisation encore plus loin grâce au **"Morsel-Driven Parallelism"**. Au lieu de traiter un groupe entier sur un seul cœur de processeur, Polars découpe les données en petits fragments (*morsels*) qui sont distribués et calculés en parallèle sur tous les cœurs CPU disponibles simultanément.
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Assimiler l'ordre logique : Split $\rightarrow$ Apply $\rightarrow$ Combine.
+* [ ] Préférer systématiquement `groupby().agg()` à `pivot_table()` pour les gros jeux de données.
+* [ ] Retenir l'avantage du multithreading natif de Polars pour les agrégations très lourdes.
+
+### 📖 Mini-Glossaire
+
+* **Split-Apply-Combine :** Stratégie de manipulation de données consistant à diviser un jeu d'informations, y appliquer une fonction de calcul sur chaque morceau, et fusionner les résultats.
+* **Cython :** Langage de programmation qui combine la syntaxe de Python avec la performance du C, massivement utilisé sous le capot de Pandas.
+* **Groupes non-observés :** Catégories qui existent dans la définition d'une variable (ex: un niveau d'abonnement "Premium") mais pour lesquelles aucune ligne n'est présente dans l'échantillon de données actuel.

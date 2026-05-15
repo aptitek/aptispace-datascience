@@ -1,6 +1,93 @@
 ## Métriques pour la classification
 
-- Matrice de confusion
-- Exactitude (Accuracy)
-- Sensibilité (Recall) et Spécificité
-- Courbe ROC et AUC
+::: {.info header="Les manettes de l'algorithme"}
+Les hyperparamètres ne sont pas appris par le modèle (comme les poids d'un réseau de neurones), ils sont définis *par vous* avant l'entraînement. C'est la profondeur maximale de votre Arbre de Décision, ou le paramètre $K$ de votre algorithme KNN. Un modèle XGBoost mal réglé sera souvent battu par une simple Régression Logistique bien réglée [@keylabs_hyperparameter_2024].
+:::
+
+Pour trouver la combinaison parfaite d'hyperparamètres (le *Tuning*), l'industrie a connu trois grandes ères.
+
+### 🧱 1. L'Ère de la Force Brute : Grid Search et Random Search
+
+Historiquement, le Data Scientist utilisait les outils de `scikit-learn`.
+
+#### La Recherche par Grille (Grid Search)
+
+Vous définissez une liste de valeurs pour chaque paramètre (ex: 3 valeurs pour le paramètre A, 3 valeurs pour le paramètre B). Le moteur va tester exhaustivement les 9 combinaisons.
+
+* **Le problème :** C'est exponentiellement coûteux. Avec 5 paramètres à tester, vous atteignez vite des milliers d'entraînements. Face aux grands jeux de données, cette méthode de force brute devient impraticable [@keylabs_hyperparameter_2024].
+
+#### La Recherche Aléatoire (Random Search)
+
+Au lieu de tout tester, l'algorithme choisit des combinaisons au hasard dans l'espace disponible pendant un temps donné.
+
+* **L'avantage :** C'est beaucoup plus rapide et, mathématiquement, cela trouve souvent de meilleurs résultats que le Grid Search en explorant des zones inattendues.
+* **Le problème :** C'est une approche "aveugle". L'itération numéro 100 n'apprend absolument rien des erreurs des 99 itérations précédentes [@keylabs_hyperparameter_2024].
+
+### 🧠 2. L'Ère de l'Intelligence : L'Optimisation Bayésienne (Optuna)
+
+En 2026, l'outil **Optuna** est devenu le standard absolu pour remplacer `GridSearchCV`. L'optimisation bayésienne agit comme un chercheur d'or : plutôt que de creuser au hasard, elle apprend de ses forages précédents pour déduire où se trouve le filon.
+
+#### L'Algorithme TPE (Tree-structured Parzen Estimator)
+
+Optuna utilise principalement l'algorithme TPE [@optuna_docs_2026]. Son fonctionnement est fascinant :
+
+1. Il sépare l'historique de vos essais en deux groupes : les "bons" résultats et les "mauvais" résultats.
+2. Il crée deux modèles mathématiques (densités de probabilité) : $l(x)$ pour les bons, et $g(x)$ pour les mauvais.
+3. Pour l'essai suivant, il choisit les paramètres qui maximisent le ratio $l(x)/g(x)$ [@emergentmind_tpe2_2025].
+
+En résumé : **Il cible les zones riches en succès et fuit les zones riches en échecs.**
+
+#### L'Élagage (Pruning)
+
+C'est le super-pouvoir d'Optuna. Si, au milieu d'un entraînement, Optuna détecte que la courbe d'apprentissage est désastreuse par rapport aux essais précédents, il **stoppe l'entraînement prématurément**. Cela économise des heures de calcul sur les serveurs [@markdown_evolution_2026].
+
+---
+
+#### **Interactif : La course à l'Optimum**
+
+Visualisez pourquoi l'approche Bayésienne écrase les anciennes méthodes. Observez comment chaque algorithme tente de trouver le point le plus bas (le minimum d'erreur) sur une fonction de coût.
+
+---
+
+### 💻 Code : La syntaxe Optuna vs Scikit-Learn
+
+```python
+import optuna
+from xgboost import XGBClassifier
+
+# 1. On définit une "fonction objectif" à optimiser
+def objective(trial):
+    # Optuna suggère intelligemment des valeurs à chaque essai
+    param = {
+        'max_depth': trial.suggest_int('max_depth', 3, 9),
+        'learning_rate': trial.suggest_float('learning_rate', 0.01, 0.3)
+    }
+    
+    # On entraîne le modèle avec ces paramètres
+    model = XGBClassifier(**param)
+    model.fit(X_train, y_train)
+    score = model.score(X_test, y_test)
+    
+    return score # Optuna va essayer de maximiser ce score
+
+# 2. On lance l'étude (Le chercheur d'or se met au travail)
+study = optuna.create_study(direction='maximize')
+study.optimize(objective, n_trials=50) # 50 essais intelligents
+
+print("Meilleurs hyperparamètres :", study.best_params)
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Abandonner le `GridSearchCV` dès que vous avez plus de deux hyperparamètres à tester ou un gros volume de données.
+* [ ] Retenir qu'Optuna utilise le passé (Bayésien) pour orienter ses recherches futures, trouvant l'optimum beaucoup plus vite.
+* [ ] Mémoriser le concept d'Élagage (*Pruning*) : couper court à un mauvais essai pour gagner du temps CPU.
+
+### 📖 Mini-Glossaire
+
+* **Hyperparamètres :** Paramètres d'un algorithme définis par l'utilisateur avant l'entraînement (ex: le nombre d'arbres dans une forêt).
+* **Optimisation Bayésienne :** Méthode construisant un modèle probabiliste des performances pour orienter la recherche d'hyperparamètres vers les zones les plus prometteuses.
+* **Pruning (Élagage) :** Mécanisme permettant d'interrompre prématurément un essai d'entraînement si ses résultats partiels suggèrent qu'il n'améliorera pas le record actuel.

@@ -1,5 +1,78 @@
 ## Méthodes de validation pour fiabiliser les résultats
 
-- Ensemble de validation
-- Validation croisée (Cross-validation)
-- Recherche par grille (Grid Search)
+::: {.info header="Le syndrome du 'Ça marche sur ma machine'"}
+En 2026, un modèle bloqué dans un Notebook Jupyter n'est qu'un "artefact inutile". Le MLOps (Machine Learning Operations) est la discipline qui fusionne la Data Science et le DevOps pour transformer un code de recherche en un service logiciel industriel, robuste et accessible par des millions d'utilisateurs [@markdown_evolution_2026].
+:::
+
+Le cycle de vie d'un modèle en production repose sur la résolution de trois grands défis : la mémoire, le partage, et l'accès.
+
+### 📖 1. La Traçabilité (MLflow & DVC)
+
+Lorsqu'un Data Scientist fait 50 essais d'optimisation (voir Module 6.2), il oublie souvent quels paramètres ont donné quel résultat.
+
+* **MLflow :** C'est le standard industriel pour le suivi des expérimentations (*Experiment Tracking*). Il enregistre automatiquement chaque version de votre code, les hyperparamètres utilisés, et les métriques de performance obtenues. Son composant **Model Registry** fait office de "tour de contrôle" pour approuver le passage d'un modèle en production [@sharma_mlops_2026].
+* **DVC (Data Version Control) :** Fait la même chose que Git, mais pour vos énormes fichiers de données (qui sont trop lourds pour GitHub).
+
+### 📦 2. L'Encapsulation (Docker & uv)
+
+Imaginons que votre modèle fonctionne parfaitement sur votre ordinateur portable (Windows, Python 3.10, Pandas 2.0). Si vous l'envoyez sur le serveur de production (Linux, Python 3.12, Pandas 3.0), il va planter instantanément.
+
+* **La Conteneurisation (Docker) :** Docker résout ce problème d'environnement. Il crée une "boîte" (un conteneur) qui englobe votre modèle d'IA, la bonne version de Python, et exactement les bibliothèques nécessaires. Ce conteneur est immuable : s'il marche chez vous, il marchera à l'identique sur n'importe quel serveur au monde [@mathukiya_mlops_2026].
+* **L'outil "uv" :** En 2026, l'outil `pip` a largement été remplacé par `uv` (écrit en Rust) pour installer les bibliothèques Python. Il est 10 à 100 fois plus rapide, ce qui permet de construire ces conteneurs Docker de manière quasi-instantanée [@markdown_evolution_2026].
+
+### 🔌 3. Le Service (L'API avec FastAPI)
+
+Votre modèle est dans un conteneur, mais comment une application web ou mobile (ex: l'application de votre banque) peut-elle lui "parler" pour obtenir une prédiction ?
+
+On utilise une **API REST**.
+
+* **FastAPI :** C'est le framework Python ultra-dominant pour servir des modèles. Il est asynchrone (très rapide) et génère automatiquement sa propre documentation technique [@otto_fastapi_2026].
+* **Le Fonctionnement :** L'application web envoie une requête HTTP contenant un fichier JSON avec les données du client. FastAPI reçoit le JSON, le donne au modèle XGBoost, récupère la prédiction, et la renvoie à l'application web sous forme de réponse JSON.
+
+---
+
+#### **Comprendre le système : L'API de Prédiction**
+
+Manipulez cette simulation pour comprendre comment un logiciel externe interagit avec votre modèle ML via une API REST (FastAPI).
+
+---
+
+### 🏗️ L'Architecture MLOps Complète
+
+```{mermaid}
+graph LR
+    subgraph Developpement [Environnement Local]
+        A[Notebook Jupyter] -->|Entraînement| B(MLflow Tracking)
+    end
+    
+    subgraph Package [Intégration]
+        B -->|Validation| C{Model Registry}
+        C -->|Approuvé| D[Image Docker\n+ FastAPI]
+    end
+    
+    subgraph Production [Serveur Cloud]
+        D -->|Déploiement| E((API REST))
+        F[Application Web] -- "JSON: {Age: 35...}" --> E
+        E -- "JSON: {Fraude: 95%}" --> F
+    end
+
+    style Developpement fill:#e3f2fd,stroke:#1565c0
+    style Package fill:#f3e5f5,stroke:#6a1b9a
+    style Production fill:#e8f5e9,stroke:#2e7d32
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Utiliser MLflow dès que vous modifiez les paramètres d'un modèle pour garder une trace historique.
+* [ ] Comprendre que Docker garantit que le code s'exécutera de la même manière partout (immuabilité).
+* [ ] Savoir que FastAPI sert à créer l'interface (API) permettant au reste du monde de communiquer avec le modèle.
+
+### 📖 Mini-Glossaire
+
+* **MLOps :** Ensemble de pratiques visant à déployer et maintenir des modèles de Machine Learning en production de manière fiable et efficace.
+* **Docker :** Outil de conteneurisation permettant d'encapsuler une application et ses dépendances dans un environnement isolé.
+* **API (Interface de Programmation d'Application) :** Passerelle logicielle permettant à deux applications de communiquer entre elles, généralement via l'échange de fichiers JSON.
+* **Inférence :** L'acte, pour un modèle entraîné en production, de générer une prédiction à partir de nouvelles données.

@@ -1,1 +1,65 @@
 ## L'art du "Data Storytelling" : choisir les bonnes visualisations pour faire passer un message
+
+::: {.info header="Le Paradoxe de l'IA en 2026"}
+En 2026, 78 % des organisations déclarent utiliser l’IA, mais moins de 31 % des projets franchissent réellement l'étape de la mise en production [@cmarix_2026_rag_statistics]. Ce taux d'échec massif n'est pas dû à de mauvais algorithmes, mais à une rupture de communication. Un modèle parfait qui ne convainc pas le comité de direction (Comex) est un modèle mort.
+:::
+
+Le rôle du **Data Translator** (Traducteur de Données) est devenu la fonction la plus critique pour garantir le Retour sur Investissement (ROI) des initiatives analytiques. Son but ? Transformer la technicité brute en un levier de croissance stratégique.
+
+
+
+### 🧱 1. Le Mur de l'Incompréhension : La faillite des métriques
+
+Les indicateurs de performance classiques de la Data Science (vus au Module 6) sont inaudibles, voire trompeurs, pour un dirigeant.
+
+* **L'erreur du RMSE :** Présenter un "Root Mean Square Error" (RMSE) à un directeur financier est une faute stratégique. Le RMSE n'est pas "scale invariant" (il dépend de l'échelle des données) [@c3ai_rmse]. Le directeur ne saura jamais si un RMSE de 42 est une excellente nouvelle ou une catastrophe financière.
+* **L'erreur de l'Accuracy :** Nous l'avons vu, une exactitude de 99 % sur un jeu de données déséquilibré (détection de fraude) masque souvent un modèle qui ne détecte rien. Pour un Comex, vous devez dépasser ces chiffres pour parler de **coût d'opportunité** et de **risque résiduel**.
+
+### 💱 2. Le Dictionnaire du Translator
+
+Le Data Translator ne prononce jamais les mots "Précision" ou "Rappel" devant le Comex. Il les convertit en monnaie sonnante et trébuchante.
+
+#### Traduire le F1-Score (Fraude et Churn)
+Le F1-Score équilibre la Précision et le Rappel. En entreprise, on le traduit grâce à une matrice de coûts asymétriques :
+* **Argument technique :** "Le modèle a un Recall de 95% et une Précision de 80%."
+* **Traduction Business :** "L'IA va capturer la quasi-totalité des tentatives de fraude, ce qui va **diviser nos pertes financières directes par deux**. En contrepartie, 20 % des alertes seront de fausses alarmes, ce qui nécessitera l'embauche temporaire de 2 modérateurs pour ne pas bloquer nos clients légitimes." [@geeksforgeeks_2026_evaluation_metrics]
+
+#### Traduire la RMSE (Supply Chain et Logistique)
+* **Argument technique :** "Nous avons abaissé la RMSE de 15 à 8."
+* **Traduction Business :** "Nous avons réduit l'incertitude de nos prévisions de ventes. Cela se traduit par une baisse de 30% des **ruptures de stock** (ventes manquées) et une diminution massive de nos **coûts de surstockage**, libérant ainsi 2 millions d'euros de capital immobilisé."
+
+#### Traduire l'AUC-ROC (Marketing)
+* **Traduction Business :** Cette métrique se traduit directement par l'optimisation du **Coût d'Acquisition Client (CAC)** ou l'efficacité du ciblage publicitaire.
+
+### 🚀 3. Le Framework O.I.A. (Observation, Insight, Action)
+
+Pour éviter le "Data Dumping" (le déversement de statistiques stériles qui endort l'audience), l'industrie utilise le modèle **OIA** [@beautifulai_2026_data_storytelling]. Chaque diapositive de votre présentation doit répondre à la question : *"So What ?"* (Et alors ?).
+
+1.  **Observation (Le Fait) :** Une donnée brute incontestable. *(Ex: Le taux de désabonnement a augmenté de 14 % au dernier trimestre).*
+2.  **Insight (L'Interprétation) :** Le "Pourquoi". *(Ex: Notre modèle de Machine Learning montre que cette hausse est fortement corrélée à l'introduction du nouveau parcours de paiement sur mobile).*
+3.  **Action (La Recommandation) :** Le choix stratégique. *(Ex: Nous devons simplifier l'étape de validation SMS pour réduire la friction immédiate et récupérer 5% de CA).*
+
+```{mermaid}
+graph LR
+    A[Observation\nLa Donnée Brute] -->|So What ?| B[Insight\nL'explication ML]
+    B -->|So What ?| C[Action\nLa Recommandation Business]
+    
+    style A fill:#e3f2fd,stroke:#1565c0
+    style B fill:#fff3e0,stroke:#e65100
+    style C fill:#e8f5e9,stroke:#2e7d32
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Ne jamais présenter de métriques pures (RMSE, F1-Score) à un membre du Comex sans les avoir converties en indicateurs financiers (Euros, Temps, Taux de rétention).
+* [ ] Utiliser le framework OIA pour s'assurer que chaque analyse débouche sur une prise de décision.
+* [ ] Assumer les coûts d'erreur (les Faux Positifs) en les budgétisant, plutôt que d'essayer de cacher les failles du modèle.
+
+### 📖 Mini-Glossaire
+
+* **Data Translator :** Rôle hybride faisant le pont entre les équipes techniques (Data Scientists) et les parties prenantes métier pour s'assurer que les modèles répondent à un objectif financier.
+* **ROI (Return on Investment) :** Bénéfice net généré par un projet comparé à son coût de développement et de maintien (infrastructures, salaires, serveurs).
+* **Matrice de Coûts :** Modèle financier qui attribue une valeur monétaire (une pénalité) à chaque type d'erreur de l'algorithme (Faux Positif vs Faux Négatif).

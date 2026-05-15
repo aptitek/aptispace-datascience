@@ -1,4 +1,87 @@
 ## Techniques pour atténuer le surajustement
 
-- Régularisation (Ridge, Lasso)
-- Élagage (Pruning)
+::: {.info header="Un modèle naît en mourant"}
+Il existe un mythe tenace selon lequel une fois déployé, le travail du Data Scientist est terminé. En réalité, un modèle commence à "pourrir" dès son premier jour en production [@logiciel_monitoring_2026]. Un algorithme est figé dans le passé (ses données d'entraînement), tandis que le monde réel, lui, évolue en permanence. Ce phénomène de dégradation silencieuse s'appelle la **Dérive (Drift)**.
+:::
+
+Il est vital de comprendre que si un modèle d'IA se trompe de plus en plus au fil du temps, ce n'est pas parce que son code s'est cassé, mais parce que **le monde a changé**.
+
+### 📉 1. Les deux visages de la Dérive
+
+On distingue deux phénomènes majeurs qui nécessitent une surveillance algorithmique constante.
+
+#### La Dérive des Données (Data Drift)
+
+La relation métier est toujours vraie, mais **la population d'entrée a changé** [@martyr_drift_2025].
+
+* **La Métaphore :** Vous avez appris à conduire dans une petite ville de campagne (données d'entraînement). Demain, on vous lâche en plein centre de Paris à l'heure de pointe. Les règles du code de la route sont les mêmes, mais votre environnement (la distribution de vos données) a totalement muté. Vous allez commettre des erreurs.
+* **Exemple Business :** Un modèle de risque de crédit bancaire a été entraîné uniquement sur des clients de plus de 40 ans. La banque lance une campagne ciblant les étudiants. Le modèle va recevoir des âges (20 ans) et des salaires qu'il ne sait pas traiter correctement.
+
+#### La Dérive de Concept (Concept Drift)
+
+C'est le phénomène le plus pernicieux. Les données d'entrée semblent identiques, mais **la vérité mathématique a changé** [@martyr_drift_2025].
+
+* **La Métaphore :** Les règles du jeu ont été modifiées dans votre dos.
+* **Exemple Business :** La détection de fraude. Un achat de 500€ à 3h du matin depuis l'étranger était systématiquement une fraude en 2024. Mais en 2026, avec l'explosion des néo-banques internationales, ce comportement devient banal et légitime. Les fraudeurs, eux, utilisent de nouvelles techniques. Le "Concept" même de la fraude a évolué. Le modèle est aveugle à cette nouvelle réalité.
+
+---
+
+#### **Interactif : Le Simulateur de Dérive**
+
+Pour bien saisir la différence entre ces deux dérives, manipulez ce simulateur. Observez comment la ligne de décision (votre modèle figé) devient obsolète face à l'évolution du monde.
+
+---
+
+### 🕵️‍♂️ 2. Surveillance et MLOps : La Boucle de Guérison
+
+Pour survivre à la dérive, les architectures MLOps de 2026 intègrent des mécanismes de **Continuous Training** (Entraînement Continu) [@dsstream_monitoring_2026].
+
+#### L'Indicateur d'Alarme : Le PSI
+
+Pour détecter le Data Drift sans avoir besoin d'attendre de voir si les prédictions étaient fausses (ce qui peut prendre des mois pour un crédit immobilier), on utilise le **PSI (Population Stability Index)**.
+Il compare la distribution statistique des données d'aujourd'hui avec celle du jour de l'entraînement. Si le PSI dépasse $0.2$, une alerte rouge est levée : la population a trop muté.
+
+#### La Boucle de Ré-entraînement
+
+Dès que l'alerte est levée, le pipeline MLOps s'active automatiquement :
+
+```{mermaid}
+graph LR
+    A[Modèle en Production] -->|Monitoring en temps réel| B{Détection de Drift ?}
+    B -->|PSI > 0.2| C[Extraction des données récentes]
+    B -->|PSI < 0.2| A
+    C --> D[Ré-entraînement automatique\nvia Optuna]
+    D --> E{Le nouveau modèle\nest-il meilleur ?}
+    E -->|Oui| F[Déploiement Transparent\n(Shadow Mode)]
+    E -->|Non| G[Alerte Data Scientist]
+    F --> A
+    
+    style B fill:#ffebee,stroke:#c62828
+    style E fill:#fff3e0,stroke:#e65100
+    style F fill:#e8f5e9,stroke:#2e7d32
+
+```
+
+### ⚖️ 3. L'EU AI Act : La Loi entre en jeu
+
+En 2026, surveiller la dérive n'est plus seulement une bonne pratique technique, c'est une **obligation légale**.
+
+L'**EU AI Act** (Législation européenne sur l'IA) impose des contraintes sévères sur les modèles déployés, en particulier ceux dits "à haut risque" (banque, médical, ressources humaines) [@pregasen_euai_2026] :
+
+* **Article 15 (Robustesse) :** Exige que les modèles maintiennent leur précision tout au long de leur cycle de vie et soient surveillés contre les dégradations statistiques [@eu_aiact_art15_2026].
+* Une entreprise dont l'algorithme "dérive" au point de devenir discriminatoire (ex: un Data Drift qui le pousse à refuser systématiquement des crédits à une minorité) s'expose à des amendes se chiffrant en millions d'euros. Le MLOps est votre bouclier juridique.
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Faire la différence entre Data Drift (les données changent) et Concept Drift (la réalité métier change).
+* [ ] Retenir que le PSI (Population Stability Index) est la métrique clé pour lancer une alerte de dérive.
+* [ ] Comprendre que le ré-entraînement continu est une obligation tant mathématique que légale (EU AI Act).
+
+### 📖 Mini-Glossaire
+
+* **Data Drift :** Modification au fil du temps de la distribution statistique des variables d'entrée par rapport à l'ensemble d'entraînement.
+* **Concept Drift :** Modification de la relation fondamentale entre les variables d'entrée et la variable cible (la cible change de définition).
+* **PSI (Population Stability Index) :** Mesure statistique quantifiant à quel point la distribution d'une variable a changé entre deux périodes.
+* **EU AI Act :** Cadre réglementaire européen visant à classifier et encadrer les risques liés aux systèmes d'intelligence artificielle.

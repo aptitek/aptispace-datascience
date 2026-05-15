@@ -1,5 +1,76 @@
 ## Métriques pour la régression
 
-- R-carré ($R^2$)
-- MSE (Mean Squared Error)
-- Statistique F
+::: {.info header="Le piège des métriques de vanité"}
+En 2026, l'industrie a enfin compris que l'**Accuracy** (exactitude) est souvent une "métrique de vanité". Dans un système de détection de fraude où 99,9 % des transactions sont légitimes, une précision globale de 99,9 % peut être atteinte par un modèle qui ne détecte absolument rien. L'ingénierie moderne exige donc une vision multidimensionnelle du risque [@imani_rocauc_2026].
+:::
+
+### 📊 1. L'Anatomie de la Matrice de Confusion
+
+La matrice de confusion est votre outil de diagnostic fondamental. Elle agit comme un bilan sanguin pour l'algorithme en classant les résultats en quatre quadrants [@google_classification_2026] :
+
+* **Vrais Positifs (TP) :** Le modèle a prédit "Positif" et c'était vrai.
+* **Vrais Négatifs (TN) :** Le modèle a prédit "Négatif" et c'était vrai.
+* **Faux Positifs (FP) :** La "fausse alerte". Le modèle a prédit "Positif" mais c'était faux.
+* **Faux Négatifs (FN) :** Le "cas manqué". Le modèle a prédit "Négatif" mais c'était positif.
+
+### ⚖️ 2. L'Arbitrage Précision vs Rappel
+
+En tant qu'architecte, votre choix de métrique dépend du coût de l'erreur dans le monde réel [@pedigo_datacamp_2026].
+
+#### La Précision (La fiabilité)
+
+**Question :** "Sur toutes mes alertes, combien étaient vraies ?"
+
+* **Quand l'optimiser ?** Lorsque le coût d'une fausse alerte est trop élevé.
+* *Exemple :* Un filtre Anti-Spam. Si on classe un e-mail professionnel crucial en "Spam" (Faux Positif), c'est une catastrophe pour l'utilisateur.
+
+#### Le Rappel / Recall (L'exhaustivité)
+
+**Question :** "Sur tous les cas réels, combien en ai-je capturés ?"
+
+* **Quand l'optimiser ?** Lorsque rater un cas positif est dangereux.
+* *Exemple :* Le dépistage d'un cancer. Il vaut mieux déclencher un examen supplémentaire (Faux Positif) que de laisser partir un patient malade sans traitement (Faux Négatif).
+
+### 🏆 3. Les Scores Globaux (F1 et ROC-AUC)
+
+Pour ne pas avoir à choisir entre les deux, on utilise des scores de synthèse :
+
+1. **F1-Score :** C'est la moyenne harmonique entre précision et rappel. Il est indispensable pour les jeux de données déséquilibrés car il pénalise fortement les modèles qui sacrifient l'une des deux mesures [@banuelos_f1score_2026].
+2. **ROC-AUC :** Mesure la capacité du modèle à séparer les classes. Un score de 1.0 est parfait, 0.5 équivaut au hasard.
+* *Attention :* Pour des données extrêmement déséquilibrées (ex: 1 fraude pour 10 000 transactions), le ROC-AUC est souvent trop optimiste. On préférera alors le **PR-AUC** (Precision-Recall AUC) [@imani_rocauc_2026].
+
+
+
+---
+
+### 🌳 Boussole des Métriques
+
+```{mermaid}
+flowchart TD
+    A[Choix de la Métrique] --> B{Données Équilibrées ?}
+    B -->|Oui| C[Accuracy]
+    B -->|Non| D{Quel est le pire risque ?}
+    
+    D -->|Fausse Alerte / FP| E[Optimiser la Précision]
+    D -->|Cas Manqué / FN| F[Optimiser le Rappel]
+    D -->|Équilibre Critique| G[F1-Score]
+    
+    style E fill:#ffebee,stroke:#c62828
+    style F fill:#e8f5e9,stroke:#2e7d32
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Toujours exiger la matrice de confusion avant d'accepter un score de performance.
+* [ ] Comprendre l'asymétrie des coûts : un Faux Négatif médical n'a pas la même valeur qu'un Faux Positif marketing.
+* [ ] Utiliser le F1-Score comme standard dès que les classes sont déséquilibrées (ex: 90% vs 10%).
+
+### 📖 Mini-Glossaire
+
+* **Précision :** Capacité du modèle à ne pas déclencher de fausses alertes.
+* **Rappel (Recall) :** Capacité du modèle à ne laisser passer aucun cas réel.
+* **F1-Score :** Indicateur unique équilibrant précision et rappel.
+* **Déséquilibre de classe (Class Imbalance) :** Situation où une catégorie est massivement plus représentée qu'une autre dans les données.

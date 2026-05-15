@@ -1,1 +1,119 @@
 ## Importation de fichiers (ex: CSV) et première exploration visuelle avec la fonction .head()
+
+::: {.info header="L'Art de l'Ingestion"}
+L'optimisation d'un projet IA commence à l'octet près lors de la lecture du disque. Charger l'intégralité d'un énorme fichier CSV avec les paramètres par défaut est une erreur d'amateur qui peut saturer la mémoire RAM de votre serveur instantanément [@massiot_2019_scale_python].
+:::
+
+### 📥 1. Ingestion Multi-Format : Au-delà du CSV
+
+Le format CSV (*Comma-Separated Values*) est universel pour l'apprentissage, mais il est inefficace en production.
+
+#### Le Standard Industriel : Apache Parquet
+
+Pour l'IA en 2026, le format dominant est **Apache Parquet**. C'est un format orienté colonne, fortement compressé.
+
+* **Avantage :** Il prend jusqu'à 10 fois moins d'espace disque qu'un CSV et conserve le typage (un entier reste un entier, une date reste une date) [@mauviere_2022_parquet_csv ; @winks_2025_parquet_iceberg].
+
+#### Code : L'Ingestion Optimisée (Pandas)
+
+```python
+import pandas as pd
+
+# ❌ L'approche naïve (à éviter pour les gros fichiers)
+df_naif = pd.read_csv("data_clients.csv") 
+
+# ✅ L'approche industrielle (Optimisation à la lecture)
+colonnes_utiles = ['ID', 'Age', 'Score_Credit']
+types_optimises = {'ID': 'int32', 'Age': 'int8', 'Score_Credit': 'float32'}
+
+df_pro = pd.read_csv(
+    "data_clients.csv", 
+    usecols=colonnes_utiles, # On ne charge que 3 colonnes sur 50
+    dtype=types_optimises    # On force des types légers (Downcasting)
+)
+
+# 🚀 Lecture d'un fichier Parquet (Le plus rapide)
+df_parquet = pd.read_parquet("data_clients.parquet")
+
+```
+
+::: {.warning header="Traitement par blocs (Chunking)"}
+Si votre fichier fait 50 Go et que vous n'avez que 16 Go de RAM, utilisez l'argument `chunksize=100000` dans `read_csv`. Cela permet de lire le fichier morceau par morceau via une boucle, maintenant une consommation mémoire constante.
+:::
+
+---
+
+### 🕵️‍♂️ 2. Le "Sanity Check" : L'Aperçu Initial
+
+Une donnée ingérée n'est pas une donnée fiable. Un data scientist doit implémenter un protocole systématique pour détecter les anomalies structurelles avant toute analyse [@li_2025_data_cleaning_pandas].
+
+Voici les commandes obligatoires pour faire connaissance avec votre DataFrame :
+
+#### 1. La Vraie Consommation Mémoire
+
+L'appel standard à `df.info()` est trompeur. Il ignore la taille réelle des textes.
+
+```python
+# Force l'inspection des pointeurs pour la consommation RAM réelle
+df.info(memory_usage='deep')
+
+```
+
+#### 2. Le Typage de l'Absence (Valeurs nulles)
+
+La subtilité réside dans la typologie du vide en Python :
+
+* `NaN` (*Not a Number*) pour les flottants.
+* `None` pour les objets textuels.
+* `NaT` (*Not a Time*) pour les dates manquantes.
+
+```python
+# Affiche le pourcentage de valeurs manquantes par colonne
+(df.isna().sum() / len(df)) * 100 
+
+```
+
+#### 3. Les Statistiques Descriptives (Plages de valeurs)
+
+Pour identifier immédiatement les valeurs aberrantes (ex: Un âge de 150 ans ou un salaire négatif).
+
+```python
+# Donne le Min, Max, Moyenne et Quartiles des colonnes numériques
+df.describe()
+
+```
+
+---
+
+### ⚖️ 3. Polars : La méthode moderne
+
+Si vous utilisez Polars, la syntaxe d'ingestion diffère pour profiter de l'exécution différée (*Lazy Evaluation*) via la fonction `scan_` au lieu de `read_`.
+
+```python
+import polars as pl
+
+# scan_csv crée un plan logique (aucun chargement en RAM)
+q = (
+    pl.scan_csv("data_clients.csv")
+    .filter(pl.col("Age") > 18) # Le filtre est appliqué à la source
+    .select(["ID", "Age"])
+)
+
+# .collect() exécute le plan de manière multi-threadée
+df_polars = q.collect()
+
+```
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Remplacer l'usage du `.csv` par `.parquet` pour les gros volumes de données.
+* [ ] Utiliser systématiquement `usecols` et `dtype` lors de l'ingestion avec Pandas.
+* [ ] Mémoriser le trio du Sanity Check : `.head()`, `.info(memory_usage='deep')`, `.describe()`.
+
+### 📖 Mini-Glossaire
+
+* **Apache Parquet :** Format de fichier open source orienté colonne, offrant une forte compression et des temps de lecture très rapides pour l'analytique.
+* **Chunking (Traitement par blocs) :** Technique consistant à lire un gros fichier par petits morceaux pour éviter de saturer la mémoire vive (RAM).
+* **Sanity Check :** Étape de diagnostic se déroulant juste après l'acquisition d'un jeu de données pour auditer sa structure, son typage et ses anomalies évidentes.

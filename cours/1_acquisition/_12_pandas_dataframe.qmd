@@ -1,1 +1,74 @@
 ## Utilisation de la bibliothèque Pandas pour structurer les données en DataFrame
+
+::: {.info header="Au-delà du tableau Excel"}
+Un DataFrame n'est pas qu'un simple tableau de valeurs visuel. Pour l'architecte de données, c'est un agencement complexe en mémoire vive (RAM) dont la structure physique dicte la vitesse de vos calculs IA. Passer d'un code "qui marche" à un code "industriel" demande de comprendre comment ces données sont stockées [@markdown_2026_cadrestrategique].
+:::
+
+### 🏗️ L'Anatomie du DataFrame
+
+Un DataFrame moderne est composé de trois briques fondamentales qui collaborent pour optimiser l'accès aux données [@pandas_2026_docs] :
+
+1. **L'Index :** C'est la "colonne vertébrale". Contrairement à une simple liste, l'index est une structure de hachage optimisée. Il permet de passer d'une recherche lente (parcourir toutes les lignes) à une recherche quasi instantanée ($O(1)$).
+2. **Les Séries (Series) :** Chaque colonne d'un DataFrame est une `Series`. En science des données, on considère la colonne comme l'unité atomique de calcul.
+3. **Le Backend (Le moteur) :** C'est ce qui gère réellement les octets en RAM. Historiquement géré par **NumPy**, le monde de la Data bascule vers **Apache Arrow** pour plus de performance [@wiki_2026_apache_arrow].
+
+### ⚡ La Révolution Columnar (Stockage Colonnaire)
+
+La grande différence entre une base de données classique (SQL) et un DataFrame réside dans l'organisation des données en mémoire.
+
+* **Stockage par lignes (Orienté Transactionnel) :** Idéal pour ajouter ou modifier un utilisateur précis.
+* **Stockage par colonnes (Orienté Analytique/IA) :** Idéal pour calculer la moyenne d'un million de prix.
+
+::: {.success header="Pourquoi le format colonnaire (Arrow) gagne ?"}
+En stockant les données d'une même colonne côte à côte en mémoire, le processeur peut utiliser des instructions **SIMD** (*Single Instruction Multiple Data*). Cela permet d'appliquer une opération mathématique sur un vecteur entier en un seul cycle d'horloge. De plus, cela permet l'interopérabilité **Zero-copy** : vous pouvez partager des données entre Python, Spark et Polars sans perdre de temps à les copier [@bato_2026_pyarrow_revolution].
+:::
+
+### 🏎️ Eager vs Lazy : Deux philosophies de calcul
+
+Il existe deux manières pour un moteur de traiter vos commandes :
+
+1. **Exécution Immédiate (Eager - Pandas) :** Chaque ligne de code est exécutée dès qu'elle est lue. C'est intuitif pour le débogage, mais cela crée souvent des copies inutiles de données en RAM.
+2. **Exécution Différée (Lazy - Polars) :** Le moteur ne calcule rien tout de suite. Il construit un plan d'optimisation (Graphe Acyclique Dirigé) pour, par exemple, filtrer les données *avant* de les charger en mémoire. C'est ce qu'on appelle le **Filter Pushdown** [@wiki_2026_polars ; @massenhove_2024_polars_pandas_diff].
+
+```{mermaid}
+graph LR
+    subgraph Pandas_Eager
+    P1[Instruction 1] --> P2[Résultat intermédiaire]
+    P2 --> P3[Instruction 2]
+    P3 --> P4[Résultat Final]
+    end
+
+    subgraph Polars_Lazy
+    L1[Instruction 1] -.-> L2[Plan Logique]
+    L3[Instruction 2] -.-> L2
+    L2 --> L4{Optimiseur}
+    L4 --> L5[Exécution Optimisée]
+    end
+    
+    style L4 fill:#f9f,stroke:#333,stroke-width:2px
+
+```
+
+---
+
+#### **Comprendre le stockage en mémoire**
+
+Pour bien saisir pourquoi le format colonnaire est plus rapide pour l'IA, manipulez ce comparateur de structure mémoire. Observez comment le processeur accède aux données selon le type de stockage.
+
+
+Columnar vs Row Storage SCHEMA
+
+
+---
+
+### ✅ Aide-mémoire
+
+* [ ] Comprendre que l'Index est une structure de hachage $O(1)$.
+* [ ] Différencier l'exécution "Eager" (immédiate) de l'exécution "Lazy" (planifiée).
+* [ ] Retenir l'avantage du format colonnaire : moins de "jumps" mémoire et vectorisation SIMD.
+
+### 📖 Mini-Glossaire
+
+* **SIMD (Single Instruction Multiple Data) :** Capacité d'un processeur à effectuer la même opération sur plusieurs données en même temps.
+* **Zero-copy :** Technique permettant à différents logiciels de lire les mêmes données en mémoire sans avoir à les dupliquer.
+* **Lazy Evaluation :** Stratégie consistant à attendre le dernier moment pour calculer un résultat, permettant d'optimiser l'ensemble des étapes de calcul.

@@ -1,0 +1,23 @@
+---
+title: "Python : Analyse de données pour une IA"
+subtitle: "Code Module : PY-DATA-IA-M1"
+author: "Assistant de Cours v3"
+date: "2025-2026"
+---
+
+# 📋 Description Générale
+Ce module plonge les étudiants au cœur de la "matière première" de l'Intelligence Artificielle : la donnée. [cite_start]L'objectif est de transformer des données brutes (tabulaires, textuelles, images) en informations exploitables par des modèles de Machine Learning et Deep Learning en utilisant l'écosystème Python professionnel. [cite: 6, 11]
+
+# 🎯 Objectifs Pédagogiques
+- [ ] [cite_start]**Collecter** des données hétérogènes (SQL, NoSQL, APIs) et volumineuses. [cite: 9, 13]
+- [ ] [cite_start]**Maîtriser** le Feature Engineering pour optimiser la performance des modèles. [cite: 11, 48]
+- [ ] [cite_start]**Traiter** des données spécifiques : NLP (Natural Language Processing) et Computer Vision. [cite: 52, 63]
+
+# 🛠️ Spécificités & Moyens
+- [cite_start]**Public :** Mastère 1 (Dév, Data & IA - 4ème année) [cite: 4]
+- [cite_start]**Volume Horaire :** 35 heures (5 jours) [cite: 69]
+- [cite_start]**Moyens techniques :** Python 3.x, Jupyter Notebooks, Pandas, Scikit-Learn, OpenCV, NLTK/Spacy. [cite: 46, 47, 97]
+- [cite_start]**Prérequis :** Maîtrise de Python 3 et fondements de l'IA (LinkedIn Learning validés). [cite: 25, 26]
+
+# 💡 Concept & Métaphore
+**Le Raffineur de Pétrole Numérique.** Dans ce cours, nous ne construisons pas seulement des moteurs (IA), nous apprenons à prospecter, extraire et raffiner le carburant (Data) pour qu'il soit le plus pur possible. Sans un bon raffinage, le moteur s'encrasse (Overfitting/Biais).

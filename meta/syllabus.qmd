@@ -1,0 +1,24 @@
+---
+title: "Syllabus : Python pour l'IA"
+---
+
+# 📑 Plan de Cours
+## 1. Fondations & Data Wrangling
+- Introduction à la Data Science et cycle de vie de la donnée.
+- Manipulation avancée avec Pandas et NumPy.
+- **Activité :** Clean-up Challenge sur un dataset bancaire "sale".
+
+## 2. NLP : Faire parler les machines
+- [cite_start]Prétraitement (Stemming, Lemmatisation) et Expressions régulières. [cite: 80, 86]
+- [cite_start]Vectorisation (TF-IDF, Word Embeddings). [cite: 58, 59]
+
+## 3. Computer Vision : L'œil de l'IA
+- [cite_start]Traitement d'image avec OpenCV et Pillow. [cite: 95, 97]
+- [cite_start]Extraction de caractéristiques et détection de contours. [cite: 98]
+
+# 🎓 Modalités d'Évaluation
+| Évaluation | Type | Poids | Format |
+| :--- | :--- | :--- | :--- |
+| **Note 1 : QCM** | Théorie & Concepts | 20% | Questionnaire en ligne |
+| **Note 2 : TP Noté** | Traitement de données | 30% | Notebook (.ipynb) |
+| **Note 3 : Projet** | Pipeline Data Complet | 50% | [cite_start]Dépôt GitHub + Soutenance | [cite: 31, 33]

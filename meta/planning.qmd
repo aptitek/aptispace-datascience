@@ -1,0 +1,20 @@
+---
+title: "Planning : Python Analyse de données"
+---
+
+# ⏳ Chronologie du Module
+
+```{mermaid}
+gantt
+    title Déroulement du Module (5 Jours)
+    dateFormat  YYYY-MM-DD
+    section Cours & TP
+    J1 : Fondations & EDA :2026-05-18, 7h
+    J2 : NLP & Nettoyage :2026-05-19, 7h
+    J3 : NLP Avancé & Vectorisation :2026-05-20, 7h
+    J4 : Computer Vision & OpenCV :2026-05-21, 7h
+    J5 : Projet & Soutenances :2026-05-22, 7h
+    section Évaluations
+    QCM Final :milestone, m1, 2026-05-21, 0h
+    Rendu Projet :milestone, m2, 2026-05-22, 0h
+```

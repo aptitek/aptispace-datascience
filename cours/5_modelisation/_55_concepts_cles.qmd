@@ -1,0 +1,5 @@
+## Compréhension des concepts clés
+
+- **Surajustement (Overfitting)**
+- **Sous-ajustement (Underfitting)**
+- **Compromis biais-variance**

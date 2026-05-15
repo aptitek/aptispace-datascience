@@ -1,0 +1,22 @@
+---
+title: "📥 Acquisition et Compréhension des Données"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _11_types_donnees.qmd >}}
+
+{{< include _12_pandas_dataframe.qmd >}}
+
+{{< include _13_importation_exploration.qmd >}}
+
+## 🌉 Conclusion et Transition
+
+Maintenant que nous savons comment acquérir des données et les structurer dans des DataFrames, nous allons voir comment les nettoyer pour les rendre exploitables.
+
+C'est l'objectif du **[Chapitre 2 : Data Wrangling (Nettoyage et Préparation)](../2_wrangling/index.qmd)**.

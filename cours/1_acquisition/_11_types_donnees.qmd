@@ -1,0 +1,5 @@
+## Les 3 grands types de données
+
+- **Numériques** : Discrètes (comptage) et continues (mesures).
+- **Catégorielles** : Groupes ou catégories sans ordre.
+- **Ordinales** : Catégories avec un ordre logique.

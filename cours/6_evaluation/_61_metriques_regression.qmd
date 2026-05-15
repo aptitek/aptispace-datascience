@@ -1,0 +1,5 @@
+## Métriques pour la régression
+
+- R-carré ($R^2$)
+- MSE (Mean Squared Error)
+- Statistique F

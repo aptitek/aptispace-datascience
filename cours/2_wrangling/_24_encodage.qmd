@@ -1,0 +1,1 @@
+## Encodage des variables catégorielles pour les algorithmes : Label Encoding et One-Hot Encoding

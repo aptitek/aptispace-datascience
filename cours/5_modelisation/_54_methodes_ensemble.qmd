@@ -1,0 +1,5 @@
+## Méthodes d'ensemble pour améliorer les performances
+
+- Bagging
+- Random Forests
+- Boosting

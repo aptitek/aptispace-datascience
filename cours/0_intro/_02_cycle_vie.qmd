@@ -1,0 +1,9 @@
+## Les 7 étapes clés du cycle de vie de la donnée
+
+1. Acquisition
+2. Nettoyage
+3. Analyse Exploratoire (EDA)
+4. Visualisation
+5. Modélisation
+6. Évaluation
+7. Déploiement

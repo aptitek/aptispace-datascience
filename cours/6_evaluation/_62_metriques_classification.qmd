@@ -1,0 +1,6 @@
+## Métriques pour la classification
+
+- Matrice de confusion
+- Exactitude (Accuracy)
+- Sensibilité (Recall) et Spécificité
+- Courbe ROC et AUC

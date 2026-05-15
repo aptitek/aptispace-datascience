@@ -1,0 +1,1 @@
+## Transformation des données : Normalisation (Min-Max, Z-score) et discrétisation (binning)

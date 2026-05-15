@@ -1,0 +1,22 @@
+---
+title: "📊 Analyse Exploratoire des Données (EDA)"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _31_statistiques_descriptives.qmd >}}
+
+{{< include _32_relations_variables.qmd >}}
+
+{{< include _33_regroupement_segmentation.qmd >}}
+
+## 🌉 Conclusion et Transition
+
+L'analyse exploratoire nous a permis de comprendre les tendances et les corrélations au sein de nos données. Pour rendre ces découvertes plus percutantes et accessibles, nous allons maintenant apprendre à les visualiser efficacement.
+
+C'est ce que nous allons explorer dans le **[Chapitre 4 : Visualisation des Données](../4_visualisation/index.qmd)**.

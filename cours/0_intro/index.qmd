@@ -1,0 +1,24 @@
+---
+title: "🚀 Introduction à la Science des Données"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _01_demystification.qmd >}}
+
+{{< include _02_cycle_vie.qmd >}}
+
+{{< include _03_boite_outils.qmd >}}
+
+{{< include _04_applications.qmd >}}
+
+## 🌉 Conclusion et Transition
+
+Nous avons maintenant une vision globale de ce qu'est la Data Science, de ses outils et de son cycle de vie. Mais avant de pouvoir analyser des données, il faut savoir comment les acquérir et surtout comprendre leur nature profonde.
+
+C'est ce que nous allons explorer dans le **[Chapitre 1 : Acquisition et Compréhension des Données](../1_acquisition/index.qmd)**.

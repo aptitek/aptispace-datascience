@@ -1,0 +1,4 @@
+## Algorithmes de Clustering et techniques de réduction de dimensionnalité
+
+- **Clustering** : K-Means, DBSCAN.
+- **Réduction de dimensionnalité** : PCA (Analyse en Composantes Principales).

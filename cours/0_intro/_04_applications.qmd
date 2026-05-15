@@ -1,0 +1,5 @@
+## Exemples d'applications concrètes par secteur
+
+- **Santé** : Diagnostic assisté, prédiction d'épidémies.
+- **Commerce** : Recommandations personnalisées, gestion des stocks.
+- **Finance** : Détection de fraude, analyse de risques.

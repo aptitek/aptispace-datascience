@@ -1,0 +1,26 @@
+---
+title: "🤖 Modélisation et Machine Learning"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _51_apprentissage_supervise_non.qmd >}}
+
+{{< include _52_regression_classification.qmd >}}
+
+{{< include _53_clustering_pca.qmd >}}
+
+{{< include _54_methodes_ensemble.qmd >}}
+
+{{< include _55_concepts_cles.qmd >}}
+
+## 🌉 Conclusion et Transition
+
+Nous avons exploré les principaux algorithmes de Machine Learning. Cependant, construire un modèle ne suffit pas ; il faut être capable de mesurer sa performance de manière rigoureuse pour s'assurer de sa fiabilité.
+
+C'est l'objet du **[Chapitre 6 : Évaluation des Modèles](../6_evaluation/index.qmd)**.

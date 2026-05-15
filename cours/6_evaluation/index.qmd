@@ -1,0 +1,24 @@
+---
+title: "🧪 Évaluation des Modèles"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _61_metriques_regression.qmd >}}
+
+{{< include _62_metriques_classification.qmd >}}
+
+{{< include _63_methodes_validation.qmd >}}
+
+{{< include _64_techniques_regularisation.qmd >}}
+
+## 🌉 Conclusion et Transition
+
+Nous avons maintenant des modèles robustes et évalués. La dernière étape, et non la moindre, consiste à communiquer ces résultats de manière claire et impactante aux parties prenantes.
+
+C'est l'art que nous allons explorer dans le **[Chapitre 7 : Communication des Résultats](../7_communication/index.qmd)**.

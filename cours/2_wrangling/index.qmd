@@ -1,0 +1,24 @@
+---
+title: "🧹 Data Wrangling (Nettoyage et Préparation)"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _21_valeurs_manquantes.qmd >}}
+
+{{< include _22_harmonisation.qmd >}}
+
+{{< include _23_transformation.qmd >}}
+
+{{< include _24_encodage.qmd >}}
+
+## 🌉 Conclusion et Transition
+
+Vos données sont maintenant propres et prêtes à être analysées. L'étape suivante consiste à explorer ces données pour en extraire des tendances et des relations.
+
+C'est ce que nous allons voir dans le **[Chapitre 3 : Analyse Exploratoire des Données (EDA)](../3_eda/index.qmd)**.

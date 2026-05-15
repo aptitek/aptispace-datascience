@@ -1,0 +1,5 @@
+## Méthodes de validation pour fiabiliser les résultats
+
+- Ensemble de validation
+- Validation croisée (Cross-validation)
+- Recherche par grille (Grid Search)

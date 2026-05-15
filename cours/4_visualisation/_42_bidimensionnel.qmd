@@ -1,0 +1,5 @@
+## Graphiques bidimensionnels
+
+- Nuages de points
+- Graphiques linéaires
+- Boîtes à moustaches (Boxplots)

@@ -1,0 +1,4 @@
+## Techniques pour atténuer le surajustement
+
+- Régularisation (Ridge, Lasso)
+- Élagage (Pruning)

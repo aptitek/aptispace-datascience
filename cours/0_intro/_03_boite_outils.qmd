@@ -1,0 +1,6 @@
+## La boîte à outils essentielle en Python
+
+- **Pandas** : Manipulation de données
+- **NumPy** : Calcul numérique
+- **Matplotlib & Seaborn** : Visualisation
+- **Scikit-learn** : Machine Learning

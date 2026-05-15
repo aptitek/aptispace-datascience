@@ -1,0 +1,24 @@
+---
+title: "📈 Visualisation des Données"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _41_unidimensionnel.qmd >}}
+
+{{< include _42_bidimensionnel.qmd >}}
+
+{{< include _43_multidimensionnel.qmd >}}
+
+{{< include _44_dashboards.qmd >}}
+
+## 🌉 Conclusion et Transition
+
+La visualisation nous permet de communiquer des informations complexes de manière intuitive. Maintenant que nous maîtrisons l'exploration et la visualisation, nous sommes prêts à passer à l'étape de la modélisation pour prédire des tendances ou classer des données.
+
+C'est le cœur du **[Chapitre 5 : Modélisation et Machine Learning](../5_modelisation/index.qmd)**.

@@ -1,0 +1,5 @@
+## Graphiques unidimensionnels
+
+- Histogrammes
+- Diagrammes à barres
+- Diagrammes circulaires

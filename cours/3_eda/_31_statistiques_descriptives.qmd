@@ -1,0 +1,4 @@
+## Les statistiques descriptives de base
+
+- **Mesures de tendance centrale** : Moyenne, médiane, mode.
+- **Mesures de dispersion** : Étendue, variance, écart-type, quartiles.

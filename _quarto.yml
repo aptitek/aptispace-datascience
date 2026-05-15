@@ -1,0 +1,74 @@
+cloudflare-project: "aptispace-datascience"
+
+project:
+  type: book
+  output-dir: _site
+  pre-render: bash _extensions/aptitek/download-fonts/download_fonts.sh
+  resources:
+    - "assets/**"
+    - "**/_*.qmd"
+
+bibliography: bibliography.bib
+
+filters:
+  - aptitek/dynamic
+  - filetree
+  - card
+  - timeline
+  - embed
+  - aptitek/zoom
+
+book:
+  title: "Data Science"
+  author: "Aptitek"
+  search: false
+  
+  sidebar:
+    logo: "assets/logo.svg"
+    logo-href: "/"
+    logo-alt: "Aptitek"
+    style: "docked"
+    search: false
+  
+  chapters:
+    - index.qmd
+    - part: "🔭 Fondations & Acquisition"
+      chapters:
+        - cours/0_intro/index.qmd
+        - cours/1_acquisition/index.qmd
+    - part: "🧹 Préparation & Analyse"
+      chapters:
+        - cours/2_wrangling/index.qmd
+        - cours/3_eda/index.qmd
+    - part: "📈 Visualisation & Modélisation"
+      chapters:
+        - cours/4_visualisation/index.qmd
+        - cours/5_modelisation/index.qmd
+    - part: "🧪 Évaluation & Communication"
+      chapters:
+        - cours/6_evaluation/index.qmd
+        - cours/7_communication/index.qmd
+
+format:
+  html:
+    theme:
+      - solar
+      - .theme/theme.scss
+    mainfont: "Recursive"
+    monofont: "Recursive"
+    highlight-style: solarized
+    code-overflow: wrap
+    toc: true
+    code-copy: true
+    code-tools:
+      source: true
+      toggle: false
+      caption: "Voir le code source"
+    mermaid:
+      theme: neutral
+    html-math-method: katex
+    number-sections: true
+    header-includes: |
+      <meta name="robots" content="noindex, nofollow">
+    include-after-body: assets/fix_links.html
+    css: .theme/book_custom.css

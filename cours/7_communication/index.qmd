@@ -1,0 +1,20 @@
+---
+title: "📢 Communication des Résultats"
+---
+
+```{ojs}
+//| echo: false
+//| output: false
+// Block de stabilisation OJS pour le projet Quarto
+_stabilize = true
+```
+
+{{< include _71_data_storytelling.qmd >}}
+
+{{< include _72_dashboards_rapports.qmd >}}
+
+{{< include _73_transparence_limites.qmd >}}
+
+## 🌉 Conclusion
+
+Félicitations ! Vous avez parcouru l'ensemble du cycle de vie de la Data Science, de l'acquisition des données à la communication des résultats. Vous avez maintenant les bases solides pour mener vos propres projets de Data Science.

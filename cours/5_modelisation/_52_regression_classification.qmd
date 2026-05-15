@@ -1,0 +1,4 @@
+## Algorithmes de Régression et de Classification
+
+- **Régression** : Régression linéaire, Arbres de régression.
+- **Classification** : Régression Logistique, SVM, KNN, Arbres de décision.

@@ -1,0 +1,1 @@
+## Importation de fichiers (ex: CSV) et première exploration visuelle avec la fonction .head()

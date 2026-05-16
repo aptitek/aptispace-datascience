@@ -1,9 +1,13 @@
 ## Encodage des variables catégorielles pour les algorithmes : Label Encoding et One-Hot Encoding
 
-::: {.info header="La barrière de la langue algorithmique"}
+::: {.card .card-info}
+::: {.card-header}
+La barrière de la langue algorithmique
+:::
+::: {.card-body}
 Le Machine Learning est une discipline purement mathématique : il calcule des gradients, des distances et des probabilités. Par conséquent, il ne peut traiter nativement *que* des nombres. Si vous lui donnez une colonne "Ville" avec "Paris", "Lyon" et "Marseille", il plantera. La conversion des variables catégorielles (textuelles) en format numérique est donc une étape obligatoire.
 :::
-
+:::
 L'expert doit arbitrer entre plusieurs techniques d'encodage selon la nature des catégories et leur cardinalité (le nombre de valeurs uniques).
 
 ### 🧮 1. Les Méthodes Classiques

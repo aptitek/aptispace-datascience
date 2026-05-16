@@ -1,9 +1,13 @@
 ## Algorithmes de Clustering et techniques de réduction de dimensionnalité
 
-::: {.info header="L'art de l'exploration à l'aveugle"}
+::: {.card .card-info}
+::: {.card-header}
+L'art de l'exploration à l'aveugle
+:::
+::: {.card-body}
 Contrairement à la régression ou la classification, l'apprentissage non supervisé travaille sur des données **non étiquetées**. L'objectif n'est pas de prédire une réponse précise, mais d'explorer les données pour y découvrir des motifs cachés ou une structure naturelle [@ml_basics_md_2026]. Les deux grandes familles de ces algorithmes sont le *Clustering* (regroupement) et la *Réduction de dimensionnalité*.
 :::
-
+:::
 ### 🎯 1. Le Clustering : Regrouper par similarité
 
 Le but du clustering est de diviser un jeu de données en groupes (clusters) de telle sorte que les points d'un même groupe soient très similaires, et très différents des autres groupes.

@@ -1,9 +1,13 @@
 ## 🔄 Le Pipeline de Raffinage : De l'Acquisition au MLOps
 
-::: {.info header="💡 Concept Clé : Un Processus Industriel"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : Un Processus Industriel
+:::
+::: {.card-body}
 L'Intelligence Artificielle n'est pas une intuition magique : c'est le résultat d'un processus industriel extrêmement structuré. Ce pipeline, souvent inspiré de standards comme CRISP-DM ou OSEMN, est ce que l'on appelle le **Cycle de Vie de la Donnée**. 
 :::
-
+:::
 Pour éviter que notre projet ne se transforme en un gouffre financier (ou que notre algorithme ne produise des résultats absurdes), tout projet d'Analyse de Données suit **7 étapes séquentielles et itératives** [@markdown_2026_cadrestrategique ; @datasciencepm_2026_lifecycle].
 
 ### 🕰️ Les 7 Étapes de l'Investigation
@@ -47,11 +51,20 @@ Le modèle est mis en production. Le **MLOps** assure la surveillance continue p
 
 ::::
 
-::: {.warning header="⚠️ Danger : L'Itération Infinie"}
+::: {.card .card-warning}
+::: {.card-header}
+⚠️ Danger : L'Itération Infinie
+:::
+::: {.card-body}
 Comme le montre ce pipeline, le cycle n'est pas strictement linéaire. Si une dérive (**Drift**) est détectée en production, il faut immédiatement relancer l'acquisition de nouvelles données pour ré-entraîner le modèle.
 :::
-
-::: {.success header="🎒 Astuce Pro : Le MLOps"}
+:::
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Le MLOps
+:::
+::: {.card-body}
 Ne considérez jamais le déploiement comme une fin. Un bon "Raffineur" consacre autant d'énergie à la surveillance du modèle qu'à son entraînement initial.
+:::
 :::
  et Operations. C'est l'ensemble des pratiques visant à déployer et maintenir des modèles d'IA en production de manière fiable et efficace.

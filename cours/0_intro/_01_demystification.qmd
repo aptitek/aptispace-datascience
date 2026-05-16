@@ -6,10 +6,14 @@ La science des données s'est imposée comme le pivot central des architectures 
 
 L'objectif fondamental de la Data Science est de transformer un **signal brut**, souvent fragmenté et chaotique, en un **actif stratégique** capable de guider la prise de décision de haut niveau. 
 
-::: {.warning header="⚠️ Danger : Le Dark Data"}
+::: {.card .card-warning}
+::: {.card-header}
+⚠️ Danger : Le Dark Data
+:::
+::: {.card-body}
 Une donnée n'a pas de valeur statique. Si une organisation se contente de stocker de l'information sans vocation métier précise, elle accumule ce que l'on appelle du **Dark Data** (données sombres). Ces "friches industrielles" numériques génèrent des coûts de stockage énormes (serveurs, cloud) sans aucune valeur ajoutée [@markdown_2026_cadrestrategique].
 :::
-
+:::
 ```{mermaid}
 flowchart LR
     A[(Données Brutes\nLe Chaos)] -->|Nettoyage & \nRaffinage| B(Information\nLe Contexte)
@@ -29,11 +33,19 @@ Contrairement à l'analyse confirmatoire classique (où l'on cherche simplement 
 
 C'est ce travail de détective qui constitue le premier rempart contre les conclusions hâtives et les biais algorithmiques.
 
-::: {.info header="💡 Concept Clé : EDA"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : EDA
+:::
+::: {.card-body}
 **EDA (Exploratory Data Analysis) :** Phase d'investigation utilisant des statistiques descriptives et des outils visuels pour résumer les caractéristiques d'un jeu de données et découvrir des modèles cachés avant toute modélisation prédictive.
 :::
-
-::: {.success header="🎒 Astuce Pro : Éviter le Dark Data"}
+:::
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Éviter le Dark Data
+:::
+::: {.card-body}
 Pour ne pas transformer votre base de données en cimetière numérique, chaque donnée collectée doit répondre à une question métier spécifique ou à un indicateur de performance (KPI) clairement identifié.
 :::
-
+:::

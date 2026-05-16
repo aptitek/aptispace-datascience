@@ -1,9 +1,13 @@
 ## Analyse des relations entre variables : Covariance et Corrélation
 
-::: {.info header="Le terrain de jeu des interprétations fallacieuses"}
+::: {.card .card-info}
+::: {.card-header}
+Le terrain de jeu des interprétations fallacieuses
+:::
+::: {.card-body}
 L'analyse bivariée permet de déceler les structures cachées et les dépendances entre vos colonnes. Cependant, c'est aussi le domaine où les Data Scientists débutants commettent le plus d'erreurs d'interprétation. Distinguer une simple co-occurrence statistique d'une véritable relation causale est tout l'enjeu de cette étape.
 :::
-
+:::
 Pour évaluer la force des liens entre vos variables, la communauté s'est longtemps reposée sur des matrices mathématiques classiques. Mais face à la complexité des données modernes (non-linéaires, catégorielles), de nouveaux outils sont apparus.
 
 ### 📉 1. Les Classiques : Linéarité et Rangs

@@ -1,9 +1,13 @@
 ## Métriques pour la classification
 
-::: {.info header="Les manettes de l'algorithme"}
+::: {.card .card-info}
+::: {.card-header}
+Les manettes de l'algorithme
+:::
+::: {.card-body}
 Les hyperparamètres ne sont pas appris par le modèle (comme les poids d'un réseau de neurones), ils sont définis *par vous* avant l'entraînement. C'est la profondeur maximale de votre Arbre de Décision, ou le paramètre $K$ de votre algorithme KNN. Un modèle XGBoost mal réglé sera souvent battu par une simple Régression Logistique bien réglée [@keylabs_hyperparameter_2024].
 :::
-
+:::
 Pour trouver la combinaison parfaite d'hyperparamètres (le *Tuning*), l'industrie a connu trois grandes ères.
 
 ### 🧱 1. L'Ère de la Force Brute : Grid Search et Random Search

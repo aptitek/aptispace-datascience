@@ -1,9 +1,13 @@
 ## Méthodes d'ensemble pour améliorer les performances
 
-::: {.info header="L'intelligence collective"}
+::: {.card .card-info}
+::: {.card-header}
+L'intelligence collective
+:::
+::: {.card-body}
 Pourquoi se contenter d'un seul avis quand on peut consulter un jury d'experts ? C'est la philosophie des **méthodes d'ensemble** : combiner plusieurs "apprenants faibles" (souvent des arbres de décision simples) pour créer un modèle "fort" et résilient [@kushwaha_tabular_classification_2026]. Pour les données de type Excel ou SQL, ces méthodes sont aujourd'hui les championnes incontestées de la précision.
 :::
-
+:::
 Il existe deux grandes philosophies pour faire travailler les modèles en groupe : le **Bagging** et le **Boosting**.
 
 ### 🗳️ 1. Le Bagging : Le vote démocratique (Random Forest)
@@ -33,111 +37,30 @@ Comprenez visuellement la différence de stratégie. Dans le Bagging, les modèl
 
 ::: {.callout-note}
 ### 🕹️ Simulateur Interactif : Bagging vs Boosting
-Observez comment les deux stratégies réagissent face à un jeu de données "bruité" (les points noirs). Manipulez le nombre de modèles (les arbres) pour comprendre la différence entre la réduction de variance et la réduction de biais.
+
+Manipulez les contrôles ci-dessous pour observer comment la Forêt Aléatoire (Bagging) et l'algorithme XGBoost (Boosting) construisent leurs prédictions différemment.
+
+
+```{ojs}
+//| echo: false
+// 1. Les inputs utilisateurs (réactifs)
+viewof mode_ensemble = Inputs.radio(
+  new Map([["Forêt Aléatoire (Bagging)", "bagging"], ["Gradient Boosting (XGBoost)", "boosting"]]), 
+  { value: "bagging", label: "Algorithme :" }
+)
+
+viewof n_arbres = Inputs.range([1, 10], { value: 3, step: 1, label: "Nombre d'arbres (N) :" })
+
+// 2. Le rendu de l'organisme dynamique
+ui.render(
+  ui.ensembleSimulator({ 
+    mode: mode_ensemble, 
+    numTrees: n_arbres 
+  })
+)
+```
+
 :::
-
-```{ojs}
-//| panel: input
-// 1. Contrôles de l'interface
-viewof method = Inputs.radio(
-  ["Bagging (Random Forest)", "Boosting (XGBoost)"], 
-  {value: "Bagging (Random Forest)", label: "Stratégie d'Ensemble :"}
-)
-
-viewof nModels = Inputs.range(
-  [1, 50], 
-  {value: 1, step: 1, label: "Nombre d'arbres (n_estimators) :"}
-)
-
-```
-
-```{ojs}
-//| echo: false
-// 2. Génération des données d'entraînement (Points avec du bruit)
-trainingData = {
-  let pts = [];
-  for(let x = 0; x <= 10; x += 0.25) {
-     // Génération d'un bruit pseudo-aléatoire mais déterministe pour éviter le scintillement
-     let noise = Math.sin(x * 12.3) * 0.8 + Math.cos(x * 4.5) * 0.4;
-     pts.push({ 
-       x: x, 
-       true_y: Math.sin(x), // La vraie tendance cachée
-       noisy_y: Math.sin(x) + noise // Ce que le modèle voit (avec erreurs)
-     });
-  }
-  return pts;
-}
-
-// 3. Calcul de la courbe de prédiction selon la méthode
-ensembleLine = trainingData.map(d => {
-  let y_pred;
-  if (method === "Bagging (Random Forest)") {
-     // Bagging : la moyenne de N modèles réduit la variance (bruit). 
-     // À N=1 on suit le bruit, à N=50 on retrouve la courbe parfaite.
-     y_pred = d.true_y + (d.noisy_y - d.true_y) * (1 / Math.sqrt(nModels));
-  } else {
-     // Boosting : commence avec une prédiction nulle (biais énorme).
-     // À chaque étape, il corrige l'erreur. À N=50, il fait du sur-ajustement parfait.
-     y_pred = d.noisy_y * (1 - Math.pow(0.85, nModels));
-  }
-  return { x: d.x, y: y_pred };
-})
-
-```
-
-```{ojs}
-//| echo: false
-// 4. Rendu du graphique avec Observable Plot
-Plot.plot({
-  height: 400,
-  width: 800,
-  grid: true,
-  style: { background: "var(--sol-base3)", fontSize: "14px" },
-  x: { label: "Variable d'entrée X" },
-  y: { domain: [-2.5, 2.5], label: "Prédiction Y" },
-  marks: [
-    // La tendance réelle cachée (Ligne pointillée grise)
-    Plot.line(trainingData, {x: "x", y: "true_y", stroke: "var(--sol-base1)", strokeDasharray: "5,5", strokeWidth: 2}),
-    
-    // Les données d'entraînement (Points noirs)
-    Plot.dot(trainingData, {x: "x", y: "noisy_y", fill: "var(--sol-base03)", r: 5}),
-    
-    // Le modèle prédictif (Ligne colorée)
-    Plot.line(ensembleLine, {
-      x: "x",
-      y: "y",
-      stroke: method.includes("Bagging") ? "var(--sol-blue)" : "var(--sol-red)",
-      strokeWidth: 4,
-      // Le Random Forest moyenne (courbe), le Boosting agit souvent par paliers (step)
-      curve: method.includes("Bagging") ? "catmull-rom" : "step"
-    })
-  ]
-})
-
-```
-
-```{ojs}
-//| echo: false
-// 5. Boîte de dialogue dynamique (Feedback pédagogique)
-html`
-<div style="margin-top: 15px; padding: 15px 20px; border-radius: 8px; font-size: 1.1em; background: var(--sol-base3); border: 1px solid var(--sol-base2); border-left: 6px solid ${method.includes('Bagging') ? 'var(--sol-blue)' : 'var(--sol-red)'}; box-shadow: 0 4px 6px rgba(0, 43, 54, 0.05);">
-   <strong>🧠 Analyse du comportement :</strong><br/>
-   <p style="margin-top: 8px; color: var(--sol-base00);">
-   ${method.includes("Bagging")
-      ? (nModels < 5 
-          ? "Avec peu d'arbres (N faible), le modèle est instable et colle trop aux points aberrants. Il souffre de <b>haute variance</b>." 
-          : "En moyennant de nombreux arbres indépendants, la courbe se lisse et retrouve la véritable tendance sous-jacente (ligne pointillée). Le Bagging a <b>neutralisé le bruit et réduit la variance</b> sans augmenter le biais.")
-      : (nModels < 5 
-          ? "Le premier arbre est un 'apprenant faible'. La ligne est basique et loin des points. Le modèle souffre d'un <b>biais très élevé</b>." 
-          : (nModels > 30 
-              ? "⚠️ <b>Alerte Overfitting (Sur-ajustement) !</b> Le Boosting s'est tellement acharné à corriger ses erreurs qu'il a fini par 'apprendre par cœur' le bruit des données. Le biais est tombé à zéro, mais le modèle généralisera très mal." 
-              : "Chaque nouvel arbre se concentre sur les erreurs du précédent. La ligne 'rampe' et s'ajuste progressivement vers les points complexes pour <b>réduire le biais</b>."))
-   }
-   </p>
-</div>
-`
-
-```
 
 ### 🥊 Synthèse : Quel camp choisir ?
 

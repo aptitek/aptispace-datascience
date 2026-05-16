@@ -1,9 +1,13 @@
 ## Méthodes de validation pour fiabiliser les résultats
 
-::: {.info header="Le syndrome du 'Ça marche sur ma machine'"}
+::: {.card .card-info}
+::: {.card-header}
+Le syndrome du 'Ça marche sur ma machine'
+:::
+::: {.card-body}
 En 2026, un modèle bloqué dans un Notebook Jupyter n'est qu'un "artefact inutile". Le MLOps (Machine Learning Operations) est la discipline qui fusionne la Data Science et le DevOps pour transformer un code de recherche en un service logiciel industriel, robuste et accessible par des millions d'utilisateurs [@markdown_evolution_2026].
 :::
-
+:::
 Le cycle de vie d'un modèle en production repose sur la résolution de trois grands défis : la mémoire, le partage, et l'accès.
 
 ### 📖 1. La Traçabilité (MLflow & DVC)

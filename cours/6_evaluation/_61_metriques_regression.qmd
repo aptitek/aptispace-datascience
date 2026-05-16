@@ -1,9 +1,13 @@
 ## Métriques pour la régression
 
-::: {.info header="Le piège des métriques de vanité"}
+::: {.card .card-info}
+::: {.card-header}
+Le piège des métriques de vanité
+:::
+::: {.card-body}
 En 2026, l'industrie a enfin compris que l'**Accuracy** (exactitude) est souvent une "métrique de vanité". Dans un système de détection de fraude où 99,9 % des transactions sont légitimes, une précision globale de 99,9 % peut être atteinte par un modèle qui ne détecte absolument rien. L'ingénierie moderne exige donc une vision multidimensionnelle du risque [@imani_rocauc_2026].
 :::
-
+:::
 ### 📊 1. L'Anatomie de la Matrice de Confusion
 
 La matrice de confusion est votre outil de diagnostic fondamental. Elle agit comme un bilan sanguin pour l'algorithme en classant les résultats en quatre quadrants [@google_classification_2026] :

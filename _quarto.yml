@@ -11,13 +11,12 @@ project:
 bibliography: bibliography.bib
 
 filters:
-  - quarto-live
+  - r-wasm/live
   - aptitek/dynamic
   - aptitek/ojs-ui
-  - filetree
-  - card
-  - timeline
-  - embed
+  - aptitek/filetree
+  - EmilHvitfeldt/timeline
+  - aptitek/embed
   - aptitek/zoom
 
 book:
@@ -78,5 +77,6 @@ format:
     number-offset: -1
     header-includes: |
       <meta name="robots" content="noindex, nofollow">
+      <script type="module" src="/assets/js/index.js"></script>
     include-after-body: assets/fix_links.html
 

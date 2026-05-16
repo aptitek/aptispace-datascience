@@ -4,11 +4,15 @@ number-sections: false
 
 # ⏳ Chronologie du Module {.unnumbered}
 
-::: {.info header="Note d'organisation"}
+::: {.card .card-info}
+::: {.card-header}
+Note d'organisation
+:::
+::: {.card-body}
 Le module se déroule sur 5 jours consécutifs (35 heures).
 Chaque journée est découpée en une matinée d'exploration théorique et conceptuelle, suivie d'une après-midi de mise en pratique intensive sous forme de Labs et d'ateliers de projet.
 :::
-
+:::
 ## 📅 Vue d'ensemble (Gantt)
 
 ```{mermaid}

@@ -1,9 +1,13 @@
 ## Importance de communiquer avec transparence sur la fiabilité et les limites du modèle
 
-::: {.warning header="L'illusion de la certitude"}
+::: {.card .card-warning}
+::: {.card-header}
+L'illusion de la certitude
+:::
+::: {.card-body}
 Un Data Scientist junior a souvent peur d'avouer à sa direction que son modèle n'est pas sûr à 100%. Il va donc présenter un chiffre absolu (ex: "Nous ferons 12% de croissance"). C'est une erreur grave. En 2026, l'éthique de la Data Science impose de communiquer l'incertitude. Un dirigeant préférera toujours un expert qui maîtrise ses marges d'erreur plutôt qu'un "devin" qui se trompe avec aplomb [@actuary_2025_communicating_uncertainty].
 :::
-
+:::
 Pour instaurer une confiance durable avec un Conseil d'Administration, il faut transformer la notion mathématique d'erreur en outil de gestion des risques.
 
 ### 🎲 1. Les deux visages de l'Incertitude

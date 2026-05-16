@@ -1,9 +1,13 @@
 ## Transformation des données : Normalisation (Min-Max, Z-score) et discrétisation (binning)
 
-::: {.info header="Le problème des échelles disparates"}
+::: {.card .card-info}
+::: {.card-header}
+Le problème des échelles disparates
+:::
+::: {.card-body}
 Imaginez que vous prédisiez le prix d'une maison avec deux variables : le *Nombre de chambres* (entre 1 et 5) et le *Prix du terrain* (entre 10 000 et 1 000 000 €). Pour un algorithme mathématique (comme un réseau de neurones), la variable avec les plus grands nombres va "écraser" l'autre lors du calcul des gradients, la rendant virtuellement invisible. La transformation numérique ramène tout le monde sur un pied d'égalité.
 :::
-
+:::
 Il existe deux grandes approches pour résoudre ce problème, avec des formules et des cas d'usage très différents.
 
 ### 📏 1. Normalisation (Le Min-Max Scaler)
@@ -38,10 +42,14 @@ Pour les modèles basés sur le calcul de distances géométriques (K-Nearest Ne
 #### 🔴 Inutile (Modèles basés sur les Arbres)
 Pour les algorithmes d'ensemble (Arbres de Décision, Random Forest, XGBoost, LightGBM). Pourquoi ? Parce que ces modèles divisent les données grâce à des comparaisons de seuils logiques ($Si \, X > 10$). Les transformations (Z-score ou Min-Max) sont dites **monotones** : elles préservent l'ordre absolu. Que le seuil soit 10 ou 0.85, la coupure de l'arbre sera mathématiquement identique.
 
-::: {.success header="Focus Deep Learning : Batchnorm et CMN"}
+::: {.card .card-success}
+::: {.card-header}
+Focus Deep Learning : Batchnorm et CMN
+:::
+::: {.card-body}
 Pour des architectures IA complexes, on intègre cette mise à l'échelle directement *dans* le modèle. Par exemple, la **Batchnorm** (Normalisation par lots) stabilise l'apprentissage à chaque couche d'un réseau de neurones. En analyse audio (reconnaissance vocale type LibriSpeech), on utilise la **CMN** (*Cepstral Mean Normalization*) pour gommer les distorsions liées au bruit ambiant.
 :::
-
+:::
 ---
 
 ### ✅ Aide-mémoire

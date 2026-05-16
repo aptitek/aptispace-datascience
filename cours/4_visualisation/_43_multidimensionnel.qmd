@@ -1,9 +1,13 @@
 ## Visualisation de 3 variables ou plus
 
-::: {.info header="Repousser les limites cognitives"}
+::: {.card .card-info}
+::: {.card-header}
+Repousser les limites cognitives
+:::
+::: {.card-body}
 L'augmentation de la dimensionnalité d'un graphique (passer de 2 à 3, 4 ou 5 variables) doit respecter une hiérarchie visuelle stricte pour éviter la saturation cognitive. Un graphique surchargé n'informe plus, il embrouille. C'est ici que l'ingénieur doit jouer avec les attributs pré-attentifs comme la couleur, la taille ou la forme [@4_visualisation_md].
 :::
-
+:::
 ### 🎛️ 1. Représenter 3 variables sur un écran 2D
 
 Lorsque l'on a deux variables numériques (X et Y) et une troisième variable quantitative (Z) ou catégorielle, plusieurs stratégies s'offrent à nous.
@@ -20,10 +24,14 @@ La Heatmap représente l'intensité ou la magnitude d'une variable Z sur un quad
 
 L'ajout d'un troisième axe physique (Z) permet de créer des graphiques de surface ou des nuages de points en vraie 3D (très bien gérés par des outils comme Plotly).
 
-::: {.warning header="Proscription de la 3D inutile"}
+::: {.card .card-warning}
+::: {.card-header}
+Proscription de la 3D inutile
+:::
+::: {.card-body}
 En dehors des surfaces topographiques réelles (la géographie) ou de la physique des matériaux, **la 3D introduit des distorsions de perspective** qui rendent la lecture des valeurs imprécise sur un écran plat. Tourner un graphique 3D est impressionnant techniquement, mais c'est souvent une erreur de design analytique majeure si une Heatmap 2D suffisait [@4_visualisation_md].
 :::
-
+:::
 ### 🌍 3. Les Cartes Géographiques (Geospatial)
 
 Dès que vos données contiennent des latitudes/longitudes ou des codes postaux, le meilleur graphique est souvent une carte.

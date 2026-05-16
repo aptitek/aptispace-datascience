@@ -1,11 +1,15 @@
 ## Conception de tableaux de bord interactifs et de rapports écrits
 
-::: {.info header="Le temps, l'ultime ressource"}
+::: {.card .card-info}
+::: {.card-header}
+Le temps, l'ultime ressource
+:::
+::: {.card-body}
 Le temps d'attention d'un décideur (C-Level) est extrêmement limité. Naturellement, un Data Scientist a tendance à présenter son travail de manière chronologique : la collecte, le nettoyage, les tentatives d'algorithmes, et enfin le résultat. C'est la structure d'un film policier (les indices d'abord, le coupable à la fin). 
 
 **Face à un Comex, vous devez donner le nom du coupable dès la première seconde.**
 :::
-
+:::
 Pour capter l'attention et pousser à l'action, l'industrie s'appuie sur deux frameworks narratifs majeurs.
 
 ### 🔺 1. La Pyramide de Minto (La communication Top-Down)

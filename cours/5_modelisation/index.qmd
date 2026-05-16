@@ -9,6 +9,8 @@ title: "🤖 Modélisation et Machine Learning"
 _stabilize = true
 ```
 
+
+
 {{< include _51_apprentissage_supervise_non.qmd >}}
 
 {{< include _52_regression_classification.qmd >}}

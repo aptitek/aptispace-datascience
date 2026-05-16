@@ -144,6 +144,137 @@ code, pre {
     --sol-blue:   #{$sol-blue};
     --sol-orange: #{$sol-orange};
     --sol-red:    #{$sol-red};
+    --sol-magenta:#{$sol-magenta};
+    --sol-violet: #{$sol-violet};
+    --sol-cyan:   #{$sol-cyan};
     --sol-green:  #{$sol-green};
     --sol-yellow: #{$sol-yellow};
+
+    // RGB Components for transparency
+    --sol-base03-rgb: 0, 43, 54;
+    --sol-base02-rgb: 7, 54, 66;
+    --sol-base01-rgb: 88, 110, 117;
+    --sol-base00-rgb: 101, 123, 131;
+    --sol-base0-rgb:  131, 148, 150;
+    --sol-base1-rgb:  147, 161, 161;
+    --sol-base2-rgb:  238, 232, 213;
+    --sol-base3-rgb:  253, 246, 227;
+    --sol-blue-rgb:   38, 139, 210;
+    --sol-orange-rgb: 203, 75, 22;
+    --sol-red-rgb:    220, 50, 47;
+    --sol-magenta-rgb: 211, 54, 130;
+    --sol-violet-rgb: 108, 113, 196;
+    --sol-cyan-rgb:   42, 161, 152;
+    --sol-green-rgb:  133, 153, 0;
+    --sol-yellow-rgb: 181, 137, 0;
+}
+
+// ==========================================
+// 7. ATOMIC CARD COMPONENTS
+// ==========================================
+
+.card {
+    border-color: $sol-base2;
+    background-color: $sol-base3;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .card-body {
+        color: $sol-base00;
+    }
+
+    // Modifiers
+    &.card-debug {
+        border-color: $sol-base1;
+        .card-header {
+            background-color: $sol-base1;
+            color: $sol-base3;
+        }
+    }
+
+    &.card-info {
+        border-color: $sol-blue;
+        .card-header {
+            background-color: $sol-blue;
+            color: $sol-base3;
+        }
+    }
+
+    &.card-success {
+        border-color: $sol-green;
+        .card-header {
+            background-color: $sol-green;
+            color: $sol-base3;
+        }
+    }
+
+    &.card-warning {
+        border-color: $sol-yellow;
+        .card-header {
+            background-color: $sol-yellow;
+            color: $sol-base3;
+        }
+    }
+
+    &.card-danger {
+        border-color: $sol-red;
+        .card-header {
+            background-color: $sol-red;
+            color: $sol-base3;
+        }
+    }
+
+    // Legacy/Bootstrap Compatibility for course content
+    &.card-primary { @extend .card-info; }
+    &.card-secondary { @extend .card-debug; }
+}
+
+// ==========================================
+// 8. DYNAMIC TIMELINE COMPONENTS
+// ==========================================
+
+.timeline.vertical,
+.timeline.horizontal,
+.timeline {
+    --tl-color-line: #{$sol-magenta} !important;
+    --tl-color-dot: #{$sol-magenta} !important;
+    --tl-color-label: #{$sol-base01} !important;
+    --tl-line-width: 4px !important;
+
+    // Rainbow gradient line
+    &::before {
+        background: linear-gradient(to bottom,
+            #{$sol-magenta}, #{$sol-red}, #{$sol-orange},
+            #{$sol-yellow}, #{$sol-green}, #{$sol-cyan},
+            #{$sol-blue}, #{$sol-violet}) !important;
+    }
+
+    // Dynamic chronological colors
+    $tl-rainbow: $sol-magenta, $sol-red, $sol-orange, $sol-yellow, $sol-green, $sol-cyan, $sol-blue, $sol-violet;
+
+    @for $i from 1 through 20 {
+        $color: nth($tl-rainbow, ($i - 1) % length($tl-rainbow) + 1);
+        &.vertical .event:nth-child(#{$i}),
+        &.horizontal .event:nth-child(#{$i}),
+        .event:nth-child(#{$i}) {
+            --tl-color-accent: #{$color} !important;
+            
+            &::after { border-color: var(--tl-color-accent) !important; }
+            &::before { color: var(--tl-color-accent) !important; }
+        }
+    }
+
+    // Semantic modifiers for manual override
+    .event {
+        &.is-info    { --tl-color-accent: #{$sol-blue} !important; }
+        &.is-success { --tl-color-accent: #{$sol-green} !important; }
+        &.is-warning { --tl-color-accent: #{$sol-yellow} !important; }
+        &.is-danger  { --tl-color-accent: #{$sol-red} !important; }
+        &.is-debug   { --tl-color-accent: #{$sol-base1} !important; }
+
+        &.is-info, &.is-success, &.is-warning, &.is-danger, &.is-debug {
+            &::after { border-color: var(--tl-color-accent) !important; }
+            &::before { color: var(--tl-color-accent) !important; }
+        }
+    }
 }

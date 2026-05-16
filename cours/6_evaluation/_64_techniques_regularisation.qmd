@@ -1,9 +1,13 @@
 ## Techniques pour atténuer le surajustement
 
-::: {.info header="Un modèle naît en mourant"}
+::: {.card .card-info}
+::: {.card-header}
+Un modèle naît en mourant
+:::
+::: {.card-body}
 Il existe un mythe tenace selon lequel une fois déployé, le travail du Data Scientist est terminé. En réalité, un modèle commence à "pourrir" dès son premier jour en production [@logiciel_monitoring_2026]. Un algorithme est figé dans le passé (ses données d'entraînement), tandis que le monde réel, lui, évolue en permanence. Ce phénomène de dégradation silencieuse s'appelle la **Dérive (Drift)**.
 :::
-
+:::
 Il est vital de comprendre que si un modèle d'IA se trompe de plus en plus au fil du temps, ce n'est pas parce que son code s'est cassé, mais parce que **le monde a changé**.
 
 ### 📉 1. Les deux visages de la Dérive

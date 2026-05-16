@@ -1,9 +1,13 @@
 ## 🧱 L'Établi du Raffineur : Anatomie du DataFrame
 
-::: {.info header="💡 Concept Clé : Au-delà du tableau Excel"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : Au-delà du tableau Excel
+:::
+::: {.card-body}
 Un DataFrame n'est pas qu'un simple tableau visuel. Pour le raffineur de données, c'est un agencement complexe en mémoire vive (RAM) dont la structure physique dicte la vitesse de vos calculs. Passer d'un code "qui marche" à un code industriel demande de comprendre comment ces données sont stockées [@markdown_2026_cadrestrategique].
 :::
-
+:::
 ### 🏗️ L'Anatomie du DataFrame
 
 Un DataFrame moderne est composé de trois briques fondamentales qui collaborent pour optimiser l'accès aux données [@pandas_2026_docs] :
@@ -19,10 +23,14 @@ La grande différence entre une base de données classique (SQL) et un DataFrame
 * **Stockage par lignes (Transactionnel) :** Idéal pour modifier un utilisateur précis.
 * **Stockage par colonnes (Analytique/IA) :** Idéal pour calculer la moyenne d'un million de prix.
 
-::: {.success header="🎒 Astuce Pro : Pourquoi le format colonnaire ?"}
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Pourquoi le format colonnaire ?
+:::
+::: {.card-body}
 En stockant les données d'une même colonne côte à côte en mémoire, le processeur peut utiliser des instructions **SIMD** (*Single Instruction Multiple Data*). Cela permet d'appliquer une opération sur un vecteur entier en un seul cycle d'horloge. C'est l'essence même de la performance en Data Science [@bato_2026_pyarrow_revolution].
 :::
-
+:::
 ### 🏎️ Eager vs Lazy : Deux philosophies de calcul
 
 1. **Exécution Immédiate (Eager - Pandas) :** Chaque instruction est exécutée dès qu'elle est lue. Intuitif, mais génère souvent des copies inutiles en RAM.
@@ -144,11 +152,20 @@ html`
 
 ```
 
-::: {.info header="💡 Concept Clé : SIMD"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : SIMD
+:::
+::: {.card-body}
 Capacité d'un processeur à effectuer la même opération sur plusieurs données simultanément. Essentiel pour le traitement massif de données.
 :::
-
-::: {.warning header="⚠️ Danger : Copie de Données"}
+:::
+::: {.card .card-warning}
+::: {.card-header}
+⚠️ Danger : Copie de Données
+:::
+::: {.card-body}
 Évitez de multiplier les copies de DataFrames intermédiaires. En mode "Eager", chaque copie consomme une portion précieuse de votre RAM.
+:::
 :::
 Evaluation :** Stratégie consistant à attendre le dernier moment pour calculer un résultat, permettant d'optimiser l'ensemble des étapes de calcul.

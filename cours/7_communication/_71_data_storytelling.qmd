@@ -1,9 +1,13 @@
 ## L'art du "Data Storytelling" : choisir les bonnes visualisations pour faire passer un message
 
-::: {.info header="Le Paradoxe de l'IA en 2026"}
+::: {.card .card-info}
+::: {.card-header}
+Le Paradoxe de l'IA en 2026
+:::
+::: {.card-body}
 En 2026, 78 % des organisations déclarent utiliser l’IA, mais moins de 31 % des projets franchissent réellement l'étape de la mise en production [@cmarix_2026_rag_statistics]. Ce taux d'échec massif n'est pas dû à de mauvais algorithmes, mais à une rupture de communication. Un modèle parfait qui ne convainc pas le comité de direction (Comex) est un modèle mort.
 :::
-
+:::
 Le rôle du **Data Translator** (Traducteur de Données) est devenu la fonction la plus critique pour garantir le Retour sur Investissement (ROI) des initiatives analytiques. Son but ? Transformer la technicité brute en un levier de croissance stratégique.
 
 

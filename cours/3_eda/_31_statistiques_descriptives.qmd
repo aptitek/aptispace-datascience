@@ -1,9 +1,13 @@
 ## Les statistiques descriptives de base
 
-::: {.info header="L'EDA n'est pas qu'un graphique"}
+::: {.card .card-info}
+::: {.card-header}
+L'EDA n'est pas qu'un graphique
+:::
+::: {.card-body}
 Dans l'écosystème analytique de 2026, l'Analyse Exploratoire des Données (EDA) n'est plus une simple étape visuelle : c'est une discipline d'ingénierie rigoureuse. C'est la phase critique de validation de l'intégrité structurelle de vos données *avant* de déployer le moindre algorithme IA. La première étape consiste à prendre le "pouls" de vos variables grâce aux statistiques descriptives.
 :::
-
+:::
 L'analyse univariée (l'étude d'une seule variable à la fois) constitue le premier rempart contre les données chaotiques. 
 
 ### 🎯 1. Les Mesures de Tendance Centrale

@@ -1,9 +1,13 @@
 ## 📥 L'Art de l'Ingestion : Extraire le Signal du Bruit
 
-::: {.info header="💡 Concept Clé : L'Optimisation à la Source"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : L'Optimisation à la Source
+:::
+::: {.card-body}
 L'optimisation d'un projet IA commence à l'octet près lors de la lecture du disque. Charger l'intégralité d'un énorme fichier CSV avec les paramètres par défaut est une erreur d'amateur qui peut saturer la mémoire vive (RAM) instantanément.
 :::
-
+:::
 ### 📂 Structure de Dépôt de Données
 
 Avant d'ingérer, un bon enquêteur organise ses dossiers. Voici la structure attendue pour vos projets :
@@ -58,10 +62,14 @@ df = q.collect()
 
 :::
 
-::: {.warning header="⚠️ Danger : Surcharge de RAM"}
+::: {.card .card-warning}
+::: {.card-header}
+⚠️ Danger : Surcharge de RAM
+:::
+::: {.card-body}
 Si votre fichier dépasse votre capacité RAM, utilisez le **Chunking** (`chunksize` en Pandas) ou passez en mode **Streaming** avec Polars. Ne laissez jamais un fichier saturer votre établi.
 :::
-
+:::
 ---
 
 ### 🔎 Le "Sanity Check" : L'Audit des Preuves
@@ -72,6 +80,11 @@ Une donnée ingérée n'est pas une donnée fiable. Implémentez un protocole sy
 2. **Typologie du Vide :** Identifiez les `NaN` (flottants), `None` (objets) et `NaT` (dates).
 3. **Distribution Statistique :** Utilisez `.describe()` pour repérer immédiatement les valeurs aberrantes (ex: un âge négatif).
 
-::: {.success header="🎒 Astuce Pro : Le Sanity Check"}
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Le Sanity Check
+:::
+::: {.card-body}
 Automatisez ces vérifications avec des bibliothèques comme **Great Expectations**. Une preuve dont la structure change en cours de route peut invalider toute votre enquête.
+:::
 :::

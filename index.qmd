@@ -9,13 +9,17 @@ Bienvenue dans le cours de **Data Science et Analyse de Données**.
 
 Ce module intensif a pour objectif de vous faire passer du stade de simple spectateur de données à celui d'**enquêteur et raffineur de l'information**. La donnée brute est intrinsèquement chaotique, incomplète et imparfaite. Ensemble, nous allons apprendre à l'extraire de sources diverses, à auditer sa qualité, à la purifier, et à en extraire la substantifique moelle statistique pour alimenter des modèles prédictifs robustes et optimisés.
 
-::: {.success header="🎒 Prérequis Indispensables"}
+::: {.card .card-success}
+::: {.card-header}
+🎒 Prérequis Indispensables
+:::
+::: {.card-body}
 - **Programmation :** Maîtrise des concepts fondamentaux de Python 3 (variables, boucles, fonctions, listes).
 - **Bases de Données :** Compréhension de base du modèle relationnel et syntaxe des requêtes SQL (SELECT, JOIN).
 - **Mathématiques :** Notions élémentaires en statistiques descriptives (moyenne, médiane, écart-type, distributions).
 - **Outils :** Utilisation standard du terminal et rudiments de gestion de version avec Git.
 :::
-
+:::
 ## 🎯 Objectifs Pédagogiques
 
 À l'issue de ce module, vous serez capables de :

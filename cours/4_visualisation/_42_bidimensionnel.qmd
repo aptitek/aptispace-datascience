@@ -1,9 +1,13 @@
 ## Graphiques bidimensionnels
 
-::: {.info header="Chercher la structure"}
+::: {.card .card-info}
+::: {.card-header}
+Chercher la structure
+:::
+::: {.card-body}
 Passer d'une à deux variables, c'est comme passer d'une photo d'identité à un film : on commence à voir du mouvement et des interactions. En analyse 2D, on ne cherche plus seulement à savoir "comment est la donnée", mais "comment l'une influence l'autre" [@4_visualisation_md].
 :::
-
+:::
 ### 🌌 1. Le Nuage de Points (Scatter Plot) : Le Roi de l'Exploration
 
 Le Scatter Plot est l'outil souverain pour détecter les corrélations, les groupes naturels (*clusters*) et les densités de points [@arounddatascience_matplotlib_seaborn_plotly_eda_2026].

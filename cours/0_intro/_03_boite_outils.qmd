@@ -1,57 +1,89 @@
 ## 🛠️ L'Arsenal de l'Enquêteur : La Stack Python
 
-::: {.info header="💡 Concept Clé : Pourquoi Python ?"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : Pourquoi Python ?
+:::
+::: {.card-body}
 Python n'est pas le langage le plus rapide au monde, mais il domine l'IA grâce à son **écosystème**. Il agit comme un chef d'orchestre, pilotant des bibliothèques ultra-optimisées (C++/Rust) pour effectuer le travail lourd [@ibm_2026_eda].
 :::
-
+:::
 Pour extraire la valeur des données, un bon "raffineur" doit maîtriser son équipement. Voici l'arsenal de référence.
 
 ### 🧰 Les Outils de Manipulation
 
 :::: {layout-ncol=2}
 
-::: {.primary header="Pandas & NumPy"}
+::: {.card .card-primary}
+::: {.card-header}
+Pandas & NumPy
+:::
+::: {.card-body}
 **Les Fondations**
 - **NumPy** : Le moteur mathématique pour les calculs matriciels.
 - **Pandas** : L'établi de travail pour manipuler les `DataFrames` (tables).
 :::
-
-::: {.secondary header="Polars"}
+:::
+::: {.card .card-secondary}
+::: {.card-header}
+Polars
+:::
+::: {.card-body}
 **La Performance brute**
 L'alternative moderne écrite en **Rust**. Conçu pour les volumes massifs de données avec une exécution multithreadée.
 :::
-
+:::
 ::::
 
 ### 🧠 Modélisation et Intelligence Artificielle
 
 :::: {layout-ncol=2}
 
-::: {.success header="Scikit-Learn"}
+::: {.card .card-success}
+::: {.card-header}
+Scikit-Learn
+:::
+::: {.card-body}
 **Le Couteau Suisse**
 Idéal pour le Machine Learning classique : classification, régression et détection d'anomalies.
 :::
-
-::: {.warning header="PyTorch"}
+:::
+::: {.card .card-warning}
+::: {.card-header}
+PyTorch
+:::
+::: {.card-body}
 **L'Artillerie Lourde**
 Dédié au Deep Learning et aux réseaux de neurones complexes (Vision, NLP).
 :::
-
+:::
 ::::
 
 ### 📊 Visualisation : Faire Parler les Preuves
 
-::: {.info header="Matplotlib, Seaborn & Plotly"}
+::: {.card .card-info}
+::: {.card-header}
+Matplotlib, Seaborn & Plotly
+:::
+::: {.card-body}
 De la preuve statique élégante (Seaborn) au tableau de bord interactif (Plotly), ces outils permettent de transformer des colonnes de chiffres en récits visuels percutants.
 :::
-
+:::
 ---
 
-::: {.success header="🎒 Astuce Pro : Le choix de l'outil"}
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Le choix de l'outil
+:::
+::: {.card-body}
 Commencez toujours par **Pandas** pour l'exploration rapide. Si vous atteignez les limites de la RAM ou que les temps de calcul deviennent critiques, passez à **Polars**.
 :::
-
-::: {.info header="💡 Concept Clé : DataFrame"}
+:::
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : DataFrame
+:::
+::: {.card-body}
 Structure de données en deux dimensions (lignes et colonnes), centre névralgique de toute l'analyse de données moderne.
 :::
-
+:::

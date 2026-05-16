@@ -1,33 +1,49 @@
 ## 🔍 L'Anatomie du Vide : Gérer les Indices Manquants
 
-::: {.info header="💡 Concept Clé : Le Mythe du Dataset Parfait"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : Le Mythe du Dataset Parfait
+:::
+::: {.card-body}
 Dans l'investigation numérique, le *Data Wrangling* est le socle de l'intégrité du verdict. Le premier défi est la donnée manquante (`NaN`). Avant de "boucher un trou", l'enquêteur doit se demander : **"Pourquoi cet indice a-t-il été effacé ?"**
 :::
-
+:::
 ### 🕵️‍♂️ Les 3 Mécanismes de l'Absence
 
 La stratégie de traitement dépend de la nature statistique de l'absence :
 
 :::: {layout-ncol=3}
 
-::: {.primary header="MCAR"}
+::: {.card .card-primary}
+::: {.card-header}
+MCAR
+:::
+::: {.card-body}
 **Aléatoire Pur**
 L'absence est un pur hasard.
 - **Exemple** : Une goutte de café sur un formulaire rend l'âge illisible.
 :::
-
-::: {.secondary header="MAR"}
+:::
+::: {.card .card-secondary}
+::: {.card-header}
+MAR
+:::
+::: {.card-body}
 **Aléatoire Conditionnel**
 L'absence dépend d'une *autre* variable connue.
 - **Exemple** : Un capteur omet le rythme cardiaque uniquement quand le patient dort.
 :::
-
-::: {.danger header="MNAR"}
+:::
+::: {.card .card-danger}
+::: {.card-header}
+MNAR
+:::
+::: {.card-body}
 **Non Aléatoire**
 L'absence dépend de la *valeur elle-même*.
 - **Exemple** : Les hauts revenus refusent de déclarer leur salaire. **L'absence est un indice en soi.**
 :::
-
+:::
 ::::
 
 ---
@@ -71,11 +87,19 @@ df_impute = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
 
 :::
 
-::: {.warning header="⚠️ Danger : Ignorer le MNAR"}
+::: {.card .card-warning}
+::: {.card-header}
+⚠️ Danger : Ignorer le MNAR
+:::
+::: {.card-body}
 Si vos données sont **MNAR**, boucher les trous sans précaution détruit l'information. **Astuce Pro** : Créez une colonne binaire `Salaire_Est_Manquant` pour que le modèle "sache" qu'il y a eu une absence suspecte.
 :::
-
-::: {.success header="🎒 Astuce Pro : Séries Temporelles"}
+:::
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Séries Temporelles
+:::
+::: {.card-body}
 Pour les flux chronologiques (Bourse, IoT), utilisez la méthode **LOCF** (*Last Observation Carried Forward*) : `df.fillna(method='ffill')`.
 :::
-
+:::

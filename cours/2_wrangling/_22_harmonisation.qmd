@@ -1,9 +1,13 @@
 ## Harmonisation des formats et correction des erreurs
 
-::: {.info header="L'enfer des données saisies manuellement"}
+::: {.card .card-info}
+::: {.card-header}
+L'enfer des données saisies manuellement
+:::
+::: {.card-body}
 L'hétérogénéité des formats est un obstacle majeur au traitement algorithmique automatisé. Un algorithme de Machine Learning est d'une bêtise absolue concernant la sémantique : pour lui, "Homme", "homme" et "H " (avec un espace à la fin) sont trois catégories totalement distinctes. L'uniformité est la règle d'or pour éviter la dilution de la puissance statistique de votre modèle.
 :::
-
+:::
 L'harmonisation est une étape de nettoyage stricte visant à unifier le "grain" de la donnée. Elle repose sur deux piliers principaux : le traitement du texte libre et la standardisation temporelle.
 
 ### 🔤 1. Le Nettoyage Typographique (Chaînes de caractères)
@@ -47,10 +51,14 @@ df['Est_Weekend'] = df['Date_Achat'].dt.dayofweek > 4 # Retourne un booléen
 
 ```
 
-::: {.warning header="Validation de Domaine"}
+::: {.card .card-warning}
+::: {.card-header}
+Validation de Domaine
+:::
+::: {.card-body}
 Une fois vos données harmonisées, appliquez toujours une **Validation de Domaine**. S'assurer que les données respectent les plages de valeurs logiques propres au métier (ex: l'âge ne peut pas être de 250 ans, un mois ne peut pas dépasser 12) est la dernière barrière de sécurité avant la modélisation.
 :::
-
+:::
 ---
 
 ### ✅ Aide-mémoire

@@ -1,9 +1,13 @@
 ## 🌍 De l'Indice au Verdict : Applications Sectorielles
 
-::: {.info header="💡 Concept Clé : Du code à l'impact métier"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : Du code à l'impact métier
+:::
+::: {.card-body}
 Maîtriser les outils est essentiel, mais l'objectif final reste de résoudre des énigmes industrielles. La valeur d'un "Enquêteur Numérique" se mesure à sa capacité à traduire un défi métier ("Nos machines tombent en panne") en un problème de données exploitable.
 :::
-
+:::
 L'analyse de données alimente aujourd'hui des systèmes d'IA critiques dans la quasi-totalité des secteurs économiques.
 
 ### 🏛️ Les Scènes de Crime par Industrie
@@ -27,10 +31,19 @@ Ici, l'erreur est fatale. La précision est l'unique règle.
 
 Traiter des données réelles impose des responsabilités majeures. La gouvernance n'est pas une option, c'est un serment.
 
-::: {.warning header="⚠️ Danger : Biais et Éthique"}
+::: {.card .card-warning}
+::: {.card-header}
+⚠️ Danger : Biais et Éthique
+:::
+::: {.card-body}
 Si vos données d'entraînement sont biaisées, votre IA ne sera pas un juge impartial, mais un amplificateur de préjugés. Le respect du **RGPD** et le principe de **Privacy by Design** sont les garde-fous indispensables de votre mission [@alharbi_2026_responsible].
 :::
-
-::: {.success header="🎒 Astuce Pro : Responsible AI"}
+:::
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Responsible AI
+:::
+::: {.card-body}
 Documentez toujours la provenance de vos données (*Data Lineage*). Un verdict sans preuve de la qualité de la source n'a aucune valeur juridique ou métier.
+:::
 :::

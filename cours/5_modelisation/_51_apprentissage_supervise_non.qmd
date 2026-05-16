@@ -1,11 +1,15 @@
 ## Différences fondamentales entre l'apprentissage supervisé et non supervisé
 
-::: {.info header="Tabulaire vs Non-Structuré : Le choc des réalités"}
+::: {.card .card-info}
+::: {.card-header}
+Tabulaire vs Non-Structuré : Le choc des réalités
+:::
+::: {.card-body}
 Avant de plonger dans les algorithmes, il faut faire un point sur l'état de l'art. On entend beaucoup parler de Deep Learning (Réseaux de Neurones profonds), mais il faut savoir qu'ils excellent surtout sur des données *non structurées* (images, son, texte) qui possèdent une hiérarchie spatiale. 
 
 Dans le monde de l'entreprise, 90% des bases de données sont *tabulaires* (des colonnes hétérogènes : âge, revenu, statut). Sur ce terrain, les algorithmes classiques basés sur les arbres (Random Forest, XGBoost) dominent encore largement l'industrie face au Deep Learning [@nishida_tree_models_tabular_2026].
 :::
-
+:::
 Pour naviguer dans cet écosystème algorithmique, il faut d'abord comprendre la séparation philosophique majeure du Machine Learning : l'utilisation (ou non) d'étiquettes.
 
 ### 👨‍🏫 1. L'Apprentissage Supervisé (Avec Étiquettes)

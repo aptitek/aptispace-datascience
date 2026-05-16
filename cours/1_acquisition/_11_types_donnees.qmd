@@ -1,29 +1,41 @@
 ## 🗂️ Classification des Indices : Qualitatif vs Quantitatif
 
-::: {.info header="💡 Concept Clé : La Taxonomie des Données"}
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : La Taxonomie des Données
+:::
+::: {.card-body}
 Avant d'écrire la moindre ligne de code, l'enquêteur doit classifier ses pièces à conviction. Cette taxonomie dicte les futures décisions d'encodage et la structure même de votre futur modèle prédictif [@chugh_2025_pandas_tutorial].
 :::
-
+:::
 L'univers des données se divise en deux grandes familles imposant des contraintes techniques distinctes.
 
 ### ⚖️ Les Deux Grandes Familles
 
 :::: {layout-ncol=2}
 
-::: {.primary header="Données Qualitatives"}
+::: {.card .card-primary}
+::: {.card-header}
+Données Qualitatives
+:::
+::: {.card-body}
 **Catégorielles**
 Représentent des étiquettes ou caractéristiques non mathématiques.
 - **Nominales** : Sans hiérarchie (ex: Code pays, Couleur).
 - **Ordinales** : Avec une logique de rang (ex: Niveau de satisfaction, Tailles S/M/L).
 :::
-
-::: {.secondary header="Données Quantitatives"}
+:::
+::: {.card .card-secondary}
+::: {.card-header}
+Données Quantitatives
+:::
+::: {.card-body}
 **Numériques**
 Représentent des quantités mesurables supportant les opérations mathématiques.
 - **Discrètes** : Valeurs entières dénombrables (ex: Nb d'enfants).
 - **Continues** : Valeurs décimales mesurables (ex: Température, Salaire).
 :::
-
+:::
 ::::
 
 ---
@@ -35,10 +47,19 @@ Pourquoi passer du temps sur cette classification ? Parce qu'elle modifie radica
 1. **Le Piège des Données Nominales :** Une forte cardinalité (ex: Code Postal) peut faire exploser la RAM lors de l'encodage et risquer le **Surapprentissage (Overfitting)**.
 2. **La Perte du Rang :** Traiter une donnée ordinale comme nominale détruit l'information de hiérarchie indispensable aux arbres de décision.
 
-::: {.success header="🎒 Astuce Pro : Validation Continue"}
+::: {.card .card-success}
+::: {.card-header}
+🎒 Astuce Pro : Validation Continue
+:::
+::: {.card-body}
 Utilisez des outils comme **Pandera** pour sanctuariser le typage dès l'entrée du pipeline. Un enquêteur ne travaille jamais sur des preuves dont le type est incertain.
 :::
-
-::: {.info header="💡 Concept Clé : Cardinalité"}
+:::
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : Cardinalité
+:::
+::: {.card-body}
 Nombre de valeurs uniques dans une variable. Une cardinalité trop élevée sur des données nominales est un signal d'alerte pour l'architecte de données.
+:::
 :::

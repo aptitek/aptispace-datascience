@@ -1,0 +1,19 @@
+// ui.ojs
+// Global OJS interface that waits for the library to be loaded via the header script
+
+ui = {
+  const check = () => window.ui;
+  // Wait loop for the module script to finish execution
+  while (!check()) {
+    await new Promise(resolve => setTimeout(resolve, 50));
+  }
+  return window.ui;
+}
+
+theme = {
+  const check = () => window.theme;
+  while (!check()) {
+    await new Promise(resolve => setTimeout(resolve, 50));
+  }
+  return window.theme;
+}

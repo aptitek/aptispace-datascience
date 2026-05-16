@@ -1,9 +1,13 @@
 ## Regroupement et segmentation des données avec la fonction GroupBy
 
-::: {.info header="Méfiez-vous de la moyenne globale"}
+::: {.card .card-info}
+::: {.card-header}
+Méfiez-vous de la moyenne globale
+:::
+::: {.card-body}
 Calculer le salaire moyen de l'ensemble d'une entreprise donne une information, mais elle masque les réalités locales. C'est en segmentant ces données (ex: Salaire moyen *par département* et *par niveau d'ancienneté*) que l'on extrait la véritable valeur métier. La transformation de données brutes en segments actionnables repose sur une mécanique que tout ingénieur Data doit maîtriser : le **Split-Apply-Combine**.
 :::
-
+:::
 ### 🧩 1. Le Paradigme "Split-Apply-Combine"
 
 Derrière la célèbre fonction `.groupby()`, le moteur de calcul (qu'il s'agisse de Pandas ou de Polars) effectue toujours trois opérations distinctes :

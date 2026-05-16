@@ -1,20 +1,31 @@
 ---
-title: "Planning : Python Analyse de données"
+number-sections: false
 ---
 
-# ⏳ Chronologie du Module
+# ⏳ Chronologie du Module {.unnumbered}
+
+::: {.info header="Note d'organisation"}
+Le module se déroule sur 5 jours consécutifs (35 heures).
+Chaque journée est découpée en une matinée d'exploration théorique et conceptuelle, suivie d'une après-midi de mise en pratique intensive sous forme de Labs et d'ateliers de projet.
+:::
+
+## 📅 Vue d'ensemble (Gantt)
 
 ```{mermaid}
 gantt
-    title Déroulement du Module (5 Jours)
+    title Déroulement du Module Python & Data Science
     dateFormat  YYYY-MM-DD
-    section Cours & TP
-    J1 : Fondations & EDA :2026-05-18, 7h
-    J2 : NLP & Nettoyage :2026-05-19, 7h
-    J3 : NLP Avancé & Vectorisation :2026-05-20, 7h
-    J4 : Computer Vision & OpenCV :2026-05-21, 7h
-    J5 : Projet & Soutenances :2026-05-22, 7h
+    axisFormat %d/%m
+
+    section Séances
+    J1 - Fondations & Acquisition         :active, j1, 2026-05-18, 1d
+    J2 - Préparation & Wrangling          :j2, 2026-05-19, 1d
+    J3 - EDA & Visualisation              :j3, 2026-05-20, 1d
+    J4 - Modélisation Classique           :j4, 2026-05-21, 1d
+    J5 - Optimisation & Soutenances       :j5, 2026-05-22, 1d
+
     section Évaluations
-    QCM Final :milestone, m1, 2026-05-21, 0h
-    Rendu Projet :milestone, m2, 2026-05-22, 0h
+    Checkpoint Projet (Note 1)            :milestone, m1, 2026-05-20, 17h
+    Rendu Challenge ML (Note 3)           :milestone, m2, 2026-05-22, 12h30
+    Soutenance Projet Final (Note 2)      :milestone, m3, 2026-05-22, 17h
 ```

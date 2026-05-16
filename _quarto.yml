@@ -11,6 +11,7 @@ project:
 bibliography: bibliography.bib
 
 filters:
+  - quarto-live
   - aptitek/dynamic
   - filetree
   - card
@@ -32,6 +33,11 @@ book:
   
   chapters:
     - index.qmd
+    - part: "🎯 Module"
+      chapters:
+        - meta/module.qmd
+        - meta/syllabus.qmd
+        - meta/planning.qmd
     - part: "🔭 Fondations & Acquisition"
       chapters:
         - cours/0_intro/index.qmd
@@ -68,6 +74,7 @@ format:
       theme: neutral
     html-math-method: katex
     number-sections: true
+    number-offset: -1
     header-includes: |
       <meta name="robots" content="noindex, nofollow">
     include-after-body: assets/fix_links.html

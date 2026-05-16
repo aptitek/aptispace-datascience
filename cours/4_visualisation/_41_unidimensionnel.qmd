@@ -1,59 +1,30 @@
-## Graphiques unidimensionnels
+## 📊 Preuves Unidimensionnelles : La Distribution du Signal
 
-::: {.info header="La Grammaire des Graphiques"}
-Avant de coder, il faut comprendre l'anatomie d'une image. La Data Visualisation moderne repose sur la **Grammar of Graphics**, une approche qui rejette les modèles rigides au profit d'une décomposition en couches indépendantes : la source (Données), les variables visuelles (Esthétiques comme la couleur ou la taille), les formes (Géométries) et le système de projection (Coordonnées) [@4_visualisation_md].
+::: {.info header="💡 Concept Clé : La Grammaire des Graphiques"}
+Avant de coder, il faut comprendre l'anatomie d'une image. La Data Visualisation moderne repose sur la **Grammar of Graphics** : une décomposition en couches indépendantes (Données, Esthétiques, Géométries). Un mauvais choix graphique est une faute d'enquête qui induit le décideur en erreur [@4_visualisation_md].
 :::
 
-Quand on explore une seule variable à la fois (Analyse 1D), l'objectif est de comprendre sa **distribution** (comment elle s'étale) ou sa **composition**. Le choix de la "Géométrie" engage votre responsabilité analytique : un mauvais choix graphique n'est pas qu'une question de mauvais goût, c'est une faute qui induit le décideur en erreur.
+Quand on explore une seule variable (Analyse 1D), l'objectif est de comprendre sa **distribution** ou sa **composition**.
 
-### 📊 1. L'Histogramme (Le maître des nombres)
+### 🔎 Les Géométries de Référence
 
-L'histogramme est l'outil roi pour analyser une variable quantitative continue (ex: les âges, les salaires, les températures).
-* **Objectif :** Mesurer la distribution, identifier la fréquence d'apparition et rechercher visuellement une asymétrie ou des anomalies.
-* **Le détail qui tue :** L'axe X représente des intervalles de valeurs (des "bins"). Il n'y a **aucun espace** entre les barres, ce qui symbolise mathématiquement la continuité de la donnée [@4_visualisation_md].
-
-### 🏢 2. Le Diagramme à Barres / Bar Plot (Le trieur de catégories)
-
-Contrairement à l'histogramme, le Bar Chart compare des catégories discrètes ou nominales (ex: le nombre de ventes par ville, le nombre d'employés par département).
-* **Objectif :** Comparer la taille de différents groupes distincts.
-* **Le détail qui tue :** Il y a **toujours un espace** entre les barres pour marquer qu'il n'y a pas de lien de continuité entre "Paris" et "Lyon" [@4_visualisation_md]. Pour une meilleure lisibilité (si les noms de catégories sont longs), on privilégie souvent le Bar Chart horizontal.
-
-### 🍕 3. Le Diagramme Circulaire (Le redoutable "Camembert")
-
-Le Pie Chart affiche la composition proportionnelle d'un ensemble ("qui compose quoi ?"). 
-* **Le problème cognitif :** L'œil humain a énormément de mal à comparer des angles ou des surfaces angulaires avec précision. De plus, la 3D décorative sur les camemberts introduit des distorsions de perspective désastreuses.
-* **La règle industrielle :** À limiter strictement à **2 ou 3 catégories maximum** (ex: "Oui / Non", ou "En cours / Terminé"). Au-delà, l'image devient illisible et un simple Bar Chart est infiniment supérieur [@4_visualisation_md].
+1. **L'Histogramme (Continu) :** L'outil roi pour analyser une variable quantitative (ex: Salaire). Les barres sont **adjacentes** (aucun espace) pour symboliser la continuité mathématique.
+2. **Le Diagramme à Barres (Discret) :** Compare des catégories distinctes (ex: Ville). Il y a **toujours un espace** entre les barres.
+3. **Le Diagramme Circulaire (Camembert) :** À limiter strictement à **2 ou 3 catégories** (ex: Oui/Non). L'œil humain gère mal les angles ; préférez un Bar Chart pour plus de précision.
 
 ---
 
-### 🌳 L'Arbre de Décision Visuel 1D
+### ⚖️ Comparaison : Histogramme vs Bar Chart
 
-```{mermaid}
-flowchart TD
-    A[Variable Unique 1D] --> B{Type de Donnée ?}
-    B -->|Numérique Continue| C[Histogramme]
-    B -->|Catégorielle Discrète| D{Combien de catégories ?}
-    D -->|< 4 catégories| E[Camembert ou Bar Chart]
-    D -->|> 4 catégories| F[Bar Chart Horizontal]
-
-    style C fill:#c8e6c9,stroke:#4caf50
-    style E fill:#ffe0b2,stroke:#ff9800
-    style F fill:#c8e6c9,stroke:#4caf50
-
-```
-
-**[ACTION REQUISE] : Ajouter capture d'écran de comparaison côte à côte d'un histogramme (pas d'espaces) et d'un bar chart (avec espaces) générés avec Seaborn.**
+![Comparaison des géométries 1D](../../assets/illustrations/hist_vs_bar.png){width=80%}
+[🔍 Zoom sur la comparaison](../../assets/illustrations/hist_vs_bar.png){.zoom}
 
 ---
 
-### ✅ Aide-mémoire
+::: {.warning header="⚠️ Danger : Le Biais Visuel"}
+N'utilisez jamais de 3D décorative sur vos graphiques. Cela introduit des distorsions de perspective qui faussent la perception des proportions. Un enquêteur doit rester factuel.
+:::
 
-* [ ] Mémoriser la différence visuelle et sémantique absolue entre Histogramme (continu) et Bar Chart (discret).
-* [ ] Interdire l'usage des diagrammes circulaires (Pie Charts) s'il y a plus de 3 portions.
-* [ ] Penser aux variables pré-attentives (couleur, taille) pour mettre en évidence la barre la plus importante d'un Bar Chart.
-
-### 📖 Mini-Glossaire
-
-* **Grammar of Graphics :** Approche conceptuelle structurée permettant de construire des graphiques en superposant différents calques (données, esthétiques, géométries, coordonnées).
-* **Esthétiques (Aesthetics) :** Les attributs pré-attentifs (couleur, forme, orientation) que le cerveau traite instantanément avant même la conscience cognitive.
-* **Histogramme :** Graphique statistique montrant la distribution d'une variable numérique continue sous forme de blocs adjacents.
+::: {.success header="🎒 Astuce Pro : Choix de la couleur"}
+Utilisez la couleur pour mettre en évidence une anomalie ou une catégorie spécifique, et non pour faire du "coloriage". Chaque variable visuelle doit porter une information.
+:::

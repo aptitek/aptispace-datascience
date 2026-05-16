@@ -1,82 +1,81 @@
-## Identification et stratégies de gestion des valeurs manquantes (NaN)
+## 🔍 L'Anatomie du Vide : Gérer les Indices Manquants
 
-::: {.info header="Le Mythe du Dataset Parfait"}
-Dans l'architecture moderne de l'IA, le Data Wrangling n'est pas une tâche subalterne, c'est le socle de l'intégrité du modèle. Le premier défi que vous rencontrerez systématiquement est la donnée manquante (représentée par `NaN` en Python). 
+::: {.info header="💡 Concept Clé : Le Mythe du Dataset Parfait"}
+Dans l'investigation numérique, le *Data Wrangling* est le socle de l'intégrité du verdict. Le premier défi est la donnée manquante (`NaN`). Avant de "boucher un trou", l'enquêteur doit se demander : **"Pourquoi cet indice a-t-il été effacé ?"**
 :::
 
-Avant de coder quoi que ce soit, un Data Scientist senior ne se demande jamais "Comment boucher ce trou ?", mais plutôt **"Pourquoi ce trou existe-t-il ?"**
+### 🕵️‍♂️ Les 3 Mécanismes de l'Absence
 
-### 🕵️‍♂️ L'Anatomie de l'Absence : Les 3 Mécanismes
+La stratégie de traitement dépend de la nature statistique de l'absence :
 
-La gestion des valeurs manquantes débute par l'identification de leur mécanisme sous-jacent :
+:::: {layout-ncol=3}
 
-#### 1. MCAR (Missing Completely At Random)
-L'absence de la donnée est un événement purement aléatoire et ne dépend d'aucune autre variable.
-* **Exemple :** Une goutte de café est tombée sur un formulaire papier, rendant l'âge illisible.
+::: {.primary header="MCAR"}
+**Aléatoire Pur**
+L'absence est un pur hasard.
+- **Exemple** : Une goutte de café sur un formulaire rend l'âge illisible.
+:::
 
-#### 2. MAR (Missing At Random)
-L'absence d'une valeur s'explique par les valeurs *d'autres variables* observées dans le jeu de données.
-* **Exemple :** Un capteur médical omet d'enregistrer le rythme cardiaque uniquement pendant que le patient dort (la variable "sommeil" explique l'absence de la donnée "rythme cardiaque").
+::: {.secondary header="MAR"}
+**Aléatoire Conditionnel**
+L'absence dépend d'une *autre* variable connue.
+- **Exemple** : Un capteur omet le rythme cardiaque uniquement quand le patient dort.
+:::
 
-#### 3. MNAR (Missing Not At Random)
-Le cas le plus dangereux. La donnée est manquante à cause de sa propre valeur.
-* **Exemple :** Dans un sondage, les individus ayant des revenus très élevés (ou très bas) refusent de les déclarer. Le fait que la case soit vide est en soi une information cruciale.
+::: {.danger header="MNAR"}
+**Non Aléatoire**
+L'absence dépend de la *valeur elle-même*.
+- **Exemple** : Les hauts revenus refusent de déclarer leur salaire. **L'absence est un indice en soi.**
+:::
+
+::::
 
 ---
 
-### 🛠️ Les Stratégies de Traitement (Du plus naïf au plus pro)
+### 🛠️ Stratégies de Traitement
 
-#### ❌ Stratégie 1 : La Suppression Naïve (`dropna`)
-Consiste à supprimer la colonne (`drop`) ou retirer les lignes contenant des valeurs manquantes (`dropna`). 
-* **Le verdict :** À n'utiliser que si les données sont strictement MCAR et que la proportion de valeurs manquantes est très faible (généralement moins de 5%). Sinon, cette méthode entraîne une perte massive d'information et un risque de biais structurels.
+::: {.panel-tabset}
 
-#### ⚖️ Stratégie 2 : L'Imputation Statistique Simple
-Il s'agit de remplacer les données manquantes par la moyenne, la médiane (pour les données numériques) ou le mode (pour les données catégorielles).
-* **Le verdict :** Préserve l'intégrité de la taille du jeu de données, mais réduit artificiellement la variance et détruit les corrélations avec d'autres variables.
-
-#### 🧠 Stratégie 3 : L'Imputation Prédictive (Machine Learning)
-Au lieu de mettre une moyenne globale, on utilise une IA pour deviner la valeur manquante en fonction du contexte des autres colonnes.
-* **Technique phare :** L'approche MICE (Multiple Imputation by Chained Equations). L'algorithme isole chaque caractéristique contenant des valeurs manquantes et utilise toutes les autres caractéristiques pour l'estimer via des modèles de régression de manière itérative.
-
-::: {.success header="Cas Pratique : Séries Temporelles"}
-Pour les données temporelles (ex: cours de la bourse), on utilise la méthode **LOCF** (Last Observation Carried Forward), consistant à combler une valeur manquante en propageant vers l'avant la dernière valeur chronologique observée.
-:::
-
----
-
-### 💻 Code : Identifier et Imputer avec Pandas
+### Suppression (Naïve)
 
 ```python
-import pandas as pd
-from sklearn.impute import IterativeImputer # Pour la méthode MICE
+# ❌ Suppression des lignes avec au moins un NaN
+df_clean = df.dropna()
 
-# 1. Le Diagnostic : Combien de cellules vides par colonne ?
-pourcentage_nuls = (df.isnull().sum() / len(df)) * 100
+# ❌ Suppression d'une colonne trop vide
+df_clean = df.drop(columns=['Variable_Inutile'])
+```
+**Verdict** : À n'utiliser que si le manque est **MCAR** et représente moins de 5% du total. Risque majeur de perte d'information.
 
-# 2. Imputation Simple (Médiane pour résister aux valeurs aberrantes)
+### Imputation (Statistique)
+
+```python
+# ✅ Remplissage par la Médiane (Robuste aux outliers)
 df['Salaire'] = df['Salaire'].fillna(df['Salaire'].median())
 
-# 3. MICE (Imputation Avancée via Scikit-Learn)
-imputer = IterativeImputer(max_iter=10, random_state=42)
-# Attention: retourne un array NumPy, il faut recréer le DataFrame
-df_impute = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
-
+# ✅ Remplissage par le Mode (Pour le qualitatif)
+df['Ville'] = df['Ville'].fillna(df['Ville'].mode()[0])
 ```
+**Verdict** : Préserve la taille du dataset, mais réduit la variance globale.
 
-::: {.warning header="L'Astuce du Pro : Ajouter un indicateur"}
-Si vous suspectez que vos données sont MNAR (l'absence a un sens), remplacez la valeur, mais **créez une colonne binaire supplémentaire** `Salaire_Est_Manquant` (Vrai/Faux). Cela permet au modèle de comprendre que cette donnée a été devinée.
+### Imputation (Prédictive / MICE)
+
+```python
+from sklearn.impute import IterativeImputer
+
+# 🚀 Utilise l'IA pour "deviner" les valeurs manquantes
+imputer = IterativeImputer(max_iter=10, random_state=42)
+df_impute = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
+```
+**Verdict** : La méthode la plus rigoureuse. Utilise les corrélations entre variables pour estimer l'absence.
+
 :::
 
----
+::: {.warning header="⚠️ Danger : Ignorer le MNAR"}
+Si vos données sont **MNAR**, boucher les trous sans précaution détruit l'information. **Astuce Pro** : Créez une colonne binaire `Salaire_Est_Manquant` pour que le modèle "sache" qu'il y a eu une absence suspecte.
+:::
 
-### ✅ Aide-mémoire
+::: {.success header="🎒 Astuce Pro : Séries Temporelles"}
+Pour les flux chronologiques (Bourse, IoT), utilisez la méthode **LOCF** (*Last Observation Carried Forward*) : `df.fillna(method='ffill')`.
+:::
 
-* [ ] Connaître par cœur les 3 types de manques : MCAR, MAR, MNAR.
-* [ ] Comprendre pourquoi `dropna` est souvent dangereux.
-* [ ] Savoir que l'imputation MICE utilise le Machine Learning pour estimer les valeurs.
-
-### 📖 Mini-Glossaire
-
-* **MCAR / MAR / MNAR :** Acronymes décrivant les mécanismes statistiques expliquant pourquoi une donnée est absente.
-* **MICE :** Algorithme sophistiqué où les valeurs manquantes sont estimées de manière itérative en utilisant toutes les autres variables du dataset.
-* **LOCF :** "Last Observation Carried Forward", méthode propageant la dernière valeur connue pour boucher un trou temporel.

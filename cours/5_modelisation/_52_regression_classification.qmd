@@ -1,28 +1,34 @@
-## Algorithmes de Régression et de Classification
+## 🏷️ Le Duel : Régression vs Classification
 
-::: {.success header="L'Objectif : Apprendre du passé"}
-Une fois que nous avons nos données étiquetées (Module 5.1), nous voulons que la machine apprenne la fonction mathématique qui relie nos entrées (ex: caractéristiques d'un appartement) à une sortie (ex: son prix). Selon la nature de ce que l'on prédit, on choisit soit la Régression, soit la Classification [@kushwaha_tabular_classification_2026].
+::: {.success header="💡 Concept Clé : Apprendre du Passé"}
+Une fois les indices étiquetés, nous voulons que la machine apprenne la fonction mathématique qui relie nos entrées (ex: caractéristiques d'un suspect) à une sortie (ex: probabilité de culpabilité). Selon la nature de ce que l'on prédit, on choisit son arme : la **Régression** ou la **Classification**.
 :::
 
-### 📈 1. La Régression : Prédire une valeur numérique
+### ⚖️ Comparaison des Approches
 
-La régression est utilisée lorsque la cible est une valeur continue (un nombre). 
+:::: {layout-ncol=2}
 
-* **Régression Linéaire :** C'est l'algorithme le plus simple. Il cherche à tracer la "ligne droite" qui passe le plus près possible de tous les points de données en minimisant la somme des erreurs au carré. 
-* **Régression Logistique :** Ne vous fiez pas à son nom ! C'est un algorithme de **classification**. Il utilise une fonction mathématique (la Sigmoïde) pour transformer un résultat numérique en une probabilité entre 0 et 1 (ex: "Il y a 85% de chances que cet email soit un spam") [@ml_basics_md_2026].
+::: {.primary header="Régression"}
+**Prédire une Valeur**
+L'objectif est d'estimer un nombre continu.
+- **Régression Linéaire** : Trace la droite la plus proche des points.
+- **Exemple** : Prédire le prix d'un appartement ou la température de demain.
+:::
 
-### 🏷️ 2. La Classification : Ranger dans des boîtes
+::: {.secondary header="Classification"}
+**Ranger dans des Boîtes**
+L'objectif est de prédire une catégorie.
+- **KNN** : "Dis-moi qui sont tes voisins...".
+- **SVM** : Maximiser la marge entre les classes.
+- **Exemple** : Spam ou Non-Spam, Chat ou Chien.
+:::
 
-Ici, l'objectif est de prédire une catégorie (une étiquette).
-
-* **K-Plus Proches Voisins (KNN) :** C'est l'algorithme "dis-moi qui sont tes amis, je te dirai qui tu es". Pour classer un nouveau point, il regarde les $K$ points les plus proches de lui et lui attribue la catégorie majoritaire parmi ses voisins [@satish_kmeans_dbscan_utk_2026].
-* **Machines à Vecteurs de Support (SVM) :** Le SVM cherche à tracer une frontière (un hyperplan) qui sépare deux classes avec la plus grande "marge" possible. Imaginez que vous traciez une autoroute très large entre deux villes pour éviter tout accident [@kushwaha_tabular_classification_2026].
-* **Arbres de Décision :** Ils fonctionnent par une série de questions binaires (Si $Age > 18$ alors...). Ils sont très intuitifs mais ont une fâcheuse tendance à "apprendre par cœur" les données, ce qui mène au sur-ajustement (*Overfitting*).
+::::
 
 ---
 
 #### **Interactif : La Magie du KNN**
-Le paramètre $K$ (le nombre de voisins) est crucial. Si $K$ est trop petit, le modèle est trop sensible au bruit. S'il est trop grand, il devient trop "mou" et ignore les détails. Manipulez $K$ pour voir comment la frontière de décision évolue.
+Le paramètre $K$ (le nombre de voisins) est le curseur de sensibilité de votre enquêteur. Manipulez $K$ pour voir comment la frontière de décision évolue entre le bruit et la tendance lourde.
 
 ```json?chameleon
 {"component":"LlmGeneratedComponent","props":{"height":"700px","prompt":"Create an interactive KNN (K-Nearest Neighbors) Classifier visualizer. \n\nObjective: Teach the concept of 'Decision Boundary' and the impact of the 'K' parameter.\n\nStructure:\n1. A 2D coordinate plane with two sets of points (e.g., Red circles and Blue squares) pre-populated in distinct but slightly overlapping clusters.\n2. A slider for 'K' (range 1 to 21, odd numbers only to avoid ties).\n3. Behavior: When the user moves the slider, calculate and display the 'Decision Boundary' (a colored background indicating which class a new point would belong to at that coordinate).\n4. Interaction: Let the user click anywhere on the plane to add a 'New Point' and highlight its 'K' nearest existing neighbors with lines, then show the final classification of that point based on the majority vote.\n\nVisual logic: Show a 'jagged' boundary for K=1 and a 'smooth' boundary for high K.","id":"im_234053df7fdaec28"}}
@@ -31,34 +37,10 @@ Le paramètre $K$ (le nombre de voisins) est crucial. Si $K$ est trop petit, le 
 
 ---
 
-### ⚖️ Comparatif des Classiques
+::: {.warning header="⚠️ Danger : Le Surapprentissage"}
+Un modèle trop complexe (ex: KNN avec $K=1$) apprendra les bruits de la scène de crime par cœur au lieu de comprendre la logique générale. C'est ce qu'on appelle l'**Overfitting**.
+:::
 
-```{mermaid}
-graph TD
-    A[Choix de l'algorithme] --> B{Type de sortie ?}
-    B -->|Nombre continu| C[Régression Linéaire]
-    B -->|Catégorie / Classe| D{Complexité ?}
-    
-    D -->|Simple / Géométrique| E[KNN]
-    D -->|Besoin de marges nettes| F[SVM]
-    D -->|Besoin d'explicabilité| G[Arbre de Décision]
-    
-    style C fill:#e1f5fe,stroke:#01579b
-    style G fill:#fff3e0,stroke:#e65100
-
-```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Savoir que la Régression Linéaire prédit un nombre, tandis que la Régression Logistique prédit une probabilité de classe.
-* [ ] Comprendre le principe du KNN : la classification par voisinage.
-* [ ] Retenir l'analogie du SVM : maximiser la "marge" de sécurité entre les classes.
-
-### 📖 Mini-Glossaire
-
-* **Classification :** Tâche de l'apprentissage supervisé consistant à prédire une étiquette catégorielle (ex: Chat ou Chien).
-* **Régression :** Tâche consistant à prédire une valeur numérique continue (ex: Prix d'une action).
-* **Hyperplan :** Dans le cadre du SVM, c'est la frontière mathématique qui sépare les données en deux groupes.
-* **K (dans KNN) :** Paramètre représentant le nombre de voisins consultés pour prendre une décision.
+::: {.success header="🎒 Astuce Pro : Le SVM"}
+Pour les problèmes où les classes sont difficilement séparables, le SVM est votre meilleur allié. Il cherche à tracer l'autoroute la plus large possible entre deux groupes pour éviter toute ambiguïté.
+:::

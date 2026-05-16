@@ -1,45 +1,36 @@
-## Exemples d'applications concrètes par secteur
+## 🌍 De l'Indice au Verdict : Applications Sectorielles
 
-::: {.info header="Du code à l'impact métier"}
-Maîtriser Python et Pandas est essentiel, mais l'objectif final reste de résoudre des problèmes concrets. La valeur d'un Data Scientist ou d'un Ingénieur IA se mesure à sa capacité à traduire un défi industriel ("Nos machines tombent en panne trop souvent") en un problème de données ("Comment détecter les valeurs aberrantes dans les logs capteurs ?").
+::: {.info header="💡 Concept Clé : Du code à l'impact métier"}
+Maîtriser les outils est essentiel, mais l'objectif final reste de résoudre des énigmes industrielles. La valeur d'un "Enquêteur Numérique" se mesure à sa capacité à traduire un défi métier ("Nos machines tombent en panne") en un problème de données exploitable.
 :::
 
-L'analyse de données alimente aujourd'hui des systèmes d'Intelligence Artificielle critiques dans la quasi-totalité des secteurs économiques. 
+L'analyse de données alimente aujourd'hui des systèmes d'IA critiques dans la quasi-totalité des secteurs économiques.
 
-### 🌍 Exemples d'Applications par Industrie
+### 🏛️ Les Scènes de Crime par Industrie
 
-#### 💸 Banque, Finance et Fintech
-Le secteur financier est l'un des plus gros consommateurs de Data Science en raison de la volatilité de ses marchés et de ses exigences de sécurité.
-* **Détection de Fraude :** Analyse en temps réel (*Stream Processing* via Apache Flink ou Kafka) des transactions par carte bancaire pour bloquer les paiements suspects en quelques millisecondes [@onehouse_2026_streaming]. Les modèles doivent constamment s'adapter pour gérer les "Prior Shifts" (changements soudains dans la distribution des fraudes).
-* **Scoring de Crédit :** Utilisation de l'historique bancaire pour évaluer le risque de défaut de paiement d'un client.
+#### 💸 Banque & Fintech
+Secteur à haute tension où la donnée doit être traitée à la milliseconde.
+- **Détection de Fraude :** Analyse en temps réel des flux de transactions pour bloquer les "suspects" avant même qu'ils ne quittent la banque.
+- **Scoring de Crédit :** Profilage statistique pour évaluer la fiabilité d'un emprunteur.
 
-#### 🏭 Industrie 4.0 et Internet des Objets (IoT)
-Les usines modernes génèrent des téraoctets de données chaque jour grâce à des capteurs.
-* **Maintenance Prédictive :** Au lieu de réparer une machine *après* une panne, on analyse les vibrations, la température et les logs sonores en continu. L'analyse des valeurs aberrantes (*Outliers*) permet de prédire une défaillance mécanique des semaines à l'avance, économisant des millions d'euros d'arrêt de production [@markdown_2026_cadrestrategique].
+#### 🏭 Industrie 4.0
+L'usine connectée est une mine d'or d'indices.
+- **Maintenance Prédictive :** Analyse des vibrations et températures pour prédire une défaillance mécanique avant qu'elle ne paralyse la ligne de production. C'est l'art d'écouter les "murmures" des machines.
 
-#### 🩺 Santé et Génomique
-L'IA révolutionne le diagnostic médical, mais exige des métriques d'évaluation (F1-Score, Sensibilité) d'une extrême rigueur, car une erreur peut être fatale.
-* **Aide au diagnostic :** Analyse d'images médicales (radiographies, IRM) avec des réseaux de neurones (via PyTorch/Kornia) pour détecter des tumeurs invisibles à l'œil nu.
-* **Recherche génétique :** Traitement de données génomiques massives pour identifier des corrélations entre des gènes spécifiques et des maladies [@pmc_2026_evaluationmetrics].
+#### 🩺 Santé & Génomique
+Ici, l'erreur est fatale. La précision est l'unique règle.
+- **Aide au diagnostic :** Utilisation de la vision par ordinateur pour repérer des anomalies invisibles à l'œil nu sur des radiographies.
 
 ---
 
-### ⚖️ Un grand pouvoir implique de grandes responsabilités
+### ⚖️ L'Éthique de l'Enquêteur
 
-Traiter des données réelles, en particulier dans la santé ou la finance, soulève des enjeux critiques. La gouvernance des données n'est pas qu'un concept juridique, c'est une nécessité technique [@guillen_2025_dataquality].
+Traiter des données réelles impose des responsabilités majeures. La gouvernance n'est pas une option, c'est un serment.
 
-::: {.warning header="Biais et Éthique (Responsible AI)"}
-Si vos données d'entraînement sont biaisées (par exemple, un algorithme de recrutement entraîné uniquement sur des CV d'hommes), votre IA reproduira et amplifiera ce biais. L'utilisation de cadres d'audit de biais (Bias Audit Frameworks) et le respect du **RGPD** (minimisation des données, *Privacy by Design*) sont obligatoires pour tout projet professionnel [@oveh_2025_bias ; @alharbi_2026_responsible].
+::: {.warning header="⚠️ Danger : Biais et Éthique"}
+Si vos données d'entraînement sont biaisées, votre IA ne sera pas un juge impartial, mais un amplificateur de préjugés. Le respect du **RGPD** et le principe de **Privacy by Design** sont les garde-fous indispensables de votre mission [@alharbi_2026_responsible].
 :::
 
----
-
-### ✅ Aide-mémoire
-- [ ] Comprendre comment le traitement de données en flux (Streaming) permet la détection de fraude.
-- [ ] Définir la maintenance prédictive par rapport à la maintenance réactive.
-- [ ] Prendre conscience des enjeux éthiques (biais algorithmique, protection de la vie privée) dans les secteurs sensibles.
-
-### 📖 Mini-Glossaire
-- **IoT (Internet of Things) :** Réseau d'objets physiques intégrés avec des capteurs, des logiciels et d'autres technologies pour se connecter et échanger des données avec d'autres appareils et systèmes sur Internet.
-- **Maintenance Prédictive :** Technique visant à déterminer l'état de l'équipement en service pour prédire quand une maintenance devrait être effectuée (avant la panne).
-- **Privacy by Design :** Principe de conception qui garantit que la protection des données personnelles est intégrée dès le départ dans l'ingénierie des processus et des systèmes d'information.
+::: {.success header="🎒 Astuce Pro : Responsible AI"}
+Documentez toujours la provenance de vos données (*Data Lineage*). Un verdict sans preuve de la qualité de la source n'a aucune valeur juridique ou métier.
+:::

@@ -1,26 +1,19 @@
-## Démystification et mission principale du Data Scientist
+## 🕵️‍♂️ Mission : De l'Indice Brut à la Vérité Stratégique
 
-::: {.success header="🧊 Icebreaker : Le Vrai Visage de l'IA (Séance 1)"}
-**Objectif :** Briser la glace et déconstruire les mythes.
-**Script pour l'intervenant :** "Bienvenue à tous ! Quand on parle d'Intelligence Artificielle aujourd'hui, on imagine souvent des robots conscients ou des algorithmes magiques qui résolvent tout en un clic. La réalité est beaucoup moins hollywoodienne, mais infiniment plus passionnante : l'IA est un moteur exceptionnel, mais qui ne tourne qu'avec un carburant très spécifique... la Donnée. Sans données propres, structurées et pertinentes, votre IA n'est qu'une coquille vide. Aujourd'hui, nous allons apprendre à devenir les raffineurs de ce pétrole numérique."
-:::
-
-### 🌪️ Du Signal Brut à la Décision Stratégique
+### 🌪️ L'Art du Raffinage : Transformer le Chaos en Actif
 
 La science des données s'est imposée comme le pivot central des architectures d'information modernes. Elle n'est plus une discipline technique isolée dans un laboratoire ; elle est le socle méthodologique sur lequel repose l'ensemble de la circulation de l'information d'une organisation [@markdown_2026_cadrestrategique].
 
-L'objectif fondamental de la Data Science est de transformer un signal brut, souvent fragmenté et chaotique, en un actif stratégique capable de guider la prise de décision de haut niveau. 
+L'objectif fondamental de la Data Science est de transformer un **signal brut**, souvent fragmenté et chaotique, en un **actif stratégique** capable de guider la prise de décision de haut niveau. 
 
-::: {.warning header="Attention au Dark Data"}
-Une donnée n'a pas de valeur statique. Si une organisation se contente de stocker de l'information sans vocation métier précise, elle accumule ce que l'on appelle du **Dark Data** (données sombres). Ces informations génèrent des coûts de stockage énormes (serveurs, cloud) sans aucune valeur ajoutée [@markdown_2026_cadrestrategique].
+::: {.warning header="⚠️ Danger : Le Dark Data"}
+Une donnée n'a pas de valeur statique. Si une organisation se contente de stocker de l'information sans vocation métier précise, elle accumule ce que l'on appelle du **Dark Data** (données sombres). Ces "friches industrielles" numériques génèrent des coûts de stockage énormes (serveurs, cloud) sans aucune valeur ajoutée [@markdown_2026_cadrestrategique].
 :::
-
-
 
 ```{mermaid}
 flowchart LR
-    A[(Données Brutes\nLe Chaos)] -->|Nettoyage & \nStructuration| B(Information\nLe Contexte)
-    B -->|Modélisation &\nAnalyse| C{Connaissance\nLes Motifs}
+    A[(Données Brutes\nLe Chaos)] -->|Nettoyage & \nRaffinage| B(Information\nLe Contexte)
+    B -->|Investigation &\nModélisation| C{Connaissance\nLes Motifs}
     C -->|Storytelling &\nDéploiement| D([Décision Métier\nL'Action])
     
     style A fill:#ff9999,stroke:#333,stroke-width:2px
@@ -28,23 +21,19 @@ flowchart LR
 
 ```
 
-### 🕵️‍♂️ Les Racines : L'Analyse Exploratoire (EDA)
+### 🔎 L'Interrogatoire Préalable : L'Analyse Exploratoire (EDA)
 
-Historiquement, cette philosophie de découverte de la valeur puise ses racines dans l'**Analyse Exploratoire des Données (EDA)**, un concept popularisé par le brillant mathématicien John Tukey dans les années 1970 [@ibm_2026_eda].
+Historiquement, cette philosophie de découverte de la valeur puise ses racines dans l'**Analyse Exploratoire des Données (EDA)**, un concept popularisé par le mathématicien John Tukey dans les années 1970 [@ibm_2026_eda].
 
-Contrairement à l'analyse confirmatoire classique (où l'on cherche simplement à valider ou infirmer une hypothèse préétablie), l'EDA se distingue par une approche d'investigation systématique. Le but ? Laisser la donnée "parler" d'elle-même pour révéler des structures, des anomalies (Outliers) ou des motifs cachés **avant** d'appliquer le moindre algorithme de Machine Learning complexe [@ibm_2026_eda].
+Contrairement à l'analyse confirmatoire classique (où l'on cherche simplement à valider ou infirmer une hypothèse préétablie), l'EDA se distingue par une approche d'**investigation systématique**. Le but ? Laisser la donnée "parler" d'elle-même pour révéler des structures, des anomalies (Outliers) ou des motifs cachés **avant** d'appliquer le moindre algorithme de Machine Learning complexe [@ibm_2026_eda].
 
 C'est ce travail de détective qui constitue le premier rempart contre les conclusions hâtives et les biais algorithmiques.
 
----
+::: {.info header="💡 Concept Clé : EDA"}
+**EDA (Exploratory Data Analysis) :** Phase d'investigation utilisant des statistiques descriptives et des outils visuels pour résumer les caractéristiques d'un jeu de données et découvrir des modèles cachés avant toute modélisation prédictive.
+:::
 
-### ✅ Aide-mémoire
+::: {.success header="🎒 Astuce Pro : Éviter le Dark Data"}
+Pour ne pas transformer votre base de données en cimetière numérique, chaque donnée collectée doit répondre à une question métier spécifique ou à un indicateur de performance (KPI) clairement identifié.
+:::
 
-* [ ] Comprendre que la Data Science sert à passer de la donnée brute à la décision actionnable.
-* [ ] Identifier le danger du "Dark Data" pour une entreprise.
-* [ ] Retenir l'objectif de l'EDA : laisser parler les données avant de modéliser.
-
-### 📖 Mini-Glossaire
-
-* **Dark Data :** Données collectées, traitées et stockées par une organisation lors de ses activités habituelles, mais qui ne sont pas utilisées à d'autres fins (générant des coûts sans bénéfice).
-* **EDA (Exploratory Data Analysis) :** Phase d'investigation utilisant des statistiques descriptives et des outils visuels pour résumer les caractéristiques d'un jeu de données et découvrir des modèles cachés.

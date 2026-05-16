@@ -1,72 +1,44 @@
-## Les 3 grands types de données
+## 🗂️ Classification des Indices : Qualitatif vs Quantitatif
 
-::: {.info header="L'importance de la classification"}
-Avant d'écrire la moindre ligne de code ou d'importer une bibliothèque, l'architecte de données doit classifier ses entrées. Cette taxonomie n'est pas qu'une simple formalité sémantique : elle est le moteur central des décisions d'encodage et dicte la structure de votre future modélisation [@chugh_2025_pandas_tutorial].
+::: {.info header="💡 Concept Clé : La Taxonomie des Données"}
+Avant d'écrire la moindre ligne de code, l'enquêteur doit classifier ses pièces à conviction. Cette taxonomie dicte les futures décisions d'encodage et la structure même de votre futur modèle prédictif [@chugh_2025_pandas_tutorial].
 :::
 
+L'univers des données se divise en deux grandes familles imposant des contraintes techniques distinctes.
 
+### ⚖️ Les Deux Grandes Familles
 
-L'univers des données se divise en deux grandes familles, chacune imposant des contraintes techniques distinctes pour le Machine Learning.
+:::: {layout-ncol=2}
 
-### 🗂️ Les Deux Grandes Familles
-
-#### 1. Données Qualitatives (Catégorielles)
-Elles représentent des caractéristiques ou des étiquettes. On ne peut pas faire de mathématiques directes avec elles (ex: calculer la moyenne de "Bleu" et "Rouge" n'a pas de sens).
-* **Nominales :** Des catégories sans aucune hiérarchie ni ordre. 
-  * *Exemples :* Code pays, Genre, Couleur des yeux, Numéro de département.
-* **Ordinales :** Des catégories possédant une logique de rang ou une hiérarchie inhérente, mais où la distance entre deux rangs n'est pas forcément égale.
-  * *Exemples :* Niveau de satisfaction ("Bas" < "Moyen" < "Haut"), Tailles de vêtements (S, M, L, XL).
-
-#### 2. Données Quantitatives (Numériques)
-Elles représentent des quantités mesurables et supportent toutes les opérations mathématiques.
-* **Discrètes :** Des valeurs dénombrables, souvent des nombres entiers. Il n'y a pas de valeur intermédiaire possible.
-  * *Exemples :* Nombre d'enfants, nombre de clics sur une page web, quantité d'articles en stock.
-* **Continues :** Des valeurs mesurables sur un intervalle infini. Elles peuvent prendre n'importe quelle valeur avec une précision décimale.
-  * *Exemples :* Température, Salaire, Coordonnées GPS, Temps écoulé.
-
----
-
-### ⚠️ Le calque "So What ?" : Impact sur l'Algorithme
-
-Pourquoi passer du temps à classifier ces données ? Parce que cela modifie radicalement la dimensionnalité de votre matrice en mémoire et le comportement de votre IA.
-
-1. **Le Piège des Données Nominales :** Pour qu'une IA lise une catégorie nominale, on utilise souvent le *One-Hot Encoding* (créer une colonne binaire par modalité). Si votre variable est le "Code Postal" (forte cardinalité), vous allez générer des milliers de colonnes, faisant exploser la consommation de la RAM et risquant le surapprentissage (*Overfitting*).
-2. **La Perte de la Hiérarchie Ordinale :** Si vous traitez une donnée ordinale comme nominale, vous détruisez l'information de "rang". Les algorithmes (notamment les arbres de décision) ont besoin de ce rang (encodé via un *Label Encoding* pondéré : 0, 1, 2) pour minimiser leurs erreurs.
-
-::: {.success header="La bonne pratique : Validation Continue"}
-Pour éviter que des dérives sémantiques ne corrompent vos modèles prédictifs, l'industrie utilise des bibliothèques de validation comme **Pandera** ou **Great Expectations**. Ces outils permettent de sanctuariser le typage (s'assurer qu'un entier reste un entier) dès l'entrée du pipeline de données [@chugani_2026_pandera_validation ; @mooney_2023_validation_expectations].
+::: {.primary header="Données Qualitatives"}
+**Catégorielles**
+Représentent des étiquettes ou caractéristiques non mathématiques.
+- **Nominales** : Sans hiérarchie (ex: Code pays, Couleur).
+- **Ordinales** : Avec une logique de rang (ex: Niveau de satisfaction, Tailles S/M/L).
 :::
 
----
+::: {.secondary header="Données Quantitatives"}
+**Numériques**
+Représentent des quantités mesurables supportant les opérations mathématiques.
+- **Discrètes** : Valeurs entières dénombrables (ex: Nb d'enfants).
+- **Continues** : Valeurs décimales mesurables (ex: Température, Salaire).
+:::
 
-### 🗺️ Synthèse Visuelle
-
-```{mermaid}
-graph TD
-    A[Types de Données] --> B(Qualitatives / Catégorielles)
-    A --> C(Quantitatives / Numériques)
-    
-    B --> D[Nominales<br/>Sans ordre défini<br/>Ex: Couleur]
-    B --> E[Ordinales<br/>Ordre logique<br/>Ex: Tailles S/M/L]
-    
-    C --> F[Discrètes<br/>Valeurs entières<br/>Ex: Nb d'enfants]
-    C --> G[Continues<br/>Valeurs décimales<br/>Ex: Température]
-    
-    style A fill:#ececff,stroke:#9370db
-    style B fill:#e6f3ff,stroke:#4169e1
-    style C fill:#e6ffee,stroke:#2e8b57
-
-```
+::::
 
 ---
 
-### ✅ Aide-mémoire
+### ⚠️ Danger : L'Impact sur l'Algorithme
 
-* [ ] Savoir distinguer formellement une variable qualitative d'une variable quantitative.
-* [ ] Comprendre que les variables ordinales possèdent un rang qui DOIT être conservé pour l'IA.
-* [ ] Identifier le risque d'explosion de la RAM lié aux variables nominales à forte cardinalité.
+Pourquoi passer du temps sur cette classification ? Parce qu'elle modifie radicalement votre matrice en mémoire :
 
-### 📖 Mini-Glossaire
+1. **Le Piège des Données Nominales :** Une forte cardinalité (ex: Code Postal) peut faire exploser la RAM lors de l'encodage et risquer le **Surapprentissage (Overfitting)**.
+2. **La Perte du Rang :** Traiter une donnée ordinale comme nominale détruit l'information de hiérarchie indispensable aux arbres de décision.
 
-* **Variable Ordinale :** Catégorie de données qualitatives possédant une hiérarchie logique (ex: "Mauvais", "Neutre", "Bon"), mais dont la distance mathématique entre deux catégories n'est pas mesurable de façon uniforme.
-* **Cardinalité :** Le nombre de valeurs uniques contenues dans une variable catégorielle (ex: la variable "Sexe" a une cardinalité faible, la variable "Numéro de Sécurité Sociale" a une cardinalité très forte).
+::: {.success header="🎒 Astuce Pro : Validation Continue"}
+Utilisez des outils comme **Pandera** pour sanctuariser le typage dès l'entrée du pipeline. Un enquêteur ne travaille jamais sur des preuves dont le type est incertain.
+:::
+
+::: {.info header="💡 Concept Clé : Cardinalité"}
+Nombre de valeurs uniques dans une variable. Une cardinalité trop élevée sur des données nominales est un signal d'alerte pour l'architecte de données.
+:::

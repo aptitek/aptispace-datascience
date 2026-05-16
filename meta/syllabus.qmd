@@ -1,24 +1,50 @@
 ---
-title: "Syllabus : Python pour l'IA"
+number-sections: false
 ---
 
-# 📑 Plan de Cours
-## 1. Fondations & Data Wrangling
-- Introduction à la Data Science et cycle de vie de la donnée.
-- Manipulation avancée avec Pandas et NumPy.
-- **Activité :** Clean-up Challenge sur un dataset bancaire "sale".
+# 📑 Syllabus {.unnumbered}
 
-## 2. NLP : Faire parler les machines
-- [cite_start]Prétraitement (Stemming, Lemmatisation) et Expressions régulières. [cite: 80, 86]
-- [cite_start]Vectorisation (TF-IDF, Word Embeddings). [cite: 58, 59]
+## 🎯 Plan de Cours
 
-## 3. Computer Vision : L'œil de l'IA
-- [cite_start]Traitement d'image avec OpenCV et Pillow. [cite: 95, 97]
-- [cite_start]Extraction de caractéristiques et détection de contours. [cite: 98]
+### 1. 🔭 Fondations & Acquisition : Cartographier le terrain
+- Le cycle de vie de la donnée (CRISP-DM, OSEMN) et rôle de l'ingénierie des données.
+- Fondations techniques : Structures de données avancées avec Pandas (DataFrames, Series) et calcul vectorisé avec NumPy.
+- Stratégies d'acquisition : Extraction de données structurées et semi-structurées via des fichiers (CSV, JSON), requêtes SQL et protocoles d'APIs REST.
+- **Activité Ludo-pédagogique :** *L'Escape Game d'Extraction* (Course contre la montre en guilde pour récupérer et consolider des sources de données fragmentées et dispersées).
 
-# 🎓 Modalités d'Évaluation
+### 2. 🧹 Préparation & Analyse (Wrangling) : Nettoyer la matière brute
+- Diagnostic de la qualité des données : Identification des types d'anomalies, doublons, valeurs manquantes et aberrantes (*outliers*).
+- Stratégies d'imputation et de nettoyage systématique.
+- *Feature Engineering* : Normalisation, standardisation, découpage (*binning*) et encodage des variables catégorielles (*One-Hot Encoding*, *Label Encoding*).
+- **Activité Ludo-pédagogique :** *Investigation Cluedo-style* (Audit technique complet et nettoyage approfondi d'un dataset financier massivement corrompu).
+
+### 3. 📈 Analyse Exploratoire (EDA) & Visualisation : Révéler les indices
+- Statistiques descriptives univariées et bivariées (mesures de tendance centrale, de dispersion et de distribution).
+- Analyse des relations : Matrices de corrélation, tests statistiques de base et détection des dépendances cachées.
+- Data Storytelling et grammaire des graphiques : Conception de visualisations percutantes avec Matplotlib, Seaborn et Plotly.
+- **Activité Ludo-pédagogique :** *Dataviz Battle* (Défi collectif pour concevoir le tableau de bord ou le graphique le plus explicite, rigoureux et stratégique).
+
+### 4. ⚙️ Modélisation Classique & Évaluation : Établir les prédictions
+- Frontière algorithmique : Apprentissage supervisé (Régression, Classification) vs non supervisé (Clustering K-Means, PCA).
+- Implémentation de pipelines de Machine Learning de bout en bout avec Scikit-Learn.
+- Métriques de validation (RMSE, MAE, R², Accuracy, F1-Score, Matrice de confusion) et méthodologies de validation croisée (*Cross-Validation*).
+
+### 5. 🚀 Optimisation & Performance : Pousser les modèles dans leurs retranchements
+- Stratégies avancées de sélection de caractéristiques (*Feature Selection*).
+- Traitement du déséquilibre des classes (*Class Imbalance*) et techniques de régularisation.
+- Recherche automatisée d'hyperparamètres (*GridSearchCV*, *RandomizedSearchCV*).
+- **Activité Ludo-pédagogique :** *Le Défi Optimisation (Mini-Kaggle)* (Course à la performance sur un jeu de données fermé pour soumettre les meilleures prédictions).
+
+## 🎓 Modalités d'Évaluation
+
 | Évaluation | Type | Poids | Format |
 | :--- | :--- | :--- | :--- |
-| **Note 1 : QCM** | Théorie & Concepts | 20% | Questionnaire en ligne |
-| **Note 2 : TP Noté** | Traitement de données | 30% | Notebook (.ipynb) |
-| **Note 3 : Projet** | Pipeline Data Complet | 50% | [cite_start]Dépôt GitHub + Soutenance | [cite: 31, 33]
+| **Note 1 : Checkpoint** | Étape intermédiaire du Projet (Wrangling & EDA) | 30% | Notebook + Fichier d'Audit standardisé |
+| **Note 2 : Projet Final** | Pipeline Data Complet & Modélisation Classique | 40% | Dépôt GitHub (Code source et README) |
+| **Note 3 : Challenge ML** | Challenge d'Optimisation de Performance (Scikit-Learn) | 30% | Soumission d'un fichier `predictions.csv` |
+
+### 📋 Exigences de Rendu
+
+- **Reproductibilité technique :** L'intégralité du code doit être documentée, commentée et exécutable de bout en bout sans la moindre erreur. Un fichier `requirements.txt` à jour est obligatoire.
+- **Transparence et justification :** Chaque étape clé du pipeline (choix d'imputation, suppression d'une variable, sélection de modèle) doit faire l'objet d'une analyse critique rédigée en Markdown directement dans les notebooks. Les cellules doivent être sauvegardées avec leurs résultats d'exécution visibles.
+- **Sécurité et hygiène du code :** Tolérance zéro pour les identifiants de bases de données, clés d'API ou configurations sensibles codés en dur. L'usage de fichiers de configuration d'environnement (`.env`) et l'inclusion d'un fichier `.gitignore` opérationnel sont requis pour valider le dépôt.

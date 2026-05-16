@@ -1,67 +1,57 @@
-## Les 7 étapes clés du cycle de vie de la donnée
+## 🔄 Le Pipeline de Raffinage : De l'Acquisition au MLOps
 
-::: {.info header="Une méthodologie rigoureuse"}
-L'Intelligence Artificielle n'est pas magique : elle est le résultat d'un processus industriel extrêmement structuré. Ce processus, souvent inspiré de standards comme CRISP-DM (Cross-Industry Standard Process for Data Mining), est ce que l'on appelle le **Cycle de Vie de la Donnée**. 
+::: {.info header="💡 Concept Clé : Un Processus Industriel"}
+L'Intelligence Artificielle n'est pas une intuition magique : c'est le résultat d'un processus industriel extrêmement structuré. Ce pipeline, souvent inspiré de standards comme CRISP-DM ou OSEMN, est ce que l'on appelle le **Cycle de Vie de la Donnée**. 
 :::
 
-Pour éviter que notre projet ne se transforme en un gouffre financier (ou que notre algorithme ne produise des résultats absurdes), tout projet d'Analyse de Données pour l'IA suit **7 étapes séquentielles et itératives** [@markdown_2026_cadrestrategique ; @datasciencepm_2026_lifecycle].
+Pour éviter que notre projet ne se transforme en un gouffre financier (ou que notre algorithme ne produise des résultats absurdes), tout projet d'Analyse de Données suit **7 étapes séquentielles et itératives** [@markdown_2026_cadrestrategique ; @datasciencepm_2026_lifecycle].
 
-### 🔄 Les 7 Étapes Fondamentales
+### 🕰️ Les 7 Étapes de l'Investigation
 
-#### 1. Acquisition (L'Ingestion Stratégique)
-C'est le point de départ. Sans donnée, il n'y a rien à analyser. L'objectif est de récupérer le signal brut depuis diverses sources. Cela peut se faire via des API, du Web Scraping, des capteurs IoT (Internet des Objets) ou de la saisie manuelle [@ibm_2026_dataacquisition]. À cette étape, on décide souvent de l'architecture d'ingestion : traitement par lots (*Batch*) pour l'historique, ou en temps réel (*Streaming*) pour la réactivité [@confluent_2026_sparkflink].
+:::: {.timeline .vertical}
 
-#### 2. Nettoyage et Fiabilisation (Data Wrangling)
-C'est l'étape la plus chronophage : elle occupe souvent **80 % du temps** des Data Scientists [@markdown_2026_cadrestrategique]. Une donnée "sale" (valeurs manquantes, doublons, formats invalides) condamne inévitablement le modèle d'IA à produire des prédictions biaisées. On parle souvent de la règle du "Garbage In, Garbage Out" (GIGO).
-
-#### 3. Analyse Exploratoire des Données (EDA)
-Une fois la donnée propre, la phase d'investigation commence. L'EDA agit comme un détective cherchant à identifier des motifs, des corrélations ou des anomalies (*Outliers*) en utilisant des tests statistiques fondamentaux (test de normalité, asymétrie, etc.) [@ibm_2026_eda ; @myresearchlab_2026_assumptions].
-
-#### 4. Visualisation (Data Storytelling)
-Les chiffres bruts et les tests statistiques sont indigestes pour les décideurs métier. Il faut distiller cette complexité en signaux actionnables visuellement compréhensibles (via des tableaux de bord interactifs ou des graphiques basés sur la *Grammar of Graphics*) [@stat20_2026_grammar].
-
-#### 5. Modélisation (Machine Learning)
-C'est ici que l'IA entre réellement en scène. À partir des données préparées et enrichies (une étape nommée *Feature Engineering*), un algorithme apprend des motifs historiques pour prédire le futur ou classifier des informations [@aws_2026_featureeng]. 
-
-#### 6. Évaluation et Explicabilité (XAI)
-Un modèle qui semble performant sur le papier doit être audité. On utilise des métriques spécifiques (F1-Score, RMSE) pour évaluer sa précision, mais on exige de plus en plus d'**explicabilité** (IA Explicable ou XAI). Des méthodes comme SHAP ou LIME permettent de comprendre *pourquoi* le modèle a pris une décision spécifique (indispensable pour la conformité éthique et le RGPD) [@milvus_2026_posthoc].
-
-#### 7. Déploiement et Maintenance (MLOps)
-Le modèle est enfin déployé en production. Mais le travail ne s'arrête pas là. Le monde réel évolue, et la performance du modèle va se dégrader naturellement (un phénomène appelé **Drift** ou Dérive). Le MLOps (Machine Learning Operations) consiste à automatiser la surveillance et le ré-entraînement du modèle [@devot_2026_mlops].
-
----
-
-### 🗺️ Vue d'ensemble du Pipeline MLOps
-
-```{mermaid}
-flowchart TD
-    A[1. Acquisition] --> B[2. Data Wrangling]
-    B --> C[3. EDA]
-    C --> D[4. Visualisation]
-    C --> E[5. Modélisation]
-    E --> F[6. Évaluation & XAI]
-    F --> G[7. Déploiement MLOps]
-    
-    G -- Détection de Drift (Dérive) --> A
-    
-    style G fill:#ffcc00,stroke:#333,stroke-width:2px
-
-```
-
-::: {.warning header="L'importance de l'itération"}
-Comme le montre le schéma, ce cycle n'est pas strictement linéaire. Si une dérive (*Drift*) est détectée en production lors de l'étape 7, il faut automatiquement relancer le cycle pour acquérir de nouvelles données et ré-entraîner le modèle.
+::: {.event data-label="Étape 1"}
+**Acquisition (L'Extraction)**
+L'objectif est d'extraire le signal brut depuis diverses sources (API, Web Scraping, Capteurs IoT). C'est ici que l'on choisit l'architecture d'ingestion : **Batch** pour l'historique, ou **Streaming** pour le temps réel.
 :::
 
----
+::: {.event data-label="Étape 2"}
+**Nettoyage (Le Décrassage)**
+Étape la plus chronophage (**80 % du temps**). Une donnée "sale" (doublons, formats invalides) condamne l'algorithme au principe du **Garbage In, Garbage Out (GIGO)**.
+:::
 
-### ✅ Aide-mémoire
+::: {.event data-label="Étape 3"}
+**Analyse Exploratoire (L'Interrogatoire)**
+Phase d'investigation où l'on cherche des motifs, des corrélations ou des anomalies (Outliers) via des tests statistiques.
+:::
 
-* [ ] Mémoriser l'ordre logique des 7 étapes (Acquisition $\rightarrow$ Nettoyage $\rightarrow$ EDA $\rightarrow$ Dataviz $\rightarrow$ ML $\rightarrow$ Évaluation $\rightarrow$ Déploiement).
-* [ ] Comprendre que le "Data Wrangling" représente la majorité du temps de travail.
-* [ ] Saisir le concept de boucle itérative : le déploiement n'est pas la fin, c'est le début de la surveillance.
+::: {.event data-label="Étape 4"}
+**Visualisation (Le Témoignage)**
+Transformer les chiffres indigestes en signaux actionnables visuellement compréhensibles via le **Data Storytelling**.
+:::
 
-### 📖 Mini-Glossaire
+::: {.event data-label="Étape 5"}
+**Modélisation (Le Profilage)**
+C'est ici que l'IA entre en scène. À partir des données enrichies (**Feature Engineering**), un algorithme apprend à prédire le futur ou à classifier l'information.
+:::
 
-* **Data Wrangling :** Le processus de nettoyage, de restructuration et d'enrichissement des données brutes en un format plus exploitable.
-* **Drift (Dérive) :** Dégradation de la performance prédictive d'un modèle en production causée par un changement dans l'environnement du monde réel (ex: les habitudes de consommation changent soudainement).
-* **MLOps :** Contraction de Machine Learning et Operations. C'est l'ensemble des pratiques visant à déployer et maintenir des modèles d'IA en production de manière fiable et efficace.
+::: {.event data-label="Étape 6"}
+**Évaluation (L'Audit)**
+Le modèle est audité via des métriques (F1-Score, RMSE) et des méthodes d'**IA Explicable (XAI)** pour comprendre *pourquoi* une décision a été prise.
+:::
+
+::: {.event data-label="Étape 7"}
+**Déploiement (La Mise sous Surveillance)**
+Le modèle est mis en production. Le **MLOps** assure la surveillance continue pour détecter la dégradation naturelle des performances (**Drift**).
+:::
+
+::::
+
+::: {.warning header="⚠️ Danger : L'Itération Infinie"}
+Comme le montre ce pipeline, le cycle n'est pas strictement linéaire. Si une dérive (**Drift**) est détectée en production, il faut immédiatement relancer l'acquisition de nouvelles données pour ré-entraîner le modèle.
+:::
+
+::: {.success header="🎒 Astuce Pro : Le MLOps"}
+Ne considérez jamais le déploiement comme une fin. Un bon "Raffineur" consacre autant d'énergie à la surveillance du modèle qu'à son entraînement initial.
+:::
+ et Operations. C'est l'ensemble des pratiques visant à déployer et maintenir des modèles d'IA en production de manière fiable et efficace.

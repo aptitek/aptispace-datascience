@@ -1,72 +1,57 @@
-## La boîte à outils essentielle en Python
+## 🛠️ L'Arsenal de l'Enquêteur : La Stack Python
 
-::: {.info header="Pourquoi Python ?"}
-Python n'est pas le langage le plus rapide d'exécution au monde. Pourquoi domine-t-il alors le secteur de la Data et de l'IA ? La réponse tient en un mot : **l'écosystème**. Python agit comme un chef d'orchestre, utilisant des bibliothèques hautement optimisées (souvent écrites en C ou C++) pour effectuer le travail lourd [@ibm_2026_eda].
+::: {.info header="💡 Concept Clé : Pourquoi Python ?"}
+Python n'est pas le langage le plus rapide au monde, mais il domine l'IA grâce à son **écosystème**. Il agit comme un chef d'orchestre, pilotant des bibliothèques ultra-optimisées (C++/Rust) pour effectuer le travail lourd [@ibm_2026_eda].
 :::
 
-Pour extraire la valeur des données, un bon "raffineur" doit connaître ses outils. Voici la stack technique de référence en 2026 pour ce module.
+Pour extraire la valeur des données, un bon "raffineur" doit maîtriser son équipement. Voici l'arsenal de référence.
 
-### 🧰 Les Fondations : Manipulation et Calcul
+### 🧰 Les Outils de Manipulation
 
-* **NumPy (Numerical Python) :** C'est le moteur mathématique. Il introduit les tableaux multidimensionnels (arrays) et permet des calculs matriciels ultra-rapides. Presque toutes les autres bibliothèques reposent sur lui.
-* **Pandas :** La "table de travail" incontournable. Il permet de manipuler des données tabulaires (comme Excel, mais sous stéroïdes) via sa structure de `DataFrame` [@pandas_2026_release]. 
-* **Polars (L'alternative moderne) :** Alors que Pandas reste le standard académique, Polars s'est imposé dans l'industrie pour les très grands jeux de données grâce à sa réécriture en Rust, offrant des performances d'exécution multithreadées spectaculaires [@pypi_2026_polars ; @reintech_2026_polarsvspandas].
+:::: {layout-ncol=2}
 
-### 📊 La Visualisation : Faire parler les chiffres
+::: {.primary header="Pandas & NumPy"}
+**Les Fondations**
+- **NumPy** : Le moteur mathématique pour les calculs matriciels.
+- **Pandas** : L'établi de travail pour manipuler les `DataFrames` (tables).
+:::
 
-* **Matplotlib & Seaborn :** Le duo classique. Matplotlib est puissant mais verbeux ; Seaborn vient par-dessus pour générer des graphiques statistiques élégants avec beaucoup moins de code.
-* **Outils interactifs (Plotly / Dash) :** Pour transformer des graphiques statiques en tableaux de bord interactifs où l'utilisateur peut zoomer et filtrer.
+::: {.secondary header="Polars"}
+**La Performance brute**
+L'alternative moderne écrite en **Rust**. Conçu pour les volumes massifs de données avec une exécution multithreadée.
+:::
+
+::::
 
 ### 🧠 Modélisation et Intelligence Artificielle
 
-* **Scikit-Learn :** Le couteau suisse du Machine Learning "classique" (hors Deep Learning). Il standardise l'utilisation des algorithmes de classification, de régression et de clustering, tout en offrant des outils de prétraitement des données [@scikit_2026_version19].
-* **PyTorch :** L'outil de prédilection pour le Deep Learning (réseaux de neurones complexes, analyse d'images, NLP avancé). Il est soutenu par des optimiseurs de pointe comme AdamW, Lion ou Kron pour accélérer l'apprentissage des modèles [@github_2026_timm].
-* **Les spécialisations :** Pour la Vision par Ordinateur (Computer Vision), des outils comme **Kornia** (opérateurs différentiables pour PyTorch) ou **timm** (qui rassemble la plus grande collection d'encodeurs d'images) viennent compléter les pipelines [@riba_2020_kornia ; @github_2026_timm].
+:::: {layout-ncol=2}
+
+::: {.success header="Scikit-Learn"}
+**Le Couteau Suisse**
+Idéal pour le Machine Learning classique : classification, régression et détection d'anomalies.
+:::
+
+::: {.warning header="PyTorch"}
+**L'Artillerie Lourde**
+Dédié au Deep Learning et aux réseaux de neurones complexes (Vision, NLP).
+:::
+
+::::
+
+### 📊 Visualisation : Faire Parler les Preuves
+
+::: {.info header="Matplotlib, Seaborn & Plotly"}
+De la preuve statique élégante (Seaborn) au tableau de bord interactif (Plotly), ces outils permettent de transformer des colonnes de chiffres en récits visuels percutants.
+:::
 
 ---
 
-### 🏗️ Architecture de la Stack Data/IA
+::: {.success header="🎒 Astuce Pro : Le choix de l'outil"}
+Commencez toujours par **Pandas** pour l'exploration rapide. Si vous atteignez les limites de la RAM ou que les temps de calcul deviennent critiques, passez à **Polars**.
+:::
 
-```{mermaid}
-flowchart BT
-    subgraph DL [Deep Learning & Vision]
-        P[PyTorch] --- T[timm / Kornia]
-    end
-    
-    subgraph ML [Machine Learning Classique]
-        S[Scikit-Learn]
-    end
-    
-    subgraph VIZ [Visualisation]
-        M[Matplotlib / Seaborn] --- PL[Plotly]
-    end
-    
-    subgraph DATA [Manipulation de Données]
-        N[NumPy] --- PD[Pandas]
-        N --- PO[Polars]
-    end
+::: {.info header="💡 Concept Clé : DataFrame"}
+Structure de données en deux dimensions (lignes et colonnes), centre névralgique de toute l'analyse de données moderne.
+:::
 
-    DATA ==> ML
-    DATA ==> VIZ
-    DATA ==> DL
-    
-    style DATA fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
-    style ML fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style DL fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style VIZ fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-
-```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Différencier Pandas (manipulation standard) de Polars (manipulation haute performance).
-* [ ] Retenir que Scikit-Learn est utilisé pour le ML classique, et PyTorch pour le Deep Learning.
-* [ ] Comprendre que NumPy est la brique de base mathématique de tout cet écosystème.
-
-### 📖 Mini-Glossaire
-
-* **DataFrame :** Structure de données en deux dimensions (lignes et colonnes), similaire à une feuille de calcul SQL ou Excel, utilisée par Pandas.
-* **Deep Learning :** Sous-domaine du Machine Learning utilisant des réseaux de neurones artificiels profonds pour modéliser des abstractions complexes (images, textes longs).
-* **Rust :** Langage de programmation système reconnu pour ses performances et sa sécurité de la mémoire, de plus en plus utilisé pour optimiser les bibliothèques Python (comme Polars).

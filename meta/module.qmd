@@ -1,23 +1,31 @@
 ---
-title: "Python : Analyse de données pour une IA"
-subtitle: "Code Module : PY-DATA-IA-M1"
-author: "Assistant de Cours v3"
-date: "2025-2026"
+number-sections: false
 ---
 
-# 📋 Description Générale
-Ce module plonge les étudiants au cœur de la "matière première" de l'Intelligence Artificielle : la donnée. [cite_start]L'objectif est de transformer des données brutes (tabulaires, textuelles, images) en informations exploitables par des modèles de Machine Learning et Deep Learning en utilisant l'écosystème Python professionnel. [cite: 6, 11]
+# 📋 Fiche Module {.unnumbered}
 
-# 🎯 Objectifs Pédagogiques
-- [ ] [cite_start]**Collecter** des données hétérogènes (SQL, NoSQL, APIs) et volumineuses. [cite: 9, 13]
-- [ ] [cite_start]**Maîtriser** le Feature Engineering pour optimiser la performance des modèles. [cite: 11, 48]
-- [ ] [cite_start]**Traiter** des données spécifiques : NLP (Natural Language Processing) et Computer Vision. [cite: 52, 63]
+**Titre :** Python - Data Science & Analyse de Données
+**Code :** PY-DATA-M1
+**Année :** 2024-2025
 
-# 🛠️ Spécificités & Moyens
-- [cite_start]**Public :** Mastère 1 (Dév, Data & IA - 4ème année) [cite: 4]
-- [cite_start]**Volume Horaire :** 35 heures (5 jours) [cite: 69]
-- [cite_start]**Moyens techniques :** Python 3.x, Jupyter Notebooks, Pandas, Scikit-Learn, OpenCV, NLTK/Spacy. [cite: 46, 47, 97]
-- [cite_start]**Prérequis :** Maîtrise de Python 3 et fondements de l'IA (LinkedIn Learning validés). [cite: 25, 26]
+## 🎯 Description Générale
+Ce module plonge les étudiants au cœur de la "matière première" de toute Intelligence Artificielle : la donnée. 
+À travers un parcours intensif de 35 heures, l'objectif est de maîtriser la transformation de données brutes (hétérogènes et bruitées) en informations exploitables et modélisables, en s'appuyant sur l'écosystème Python professionnel. Il s'agit de la première étape indispensable avant d'envisager toute architecture prédictive complexe.
 
-# 💡 Concept & Métaphore
-**Le Raffineur de Pétrole Numérique.** Dans ce cours, nous ne construisons pas seulement des moteurs (IA), nous apprenons à prospecter, extraire et raffiner le carburant (Data) pour qu'il soit le plus pur possible. Sans un bon raffinage, le moteur s'encrasse (Overfitting/Biais).
+## 🎯 Objectifs Pédagogiques
+- [ ] **Collecter et acquérir** des données issues de sources multiples (APIs, bases relationnelles et NoSQL).
+- [ ] **Nettoyer et préparer** (Data Wrangling) des datasets imparfaits via le Feature Engineering.
+- [ ] **Explorer et analyser** (EDA) les données pour en extraire des relations statistiques cachées.
+- [ ] **Visualiser et modéliser** l'information pour répondre à des problématiques métiers concrètes.
+- [ ] **Évaluer et communiquer** les résultats de manière transparente et percutante (Data Storytelling).
+
+## 🛠️ Spécificités & Moyens
+- **Public :** Mastère Développement, Data & IA - 4ème année (M1).
+- **Volume Horaire :** 35 heures (5 jours).
+- **Moyens techniques :**
+  - Stack : Python 3.x, Pandas, NumPy, Matplotlib/Seaborn, Scikit-learn.
+  - Environnement : Jupyter Notebook, VS Code, Git.
+- **Prérequis :** Maîtrise de Python 3, bases de données (SQL), fondements mathématiques (statistiques descriptives).
+
+## 💡 Concept & Métaphore
+**Le Raffineur et l'Enquêteur Numérique** : Dans ce cours, nous ne construisons pas le moteur (l'IA), nous apprenons à prospecter, extraire et raffiner le carburant. Sans un raffinage rigoureux, le moteur s'encrasse. L'étudiant endosse le rôle d'un détective : face à une scène de crime chaotique (données sales et manquantes), il doit isoler les indices (Features), établir les mobiles (Corrélations) et présenter ses conclusions au jury (Data Storytelling).

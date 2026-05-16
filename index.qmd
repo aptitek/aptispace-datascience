@@ -4,4 +4,47 @@ number-sections: false
 
 # 📊 Data Science {.unnumbered}
 
-Bienvenue dans le cours de Data Science.
+Bienvenue dans le cours de **Data Science et Analyse de Données**.
+
+Ce module intensif a pour objectif de vous faire passer du stade de simple spectateur de données à celui d'**enquêteur et raffineur de l'information**. La donnée brute est intrinsèquement chaotique, incomplète et imparfaite. Ensemble, nous allons apprendre à l'extraire de sources diverses, à auditer sa qualité, à la purifier, et à en extraire la substantifique moelle statistique pour alimenter des modèles prédictifs robustes et optimisés.
+
+::: {.success header="🎒 Prérequis Indispensables"}
+- **Programmation :** Maîtrise des concepts fondamentaux de Python 3 (variables, boucles, fonctions, listes).
+- **Bases de Données :** Compréhension de base du modèle relationnel et syntaxe des requêtes SQL (SELECT, JOIN).
+- **Mathématiques :** Notions élémentaires en statistiques descriptives (moyenne, médiane, écart-type, distributions).
+- **Outils :** Utilisation standard du terminal et rudiments de gestion de version avec Git.
+:::
+
+## 🎯 Objectifs Pédagogiques
+
+À l'issue de ce module, vous serez capables de :
+
+1. **Orchestrer l'acquisition** de volumes de données hétérogènes depuis des fichiers locaux, des bases de données relationnelles ou des APIs REST.
+2. **Nettoyer et restructurer** (*Data Wrangling*) des jeux de données complexes et corrompus en appliquant des stratégies d'ingénierie des caractéristiques (*Feature Engineering*).
+3. **Mener une analyse exploratoire** (*EDA*) rigoureuse pour détecter les corrélations, anomalies et structures cachées.
+4. **Visualiser l'information** de façon percutante en appliquant les principes fondamentaux du *Data Storytelling*.
+5. **Déployer, optimiser et évaluer** des modèles d'apprentissage automatique classiques (*Machine Learning*) via une recherche rigoureuse d'hyperparamètres et des métriques de validation adaptées.
+
+## 🗺️ Navigation dans le Module
+
+Ce module est structuré en 4 grandes phases progressives, rythmées par des défis pratiques en guilde et des projets applicatifs :
+
+### [🔭 Fondations & Acquisition](cours/0_intro/index.qmd)
+* **Théorie :** Cycle de vie de la donnée (CRISP-DM / OSEMN), manipulation vectorisée avec NumPy et fondations des structures de données de Pandas (Series, DataFrames).
+* **Pratique :** Extraction et consolidation de sources de données fragmentées (CSV, JSON, SQL, APIs).
+* **Évaluation Gamifiée :** *L'Escape Game d'Extraction*.
+
+### [🧹 Préparation & Analyse](cours/2_wrangling/index.qmd)
+* **Théorie :** Diagnostic de la qualité des données, traitement algorithmique des valeurs manquantes/aberrantes, et stratégies de standardisation et d'encodage (*One-Hot*, *Label Encoding*).
+* **Pratique :** Automatisation du nettoyage et de l'analyse exploratoire (*EDA*) sur des volumes de données industrielles.
+* **Évaluation Gamifiée :** Investigation *Cluedo-style* sur un dataset financier corrompu (Rendu du *Checkpoint Projet*).
+
+### [📈 Visualisation & Modélisation](cours/4_visualisation/index.qmd)
+* **Théorie :** Grammaire des graphiques, conception de tableaux de bord interactifs (Seaborn, Plotly) et introduction aux algorithmes d'apprentissage supervisé et non supervisé (Scikit-Learn).
+* **Pratique :** Construction de pipelines de modélisation complets, de l'exploration à la prédiction classique.
+* **Évaluation Gamifiée :** *Dataviz Battle* (Rendu du *Projet Final*).
+
+### [🧪 Évaluation & Communication](cours/6_evaluation/index.qmd)
+* **Théorie :** Analyse critique des métriques d'évaluation (RMSE, F1-Score, matrices de confusion), validation croisée, et techniques avancées d'optimisation de modèles et de sélection de caractéristiques.
+* **Pratique :** Recherche d'hyperparamètres (GridSearch), gestion du déséquilibre des classes et soutenance finale.
+* **Évaluation Technique :** Challenge de performance à correction automatique *Le Défi Optimisation* (Rendu du *Challenge ML*).

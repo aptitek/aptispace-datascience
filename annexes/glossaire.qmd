@@ -1,0 +1,134 @@
+---
+title: "📖 Glossaire"
+---
+
+Ce document rassemble tous les termes techniques abordés dans le cours.
+
+
+## Visualisation de 3 variables ou plus
+
+* **Heatmap (Carte de Chaleur) :** Représentation graphique de données où les valeurs individuelles contenues dans une matrice sont représentées par des couleurs.
+* **Carte Choroplèthe :** Carte thématique où les régions sont colorées ou ombrées proportionnellement à la valeur d'une variable statistique (ex: taux de chômage par région).
+* **GeoPandas :** Extension de Pandas qui ajoute le support des données géospatiales (polygones, lignes, points) pour permettre l'analyse spatiale.
+
+## Graphiques bidimensionnels
+
+* **Boxplot (Boîte à moustaches) :** Graphique synthétisant la distribution d'une variable via ses quartiles et sa médiane.
+* **Outlier :** Valeur située à plus de 1,5 fois l'écart interquartile (IQR) au-dessus de Q3 ou en dessous de Q1.
+* **Série Temporelle :** Suite de valeurs numériques représentant l'évolution d'une quantité spécifique au fil du temps.
+
+## Création de tableaux de bord interactifs (Dashboards) avec des outils comme Plotly et Dash
+
+* **Dashboard :** Interface utilisateur (souvent web) regroupant une vue consolidée de graphiques et de métriques interactives.
+* **Callback :** Fonction qui est automatiquement appelée lorsqu'un événement précis se produit (ex: l'utilisateur modifie un curseur, la fonction recalcule le graphique).
+* **MVP (Minimum Viable Product) :** Version d'un produit avec juste assez de fonctionnalités pour être utilisable par les premiers clients, permettant de récolter rapidement leurs retours.
+
+## Regroupement et segmentation des données avec la fonction GroupBy
+
+* **Split-Apply-Combine :** Stratégie de manipulation de données consistant à diviser un jeu d'informations, y appliquer une fonction de calcul sur chaque morceau, et fusionner les résultats.
+* **Cython :** Langage de programmation qui combine la syntaxe de Python avec la performance du C, massivement utilisé sous le capot de Pandas.
+* **Groupes non-observés :** Catégories qui existent dans la définition d'une variable (ex: un niveau d'abonnement "Premium") mais pour lesquelles aucune ligne n'est présente dans l'échantillon de données actuel.
+
+## Analyse des relations entre variables : Covariance et Corrélation
+
+* **Corrélation de Pearson :** Mesure normalisée de la covariance allant de -1 à 1, évaluant exclusivement la dépendance linéaire exacte.
+* **Predictive Power Score (PPS) :** Score asymétrique (0 à 1) utilisant des algorithmes d'apprentissage pour mesurer le véritable pouvoir prédictif d'une variable sur une autre, y compris non-linéaire.
+* **Variable de confusion :** Variable externe non prise en compte dans l'analyse qui influence de manière simultanée les deux variables étudiées, créant une illusion de causalité entre elles.
+
+## Les statistiques descriptives de base
+
+* **Moyenne (Mean) :** Mesure de tendance centrale correspondant à la somme de toutes les valeurs divisée par leur nombre total. Très sensible aux extrêmes.
+* **Médiane (Median) :** Mesure représentant la valeur du milieu d'un ensemble trié.
+* **Variance et Écart-type :** Mesures évaluant l'étalement des données autour de la moyenne.
+* **Valeurs aberrantes (Outliers) :** Valeurs extrêmes qui s'écartent fortement des autres observations et peuvent biaiser l'analyse.
+
+## Techniques pour atténuer le surajustement
+
+* **Data Drift :** Modification au fil du temps de la distribution statistique des variables d'entrée par rapport à l'ensemble d'entraînement.
+* **Concept Drift :** Modification de la relation fondamentale entre les variables d'entrée et la variable cible (la cible change de définition).
+* **PSI (Population Stability Index) :** Mesure statistique quantifiant à quel point la distribution d'une variable a changé entre deux périodes.
+* **EU AI Act :** Cadre réglementaire européen visant à classifier et encadrer les risques liés aux systèmes d'intelligence artificielle.
+
+## Métriques pour la classification
+
+* **Hyperparamètres :** Paramètres d'un algorithme définis par l'utilisateur avant l'entraînement (ex: le nombre d'arbres dans une forêt).
+* **Optimisation Bayésienne :** Méthode construisant un modèle probabiliste des performances pour orienter la recherche d'hyperparamètres vers les zones les plus prometteuses.
+* **Pruning (Élagage) :** Mécanisme permettant d'interrompre prématurément un essai d'entraînement si ses résultats partiels suggèrent qu'il n'améliorera pas le record actuel.
+
+## Méthodes de validation pour fiabiliser les résultats
+
+* **MLOps :** Ensemble de pratiques visant à déployer et maintenir des modèles de Machine Learning en production de manière fiable et efficace.
+* **Docker :** Outil de conteneurisation permettant d'encapsuler une application et ses dépendances dans un environnement isolé.
+* **API (Interface de Programmation d'Application) :** Passerelle logicielle permettant à deux applications de communiquer entre elles, généralement via l'échange de fichiers JSON.
+* **Inférence :** L'acte, pour un modèle entraîné en production, de générer une prédiction à partir de nouvelles données.
+
+## Métriques pour la régression
+
+* **Précision :** Capacité du modèle à ne pas déclencher de fausses alertes.
+* **Rappel (Recall) :** Capacité du modèle à ne laisser passer aucun cas réel.
+* **F1-Score :** Indicateur unique équilibrant précision et rappel.
+* **Déséquilibre de classe (Class Imbalance) :** Situation où une catégorie est massivement plus représentée qu'une autre dans les données.
+
+## Encodage des variables catégorielles pour les algorithmes : Label Encoding et One-Hot Encoding
+
+* **Fléau de la dimensionnalité :** Phénomène par lequel l'augmentation du nombre de colonnes (features) dégrade les performances d'un algorithme en nécessitant exponentiellement plus de données.
+* **Target Leakage (Fuite de la cible) :** Biais méthodologique où l'information que l'on essaie de prédire est accidentellement utilisée comme variable d'entrée pendant l'entraînement.
+* **Fonction de Hachage :** Algorithme mathématique qui transforme une chaîne de caractères de taille variable en une valeur de taille fixe (empreinte).
+
+## Transformation des données : Normalisation (Min-Max, Z-score) et discrétisation (binning)
+
+- **Transformation Monotone :** Opération mathématique qui modifie l'échelle des valeurs tout en préservant strictement leur ordre absolu.
+- **Outlier (Valeur Aberrante) :** Point de donnée isolé qui s'écarte considérablement du reste de la distribution globale.
+- **Batchnorm :** Technique utilisée dans les réseaux de neurones pour normaliser les entrées de chaque couche afin de stabiliser et d'accélérer l'apprentissage.
+
+## Harmonisation des formats et correction des erreurs
+
+* **Regex (Expressions Régulières) :** Séquence de caractères formant un motif de recherche, très utilisée pour trouver et remplacer des chaînes de texte spécifiques.
+* **Norme ISO 8601 :** Norme internationale de représentation de la date et de l'heure, conçue pour éviter toute ambiguïté (AAAA-MM-JJ).
+* **Trim (ou Strip) :** Fonction informatique permettant de supprimer les espaces "blancs" situés au début et à la fin d'une chaîne de caractères.
+
+## Compréhension des concepts clés
+
+- **Underfitting :** Modèle incapable de saisir les motifs simples des données.
+- **Overfitting :** Modèle qui mémorise le bruit des données au lieu de la logique.
+- **Généralisation :** Capacité d'un modèle à être performant sur des données totalement nouvelles.
+- **Régularisation :** Technique mathématique qui "punit" la complexité excessive d'un modèle pour éviter l'Overfitting.
+
+## Différences fondamentales entre l'apprentissage supervisé et non supervisé
+
+* **Apprentissage Supervisé :** Approche algorithmique exploitant des données étiquetées pour lesquelles la réponse cible est connue, idéale pour des tâches de prédiction.
+* **Apprentissage Non Supervisé :** Méthode utilisée avec des données non étiquetées, visant à découvrir des structures sous-jacentes par similarité (clustering).
+* **Données Tabulaires :** Données structurées organisées sous forme de tableau (lignes et colonnes hétérogènes), constituant la majorité des bases de données d'entreprise.
+
+## Méthodes d'ensemble pour améliorer les performances
+
+* **Bagging :** Méthode consistant à entraîner plusieurs modèles en parallèle sur des échantillons de données différents et à moyenner leurs prédictions.
+* **Boosting :** Technique séquentielle où chaque nouveau modèle tente de corriger les erreurs de l'ensemble des modèles précédents.
+* **Apprenant faible (Weak Learner) :** Un modèle simple (souvent un arbre très court) qui est juste un peu meilleur que le hasard, mais qui devient puissant une fois combiné à d'autres.
+
+## Algorithmes de Clustering et techniques de réduction de dimensionnalité
+
+* **Centroïde :** Le point central d'un cluster, calculé comme la position moyenne de tous les points de données qui lui sont assignés.
+* **DBSCAN :** Algorithme de regroupement spatial basé sur la densité, capable d'identifier des clusters de formes arbitraires et d'isoler automatiquement le bruit.
+* **PCA (Analyse en Composantes Principales) :** Méthode de réduction de dimensionnalité qui transforme un ensemble de données en de nouvelles composantes principales maximisant la variance.
+
+## L'art du "Data Storytelling" : choisir les bonnes visualisations pour faire passer un message
+
+* **Data Translator :** Rôle hybride faisant le pont entre les équipes techniques (Data Scientists) et les parties prenantes métier pour s'assurer que les modèles répondent à un objectif financier.
+* **ROI (Return on Investment) :** Bénéfice net généré par un projet comparé à son coût de développement et de maintien (infrastructures, salaires, serveurs).
+* **Matrice de Coûts :** Modèle financier qui attribue une valeur monétaire (une pénalité) à chaque type d'erreur de l'algorithme (Faux Positif vs Faux Négatif).
+
+## Conception de tableaux de bord interactifs et de rapports écrits
+
+* **Pyramide de Minto :** Cadre de communication hiérarchique consistant à donner la conclusion en premier, suivie des arguments et des preuves.
+* **SCQA :** Acronyme pour Situation, Complication, Question, Answer. Une structure narrative pour introduire un problème et sa solution de manière impactante.
+* **Action Titles (Titres d'action) :** Phrase complète utilisée comme titre de présentation ou de graphique, énonçant directement l'insight principal à retenir.
+* **Executive Summary (Synthèse Exécutive) :** La première page d'un rapport, condensant l'intégralité du problème et des recommandations pour les décideurs.
+
+## Importance de communiquer avec transparence sur la fiabilité et les limites du modèle
+
+* **Incertitude Épistémique :** Marge d'erreur liée au manque de connaissances ou de données, que l'on peut réduire en travaillant davantage.
+* **Intervalle de Confiance :** Plage de valeurs à l'intérieur de laquelle se trouve probablement le résultat réel, selon un niveau de probabilité donné (souvent 90% ou 95%).
+* **Hallucination :** Phénomène par lequel une IA générative produit une information factuellement fausse tout en affirmant sa véracité avec une grande confiance.
+* **XAI (Explainable AI) :** Ensemble d'outils et de méthodes permettant de comprendre et de justifier les prédictions faites par des modèles complexes (Deep Learning, XGBoost).
+* **RAG (Retrieval-Augmented Generation) :** Méthode consistant à connecter un modèle de langage à une base de données externe vérifiée pour limiter ses hallucinations.

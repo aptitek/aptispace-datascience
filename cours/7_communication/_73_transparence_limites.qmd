@@ -56,19 +56,3 @@ flowchart LR
     style E fill:#dc322f,stroke:#073642,color:#fdf6e3
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Ne jamais présenter de prédiction à un chiffre unique. Toujours fournir un intervalle (le scénario pessimiste, nominal, et optimiste).
-* [ ] Expliquer clairement que la "boîte noire" de l'IA n'est plus une fatalité grâce aux méthodes d'explicabilité (SHAP).
-* [ ] Rassurer la direction sur le déploiement d'IA générative en expliquant que l'architecture RAG permet de limiter et d'auditer les réponses du modèle.
-
-### 📖 Mini-Glossaire
-
-* **Incertitude Épistémique :** Marge d'erreur liée au manque de connaissances ou de données, que l'on peut réduire en travaillant davantage.
-* **Intervalle de Confiance :** Plage de valeurs à l'intérieur de laquelle se trouve probablement le résultat réel, selon un niveau de probabilité donné (souvent 90% ou 95%).
-* **Hallucination :** Phénomène par lequel une IA générative produit une information factuellement fausse tout en affirmant sa véracité avec une grande confiance.
-* **XAI (Explainable AI) :** Ensemble d'outils et de méthodes permettant de comprendre et de justifier les prédictions faites par des modèles complexes (Deep Learning, XGBoost).
-* **RAG (Retrieval-Augmented Generation) :** Méthode consistant à connecter un modèle de langage à une base de données externe vérifiée pour limiter ses hallucinations.

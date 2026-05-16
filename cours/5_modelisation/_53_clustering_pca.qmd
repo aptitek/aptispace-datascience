@@ -44,17 +44,3 @@ Imaginez que vous ayez une base de données avec 50 colonnes (dimensions) diffé
 * **L'Objectif Métier :** Elle est idéale pour faciliter la visualisation de données de très grande dimension (projeter 50 dimensions sur un plan 2D) ou pour réduire le bruit (supprimer la corrélation entre les variables) avant d'appliquer d'autres algorithmes comme le K-Means.
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'un graphique 2D montrant des points séparés après une réduction PCA depuis un dataset à N dimensions.**
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Retenir que K-Means force la création de sphères et est très mauvais pour détecter les formes complexes ou le bruit.
-* [ ] Privilégier DBSCAN pour segmenter des données denses ou pour de la détection d'anomalies.
-* [ ] Comprendre que la PCA sert à compresser le nombre de colonnes tout en gardant l'essence mathématique des données.
-
-### 📖 Mini-Glossaire
-
-* **Centroïde :** Le point central d'un cluster, calculé comme la position moyenne de tous les points de données qui lui sont assignés.
-* **DBSCAN :** Algorithme de regroupement spatial basé sur la densité, capable d'identifier des clusters de formes arbitraires et d'isoler automatiquement le bruit.
-* **PCA (Analyse en Composantes Principales) :** Méthode de réduction de dimensionnalité qui transforme un ensemble de données en de nouvelles composantes principales maximisant la variance.

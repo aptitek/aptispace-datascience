@@ -50,14 +50,3 @@ Focus Deep Learning : Batchnorm et CMN
 Pour des architectures IA complexes, on intègre cette mise à l'échelle directement *dans* le modèle. Par exemple, la **Batchnorm** (Normalisation par lots) stabilise l'apprentissage à chaque couche d'un réseau de neurones. En analyse audio (reconnaissance vocale type LibriSpeech), on utilise la **CMN** (*Cepstral Mean Normalization*) pour gommer les distorsions liées au bruit ambiant.
 :::
 :::
----
-
-### ✅ Aide-mémoire
-- [ ] Mémoriser la différence : Normalisation (0 à 1) vs Standardisation (moyenne 0, écart-type 1).
-- [ ] Retenir que les Random Forest et XGBoost n'ont pas besoin de scaling.
-- [ ] Penser au Robust Scaler en présence massive d'Outliers.
-
-### 📖 Mini-Glossaire
-- **Transformation Monotone :** Opération mathématique qui modifie l'échelle des valeurs tout en préservant strictement leur ordre absolu.
-- **Outlier (Valeur Aberrante) :** Point de donnée isolé qui s'écarte considérablement du reste de la distribution globale.
-- **Batchnorm :** Technique utilisée dans les réseaux de neurones pour normaliser les entrées de chaque couche afin de stabiliser et d'accélérer l'apprentissage.

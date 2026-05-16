@@ -88,17 +88,3 @@ model_bagging.fit(X_train, y_train)
 model_boosting.fit(X_train, y_train)
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Retenir que le Bagging (Random Forest) entraîne des modèles indépendants en parallèle.
-* [ ] Retenir que le Boosting (XGBoost) entraîne des modèles l'un après l'autre pour corriger les erreurs.
-* [ ] Utiliser Random Forest pour éviter le sur-ajustement, et le Boosting pour obtenir la performance maximale.
-
-### 📖 Mini-Glossaire
-
-* **Bagging :** Méthode consistant à entraîner plusieurs modèles en parallèle sur des échantillons de données différents et à moyenner leurs prédictions.
-* **Boosting :** Technique séquentielle où chaque nouveau modèle tente de corriger les erreurs de l'ensemble des modèles précédents.
-* **Apprenant faible (Weak Learner) :** Un modèle simple (souvent un arbre très court) qui est juste un peu meilleur que le hasard, mais qui devient puissant une fois combiné à d'autres.

@@ -1,0 +1,126 @@
+---
+title: "✅ Aides-mémoire"
+---
+
+Ce document rassemble tous les aides-mémoire du cours, organisés par chapitre.
+
+
+## Visualisation de 3 variables ou plus
+
+* [ ] Utiliser la taille des points (Bubble Plot) pour ajouter une 3ème dimension quantitative sur un Scatter Plot.
+* [ ] Utiliser systématiquement une Heatmap pour visualiser une matrice de corrélation (beaucoup plus lisible qu'un DataFrame de chiffres).
+* [ ] Éviter les graphiques 3D si la perspective empêche de lire les valeurs avec précision.
+
+## Graphiques bidimensionnels
+
+* [ ] Ne jamais utiliser de Line Plot si l'axe X n'est pas temporel ou ordonné.
+* [ ] Utiliser le Scatter Plot pour repérer visuellement des clusters avant de lancer un algorithme de K-Means.
+* [ ] Savoir lire les 5 indicateurs d'un Boxplot d'un seul coup d'œil.
+
+## Création de tableaux de bord interactifs (Dashboards) avec des outils comme Plotly et Dash
+
+* [ ] Utiliser Plotly au lieu de Matplotlib si le destinataire final a besoin de zoomer ou de lire la valeur exacte d'un point au survol.
+* [ ] Choisir Streamlit pour valider rapidement une idée (MVP) avec un code court.
+* [ ] Choisir Dash pour une application de production à destination de milliers d'utilisateurs simultanés.
+
+## Regroupement et segmentation des données avec la fonction GroupBy
+
+* [ ] Assimiler l'ordre logique : Split $\rightarrow$ Apply $\rightarrow$ Combine.
+* [ ] Préférer systématiquement `groupby().agg()` à `pivot_table()` pour les gros jeux de données.
+* [ ] Retenir l'avantage du multithreading natif de Polars pour les agrégations très lourdes.
+
+## Analyse des relations entre variables : Covariance et Corrélation
+
+* [ ] Retenir que Pearson = Relation Linéaire uniquement.
+* [ ] Privilégier le PPS ou le Phik pour explorer des jeux de données contenant à la fois du texte et des nombres ou des relations complexes.
+* [ ] Ne jamais affirmer qu'une variable A *cause* B juste parce que leur corrélation est de 0.95.
+
+## Les statistiques descriptives de base
+
+* [ ] Privilégier la Médiane sur la Moyenne dès lors qu'il y a des valeurs aberrantes.
+* [ ] Savoir qu'un Écart-type très élevé signifie que la moyenne n'est pas très représentative (les données sont trop étalées).
+* [ ] Garder en tête que la Médiane est plus coûteuse à calculer sur des gros volumes car elle nécessite un tri des données.
+
+## Techniques pour atténuer le surajustement
+
+* [ ] Faire la différence entre Data Drift (les données changent) et Concept Drift (la réalité métier change).
+* [ ] Retenir que le PSI (Population Stability Index) est la métrique clé pour lancer une alerte de dérive.
+* [ ] Comprendre que le ré-entraînement continu est une obligation tant mathématique que légale (EU AI Act).
+
+## Métriques pour la classification
+
+* [ ] Abandonner le `GridSearchCV` dès que vous avez plus de deux hyperparamètres à tester ou un gros volume de données.
+* [ ] Retenir qu'Optuna utilise le passé (Bayésien) pour orienter ses recherches futures, trouvant l'optimum beaucoup plus vite.
+* [ ] Mémoriser le concept d'Élagage (*Pruning*) : couper court à un mauvais essai pour gagner du temps CPU.
+
+## Méthodes de validation pour fiabiliser les résultats
+
+* [ ] Utiliser MLflow dès que vous modifiez les paramètres d'un modèle pour garder une trace historique.
+* [ ] Comprendre que Docker garantit que le code s'exécutera de la même manière partout (immuabilité).
+* [ ] Savoir que FastAPI sert à créer l'interface (API) permettant au reste du monde de communiquer avec le modèle.
+
+## Métriques pour la régression
+
+* [ ] Toujours exiger la matrice de confusion avant d'accepter un score de performance.
+* [ ] Comprendre l'asymétrie des coûts : un Faux Négatif médical n'a pas la même valeur qu'un Faux Positif marketing.
+* [ ] Utiliser le F1-Score comme standard dès que les classes sont déséquilibrées (ex: 90% vs 10%).
+
+## Encodage des variables catégorielles pour les algorithmes : Label Encoding et One-Hot Encoding
+
+* [ ] Réserver le *Label Encoding* strictement aux variables ordinales.
+* [ ] Utiliser le *One-Hot Encoding* pour les variables nominales à faible cardinalité (< 15 modalités).
+* [ ] Basculer sur *Target Encoding* ou *Hashing Encoder* pour les variables à très haute cardinalité.
+
+## Transformation des données : Normalisation (Min-Max, Z-score) et discrétisation (binning)
+
+- [ ] Mémoriser la différence : Normalisation (0 à 1) vs Standardisation (moyenne 0, écart-type 1).
+- [ ] Retenir que les Random Forest et XGBoost n'ont pas besoin de scaling.
+- [ ] Penser au Robust Scaler en présence massive d'Outliers.
+
+## Harmonisation des formats et correction des erreurs
+
+* [ ] Toujours unifier la casse (`.str.lower()`) et retirer les espaces vides (`.str.strip()`) des variables textuelles.
+* [ ] Convertir toutes les colonnes temporelles avec `pd.to_datetime` vers la norme ISO.
+* [ ] Penser à extraire l'année, le mois ou le jour de la semaine si ces éléments ont un pouvoir prédictif (ex: la fréquentation d'un magasin le samedi).
+
+## Compréhension des concepts clés
+
+- [ ] Comprendre que le Biais est une erreur de simplification et la Variance une erreur de mémorisation.
+- [ ] Savoir identifier l'Overfitting par l'écart entre le score d'entraînement et le score de test.
+- [ ] Retenir qu'un modèle "parfait" à 100% sur vos données historiques est souvent un modèle qui a échoué à généraliser.
+
+## Différences fondamentales entre l'apprentissage supervisé et non supervisé
+
+* [ ] Retenir que *Supervisé* = "On a la réponse cible (Label) dans l'historique".
+* [ ] Retenir que *Non Supervisé* = "On cherche des groupes ou des anomalies à l'aveugle".
+* [ ] Comprendre que pour les données tabulaires classiques (Excel/SQL), le Deep Learning n'est pas forcément la meilleure solution.
+
+## Méthodes d'ensemble pour améliorer les performances
+
+* [ ] Retenir que le Bagging (Random Forest) entraîne des modèles indépendants en parallèle.
+* [ ] Retenir que le Boosting (XGBoost) entraîne des modèles l'un après l'autre pour corriger les erreurs.
+* [ ] Utiliser Random Forest pour éviter le sur-ajustement, et le Boosting pour obtenir la performance maximale.
+
+## Algorithmes de Clustering et techniques de réduction de dimensionnalité
+
+* [ ] Retenir que K-Means force la création de sphères et est très mauvais pour détecter les formes complexes ou le bruit.
+* [ ] Privilégier DBSCAN pour segmenter des données denses ou pour de la détection d'anomalies.
+* [ ] Comprendre que la PCA sert à compresser le nombre de colonnes tout en gardant l'essence mathématique des données.
+
+## L'art du "Data Storytelling" : choisir les bonnes visualisations pour faire passer un message
+
+* [ ] Ne jamais présenter de métriques pures (RMSE, F1-Score) à un membre du Comex sans les avoir converties en indicateurs financiers (Euros, Temps, Taux de rétention).
+* [ ] Utiliser le framework OIA pour s'assurer que chaque analyse débouche sur une prise de décision.
+* [ ] Assumer les coûts d'erreur (les Faux Positifs) en les budgétisant, plutôt que d'essayer de cacher les failles du modèle.
+
+## Conception de tableaux de bord interactifs et de rapports écrits
+
+* [ ] Abandonner la structure chronologique (comment j'ai fait mon code) pour adopter une structure Top-Down (voici la solution, puis voici pourquoi).
+* [ ] Remplacer tous les titres de graphiques par des "Action Titles" (la conclusion que l'on doit tirer du graphique).
+* [ ] Utiliser le SCQA pour introduire le contexte et créer un sentiment d'urgence justifiant le projet.
+
+## Importance de communiquer avec transparence sur la fiabilité et les limites du modèle
+
+* [ ] Ne jamais présenter de prédiction à un chiffre unique. Toujours fournir un intervalle (le scénario pessimiste, nominal, et optimiste).
+* [ ] Expliquer clairement que la "boîte noire" de l'IA n'est plus une fatalité grâce aux méthodes d'explicabilité (SHAP).
+* [ ] Rassurer la direction sur le déploiement d'IA générative en expliquant que l'architecture RAG permet de limiter et d'auditer les réponses du modèle.

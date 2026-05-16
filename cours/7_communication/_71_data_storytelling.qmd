@@ -53,17 +53,3 @@ graph LR
     style C fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Ne jamais présenter de métriques pures (RMSE, F1-Score) à un membre du Comex sans les avoir converties en indicateurs financiers (Euros, Temps, Taux de rétention).
-* [ ] Utiliser le framework OIA pour s'assurer que chaque analyse débouche sur une prise de décision.
-* [ ] Assumer les coûts d'erreur (les Faux Positifs) en les budgétisant, plutôt que d'essayer de cacher les failles du modèle.
-
-### 📖 Mini-Glossaire
-
-* **Data Translator :** Rôle hybride faisant le pont entre les équipes techniques (Data Scientists) et les parties prenantes métier pour s'assurer que les modèles répondent à un objectif financier.
-* **ROI (Return on Investment) :** Bénéfice net généré par un projet comparé à son coût de développement et de maintien (infrastructures, salaires, serveurs).
-* **Matrice de Coûts :** Modèle financier qui attribue une valeur monétaire (une pénalité) à chaque type d'erreur de l'algorithme (Faux Positif vs Faux Négatif).

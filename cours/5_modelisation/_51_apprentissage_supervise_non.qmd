@@ -59,17 +59,3 @@ flowchart TD
     style C fill:#6c71c4,stroke:#073642,color:#fdf6e3
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Retenir que *Supervisé* = "On a la réponse cible (Label) dans l'historique".
-* [ ] Retenir que *Non Supervisé* = "On cherche des groupes ou des anomalies à l'aveugle".
-* [ ] Comprendre que pour les données tabulaires classiques (Excel/SQL), le Deep Learning n'est pas forcément la meilleure solution.
-
-### 📖 Mini-Glossaire
-
-* **Apprentissage Supervisé :** Approche algorithmique exploitant des données étiquetées pour lesquelles la réponse cible est connue, idéale pour des tâches de prédiction.
-* **Apprentissage Non Supervisé :** Méthode utilisée avec des données non étiquetées, visant à découvrir des structures sous-jacentes par similarité (clustering).
-* **Données Tabulaires :** Données structurées organisées sous forme de tableau (lignes et colonnes hétérogènes), constituant la majorité des bases de données d'entreprise.

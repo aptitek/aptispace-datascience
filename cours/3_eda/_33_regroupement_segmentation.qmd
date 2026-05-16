@@ -50,17 +50,3 @@ Dans les anciennes versions, si vous groupiez par une catégorie existante dans 
 ### L'approche Polars
 
 Polars pousse l'optimisation encore plus loin grâce au **"Morsel-Driven Parallelism"**. Au lieu de traiter un groupe entier sur un seul cœur de processeur, Polars découpe les données en petits fragments (*morsels*) qui sont distribués et calculés en parallèle sur tous les cœurs CPU disponibles simultanément.
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Assimiler l'ordre logique : Split $\rightarrow$ Apply $\rightarrow$ Combine.
-* [ ] Préférer systématiquement `groupby().agg()` à `pivot_table()` pour les gros jeux de données.
-* [ ] Retenir l'avantage du multithreading natif de Polars pour les agrégations très lourdes.
-
-### 📖 Mini-Glossaire
-
-* **Split-Apply-Combine :** Stratégie de manipulation de données consistant à diviser un jeu d'informations, y appliquer une fonction de calcul sur chaque morceau, et fusionner les résultats.
-* **Cython :** Langage de programmation qui combine la syntaxe de Python avec la performance du C, massivement utilisé sous le capot de Pandas.
-* **Groupes non-observés :** Catégories qui existent dans la définition d'une variable (ex: un niveau d'abonnement "Premium") mais pour lesquelles aucune ligne n'est présente dans l'échantillon de données actuel.

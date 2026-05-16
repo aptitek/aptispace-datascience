@@ -64,17 +64,3 @@ plt.show()
 ```
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'une Heatmap générée avec Seaborn montrant un dégradé `coolwarm` clair.**
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Utiliser la taille des points (Bubble Plot) pour ajouter une 3ème dimension quantitative sur un Scatter Plot.
-* [ ] Utiliser systématiquement une Heatmap pour visualiser une matrice de corrélation (beaucoup plus lisible qu'un DataFrame de chiffres).
-* [ ] Éviter les graphiques 3D si la perspective empêche de lire les valeurs avec précision.
-
-### 📖 Mini-Glossaire
-
-* **Heatmap (Carte de Chaleur) :** Représentation graphique de données où les valeurs individuelles contenues dans une matrice sont représentées par des couleurs.
-* **Carte Choroplèthe :** Carte thématique où les régions sont colorées ou ombrées proportionnellement à la valeur d'une variable statistique (ex: taux de chômage par région).
-* **GeoPandas :** Extension de Pandas qui ajoute le support des données géospatiales (polygones, lignes, points) pour permettre l'analyse spatiale.

@@ -60,17 +60,3 @@ hash_enc = HashingEncoder(cols=['ID_Produit'], n_components=8)
 df_hashed = hash_enc.fit_transform(df)
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Réserver le *Label Encoding* strictement aux variables ordinales.
-* [ ] Utiliser le *One-Hot Encoding* pour les variables nominales à faible cardinalité (< 15 modalités).
-* [ ] Basculer sur *Target Encoding* ou *Hashing Encoder* pour les variables à très haute cardinalité.
-
-### 📖 Mini-Glossaire
-
-* **Fléau de la dimensionnalité :** Phénomène par lequel l'augmentation du nombre de colonnes (features) dégrade les performances d'un algorithme en nécessitant exponentiellement plus de données.
-* **Target Leakage (Fuite de la cible) :** Biais méthodologique où l'information que l'on essaie de prédire est accidentellement utilisée comme variable d'entrée pendant l'entraînement.
-* **Fonction de Hachage :** Algorithme mathématique qui transforme une chaîne de caractères de taille variable en une valeur de taille fixe (empreinte).

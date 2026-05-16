@@ -64,17 +64,3 @@ Construire des tableaux de bord interactifs sur de l'énorme volumétrie (Big Da
 ---
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'un Dashboard Streamlit complet (avec sidebar, filtres et graphique interactif Plotly).**
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Utiliser Plotly au lieu de Matplotlib si le destinataire final a besoin de zoomer ou de lire la valeur exacte d'un point au survol.
-* [ ] Choisir Streamlit pour valider rapidement une idée (MVP) avec un code court.
-* [ ] Choisir Dash pour une application de production à destination de milliers d'utilisateurs simultanés.
-
-### 📖 Mini-Glossaire
-
-* **Dashboard :** Interface utilisateur (souvent web) regroupant une vue consolidée de graphiques et de métriques interactives.
-* **Callback :** Fonction qui est automatiquement appelée lorsqu'un événement précis se produit (ex: l'utilisateur modifie un curseur, la fonction recalcule le graphique).
-* **MVP (Minimum Viable Product) :** Version d'un produit avec juste assez de fonctionnalités pour être utilisable par les premiers clients, permettant de récolter rapidement leurs retours.

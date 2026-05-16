@@ -54,18 +54,3 @@ flowchart LR
     style C fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Privilégier la Médiane sur la Moyenne dès lors qu'il y a des valeurs aberrantes.
-* [ ] Savoir qu'un Écart-type très élevé signifie que la moyenne n'est pas très représentative (les données sont trop étalées).
-* [ ] Garder en tête que la Médiane est plus coûteuse à calculer sur des gros volumes car elle nécessite un tri des données.
-
-### 📖 Mini-Glossaire
-
-* **Moyenne (Mean) :** Mesure de tendance centrale correspondant à la somme de toutes les valeurs divisée par leur nombre total. Très sensible aux extrêmes.
-* **Médiane (Median) :** Mesure représentant la valeur du milieu d'un ensemble trié.
-* **Variance et Écart-type :** Mesures évaluant l'étalement des données autour de la moyenne.
-* **Valeurs aberrantes (Outliers) :** Valeurs extrêmes qui s'écartent fortement des autres observations et peuvent biaiser l'analyse.

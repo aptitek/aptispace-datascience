@@ -198,18 +198,3 @@ graph LR
     style Production fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Utiliser MLflow dès que vous modifiez les paramètres d'un modèle pour garder une trace historique.
-* [ ] Comprendre que Docker garantit que le code s'exécutera de la même manière partout (immuabilité).
-* [ ] Savoir que FastAPI sert à créer l'interface (API) permettant au reste du monde de communiquer avec le modèle.
-
-### 📖 Mini-Glossaire
-
-* **MLOps :** Ensemble de pratiques visant à déployer et maintenir des modèles de Machine Learning en production de manière fiable et efficace.
-* **Docker :** Outil de conteneurisation permettant d'encapsuler une application et ses dépendances dans un environnement isolé.
-* **API (Interface de Programmation d'Application) :** Passerelle logicielle permettant à deux applications de communiquer entre elles, généralement via l'échange de fichiers JSON.
-* **Inférence :** L'acte, pour un modèle entraîné en production, de générer une prédiction à partir de nouvelles données.

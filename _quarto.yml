@@ -54,6 +54,10 @@ book:
       chapters:
         - cours/6_evaluation/index.qmd
         - cours/7_communication/index.qmd
+    - part: "📚 Annexes"
+      chapters:
+        - annexes/aides_memoire.qmd
+        - annexes/glossaire.qmd
 
 format:
   html:

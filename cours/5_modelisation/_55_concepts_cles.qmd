@@ -48,16 +48,3 @@ Cela signifie que les futurs risques de l'IA ne seront pas forcément une "mauva
 | **Underfitting** | Score faible partout | Utiliser un modèle plus puissant (ex: passer de Linéaire à XGBoost). |
 | **Overfitting** | Score parfait (train) / Mauvais (test) | Réduire le nombre de variables ou utiliser des méthodes d'ensemble (Random Forest). |
 | **Hot Mess** | Erreurs erratiques et imprévisibles | Augmenter la diversité des données et stabiliser l'apprentissage. |
-
----
-
-### ✅ Aide-mémoire
-- [ ] Comprendre que le Biais est une erreur de simplification et la Variance une erreur de mémorisation.
-- [ ] Savoir identifier l'Overfitting par l'écart entre le score d'entraînement et le score de test.
-- [ ] Retenir qu'un modèle "parfait" à 100% sur vos données historiques est souvent un modèle qui a échoué à généraliser.
-
-### 📖 Mini-Glossaire
-- **Underfitting :** Modèle incapable de saisir les motifs simples des données.
-- **Overfitting :** Modèle qui mémorise le bruit des données au lieu de la logique.
-- **Généralisation :** Capacité d'un modèle à être performant sur des données totalement nouvelles.
-- **Régularisation :** Technique mathématique qui "punit" la complexité excessive d'un modèle pour éviter l'Overfitting.

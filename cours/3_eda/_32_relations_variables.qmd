@@ -53,17 +53,3 @@ C'est le mantra de la Data Science. Si l'EDA permet d'observer que deux variable
 
 * **La variable de confusion :** Par exemple, il existe une forte corrélation positive entre les ventes de crèmes glacées et les noyades. Est-ce que manger une glace provoque la noyade ? Non. La variable de confusion cachée est la **chaleur estivale**, qui provoque simultanément l'augmentation des deux phénomènes.
 * L'EDA sert de générateur d'hypothèses, qui doivent ensuite être validées par le métier ou par des tests A/B.
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Retenir que Pearson = Relation Linéaire uniquement.
-* [ ] Privilégier le PPS ou le Phik pour explorer des jeux de données contenant à la fois du texte et des nombres ou des relations complexes.
-* [ ] Ne jamais affirmer qu'une variable A *cause* B juste parce que leur corrélation est de 0.95.
-
-### 📖 Mini-Glossaire
-
-* **Corrélation de Pearson :** Mesure normalisée de la covariance allant de -1 à 1, évaluant exclusivement la dépendance linéaire exacte.
-* **Predictive Power Score (PPS) :** Score asymétrique (0 à 1) utilisant des algorithmes d'apprentissage pour mesurer le véritable pouvoir prédictif d'une variable sur une autre, y compris non-linéaire.
-* **Variable de confusion :** Variable externe non prise en compte dans l'analyse qui influence de manière simultanée les deux variables étudiées, créant une illusion de causalité entre elles.

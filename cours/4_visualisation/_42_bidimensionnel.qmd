@@ -57,17 +57,3 @@ flowchart TD
 ```
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'un Scatter Plot avec une droite de régression et un Boxplot comparatif générés avec Plotly.**
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Ne jamais utiliser de Line Plot si l'axe X n'est pas temporel ou ordonné.
-* [ ] Utiliser le Scatter Plot pour repérer visuellement des clusters avant de lancer un algorithme de K-Means.
-* [ ] Savoir lire les 5 indicateurs d'un Boxplot d'un seul coup d'œil.
-
-### 📖 Mini-Glossaire
-
-* **Boxplot (Boîte à moustaches) :** Graphique synthétisant la distribution d'une variable via ses quartiles et sa médiane.
-* **Outlier :** Valeur située à plus de 1,5 fois l'écart interquartile (IQR) au-dessus de Q3 ou en dessous de Q1.
-* **Série Temporelle :** Suite de valeurs numériques représentant l'évolution d'une quantité spécifique au fil du temps.

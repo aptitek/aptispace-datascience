@@ -199,7 +199,7 @@ code, pre {
         z-index: 10;
     }
 
-    .ui-card-header {
+    .ui-card-header, .card-header {
         padding: 10px 15px;
         font-family: var(--font-code);
         font-size: 0.8em;
@@ -212,9 +212,26 @@ code, pre {
         align-items: center;
     }
 
-    .ui-card-body {
+    .ui-card-body, .card-body {
         padding: 15px;
         color: var(--sol-base00);
+
+        // Nested cards support
+        .ui-card, .card {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            
+            &:first-child { margin-top: 0; }
+            &:last-child { margin-bottom: 0; }
+        }
+
+        // Fix for flex containers (like the one in KNN simulator)
+        &[style*="display: flex"], .ui-flex-row {
+            .ui-card, .card {
+                margin: 0 !important;
+                height: 100%;
+            }
+        }
     }
 
     .ui-value {
@@ -230,33 +247,57 @@ code, pre {
     // Semantic Variants
     &.is-info {
         &::before { background-color: var(--sol-blue); }
-        .ui-card-header { background-color: var(--sol-blue); color: var(--sol-base3); }
+        > .ui-card-header, > .card-header { background-color: var(--sol-blue); color: var(--sol-base3); }
         .ui-value { color: var(--sol-blue); }
     }
     &.is-success {
         &::before { background-color: var(--sol-green); }
-        .ui-card-header { background-color: var(--sol-green); color: var(--sol-base3); }
+        > .ui-card-header, > .card-header { background-color: var(--sol-green); color: var(--sol-base3); }
         .ui-value { color: var(--sol-green); }
     }
     &.is-warning {
         &::before { background-color: var(--sol-yellow); }
-        .ui-card-header { background-color: var(--sol-yellow); color: var(--sol-base3); }
+        > .ui-card-header, > .card-header { background-color: var(--sol-yellow); color: var(--sol-base3); }
         .ui-value { color: var(--sol-yellow); }
     }
     &.is-danger {
         &::before { background-color: var(--sol-red); }
-        .ui-card-header { background-color: var(--sol-red); color: var(--sol-base3); }
+        > .ui-card-header, > .card-header { background-color: var(--sol-red); color: var(--sol-base3); }
         .ui-value { color: var(--sol-red); }
     }
     &.is-debug {
         &::before { background-color: var(--sol-base1); }
-        .ui-card-header { background-color: var(--sol-base1); color: var(--sol-base3); }
+        > .ui-card-header, > .card-header { background-color: var(--sol-base1); color: var(--sol-base3); }
         .ui-value { color: var(--sol-base01); }
     }
 
-    // Legacy/Bootstrap Compatibility
-    &.card-primary { @extend .is-info; }
-    &.card-secondary { @extend .is-debug; }
+    // Legacy/Bootstrap/Quarto Compatibility
+    &.card-primary, &.is-primary { @extend .is-info; }
+    &.card-info, &.is-info-legacy { @extend .is-info; }
+    &.card-success { @extend .is-success; }
+    &.card-warning { @extend .is-warning; }
+    &.card-danger { @extend .is-danger; }
+    &.card-secondary, &.is-debug-legacy { @extend .is-debug; }
+}
+
+// Layout Utilities
+.ui-metrics-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin-bottom: 20px;
+
+    .ui-card, .card {
+        margin: 0 !important;
+        flex: 1;
+        min-width: 150px;
+    }
+}
+
+// Global Card Alias for Quarto
+.card {
+    @extend .ui-card;
 }
 
 // Animations
@@ -462,6 +503,88 @@ code, pre {
         
         .icon { font-size: 1.8em; margin-bottom: 5px; }
         .id { font-weight: bold; font-size: 0.9em; }
+    }
+}
+
+// ==========================================
+// 8. OJS CONTROLS (Observable Inputs)
+// ==========================================
+
+.observablehq--input, 
+.observablehq-inspector, 
+[class*="oi-"] {
+    font-family: inherit;
+    
+    // Sliders (Range)
+    input[type="range"] {
+        accent-color: var(--sol-blue);
+        height: 6px;
+        background: var(--sol-base2);
+        border-radius: 5px;
+        appearance: none;
+        cursor: pointer;
+
+        &::-webkit-slider-runnable-track { background: transparent; }
+        &::-webkit-slider-thumb { border-radius: 50%; }
+    }
+
+    // Labels
+    label {
+        font-family: var(--font-code);
+        font-size: 0.75em;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--sol-base1);
+        margin-right: 12px;
+    }
+
+    // Radio / Checkbox
+    input[type="radio"], input[type="checkbox"] {
+        accent-color: var(--sol-blue);
+        margin-right: 6px;
+    }
+
+    // Text & Number Inputs
+    input[type="text"], input[type="number"], select {
+        background: var(--sol-base3);
+        border: 1px solid var(--sol-base2);
+        border-radius: 8px;
+        padding: 4px 10px;
+        color: var(--sol-base00);
+        font-family: var(--font-code);
+        font-size: 0.9em;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &:focus {
+            border-color: var(--sol-blue);
+            box-shadow: 0 0 0 2px rgba(var(--sol-blue-rgb), 0.1);
+        }
+    }
+
+    // Number input specific (remove spinners for a cleaner look if desired, or just style them)
+    input[type="number"] {
+        width: 60px;
+        text-align: center;
+    }
+
+    // Form Container
+    form {
+        background: var(--sol-base3);
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 1px solid var(--sol-base2);
+        display: inline-flex;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(var(--sol-base03-rgb), 0.03);
+        margin-bottom: 1rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba(var(--sol-base03-rgb), 0.05);
+            border-color: var(--sol-base1);
+        }
     }
 }
 

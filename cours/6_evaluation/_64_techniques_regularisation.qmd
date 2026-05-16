@@ -209,18 +209,3 @@ L'**EU AI Act** (Législation européenne sur l'IA) impose des contraintes sév�
 
 * **Article 15 (Robustesse) :** Exige que les modèles maintiennent leur précision tout au long de leur cycle de vie et soient surveillés contre les dégradations statistiques [@eu_aiact_art15_2026].
 * Une entreprise dont l'algorithme "dérive" au point de devenir discriminatoire (ex: un Data Drift qui le pousse à refuser systématiquement des crédits à une minorité) s'expose à des amendes se chiffrant en millions d'euros. Le MLOps est votre bouclier juridique.
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Faire la différence entre Data Drift (les données changent) et Concept Drift (la réalité métier change).
-* [ ] Retenir que le PSI (Population Stability Index) est la métrique clé pour lancer une alerte de dérive.
-* [ ] Comprendre que le ré-entraînement continu est une obligation tant mathématique que légale (EU AI Act).
-
-### 📖 Mini-Glossaire
-
-* **Data Drift :** Modification au fil du temps de la distribution statistique des variables d'entrée par rapport à l'ensemble d'entraînement.
-* **Concept Drift :** Modification de la relation fondamentale entre les variables d'entrée et la variable cible (la cible change de définition).
-* **PSI (Population Stability Index) :** Mesure statistique quantifiant à quel point la distribution d'une variable a changé entre deux périodes.
-* **EU AI Act :** Cadre réglementaire européen visant à classifier et encadrer les risques liés aux systèmes d'intelligence artificielle.

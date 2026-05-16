@@ -39,9 +39,12 @@ L'objectif est de prédire une catégorie.
 
 ---
 
-#### **Interactif : La Magie du KNN**
+::: {.card .card-secondary}
+::: {.card-header}
+🔬 Expérimentation : La Magie du KNN
+:::
+::: {.card-body}
 Le paramètre $K$ (le nombre de voisins) est le curseur de sensibilité de votre enquêteur. Manipulez $K$ pour voir comment la frontière de décision évolue entre le bruit et la tendance lourde.
-
 
 ```{ojs}
 //| echo: false
@@ -99,7 +102,7 @@ knnSimulator = ({ k = 3 }) => {
   return `
     <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px; background: rgba(var(--sol-base03-rgb), 0.03); border-radius: 8px;">
       
-      <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+      <div class="ui-metrics-row">
         ${ui.metricCard({ title: "K-Voisins", value: k, trend: "neutral" })}
         ${ui.metricCard({ title: "Classe Prédite", value: winningClass, trend: winningClass === "A" ? "positive" : "warning" })}
         ${ui.metricCard({ title: "Confiance", value: `${Math.round(Math.max(votes.A, votes.B) / k * 100)}%`, trend: "positive" })}
@@ -130,6 +133,8 @@ knnSimulator = ({ k = 3 }) => {
 
 ui.render(knnSimulator({ k: k_neighbors }))
 ```
+:::
+:::
 
 ---
 

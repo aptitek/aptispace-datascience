@@ -63,18 +63,3 @@ flowchart TD
     style F fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Toujours exiger la matrice de confusion avant d'accepter un score de performance.
-* [ ] Comprendre l'asymétrie des coûts : un Faux Négatif médical n'a pas la même valeur qu'un Faux Positif marketing.
-* [ ] Utiliser le F1-Score comme standard dès que les classes sont déséquilibrées (ex: 90% vs 10%).
-
-### 📖 Mini-Glossaire
-
-* **Précision :** Capacité du modèle à ne pas déclencher de fausses alertes.
-* **Rappel (Recall) :** Capacité du modèle à ne laisser passer aucun cas réel.
-* **F1-Score :** Indicateur unique équilibrant précision et rappel.
-* **Déséquilibre de classe (Class Imbalance) :** Situation où une catégorie est massivement plus représentée qu'une autre dans les données.

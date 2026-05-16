@@ -59,16 +59,3 @@ Validation de Domaine
 Une fois vos données harmonisées, appliquez toujours une **Validation de Domaine**. S'assurer que les données respectent les plages de valeurs logiques propres au métier (ex: l'âge ne peut pas être de 250 ans, un mois ne peut pas dépasser 12) est la dernière barrière de sécurité avant la modélisation.
 :::
 :::
----
-
-### ✅ Aide-mémoire
-
-* [ ] Toujours unifier la casse (`.str.lower()`) et retirer les espaces vides (`.str.strip()`) des variables textuelles.
-* [ ] Convertir toutes les colonnes temporelles avec `pd.to_datetime` vers la norme ISO.
-* [ ] Penser à extraire l'année, le mois ou le jour de la semaine si ces éléments ont un pouvoir prédictif (ex: la fréquentation d'un magasin le samedi).
-
-### 📖 Mini-Glossaire
-
-* **Regex (Expressions Régulières) :** Séquence de caractères formant un motif de recherche, très utilisée pour trouver et remplacer des chaînes de texte spécifiques.
-* **Norme ISO 8601 :** Norme internationale de représentation de la date et de l'heure, conçue pour éviter toute ambiguïté (AAAA-MM-JJ).
-* **Trim (ou Strip) :** Fonction informatique permettant de supprimer les espaces "blancs" situés au début et à la fin d'une chaîne de caractères.

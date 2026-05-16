@@ -66,18 +66,3 @@ flowchart TD
     style E fill:#eee8d5,stroke:#073642,color:#657b83
 
 ```
-
----
-
-### ✅ Aide-mémoire
-
-* [ ] Abandonner la structure chronologique (comment j'ai fait mon code) pour adopter une structure Top-Down (voici la solution, puis voici pourquoi).
-* [ ] Remplacer tous les titres de graphiques par des "Action Titles" (la conclusion que l'on doit tirer du graphique).
-* [ ] Utiliser le SCQA pour introduire le contexte et créer un sentiment d'urgence justifiant le projet.
-
-### 📖 Mini-Glossaire
-
-* **Pyramide de Minto :** Cadre de communication hiérarchique consistant à donner la conclusion en premier, suivie des arguments et des preuves.
-* **SCQA :** Acronyme pour Situation, Complication, Question, Answer. Une structure narrative pour introduire un problème et sa solution de manière impactante.
-* **Action Titles (Titres d'action) :** Phrase complète utilisée comme titre de présentation ou de graphique, énonçant directement l'insight principal à retenir.
-* **Executive Summary (Synthèse Exécutive) :** La première page d'un rapport, condensant l'intégralité du problème et des recommandations pour les décideurs.

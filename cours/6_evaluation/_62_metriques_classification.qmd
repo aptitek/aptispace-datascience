@@ -193,7 +193,7 @@ mesh = {
 Plot.plot({
   height: 600,
   width: 800,
-  style: { background: "#111", color: "#eee", fontVariantNumeric: "tabular-nums" },
+  style: { background: "var(--sol-base03)", color: "var(--sol-base0)", fontVariantNumeric: "tabular-nums" },
   x: { domain: domain, label: "Hyperparamètre X →", grid: true },
   y: { domain: domain, label: "Hyperparamètre Y ↑", grid: true },
   color: {
@@ -208,14 +208,14 @@ Plot.plot({
     Plot.cell(mesh, {x: "x", y: "y", fill: "loss", inset: 0.5, opacity: 0.8}),
     
     // Marquage de l'optimum global réel (L'étoile cachée)
-    Plot.dot([trueOptimum], {x: d => d[0], y: d => d[1], symbol: "star", r: 10, fill: "white", stroke: "black", strokeWidth: 2}),
+    Plot.dot([trueOptimum], {x: d => d[0], y: d => d[1], symbol: "star", r: 10, fill: "var(--sol-base3)", stroke: "var(--sol-base03)", strokeWidth: 2}),
 
     // Les points d'essai de l'algorithme
     Plot.dot(currentTrials, {
       x: "x", 
       y: "y", 
-      fill: "white", 
-      stroke: "#111",
+      fill: "var(--sol-base3)", 
+      stroke: "var(--sol-base03)",
       r: 3, 
       opacity: 0.6
     }),
@@ -225,7 +225,7 @@ Plot.plot({
       x: "x", 
       y: "y", 
       fill: "none", 
-      stroke: "#D4AF37", // Or pour le meilleur
+      stroke: "var(--sol-yellow)", // Or pour le meilleur
       r: 8, 
       strokeWidth: 3
     }) : null
@@ -239,20 +239,20 @@ Plot.plot({
 // 6. Tableau de bord des statistiques & Feedback pédagogique
 html`
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-  <div style="padding: 20px; background: #fff; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center;">
-    <div style="font-size: 0.9em; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em;">Essais réalisés</div>
-    <div style="font-size: 3em; font-weight: 700; color: #005088;">${currentTrialIndex} / 100</div>
+  <div style="padding: 20px; background: var(--sol-base3); border-radius: 12px; border: 1px solid var(--sol-base2); box-shadow: 0 4px 6px rgba(0, 43, 54, 0.05); text-align: center;">
+    <div style="font-size: 0.9em; color: var(--sol-base1); text-transform: uppercase; letter-spacing: 0.1em;">Essais réalisés</div>
+    <div style="font-size: 3em; font-weight: 700; color: var(--sol-blue);">${currentTrialIndex} / 100</div>
   </div>
   
-  <div style="padding: 20px; background: #fff; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center;">
-    <div style="font-size: 0.9em; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em;">Meilleur Score (Loss)</div>
-    <div style="font-size: 3em; font-weight: 700; color: #2e7d32;">${bestTrial ? bestTrial.loss.toFixed(4) : "N/A"}</div>
+  <div style="padding: 20px; background: var(--sol-base3); border-radius: 12px; border: 1px solid var(--sol-base2); box-shadow: 0 4px 6px rgba(0, 43, 54, 0.05); text-align: center;">
+    <div style="font-size: 0.9em; color: var(--sol-base1); text-transform: uppercase; letter-spacing: 0.1em;">Meilleur Score (Loss)</div>
+    <div style="font-size: 3em; font-weight: 700; color: var(--sol-green);">${bestTrial ? bestTrial.loss.toFixed(4) : "N/A"}</div>
   </div>
 </div>
 
-<div style="margin-top: 20px; padding: 20px; border-radius: 12px; font-size: 1.1em; background: #f8fafc; border: 1px solid #e2e8f0;">
+<div style="margin-top: 20px; padding: 20px; border-radius: 12px; font-size: 1.1em; background: var(--sol-base2); border: 1px solid var(--sol-base1);">
   <strong>💡 Analyse pédagogique :</strong><br/>
-  <p style="margin-top: 10px; color: #334155;">
+  <p style="margin-top: 10px; color: var(--sol-base00);">
   ${searchStrategy.includes("Grid")
     ? "Le <b>Grid Search</b> quadrille la zone de manière rigide. Il gaspille énormément de temps à tester des régions 'bleues' (hautes erreurs) car il n'apprend pas de ses échecs. Il peut passer juste à côté du minimum global (l'étoile blanche) sans jamais le trouver s'il n'est pas sur un croisement de la grille."
     : searchStrategy.includes("Random")

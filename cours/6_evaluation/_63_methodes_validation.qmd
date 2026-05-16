@@ -91,15 +91,15 @@ apiSimulation = {
 html`
 <style>
   .api-container { display: flex; justify-content: space-between; gap: 15px; font-family: ui-sans-serif, system-ui, sans-serif; margin-top: 10px; }
-  .api-box { flex: 1; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-  .client-box { border-top: 5px solid #3b82f6; }
-  .server-box { border-top: 5px solid #10b981; }
-  .json-block { background: #1e293b; color: #a5b4fc; padding: 15px; border-radius: 8px; font-family: ui-monospace, monospace; white-space: pre-wrap; font-size: 0.9em; min-height: 100px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+  .api-box { flex: 1; padding: 20px; border-radius: 12px; border: 1px solid var(--sol-base2); background: var(--sol-base3); box-shadow: 0 4px 6px rgba(0, 43, 54, 0.05); }
+  .client-box { border-top: 5px solid var(--sol-blue); }
+  .server-box { border-top: 5px solid var(--sol-green); }
+  .json-block { background: var(--sol-base03); color: var(--sol-cyan); padding: 15px; border-radius: 8px; font-family: ui-monospace, monospace; white-space: pre-wrap; font-size: 0.9em; min-height: 100px; box-shadow: inset 0 2px 4px rgba(0, 43, 54, 0.2); }
   .status-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.05em; }
-  .status-idle { background: #f1f5f9; color: #64748b; }
-  .status-active { background: #fef08a; color: #854d0e; animation: pulse 1s infinite; }
-  .status-done { background: #dcfce7; color: #166534; }
-  .status-error { background: #fee2e2; color: #991b1b; }
+  .status-idle { background: var(--sol-base2); color: var(--sol-base01); }
+  .status-active { background: var(--sol-yellow); color: var(--sol-base3); animation: pulse 1s infinite; }
+  .status-done { background: var(--sol-green); color: var(--sol-base3); }
+  .status-error { background: var(--sol-red); color: var(--sol-base3); }
   .network-zone { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; }
   
   @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
@@ -109,8 +109,8 @@ html`
 
 <div class="api-container">
   <div class="api-box client-box">
-    <h3 style="margin-top: 0; color: #1e293b;">📱 App Client (Frontend)</h3>
-    <p style="font-size: 0.9em; color: #64748b;">Payload JSON généré par l'interface :</p>
+    <h3 style="margin-top: 0; color: var(--sol-base03);">📱 App Client (Frontend)</h3>
+    <p style="font-size: 0.9em; color: var(--sol-base01);">Payload JSON généré par l'interface :</p>
     <div class="json-block">{
   "age": ${age},
   "salaire": ${salary},
@@ -118,7 +118,7 @@ html`
 }</div>
     <div style="margin-top: 20px; height: 50px; text-align: center; display: flex; align-items: center; justify-content: center;">
       ${apiSimulation.step === 'done' ? 
-        `<div class="status-badge ${apiSimulation.response.statut === 'Accepté' ? 'status-done' : 'status-error'}" style="font-size: 1.1em; padding: 10px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        `<div class="status-badge ${apiSimulation.response.statut === 'Accepté' ? 'status-done' : 'status-error'}" style="font-size: 1.1em; padding: 10px 20px; box-shadow: 0 4px 6px rgba(0, 43, 54, 0.1);">
           💰 Résultat final : Crédit ${apiSimulation.response.statut}
         </div>` 
         : ``
@@ -127,17 +127,17 @@ html`
   </div>
 
   <div class="network-zone">
-    <div style="text-align: center; color: #94a3b8; font-weight: bold; margin-bottom: 10px; font-size: 0.9em; text-transform: uppercase;">Internet</div>
+    <div style="text-align: center; color: var(--sol-base1); font-weight: bold; margin-bottom: 10px; font-size: 0.9em; text-transform: uppercase;">Internet</div>
     <div style="position: relative; width: 100px; height: 40px;">
-      ${apiSimulation.step === 'sending' ? `<div style="position: absolute; left: 0; animation: goRight 0.8s forwards; font-size: 30px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">📦</div>` : ''}
-      ${apiSimulation.step === 'returning' ? `<div style="position: absolute; right: 0; animation: goLeft 0.8s forwards; font-size: 30px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">📩</div>` : ''}
+      ${apiSimulation.step === 'sending' ? `<div style="position: absolute; left: 0; animation: goRight 0.8s forwards; font-size: 30px; filter: drop-shadow(0 2px 4px rgba(0, 43, 54, 0.2));">📦</div>` : ''}
+      ${apiSimulation.step === 'returning' ? `<div style="position: absolute; right: 0; animation: goLeft 0.8s forwards; font-size: 30px; filter: drop-shadow(0 2px 4px rgba(0, 43, 54, 0.2));">📩</div>` : ''}
     </div>
   </div>
 
   <div class="api-box server-box">
-    <h3 style="margin-top: 0; color: #1e293b;">☁️ Serveur (FastAPI)</h3>
+    <h3 style="margin-top: 0; color: var(--sol-base03);">☁️ Serveur (FastAPI)</h3>
     <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-size: 0.9em; color: #64748b;">Statut API :</span> 
+      <span style="font-size: 0.9em; color: var(--sol-base01);">Statut API :</span> 
       <span class="status-badge ${
         apiSimulation.step === 'idle' ? 'status-idle' :
         apiSimulation.step === 'processing' ? 'status-active' :
@@ -149,18 +149,18 @@ html`
           apiSimulation.step === 'returning' ? 'Envoi de la réponse...' : 'Prêt'}
       </span>
     </div>
-    <p style="font-size: 0.9em; color: #64748b;">Réponse du modèle ML :</p>
+    <p style="font-size: 0.9em; color: var(--sol-base01);">Réponse du modèle ML :</p>
     <div class="json-block">${
       (apiSimulation.step === 'returning' || apiSimulation.step === 'done') ?
       `{\n  "statut": "${apiSimulation.response.statut}",\n  "probabilite_defaut": ${apiSimulation.response.probabilite_defaut}\n}`
-      : `<span style="color: #64748b;">// Modèle en veille...</span>`
+      : `<span style="color: var(--sol-base01);">// Modèle en veille...</span>`
     }</div>
   </div>
 </div>
 
-<div style="margin-top: 20px; padding: 20px; border-radius: 12px; font-size: 1.1em; background: #f8fafc; border: 1px solid #e2e8f0;">
+<div style="margin-top: 20px; padding: 20px; border-radius: 12px; font-size: 1.1em; background: var(--sol-base2); border: 1px solid var(--sol-base1);">
   <strong>💡 Analyse pédagogique :</strong><br/>
-  <p style="margin-top: 10px; color: #334155;">
+  <p style="margin-top: 10px; color: var(--sol-base00);">
     Remarquez la séparation absolue des rôles. L'application mobile (le client) ne connaît rien au Machine Learning ni à l'algorithme XGBoost ; elle se contente d'afficher un <b>JSON</b>. Inversement, le serveur (FastAPI + ML) se moque de savoir si l'utilisateur est sur iOS, Android ou un site web : il ingère des données brutes et renvoie des probabilités. C'est ce qu'on appelle une architecture <b>découplée</b>.
   </p>
 </div>
@@ -189,9 +189,9 @@ graph LR
         E -- "JSON: {Fraude: 95%}" --> F
     end
 
-    style Developpement fill:#e3f2fd,stroke:#1565c0
-    style Package fill:#f3e5f5,stroke:#6a1b9a
-    style Production fill:#e8f5e9,stroke:#2e7d32
+    style Developpement fill:#268bd2,stroke:#073642,color:#fdf6e3
+    style Package fill:#6c71c4,stroke:#073642,color:#fdf6e3
+    style Production fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
 

@@ -23,8 +23,8 @@ flowchart TD
     D -->|3. Combine| F[Résultat Final\n A:15, B:25]
     E -->|3. Combine| F
     
-    style A fill:#e3f2fd,stroke:#1565c0
-    style F fill:#e8f5e9,stroke:#2e7d32
+    style A fill:#268bd2,stroke:#073642,color:#fdf6e3
+    style F fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
 

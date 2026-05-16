@@ -55,8 +55,8 @@ flowchart TD
     D -->|Cas Manqué / FN| F[Optimiser le Rappel]
     D -->|Équilibre Critique| G[F1-Score]
     
-    style E fill:#ffebee,stroke:#c62828
-    style F fill:#e8f5e9,stroke:#2e7d32
+    style E fill:#dc322f,stroke:#073642,color:#fdf6e3
+    style F fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
 

@@ -110,25 +110,25 @@ import {Plot} from "@observablehq/plot"
 Plot.plot({
   height: 450,
   width: 800,
-  style: { background: "#fff", fontSize: "14px", borderRadius: "8px", border: "1px solid #e2e8f0" },
+  style: { background: "var(--sol-base3)", fontSize: "14px", borderRadius: "8px", border: "1px solid var(--sol-base2)" },
   x: { domain: [-6, 6], label: "Caractéristique Client (ex: Score d'achat) →", grid: true },
   y: { domain: [-4, 4], label: "← Comportement →", grid: true },
   marks: [
     // Zone de décision du modèle : Légitime (Bleu)
-    Plot.rect([{x1: -10, x2: 0, y1: -10, y2: 10}], {x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: "#eff6ff"}),
+    Plot.rect([{x1: -10, x2: 0, y1: -10, y2: 10}], {x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: "rgba(38, 139, 210, 0.1)"}),
     // Zone de décision du modèle : Fraude (Rouge)
-    Plot.rect([{x1: 0, x2: 10, y1: -10, y2: 10}], {x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: "#fef2f2"}),
+    Plot.rect([{x1: 0, x2: 10, y1: -10, y2: 10}], {x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: "rgba(220, 50, 47, 0.1)"}),
     
     // Frontière de décision (Le modèle figé)
-    Plot.ruleX([0], {stroke: "#1e293b", strokeWidth: 4, strokeDasharray: "8,4"}),
-    Plot.text([{x: 0, y: 3.5}], {text: () => "Frontière du Modèle (Figée)", fill: "#1e293b", fontWeight: "bold", dy: -10}),
+    Plot.ruleX([0], {stroke: "var(--sol-base03)", strokeWidth: 4, strokeDasharray: "8,4"}),
+    Plot.text([{x: 0, y: 3.5}], {text: () => "Frontière du Modèle (Figée)", fill: "var(--sol-base03)", fontWeight: "bold", dy: -10}),
 
     // Affichage des données (qui évoluent selon le monde réel)
     Plot.dot(currentData, {
       x: "x", 
       y: "y", 
-      fill: d => d.label === "Légitime" ? "#3b82f6" : "#ef4444", 
-      stroke: d => d.isCorrect ? "white" : "black", // Entouré en noir si le modèle se trompe !
+      fill: d => d.label === "Légitime" ? "var(--sol-blue)" : "var(--sol-red)", 
+      stroke: d => d.isCorrect ? "var(--sol-base3)" : "var(--sol-base03)", // Entouré en noir si le modèle se trompe !
       strokeWidth: d => d.isCorrect ? 1 : 2.5,
       r: 6
     })
@@ -142,17 +142,17 @@ Plot.plot({
 // 6. Tableau de Bord et Pédagogie
 html`
 <div style="display: flex; gap: 20px; margin-top: 15px;">
-  <div style="flex: 1; padding: 20px; background: ${accuracy > 85 ? '#dcfce7' : '#fee2e2'}; border-radius: 12px; border: 1px solid ${accuracy > 85 ? '#bbf7d0' : '#fecaca'}; text-align: center; transition: background 0.5s;">
-    <div style="font-size: 0.9em; color: ${accuracy > 85 ? '#166534' : '#991b1b'}; text-transform: uppercase; font-weight: bold;">Précision en Production</div>
-    <div style="font-size: 3.5em; font-weight: 800; color: ${accuracy > 85 ? '#15803d' : '#b91c1c'};">${accuracy.toFixed(1)}%</div>
-    <div style="font-size: 0.9em; color: ${accuracy > 85 ? '#166534' : '#991b1b'}; margin-top: 5px;">
+  <div style="flex: 1; padding: 20px; background: ${accuracy > 85 ? 'rgba(133, 153, 0, 0.1)' : 'rgba(220, 50, 47, 0.1)'}; border-radius: 12px; border: 1px solid ${accuracy > 85 ? 'var(--sol-green)' : 'var(--sol-red)'}; text-align: center; transition: background 0.5s;">
+    <div style="font-size: 0.9em; color: ${accuracy > 85 ? 'var(--sol-green)' : 'var(--sol-red)'}; text-transform: uppercase; font-weight: bold;">Précision en Production</div>
+    <div style="font-size: 3.5em; font-weight: 800; color: ${accuracy > 85 ? 'var(--sol-green)' : 'var(--sol-red)'};">${accuracy.toFixed(1)}%</div>
+    <div style="font-size: 0.9em; color: ${accuracy > 85 ? 'var(--sol-green)' : 'var(--sol-red)'}; margin-top: 5px;">
       ${accuracy > 85 ? '✅ Modèle Fiable' : '🚨 ALERTE : Ré-entraînement requis (PSI Élevé)'}
     </div>
   </div>
 
-  <div style="flex: 2; padding: 20px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0;">
+  <div style="flex: 2; padding: 20px; border-radius: 12px; background: var(--sol-base2); border: 1px solid var(--sol-base1);">
     <strong>📊 Diagnostic de Dérive :</strong><br/>
-    <p style="margin-top: 10px; color: #334155; line-height: 1.5;">
+    <p style="margin-top: 10px; color: var(--sol-base00); line-height: 1.5;">
     ${driftMode.includes("Initial")
       ? "Tout va bien. La majorité des points bleus (Légitimes) sont dans la zone bleue du modèle, et les points rouges (Fraudes) dans la zone rouge. Le modèle est parfaitement aligné avec la réalité."
       : driftMode.includes("Data Drift")
@@ -191,9 +191,9 @@ graph LR
     E -->|Non| G[Alerte Data Scientist]
     F --> A
     
-    style B fill:#ffebee,stroke:#c62828
-    style E fill:#fff3e0,stroke:#e65100
-    style F fill:#e8f5e9,stroke:#2e7d32
+    style B fill:#dc322f,stroke:#073642,color:#fdf6e3
+    style E fill:#cb4b16,stroke:#073642,color:#fdf6e3
+    style F fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
 

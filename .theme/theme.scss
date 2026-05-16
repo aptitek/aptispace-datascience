@@ -1,8 +1,149 @@
 /*-- scss:defaults --*/
-@import "variables";
+
+// ==========================================
+// 1. DESIGN TOKENS (Solarized Core)
+// ==========================================
+
+$font-family-base: 'Recursive', sans-serif !default;
+$font-family-code: 'Recursive', monospace !default;
+$headings-font-weight: 800 !default;
+
+// Official Solarized Palette
+$sol-base03: #002b36;
+$sol-base02: #073642;
+$sol-base01: #586e75;
+$sol-base00: #657b83;
+$sol-base0:  #839496;
+$sol-base1:  #93a1a1;
+$sol-base2:  #eee8d5;
+$sol-base3:  #fdf6e3;
+
+$sol-yellow: #b58900;
+$sol-orange: #cb4b16;
+$sol-red:    #dc322f;
+$sol-magenta:#d33682;
+$sol-violet: #6c71c4;
+$sol-blue:   #268bd2;
+$sol-cyan:   #2aa198;
+$sol-green:  #859900;
+
+// Semantic Bootstrap Mapping
+$primary:       $sol-blue !default;
+$body-bg:       $sol-base3 !default;
+$body-color:    $sol-base00 !default;
+$link-color:    $sol-blue !default;
+$link-hover-color: $sol-orange !default;
+$selection-bg:  rgba($sol-blue, 0.2) !default;
+
+$sidebar-bg:    $sol-base2 !default;
+$sidebar-fg:    $sol-base01 !default;
 
 /*-- scss:rules --*/
-@import "tokens";
-@import "base";
-@import "components";
-@import "simulations";
+
+// ==========================================
+// 2. CORE TYPOGRAPHY & LAYOUT
+// ==========================================
+
+// Import Recursive with full Variable Font support
+@import url('https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&display=swap');
+
+body {
+    font-family: $font-family-base;
+    font-variation-settings: 'MONO' 0, 'CASL' 0, 'slnt' 0, 'CRSV' 0.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $sol-base01;
+    font-weight: $headings-font-weight;
+    font-variation-settings: 'MONO' 0, 'CASL' 0.5;
+}
+
+code, pre {
+    font-family: $font-family-code;
+    font-variation-settings: 'MONO' 1;
+}
+
+// ==========================================
+// 3. SIDEBAR & NAVIGATION CLEANUP
+// ==========================================
+
+// Hide Part Numbers for a cleaner look
+.sidebar .part-number {
+    display: none;
+}
+
+// Professional Part Titles
+.sidebar .part-title {
+    font-weight: bold;
+    margin-top: 1.5em;
+    color: $sol-blue;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.05em;
+}
+
+// Active TOC Highlight
+.sidebar nav[role=doc-toc] ul > li > a.active {
+    color: $sol-green !important;
+    border-left: 2px solid $sol-green !important;
+    padding-left: 10px;
+}
+
+// ==========================================
+// 4. PREMIUM UI TOUCHES
+// ==========================================
+
+// Custom Scrollbars
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba($sol-base1, 0.4);
+    border-radius: 10px;
+    &:hover { background: rgba($sol-base1, 0.8); }
+}
+
+// ==========================================
+// 5. MERMAID SOLARIZED STYLING
+// ==========================================
+
+.cell-output-display .mermaid {
+    font-family: $font-family-code !important;
+    
+    g.node rect, g.node circle, g.node polygon, g.node path {
+        fill: $sol-base2 !important;
+        stroke: $sol-base01 !important;
+        stroke-width: 1.5px !important;
+    }
+    
+    g.node .label, g.node .nodeLabel, g.node .label div {
+        color: $sol-base00 !important;
+    }
+    
+    .edgePath .path {
+        stroke: $sol-base1 !important;
+        stroke-width: 2px !important;
+    }
+}
+
+// ==========================================
+// 6. RUNTIME TOKENS (For OJS/JS Components)
+// ==========================================
+
+:root {
+    --sol-base03: #{$sol-base03};
+    --sol-base02: #{$sol-base02};
+    --sol-base01: #{$sol-base01};
+    --sol-base00: #{$sol-base00};
+    --sol-base0:  #{$sol-base0};
+    --sol-base1:  #{$sol-base1};
+    --sol-base2:  #{$sol-base2};
+    --sol-base3:  #{$sol-base3};
+    --sol-blue:   #{$sol-blue};
+    --sol-orange: #{$sol-orange};
+    --sol-red:    #{$sol-red};
+    --sol-green:  #{$sol-green};
+    --sol-yellow: #{$sol-yellow};
+}

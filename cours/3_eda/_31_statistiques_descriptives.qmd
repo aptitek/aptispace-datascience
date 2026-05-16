@@ -45,9 +45,9 @@ flowchart LR
     C --> F{Coût en RAM/CPU}
     F -.->|Faible| G[Opération SIMD directe]
     
-    style A fill:#ffe0b2,stroke:#ff9800
-    style B fill:#c8e6c9,stroke:#4caf50
-    style C fill:#c8e6c9,stroke:#4caf50
+    style A fill:#cb4b16,stroke:#073642,color:#fdf6e3
+    style B fill:#859900,stroke:#073642,color:#fdf6e3
+    style C fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
 

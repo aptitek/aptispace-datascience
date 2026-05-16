@@ -46,9 +46,9 @@ flowchart TD
     
     B -->|Numérique + Catégorielle| F[Boxplot ou Bar Plot]
     
-    style D fill:#e1f5fe,stroke:#01579b
-    style E fill:#e1f5fe,stroke:#01579b
-    style F fill:#fff3e0,stroke:#e65100
+    style D fill:#268bd2,stroke:#073642,color:#fdf6e3
+    style E fill:#268bd2,stroke:#073642,color:#fdf6e3
+    style F fill:#cb4b16,stroke:#073642,color:#fdf6e3
 
 ```
 

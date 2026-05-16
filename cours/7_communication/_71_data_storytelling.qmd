@@ -44,9 +44,9 @@ graph LR
     A[Observation\nLa Donnée Brute] -->|So What ?| B[Insight\nL'explication ML]
     B -->|So What ?| C[Action\nLa Recommandation Business]
     
-    style A fill:#e3f2fd,stroke:#1565c0
-    style B fill:#fff3e0,stroke:#e65100
-    style C fill:#e8f5e9,stroke:#2e7d32
+    style A fill:#268bd2,stroke:#073642,color:#fdf6e3
+    style B fill:#cb4b16,stroke:#073642,color:#fdf6e3
+    style C fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
 

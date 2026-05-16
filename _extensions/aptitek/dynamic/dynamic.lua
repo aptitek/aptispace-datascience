@@ -91,39 +91,14 @@ local function transform_dynamic_div(el)
   end
 end
 
-local js_files = {
-  "js/core.js",
-  "js/atom.js",
-  "js/mol.js",
-  "js/card.js",
-  "js/terminal.js",
-  "js/canvas.js",
-  "js/compat.js",
-  "js/monitor.js"
-}
-
 -- Use a filter list to control execution order
 return {
   {
-    -- Pass 1: Transform all .dynamic Divs and mark if we found any
+    -- Transform all .dynamic Divs
     Div = function(el)
       if has_class(el, "dynamic") then
-        _G.has_dynamic_in_doc = true
         return transform_dynamic_div(el)
       end
-    end
-  },
-  {
-    -- Second pass: Inject dependency if needed
-    Pandoc = function(doc)
-      if _G.has_dynamic_in_doc then
-        quarto.doc.add_html_dependency({
-          name = 'aptitek-dynamic',
-          version = '1.0.0',
-          scripts = js_files
-        })
-      end
-      return doc
     end
   }
 }

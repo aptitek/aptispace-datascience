@@ -45,8 +45,8 @@ flowchart LR
         D3 --> D4[Mise à jour du Composant Uniquement]
     end
     
-    style Streamlit fill:#ffebee,stroke:#c62828
-    style Dash fill:#e8f5e9,stroke:#2e7d32
+    style Streamlit fill:#dc322f,stroke:#073642,color:#fdf6e3
+    style Dash fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
 

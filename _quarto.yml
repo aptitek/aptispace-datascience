@@ -13,6 +13,7 @@ bibliography: bibliography.bib
 filters:
   - quarto-live
   - aptitek/dynamic
+  - aptitek/ojs-ui
   - filetree
   - card
   - timeline
@@ -78,4 +79,4 @@ format:
     header-includes: |
       <meta name="robots" content="noindex, nofollow">
     include-after-body: assets/fix_links.html
-    css: .theme/book_custom.css
+

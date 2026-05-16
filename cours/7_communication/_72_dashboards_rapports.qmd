@@ -58,8 +58,8 @@ flowchart TD
         D --> E
     end
     
-    style A fill:#D4AF37,stroke:#b8860b,color:#000
-    style E fill:#e2e8f0,stroke:#64748b,color:#000
+    style A fill:#b58900,stroke:#073642,color:#fdf6e3
+    style E fill:#eee8d5,stroke:#073642,color:#657b83
 
 ```
 

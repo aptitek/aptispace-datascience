@@ -16,8 +16,8 @@ flowchart LR
     B -->|Investigation &\nModélisation| C{Connaissance\nLes Motifs}
     C -->|Storytelling &\nDéploiement| D([Décision Métier\nL'Action])
     
-    style A fill:#ff9999,stroke:#333,stroke-width:2px
-    style D fill:#99cc99,stroke:#333,stroke-width:4px
+    style A fill:#dc322f,stroke:#073642,stroke-width:2px,color:#fdf6e3
+    style D fill:#859900,stroke:#073642,stroke-width:4px,color:#fdf6e3
 
 ```
 

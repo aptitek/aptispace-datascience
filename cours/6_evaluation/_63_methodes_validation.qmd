@@ -39,7 +39,6 @@ On utilise une **API REST**.
 
 Manipulez cette simulation pour comprendre comment un logiciel externe interagit avec votre modèle ML via une API REST (FastAPI).
 
-
 ::: {.callout-note}
 ### 🌐 Simulateur : L'API de Prédiction en action
 Testez cette interface client. Modifiez les paramètres du crédit et cliquez sur "Envoyer". Observez comment l'application cliente transforme vos actions en un fichier JSON, l'envoie sur le réseau, et comment le serveur ML (FastAPI) calcule et renvoie sa prédiction.

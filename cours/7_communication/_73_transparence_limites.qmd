@@ -26,6 +26,7 @@ Au lieu de dire "Ce projet rapportera 2 millions d'euros", on utilise la statist
 
 #### Les Graphiques pour Dirigeants
 Pour rendre l'incertitude actionnable, on utilise des visualisations spécifiques [@dev3lop_2025_visualizing_uncertainty] :
+
 * **Le Graphique en Éventail (Fan Chart) :** Utilisé par les banques centrales, il montre un cône qui s'élargit au fil du temps. Il illustre visuellement que plus la prédiction est lointaine, plus l'incertitude est grande.
 * **Le Graphique en Tornade (Tornado Chart) :** Il classe les variables de votre modèle de la plus impactante (en haut) à la moins impactante (en bas). Il permet au Comex de voir immédiatement quel facteur de risque (ex: le prix des matières premières) menace le plus la prédiction.
 

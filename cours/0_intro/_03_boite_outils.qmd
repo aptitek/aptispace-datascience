@@ -20,6 +20,7 @@ Pandas & NumPy
 :::
 ::: {.card-body}
 **Les Fondations**
+
 - **NumPy** : Le moteur mathématique pour les calculs matriciels.
 - **Pandas** : L'établi de travail pour manipuler les `DataFrames` (tables).
 :::

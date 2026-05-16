@@ -10,8 +10,6 @@ En 2026, 78 % des organisations déclarent utiliser l’IA, mais moins de 31 % d
 :::
 Le rôle du **Data Translator** (Traducteur de Données) est devenu la fonction la plus critique pour garantir le Retour sur Investissement (ROI) des initiatives analytiques. Son but ? Transformer la technicité brute en un levier de croissance stratégique.
 
-
-
 ### 🧱 1. Le Mur de l'Incompréhension : La faillite des métriques
 
 Les indicateurs de performance classiques de la Data Science (vus au Module 6) sont inaudibles, voire trompeurs, pour un dirigeant.
@@ -25,14 +23,17 @@ Le Data Translator ne prononce jamais les mots "Précision" ou "Rappel" devant l
 
 #### Traduire le F1-Score (Fraude et Churn)
 Le F1-Score équilibre la Précision et le Rappel. En entreprise, on le traduit grâce à une matrice de coûts asymétriques :
+
 * **Argument technique :** "Le modèle a un Recall de 95% et une Précision de 80%."
 * **Traduction Business :** "L'IA va capturer la quasi-totalité des tentatives de fraude, ce qui va **diviser nos pertes financières directes par deux**. En contrepartie, 20 % des alertes seront de fausses alarmes, ce qui nécessitera l'embauche temporaire de 2 modérateurs pour ne pas bloquer nos clients légitimes." [@geeksforgeeks_2026_evaluation_metrics]
 
 #### Traduire la RMSE (Supply Chain et Logistique)
+
 * **Argument technique :** "Nous avons abaissé la RMSE de 15 à 8."
 * **Traduction Business :** "Nous avons réduit l'incertitude de nos prévisions de ventes. Cela se traduit par une baisse de 30% des **ruptures de stock** (ventes manquées) et une diminution massive de nos **coûts de surstockage**, libérant ainsi 2 millions d'euros de capital immobilisé."
 
 #### Traduire l'AUC-ROC (Marketing)
+
 * **Traduction Business :** Cette métrique se traduit directement par l'optimisation du **Coût d'Acquisition Client (CAC)** ou l'efficacité du ciblage publicitaire.
 
 ### 🚀 3. Le Framework O.I.A. (Observation, Insight, Action)

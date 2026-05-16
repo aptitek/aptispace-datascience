@@ -13,6 +13,7 @@ Ce module plonge les étudiants au cœur de la "matière première" de toute Int
 À travers un parcours intensif de 35 heures, l'objectif est de maîtriser la transformation de données brutes (hétérogènes et bruitées) en informations exploitables et modélisables, en s'appuyant sur l'écosystème Python professionnel. Il s'agit de la première étape indispensable avant d'envisager toute architecture prédictive complexe.
 
 ## 🎯 Objectifs Pédagogiques
+
 - [ ] **Collecter et acquérir** des données issues de sources multiples (APIs, bases relationnelles et NoSQL).
 - [ ] **Nettoyer et préparer** (Data Wrangling) des datasets imparfaits via le Feature Engineering.
 - [ ] **Explorer et analyser** (EDA) les données pour en extraire des relations statistiques cachées.
@@ -20,6 +21,7 @@ Ce module plonge les étudiants au cœur de la "matière première" de toute Int
 - [ ] **Évaluer et communiquer** les résultats de manière transparente et percutante (Data Storytelling).
 
 ## 🛠️ Spécificités & Moyens
+
 - **Public :** Mastère Développement, Data & IA - 4ème année (M1).
 - **Volume Horaire :** 35 heures (5 jours).
 - **Moyens techniques :**

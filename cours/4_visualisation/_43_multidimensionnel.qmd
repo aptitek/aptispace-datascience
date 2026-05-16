@@ -14,10 +14,12 @@ Lorsque l'on a deux variables numériques (X et Y) et une troisième variable qu
 
 #### L'encodage par la taille (Bubble Plot)
 C'est un Scatter Plot (Nuage de points) classique, mais la taille de chaque point varie en fonction de la troisième variable (Z). 
+
 * **Exemple :** X = PIB par habitant, Y = Espérance de vie, Taille du point = Population du pays.
 
 #### L'encodage par la couleur (Heatmap / Carte de Chaleur)
 La Heatmap représente l'intensité ou la magnitude d'une variable Z sur un quadrillage 2D en utilisant un dégradé de couleurs.
+
 * **Usage phare :** Afficher une **Matrice de Corrélation**. Plutôt que de lire un grand tableau de chiffres, l'œil repère instantanément les carrés rouge foncé (forte corrélation positive) ou bleu foncé (corrélation négative) [@4_visualisation_md].
 
 ### 🧊 2. Le Piège de la 3D Décorative

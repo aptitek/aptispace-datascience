@@ -21,6 +21,7 @@ MCAR
 ::: {.card-body}
 **Aléatoire Pur**
 L'absence est un pur hasard.
+
 - **Exemple** : Une goutte de café sur un formulaire rend l'âge illisible.
 :::
 :::
@@ -31,6 +32,7 @@ MAR
 ::: {.card-body}
 **Aléatoire Conditionnel**
 L'absence dépend d'une *autre* variable connue.
+
 - **Exemple** : Un capteur omet le rythme cardiaque uniquement quand le patient dort.
 :::
 :::
@@ -41,6 +43,7 @@ MNAR
 ::: {.card-body}
 **Non Aléatoire**
 L'absence dépend de la *valeur elle-même*.
+
 - **Exemple** : Les hauts revenus refusent de déclarer leur salaire. **L'absence est un indice en soi.**
 :::
 :::

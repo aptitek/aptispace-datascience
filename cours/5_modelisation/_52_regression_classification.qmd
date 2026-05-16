@@ -19,6 +19,7 @@ Régression
 ::: {.card-body}
 **Prédire une Valeur**
 L'objectif est d'estimer un nombre continu.
+
 - **Régression Linéaire** : Trace la droite la plus proche des points.
 - **Exemple** : Prédire le prix d'un appartement ou la température de demain.
 :::
@@ -30,6 +31,7 @@ Classification
 ::: {.card-body}
 **Ranger dans des Boîtes**
 L'objectif est de prédire une catégorie.
+
 - **KNN** : "Dis-moi qui sont tes voisins...".
 - **SVM** : Maximiser la marge entre les classes.
 - **Exemple** : Spam ou Non-Spam, Chat ou Chien.

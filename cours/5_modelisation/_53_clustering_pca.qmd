@@ -14,11 +14,13 @@ Le but du clustering est de diviser un jeu de données en groupes (clusters) de 
 
 #### Le K-Means (L'algorithme des centres de gravité)
 C'est le grand classique. Il partitionne les données en un nombre "K" de groupes en minimisant la distance entre les points et le centre de leur groupe (le **Centroïde**) [@satish_kmeans_dbscan_utk_2026].
+
 * **Le Fonctionnement :** On place $K$ points au hasard. Chaque donnée s'accroche au point le plus proche. Puis, on déplace le point au centre géométrique du groupe formé. On recommence jusqu'à ce que plus rien ne bouge.
 * **Les Limites :** Il nécessite de définir $K$ (le nombre de groupes) à l'avance. Surtout, il force la création de clusters de **forme sphérique** et est très vulnérable aux valeurs aberrantes [@karl_dbscan_kmeans_2024].
 
 #### Le DBSCAN (L'algorithme de la foule)
 DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*) est basé sur la **densité spatiale** [@karl_dbscan_kmeans_2024].
+
 * **L'Avantage :** Pas besoin de lui donner un nombre de groupes à l'avance ! Il regroupe les points fortement concentrés et peut détecter des clusters de formes arbitraires (ex: une forme de lune ou d'anneau). 
 * **Détection d'Anomalies :** Contrairement au K-Means qui force chaque point à rejoindre un groupe, DBSCAN identifie automatiquement les données isolées comme du "bruit" (valeurs aberrantes) [@karl_dbscan_kmeans_2024].
 

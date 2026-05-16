@@ -14,11 +14,13 @@ Pour évaluer la force des liens entre vos variables, la communauté s'est longt
 
 #### La Corrélation de Pearson
 C'est le test statistique le plus célèbre. Il évalue le degré de dépendance **linéaire exacte** entre deux variables numériques continues.
+
 * Il renvoie un score entre **-1** (corrélation négative parfaite) et **1** (corrélation positive parfaite). Un score de **0** indique l'absence de corrélation linéaire.
 * **Le Piège :** Il suppose une relation proportionnelle constante. Si votre relation dessine une courbe (ex: une parabole en forme de U), Pearson renverra 0, vous faisant croire à tort qu'il n'y a aucun lien.
 
 #### La Corrélation de Spearman
 Contrairement à Pearson, Spearman s'appuie sur les **rangs** des valeurs plutôt que sur les valeurs brutes.
+
 * **L'Avantage :** Il est capable de capturer des relations monotones non-linéaires (si X augmente, Y augmente, peu importe la vitesse) et se montre totalement insensible aux valeurs extrêmes qui pollueraient une matrice de Pearson.
 
 ---
@@ -29,6 +31,7 @@ L'échec des corrélations linéaires a poussé l'industrie à adopter des métr
 
 #### Le Predictive Power Score (PPS)
 C'est une révolution dans l'EDA. Le PPS est un score asymétrique (de 0 à 1). Au lieu de faire des mathématiques pures, il entraîne un mini-Arbre de Décision en arrière-plan pour voir si la variable A permet de deviner la variable B.
+
 * **Avantage :** Il détecte les relations non-linéaires.
 * **Asymétrie :** Le fait que "Code Postal" prédise le "Prix du loyer" ne signifie pas que le "Prix du loyer" permet de prédire exactement un "Code Postal". Pearson, lui, est toujours symétrique.
 

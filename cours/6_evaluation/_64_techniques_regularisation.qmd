@@ -170,7 +170,6 @@ html`
 
 ```
 
-
 ### 🕵️‍♂️ 2. Surveillance et MLOps : La Boucle de Guérison
 
 Pour survivre à la dérive, les architectures MLOps de 2026 intègrent des mécanismes de **Continuous Training** (Entraînement Continu) [@dsstream_monitoring_2026].

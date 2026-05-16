@@ -14,15 +14,18 @@ L'analyse de données alimente aujourd'hui des systèmes d'IA critiques dans la 
 
 #### 💸 Banque & Fintech
 Secteur à haute tension où la donnée doit être traitée à la milliseconde.
+
 - **Détection de Fraude :** Analyse en temps réel des flux de transactions pour bloquer les "suspects" avant même qu'ils ne quittent la banque.
 - **Scoring de Crédit :** Profilage statistique pour évaluer la fiabilité d'un emprunteur.
 
 #### 🏭 Industrie 4.0
 L'usine connectée est une mine d'or d'indices.
+
 - **Maintenance Prédictive :** Analyse des vibrations et températures pour prédire une défaillance mécanique avant qu'elle ne paralyse la ligne de production. C'est l'art d'écouter les "murmures" des machines.
 
 #### 🩺 Santé & Génomique
 Ici, l'erreur est fatale. La précision est l'unique règle.
+
 - **Aide au diagnostic :** Utilisation de la vision par ordinateur pour repérer des anomalies invisibles à l'œil nu sur des radiographies.
 
 ---

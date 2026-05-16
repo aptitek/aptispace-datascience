@@ -7,29 +7,34 @@ number-sections: false
 ## 🎯 Plan de Cours
 
 ### 1. 🔭 Fondations & Acquisition : Cartographier le terrain
+
 - Le cycle de vie de la donnée (CRISP-DM, OSEMN) et rôle de l'ingénierie des données.
 - Fondations techniques : Structures de données avancées avec Pandas (DataFrames, Series) et calcul vectorisé avec NumPy.
 - Stratégies d'acquisition : Extraction de données structurées et semi-structurées via des fichiers (CSV, JSON), requêtes SQL et protocoles d'APIs REST.
 - **Activité Ludo-pédagogique :** *L'Escape Game d'Extraction* (Course contre la montre en guilde pour récupérer et consolider des sources de données fragmentées et dispersées).
 
 ### 2. 🧹 Préparation & Analyse (Wrangling) : Nettoyer la matière brute
+
 - Diagnostic de la qualité des données : Identification des types d'anomalies, doublons, valeurs manquantes et aberrantes (*outliers*).
 - Stratégies d'imputation et de nettoyage systématique.
 - *Feature Engineering* : Normalisation, standardisation, découpage (*binning*) et encodage des variables catégorielles (*One-Hot Encoding*, *Label Encoding*).
 - **Activité Ludo-pédagogique :** *Investigation Cluedo-style* (Audit technique complet et nettoyage approfondi d'un dataset financier massivement corrompu).
 
 ### 3. 📈 Analyse Exploratoire (EDA) & Visualisation : Révéler les indices
+
 - Statistiques descriptives univariées et bivariées (mesures de tendance centrale, de dispersion et de distribution).
 - Analyse des relations : Matrices de corrélation, tests statistiques de base et détection des dépendances cachées.
 - Data Storytelling et grammaire des graphiques : Conception de visualisations percutantes avec Matplotlib, Seaborn et Plotly.
 - **Activité Ludo-pédagogique :** *Dataviz Battle* (Défi collectif pour concevoir le tableau de bord ou le graphique le plus explicite, rigoureux et stratégique).
 
 ### 4. ⚙️ Modélisation Classique & Évaluation : Établir les prédictions
+
 - Frontière algorithmique : Apprentissage supervisé (Régression, Classification) vs non supervisé (Clustering K-Means, PCA).
 - Implémentation de pipelines de Machine Learning de bout en bout avec Scikit-Learn.
 - Métriques de validation (RMSE, MAE, R², Accuracy, F1-Score, Matrice de confusion) et méthodologies de validation croisée (*Cross-Validation*).
 
 ### 5. 🚀 Optimisation & Performance : Pousser les modèles dans leurs retranchements
+
 - Stratégies avancées de sélection de caractéristiques (*Feature Selection*).
 - Traitement du déséquilibre des classes (*Class Imbalance*) et techniques de régularisation.
 - Recherche automatisée d'hyperparamètres (*GridSearchCV*, *RandomizedSearchCV*).

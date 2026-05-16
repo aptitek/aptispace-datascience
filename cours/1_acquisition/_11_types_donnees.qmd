@@ -21,6 +21,7 @@ Données Qualitatives
 ::: {.card-body}
 **Catégorielles**
 Représentent des étiquettes ou caractéristiques non mathématiques.
+
 - **Nominales** : Sans hiérarchie (ex: Code pays, Couleur).
 - **Ordinales** : Avec une logique de rang (ex: Niveau de satisfaction, Tailles S/M/L).
 :::
@@ -32,6 +33,7 @@ Données Quantitatives
 ::: {.card-body}
 **Numériques**
 Représentent des quantités mesurables supportant les opérations mathématiques.
+
 - **Discrètes** : Valeurs entières dénombrables (ex: Nb d'enfants).
 - **Continues** : Valeurs décimales mesurables (ex: Température, Salaire).
 :::

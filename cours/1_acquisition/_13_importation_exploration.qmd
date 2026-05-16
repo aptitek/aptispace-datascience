@@ -13,6 +13,7 @@ L'optimisation d'un projet IA commence à l'octet près lors de la lecture du di
 Avant d'ingérer, un bon enquêteur organise ses dossiers. Voici la structure attendue pour vos projets :
 
 ::: {.filetree}
+
 - **data/**
   - **raw/** (Indices bruts, immuables)
   - **processed/** (Données raffinées, prêtes pour l'IA)

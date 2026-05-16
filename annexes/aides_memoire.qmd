@@ -1,9 +1,9 @@
 ---
 title: "✅ Aides-mémoire"
+
 ---
 
 Ce document rassemble tous les aides-mémoire du cours, organisés par chapitre.
-
 
 ## Visualisation de 3 variables ou plus
 

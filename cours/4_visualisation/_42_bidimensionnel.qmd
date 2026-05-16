@@ -11,17 +11,20 @@ Passer d'une à deux variables, c'est comme passer d'une photo d'identité à un
 ### 🌌 1. Le Nuage de Points (Scatter Plot) : Le Roi de l'Exploration
 
 Le Scatter Plot est l'outil souverain pour détecter les corrélations, les groupes naturels (*clusters*) et les densités de points [@arounddatascience_matplotlib_seaborn_plotly_eda_2026].
+
 * **Usage :** Idéal pour deux variables numériques continues.
 * **Ce qu'il révèle :** Une ligne droite (corrélation linéaire), une courbe (non-linéaire), ou des "paquets" isolés qui suggèrent que vos données sont divisées en segments distincts (ex: clients économes vs clients dépensiers).
 
 ### 📈 2. Le Graphique Linéaire (Line Plot) : La Flèche du Temps
 
 Le Line Plot connecte les points entre eux. Cette connexion n'est pas qu'esthetique : elle implique un lien de continuité ou de causalité temporelle [@4_visualisation_md].
+
 * **Règle d'or :** À réserver **strictement** aux séries temporelles ou aux séquences ordonnées. Si l'ordre des points sur l'axe X peut être mélangé sans perdre de sens, alors vous ne devez pas utiliser de ligne.
 
 ### 📦 3. La Boîte à Moustaches (Boxplot) : Le Scanner Statistique
 
 Le Boxplot est l'instrument de précision pour comparer une variable continue (ex: Salaire) à travers plusieurs catégories (ex: Métier) [@4_visualisation_md].
+
 * **La Médiane :** La barre centrale, robuste aux extrêmes.
 * **La Boîte (IQR) :** Contient les 50 % centraux de vos données.
 * **Les Moustaches :** Montrent la dispersion.

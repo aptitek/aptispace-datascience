@@ -14,8 +14,6 @@ L'analyse univariée (l'étude d'une seule variable à la fois) constitue le pre
 
 L'objectif est de trouver la valeur qui résume le mieux l'ensemble des données. L'arbitrage classique se fait entre la moyenne et la médiane.
 
-
-
 * **La Moyenne (Mean) :** C'est la somme de toutes les valeurs divisée par leur nombre total. Si elle est mathématiquement élégante, elle est structurellement très vulnérable aux valeurs aberrantes (Outliers) en raison de sa dépendance à chaque point de données.
 * **La Médiane (Median) :** C'est la valeur centrale une fois les données triées (elle coupe le jeu en deux moitiés de 50%). Elle offre une robustesse statistique bien supérieure face aux valeurs extrêmes. 
   * *Attention Architecturale :* Le calcul de la médiane est beaucoup plus coûteux en ressources CPU, car il nécessite d'effectuer une opération de tri (Sort) sur des millions de lignes.

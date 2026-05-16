@@ -1,6 +1,5 @@
 ## Création de tableaux de bord interactifs (Dashboards) avec des outils comme Plotly et Dash
 
-
 ::: {.card .card-info}
 ::: {.card-header}
 La fin du reporting figé
@@ -14,6 +13,7 @@ En 2026, fournir un rapport PDF statique à un décideur n'est plus suffisant. L
 Avant de construire une application web complète, il faut changer la nature de nos graphiques. Avec Matplotlib ou Seaborn, le code génère une image "morte" (un fichier PNG). 
 
 Avec **Plotly**, le code Python génère un objet web interactif interprété par le navigateur.
+
 * **Avantage immédiat :** L'utilisateur peut survoler les points pour lire les valeurs (Hover), zoomer, ou désactiver des courbes dans la légende.
 * **Haute Performance :** Grâce à l'utilisation de WebGL/WebGPU, Plotly peut rendre des millions de points directement dans le navigateur en déchargeant le calcul sur la carte graphique (GPU) [@plotly_high_performance_2026].
 
@@ -23,11 +23,13 @@ Pour encapsuler ces graphiques Plotly dans une vraie page web avec des boutons, 
 
 #### Streamlit : Le Roi du Prototypage
 C'est l'outil adoré des Data Scientists pour créer un MVP (Minimum Viable Product) en quelques heures.
+
 * **Architecture :** Il fonctionne sur un modèle de script linéaire. À chaque fois que l'utilisateur clique sur un bouton, **le script entier est ré-exécuté de haut en bas**.
 * **La limite :** Cette exécution linéaire peut être catastrophique en termes de performance si votre code charge un fichier de 5 Go à chaque clic. Il faut donc impérativement maîtriser le système de cache (`@st.cache_data`) pour mettre les données en mémoire.
 
 #### Dash by Plotly : L'Échelle Entreprise
 C'est le choix privilégié pour des applications de production robustes et complexes [@gotsman_streamlit_vs_dash_2026].
+
 * **Architecture :** Il repose sur Flask et React.js. Il utilise un système de **callbacks** asynchrones. Si l'utilisateur clique sur un filtre, seul le graphique concerné est recalculé et rechargé, pas toute la page.
 * **La limite :** Une courbe d'apprentissage beaucoup plus abrupte et le risque du "Callback Hell" (quand des dizaines de fonctions de mise à jour s'entrecroisent et deviennent impossibles à maintenir).
 

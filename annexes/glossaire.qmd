@@ -1,9 +1,9 @@
 ---
 title: "📖 Glossaire"
+
 ---
 
 Ce document rassemble tous les termes techniques abordés dans le cours.
-
 
 ## Visualisation de 3 variables ou plus
 

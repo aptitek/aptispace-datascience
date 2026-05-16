@@ -15,6 +15,7 @@ L'harmonisation est une étape de nettoyage stricte visant à unifier le "grain"
 Les données issues de formulaires ou de saisies manuelles sont systématiquement polluées par des erreurs typographiques. Les corriger nécessite une approche industrielle.
 
 #### Les Règles d'Or de la Typographie :
+
 1. **La Casse Unifiée :** Tout convertir en minuscules (ou majuscules) pour regrouper les variations d'une même entité.
 2. **Le Trim (Élagage) :** Supprimer les espaces invisibles en début et fin de chaîne.
 3. **Le Remplacement (Regex) :** Utiliser les expressions régulières pour supprimer les caractères spéciaux indésirables ou extraire des motifs précis.

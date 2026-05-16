@@ -9,12 +9,14 @@ import { theme } from "./core.js";
 export const text = ({ content, type = "body", color = "inherit" }) => {
   const classMap = {
     title: "font-size: 1.4em; font-weight: bold; margin-bottom: 0.5em;",
-    label: "ui-card-header", // Reuse header style for labels
-    value: `font-size: 1.2em; font-family: ${theme.fontMono}; font-weight: bold;`,
+    label: "ui-card-header", 
+    value: "ui-value",
     body: "font-size: 1em;"
   };
   
-  return `<div class="atom-text-${type}" style="${classMap[type] || ""}; color: ${color};">${content}</div>`;
+  const className = classMap[type] || "";
+  const styleAttr = color !== "inherit" ? `style="color: ${color};"` : "";
+  return `<div class="${className} atom-text-${type}" ${styleAttr}>${content}</div>`;
 };
 
 /**
@@ -65,7 +67,7 @@ export const terminalWindow = ({ header = "Console", content = "" }) => `
 /**
  * 💬 Ligne de Log Terminal
  */
-export const logLine = ({ message, prefix = ">", type = "info" }) => {
+export const logLine = ({ message, prefix = "(>", type = "info" }) => {
   const colorMap = {
     info: "var(--sol-green)",
     warning: "var(--sol-yellow)",
@@ -73,7 +75,7 @@ export const logLine = ({ message, prefix = ">", type = "info" }) => {
     muted: "var(--sol-base01)"
   };
   return `
-    <div style="margin-bottom: 4px; display: flex; gap: 8px;">
+    <div class="ui-terminal-line" style="margin-bottom: 4px; display: flex; gap: 8px;">
       <span style="color: var(--sol-base01); user-select: none;">${prefix}</span> 
       <span style="color: ${colorMap[type] || colorMap.info};">${message}</span>
     </div>

@@ -12,9 +12,20 @@ export const terminalConsole = ({ header = "Processus", logs = [] }) => {
     return atom.terminalWindow({ header, content: atom.logLine({ message: "Aucune donnée à afficher", type: "muted" }) });
   }
 
-  const logContent = logs.map(log => {
-    if (typeof log === 'string') return atom.logLine({ message: log });
-    return atom.logLine(log);
+  const logContent = logs.map((log, index) => {
+    const delay = (index * 0.2).toFixed(2);
+    let html;
+    
+    // Si c'est déjà une ligne formatée (contient la classe)
+    if (typeof log === 'string' && log.includes('ui-terminal-line')) {
+      html = log;
+    } else {
+      const logObj = typeof log === 'string' ? { message: log } : log;
+      html = atom.logLine(logObj);
+    }
+    
+    // Injecter le délai dans le style (toujours nécessaire pour l'effet séquentiel)
+    return html.replace('style="', `style="animation-delay: ${delay}s; `);
   }).join('');
 
   return atom.terminalWindow({ header, content: logContent });
@@ -88,6 +99,18 @@ export const tokenizedText = ({ tokens = [], highlightIndex = -1 }) => {
     </div>
   `;
 };
+
+/**
+ * 🎨 Espace Vectoriel / Canvas
+ */
+export const vectorSpace = ({ content = "", height = "250px", label = "Espace Vectoriel" }) => `
+  <div class="ui-canvas" style="height: ${height}; width: 100%;">
+    ${label ? `<div style="position: absolute; top: 10px; left: 15px; z-index: 5;">${atom.text({ content: label, type: "label" })}</div>` : ''}
+    <div style="width: 100%; height: 100%; position: relative;">
+      ${content}
+    </div>
+  </div>
+`;
 
 /**
  * ⚖️ Grille de Comparaison

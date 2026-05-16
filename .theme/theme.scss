@@ -217,31 +217,57 @@ code, pre {
         color: var(--sol-base00);
     }
 
+    .ui-value {
+        font-size: 2.2em;
+        font-weight: 800;
+        font-family: var(--font-code);
+        line-height: 1.2;
+        display: block;
+        margin: 5px 0;
+        transition: color 0.2s ease;
+    }
+
     // Semantic Variants
     &.is-info {
         &::before { background-color: var(--sol-blue); }
-        .ui-card-header { background-color: rgba(var(--sol-blue-rgb), 0.05); color: var(--sol-blue); }
+        .ui-card-header { background-color: var(--sol-blue); color: var(--sol-base3); }
+        .ui-value { color: var(--sol-blue); }
     }
     &.is-success {
         &::before { background-color: var(--sol-green); }
-        .ui-card-header { background-color: rgba(var(--sol-green-rgb), 0.05); color: var(--sol-green); }
+        .ui-card-header { background-color: var(--sol-green); color: var(--sol-base3); }
+        .ui-value { color: var(--sol-green); }
     }
     &.is-warning {
         &::before { background-color: var(--sol-yellow); }
-        .ui-card-header { background-color: rgba(var(--sol-yellow-rgb), 0.05); color: var(--sol-yellow); }
+        .ui-card-header { background-color: var(--sol-yellow); color: var(--sol-base3); }
+        .ui-value { color: var(--sol-yellow); }
     }
     &.is-danger {
         &::before { background-color: var(--sol-red); }
-        .ui-card-header { background-color: rgba(var(--sol-red-rgb), 0.05); color: var(--sol-red); }
+        .ui-card-header { background-color: var(--sol-red); color: var(--sol-base3); }
+        .ui-value { color: var(--sol-red); }
     }
     &.is-debug {
         &::before { background-color: var(--sol-base1); }
-        .ui-card-header { background-color: rgba(var(--sol-base1-rgb), 0.05); color: var(--sol-base1); }
+        .ui-card-header { background-color: var(--sol-base1); color: var(--sol-base3); }
+        .ui-value { color: var(--sol-base01); }
     }
 
     // Legacy/Bootstrap Compatibility
     &.card-primary { @extend .is-info; }
     &.card-secondary { @extend .is-debug; }
+}
+
+// Animations
+@keyframes reveal-line {
+    from { opacity: 0; transform: translateX(-5px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.ui-terminal-line {
+    opacity: 0;
+    animation: reveal-line 0.3s ease forwards;
 }
 
 // Global Terminal Base (macOS Style)
@@ -296,6 +322,18 @@ code, pre {
         &::-webkit-scrollbar { width: 8px; }
         &::-webkit-scrollbar-thumb { background: var(--sol-base02); border-radius: 4px; }
     }
+}
+
+// Canvas / Vector Space (Embossed look)
+.ui-canvas {
+    background-color: var(--sol-base3);
+    border: 1px solid var(--sol-base2);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 4px 12px rgba(var(--sol-base03-rgb), 0.15);
+    background-image: radial-gradient(rgba(var(--sol-base03-rgb), 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
 // Global Badge & Button

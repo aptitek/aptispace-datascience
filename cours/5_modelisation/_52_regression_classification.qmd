@@ -50,8 +50,6 @@ viewof k_neighbors = Inputs.range([1, 11], { value: 3, step: 2, label: "Nombre d
 
 // 2. Définition du simulateur (Logique métier)
 knnSimulator = ({ k = 3 }) => {
-  // 1. Définition du jeu de données statique (pour une carte stable)
-  // Classes : "A" (Bleu/Info), "B" (Orange/Warning)
   const points = [
     { x: 15, y: 20, class: "A" }, { x: 25, y: 35, class: "A" }, { x: 10, y: 60, class: "A" },
     { x: 40, y: 25, class: "A" }, { x: 30, y: 15, class: "A" }, { x: 45, y: 40, class: "A" },
@@ -59,76 +57,66 @@ knnSimulator = ({ k = 3 }) => {
     { x: 90, y: 30, class: "B" }, { x: 70, y: 50, class: "B" }, { x: 55, y: 70, class: "B" }
   ];
   
-  // Le point inconnu que l'on veut classifier
   const target = { x: 50, y: 50, class: "?" };
-
-  // 2. Calcul des distances Euclidiennes
   const calcDistance = (p1, p2) => Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
   
   const pointsWithDist = points.map(p => ({
     ...p,
     distance: calcDistance(p, target)
-  })).sort((a, b) => a.distance - b.distance); // Tri du plus proche au plus loin
+  })).sort((a, b) => a.distance - b.distance);
 
-  // 3. Extraction des K plus proches voisins
   const topK = pointsWithDist.slice(0, k);
-
-  // 4. Système de Vote
   let votes = { A: 0, B: 0 };
   topK.forEach(p => votes[p.class]++);
   const winningClass = votes.A > votes.B ? "A" : (votes.B > votes.A ? "B" : "Égalité");
-  const winColor = winningClass === "A" ? theme.colors.info : (winningClass === "B" ? theme.colors.warning : theme.colors.textMuted);
 
-  // 5. Rendu de la mini-carte 2D en CSS pur
   const mapHtml = pointsWithDist.map((p, index) => {
     const isTopK = index < k;
     const color = p.class === "A" ? theme.colors.info : theme.colors.warning;
-    // Si le point fait partie des K voisins, on l'entoure d'un halo blanc
-    const border = isTopK ? `2px solid #fff` : `2px solid transparent`;
+    const border = isTopK ? `2px solid var(--sol-base3)` : `2px solid transparent`;
     const shadow = isTopK ? `0 0 10px ${color}` : `none`;
-    const opacity = isTopK ? `1` : `0.3`; // On grise ceux qui ne comptent pas
+    const opacity = isTopK ? `1` : `0.3`;
 
     return `
-      <div style="position: absolute; left: ${p.x}%; bottom: ${p.y}%; width: 14px; height: 14px; background: ${color}; border-radius: 50%; transform: translate(-50%, 50%); border: ${border}; box-shadow: ${shadow}; opacity: ${opacity}; transition: all 0.3s ease;">
+      <div style="position: absolute; left: ${p.x}%; bottom: ${p.y}%; width: 14px; height: 14px; background: ${color}; border-radius: 50%; transform: translate(-50%, 50%); border: ${border}; box-shadow: ${shadow}; opacity: ${opacity}; transition: all 0.3s ease; z-index: 5;">
       </div>
     `;
   }).join('');
 
-  // Ajout du point cible (Target) au centre
   const targetHtml = `
-    <div style="position: absolute; left: ${target.x}%; bottom: ${target.y}%; width: 20px; height: 20px; background: #fff; border-radius: 50%; transform: translate(-50%, 50%); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 12px; z-index: 10; box-shadow: 0 0 15px #fff;">
+    <div style="position: absolute; left: ${target.x}%; bottom: ${target.y}%; width: 22px; height: 22px; background: var(--sol-base3); border-radius: 50%; transform: translate(-50%, 50%); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--sol-base03); font-size: 14px; z-index: 10; box-shadow: 0 0 15px rgba(var(--sol-base03-rgb), 0.2); border: 2px solid var(--sol-base03);">
       ?
     </div>
   `;
 
-  // 6. Génération des traces console pour expliquer l'algo
   const logs = [
-    ui.logLine({ message: `[1] Calcul de la distance de Minkowski (p=2) vers les ${points.length} points...`, type: "info" }),
-    ui.logLine({ message: `[2] Isolement des K=${k} voisins les plus proches.`, type: "info" }),
-    ui.logLine({ message: `[3] Dépouillement des votes : Classe A (${votes.A}), Classe B (${votes.B}).`, type: "warning" }),
-    ui.logLine({ message: `[4] Prédiction finale assignée : Classe ${winningClass}`, type: "success" })
+    ui.logLine({ message: `Calcul de la distance de Minkowski...`, type: "info" }),
+    ui.logLine({ message: `Isolement des K=${k} voisins les plus proches.`, type: "info" }),
+    ui.logLine({ message: `Votes : A (${votes.A}), B (${votes.B}).`, type: "warning" }),
+    ui.logLine({ message: `Prédiction finale : Classe ${winningClass}`, type: "success" })
   ];
 
-  // 7. Assemblage Final de l'Organisme
   return `
-    <div style="display: flex; flex-direction: column; gap: 20px; background: rgba(0,0,0,0.1); padding: 20px; border-radius: ${theme.radius}; border: 1px solid rgba(255,255,255,0.05);">
+    <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px; background: rgba(var(--sol-base03-rgb), 0.03); border-radius: 8px;">
       
       <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-        ${ui.metricCard({ title: "Hyperparamètre (K)", value: k, trend: "neutral" })}
-        ${ui.metricCard({ title: "Classe Prédite", value: winningClass, trend: winningClass === "A" ? "info" : "warning" })}
-        ${ui.metricCard({ title: "Confiance du vote", value: `${Math.round(Math.max(votes.A, votes.B) / k * 100)}%`, trend: "positive" })}
+        ${ui.metricCard({ title: "K-Voisins", value: k, trend: "neutral" })}
+        ${ui.metricCard({ title: "Classe Prédite", value: winningClass, trend: winningClass === "A" ? "positive" : "warning" })}
+        ${ui.metricCard({ title: "Confiance", value: `${Math.round(Math.max(votes.A, votes.B) / k * 100)}%`, trend: "positive" })}
       </div>
 
       <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 250px; height: 250px; background: ${theme.colors.background}; border: 1px solid #333; border-radius: ${theme.radius}; position: relative; overflow: hidden; background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px;">
-          ${ui.text({ content: "Espace Vectoriel", type: "label" })}
-          ${mapHtml}
-          ${targetHtml}
-          
-          <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 4px; font-size: 0.8em; border: 1px solid #444;">
-            <div style="color: ${theme.colors.info};">● Classe A</div>
-            <div style="color: ${theme.colors.warning};">● Classe B</div>
-          </div>
+        <div style="flex: 1; min-width: 250px;">
+          ${ui.vectorSpace({ 
+            label: "Espace Vectoriel (KNN)", 
+            content: `
+              ${mapHtml} ${targetHtml}
+              <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(var(--sol-base3-rgb), 0.8); padding: 5px 10px; border-radius: 4px; font-size: 0.75em; border: 1px solid var(--sol-base2); z-index: 10; backdrop-filter: blur(2px);">
+                <div style="color: var(--sol-blue);">● Classe A</div>
+                <div style="color: var(--sol-yellow);">● Classe B</div>
+              </div>
+            `
+          })}
         </div>
         
         <div style="flex: 1; min-width: 250px;">
@@ -140,7 +128,6 @@ knnSimulator = ({ k = 3 }) => {
   `;
 };
 
-// 3. Rendu dynamique
 ui.render(knnSimulator({ k: k_neighbors }))
 ```
 

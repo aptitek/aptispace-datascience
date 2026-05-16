@@ -170,63 +170,165 @@ code, pre {
 }
 
 // ==========================================
-// 7. ATOMIC CARD COMPONENTS
+// 7. SEMANTIC UI COMPONENTS (DRY)
 // ==========================================
 
-.card {
-    border-color: $sol-base2;
-    background-color: $sol-base3;
+// Global Card Base
+.ui-card {
+    background-color: var(--sol-base3);
+    border: 1px solid var(--sol-base2);
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 1.5rem;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(var(--sol-base03-rgb), 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-    .card-body {
-        color: $sol-base00;
+    &:hover {
+        box-shadow: 0 6px 16px rgba(var(--sol-base03-rgb), 0.1);
     }
 
-    // Modifiers
-    &.card-debug {
-        border-color: $sol-base1;
-        .card-header {
-            background-color: $sol-base1;
-            color: $sol-base3;
+    // Color Strip Modifier
+    &[class*="is-"]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+        z-index: 10;
+    }
+
+    .ui-card-header {
+        padding: 10px 15px;
+        font-family: var(--font-code);
+        font-size: 0.8em;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(var(--sol-base03-rgb), 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .ui-card-body {
+        padding: 15px;
+        color: var(--sol-base00);
+    }
+
+    // Semantic Variants
+    &.is-info {
+        &::before { background-color: var(--sol-blue); }
+        .ui-card-header { background-color: rgba(var(--sol-blue-rgb), 0.05); color: var(--sol-blue); }
+    }
+    &.is-success {
+        &::before { background-color: var(--sol-green); }
+        .ui-card-header { background-color: rgba(var(--sol-green-rgb), 0.05); color: var(--sol-green); }
+    }
+    &.is-warning {
+        &::before { background-color: var(--sol-yellow); }
+        .ui-card-header { background-color: rgba(var(--sol-yellow-rgb), 0.05); color: var(--sol-yellow); }
+    }
+    &.is-danger {
+        &::before { background-color: var(--sol-red); }
+        .ui-card-header { background-color: rgba(var(--sol-red-rgb), 0.05); color: var(--sol-red); }
+    }
+    &.is-debug {
+        &::before { background-color: var(--sol-base1); }
+        .ui-card-header { background-color: rgba(var(--sol-base1-rgb), 0.05); color: var(--sol-base1); }
+    }
+
+    // Legacy/Bootstrap Compatibility
+    &.card-primary { @extend .is-info; }
+    &.card-secondary { @extend .is-debug; }
+}
+
+// Global Terminal Base (macOS Style)
+.ui-terminal {
+    background-color: var(--sol-base03);
+    border: 1px solid var(--sol-base02);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: var(--font-code);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    margin-bottom: 1.5rem;
+
+    .ui-terminal-header {
+        background-color: var(--sol-base02);
+        padding: 8px 15px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border-bottom: 1px solid rgba(var(--sol-base1-rgb), 0.1);
+
+        // MacOS Dots (CSS Circles: Original + 2 shadows)
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: var(--sol-red);
+            border-radius: 50%;
+            box-shadow: 15px 0 0 var(--sol-yellow), 30px 0 0 var(--sol-green);
+            margin-right: 45px;
+            opacity: 0.8;
+        }
+
+        .ui-terminal-title {
+            color: var(--sol-base1);
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            opacity: 0.7;
         }
     }
 
-    &.card-info {
-        border-color: $sol-blue;
-        .card-header {
-            background-color: $sol-blue;
-            color: $sol-base3;
-        }
-    }
+    .ui-terminal-body {
+        padding: 15px;
+        color: var(--sol-green);
+        font-size: 0.9em;
+        line-height: 1.5;
+        max-height: 400px;
+        overflow-y: auto;
 
-    &.card-success {
-        border-color: $sol-green;
-        .card-header {
-            background-color: $sol-green;
-            color: $sol-base3;
-        }
+        &::-webkit-scrollbar { width: 8px; }
+        &::-webkit-scrollbar-thumb { background: var(--sol-base02); border-radius: 4px; }
     }
+}
 
-    &.card-warning {
-        border-color: $sol-yellow;
-        .card-header {
-            background-color: $sol-yellow;
-            color: $sol-base3;
-        }
+// Global Badge & Button
+.ui-badge {
+    background: rgba(var(--sol-base1-rgb), 0.1);
+    color: var(--sol-base01);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-family: var(--font-code);
+    border: 1px solid rgba(var(--sol-base1-rgb), 0.1);
+    white-space: nowrap;
+    
+    &.is-info { color: var(--sol-blue); border-color: rgba(var(--sol-blue-rgb), 0.2); }
+    &.is-success { color: var(--sol-green); border-color: rgba(var(--sol-green-rgb), 0.2); }
+}
+
+.ui-button {
+    background: var(--sol-yellow);
+    color: var(--sol-base3);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+
+    &:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        box-shadow: 0 4px 12px rgba(var(--sol-yellow-rgb), 0.3);
     }
-
-    &.card-danger {
-        border-color: $sol-red;
-        .card-header {
-            background-color: $sol-red;
-            color: $sol-base3;
-        }
-    }
-
-    // Legacy/Bootstrap Compatibility for course content
-    &.card-primary { @extend .card-info; }
-    &.card-secondary { @extend .card-debug; }
 }
 
 // ==========================================

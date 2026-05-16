@@ -1,12 +1,11 @@
 // ==========================================
-// mol.js - Les Molécules (Assemblages fonctionnels)
+// mol.js - Les Molécules (DRY/KISS)
 // ==========================================
 import { theme, utils } from "./core.js";
 import * as atom from "./atom.js";
 
 /**
- * 🎛️ Terminal Console (Le Terminal complet)
- * Assemble la structure du terminal avec une liste itérative de logs
+ * 🎛️ Terminal Console
  */
 export const terminalConsole = ({ header = "Processus", logs = [] }) => {
   if (!logs || logs.length === 0) {
@@ -14,9 +13,7 @@ export const terminalConsole = ({ header = "Processus", logs = [] }) => {
   }
 
   const logContent = logs.map(log => {
-    // Si le log est une simple chaîne
     if (typeof log === 'string') return atom.logLine({ message: log });
-    // Si le log est un objet { message, type, prefix }
     return atom.logLine(log);
   }).join('');
 
@@ -24,52 +21,51 @@ export const terminalConsole = ({ header = "Processus", logs = [] }) => {
 };
 
 /**
- * 📈 Carte de Métrique (KPI / Metric Card)
- * Combine un titre, une valeur massive et potentiellement une jauge/évolution
+ * 📈 Carte de Métrique
  */
 export const metricCard = ({ title, value, subtitle = "", trend = "neutral" }) => {
-  // Définition de la couleur de la carte selon la tendance (trend)
-  const borderColors = {
-    positive: theme.colors.success,
-    negative: theme.colors.danger,
-    warning: theme.colors.warning,
-    neutral: "var(--sol-base02)"
+  const trendClassMap = {
+    positive: "is-success",
+    negative: "is-danger",
+    warning: "is-warning",
+    neutral: "is-debug"
   };
-  const borderColor = borderColors[trend] || borderColors.neutral;
+  const colorClass = trendClassMap[trend] || trendClassMap.neutral;
 
   return `
-    <div style="background-color: ${theme.colors.surface}; border-left: 4px solid ${borderColor}; border-radius: ${theme.radius}; padding: 15px; box-shadow: 0 2px 4px rgba(var(--sol-base03-rgb), 0.2); flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 8px;">
-      ${atom.text({ content: title, type: "label" })}
-      ${atom.text({ content: utils.formatNumber(value), type: "value", color: theme.colors.text })}
-      ${subtitle ? atom.text({ content: subtitle, type: "body", color: theme.colors.textMuted }) : ''}
+    <div class="ui-card ${colorClass}" style="flex: 1; min-width: 150px;">
+      <div class="ui-card-header">${title}</div>
+      <div class="ui-card-body">
+        ${atom.text({ content: utils.formatNumber(value), type: "value" })}
+        ${subtitle ? `<div style="font-size: 0.85em; color: var(--sol-base01); margin-top: 4px;">${subtitle}</div>` : ''}
+      </div>
     </div>
   `;
 };
 
 /**
- * 📊 Ligne d'Observation (Data Row)
- * Affiche proprement une ligne d'un jeu de données (DataFrame) avec les types
+ * 📊 Ligne d'Observation
  */
 export const dataRow = ({ index, dataObject }) => {
   const columnsHtml = Object.entries(dataObject).map(([key, value]) => {
     const typeObj = typeof value;
-    const badgeColor = typeObj === 'number' ? theme.colors.info : (typeObj === 'string' ? theme.colors.primary : theme.colors.surface);
+    const badgeClass = typeObj === 'number' ? 'is-info' : (typeObj === 'string' ? 'is-success' : '');
     
     return `
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(var(--sol-base1-rgb), 0.05); padding: 4px 0;">
-        <span style="color: ${theme.colors.textMuted}; font-size: 0.9em;">${key}</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(var(--sol-base1-rgb), 0.05); padding: 6px 0;">
+        <span style="color: var(--sol-base01); font-size: 0.85em;">${key}</span>
         <div style="display: flex; gap: 8px; align-items: center;">
-          <span style="font-family: ${theme.fontMono}; font-size: 0.9em; color: ${theme.colors.text};">${utils.truncateText(String(value), 30)}</span>
-          ${atom.badge({ text: typeObj, color: badgeColor })}
+          <span style="font-family: var(--font-code); font-size: 0.9em; color: var(--sol-base00);">${utils.truncateText(String(value), 30)}</span>
+          ${atom.badge({ text: typeObj, colorClass: badgeClass })}
         </div>
       </div>
     `;
   }).join('');
 
   return `
-    <div style="background-color: ${theme.colors.background}; border: 1px solid var(--sol-base02); border-radius: ${theme.radiusSmall}; padding: 10px; margin-bottom: 8px;">
-      <div style="font-size: 0.8em; color: ${theme.colors.textMuted}; margin-bottom: 8px; text-transform: uppercase;">
-        Index: ${atom.badge({ text: String(index), color: "var(--sol-base02)" })}
+    <div style="background-color: var(--sol-base3); border: 1px solid var(--sol-base2); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+      <div style="font-size: 0.75em; color: var(--sol-base01); margin-bottom: 10px; text-transform: uppercase; font-weight: bold;">
+        Index: ${atom.badge({ text: String(index) })}
       </div>
       ${columnsHtml}
     </div>
@@ -77,41 +73,37 @@ export const dataRow = ({ index, dataObject }) => {
 };
 
 /**
- * 🧩 Texte Tokenisé / Séquence
- * Convertit un tableau de mots/tokens en une suite de badges (Idéal pour le NLP ou les listes)
+ * 🧩 Texte Tokenisé
  */
 export const tokenizedText = ({ tokens = [], highlightIndex = -1 }) => {
   const tokensHtml = tokens.map((token, i) => {
     const isHighlighted = i === highlightIndex;
-    const color = isHighlighted ? theme.colors.primary : "var(--sol-base02)";
-    const textColor = isHighlighted ? "var(--sol-base03)" : "var(--sol-base3)"; // Contraste pour le texte
-    
-    return atom.badge({ text: token, color: color, textColor: textColor });
+    const colorClass = isHighlighted ? "is-info" : "";
+    return atom.badge({ text: token, colorClass });
   }).join('<span style="margin: 0 2px;"></span>');
 
   return `
-    <div style="display: flex; flex-wrap: wrap; gap: 4px; padding: 10px; background: rgba(var(--sol-base03-rgb), 0.1); border-radius: ${theme.radiusSmall};">
+    <div style="display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; background: rgba(var(--sol-base03-rgb), 0.03); border-radius: 8px;">
       ${tokensHtml}
     </div>
   `;
 };
 
 /**
- * ⚖️ Grille de Comparaison (Avant / Après)
- * Un conteneur générique pour juxtaposer deux états (ex: Data Wrangling)
+ * ⚖️ Grille de Comparaison
  */
 export const comparisonLayout = ({ leftTitle, leftContent, rightTitle, rightContent }) => `
-  <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 15px 0;">
+  <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0; align-items: flex-start;">
     <div style="flex: 1; min-width: 250px;">
-      ${atom.text({ content: leftTitle, type: "label" })}
-      <div style="margin-top: 10px;">${leftContent}</div>
+      <div class="ui-card-header" style="padding-left: 0; margin-bottom: 10px;">${leftTitle}</div>
+      ${leftContent}
     </div>
-    <div style="display: flex; align-items: center; justify-content: center; color: ${theme.colors.textMuted};">
+    <div style="display: flex; align-items: center; justify-content: center; height: 100px; color: var(--sol-base1); font-size: 1.5em;">
       ➡️
     </div>
     <div style="flex: 1; min-width: 250px;">
-      ${atom.text({ content: rightTitle, type: "label" })}
-      <div style="margin-top: 10px;">${rightContent}</div>
+      <div class="ui-card-header" style="padding-left: 0; margin-bottom: 10px;">${rightTitle}</div>
+      ${rightContent}
     </div>
   </div>
 `;

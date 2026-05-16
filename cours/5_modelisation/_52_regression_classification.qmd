@@ -84,7 +84,7 @@ knnSimulator = ({ k = 3 }) => {
   }).join('');
 
   const targetHtml = `
-    <div style="position: absolute; left: ${target.x}%; bottom: ${target.y}%; width: 22px; height: 22px; background: var(--sol-base3); border-radius: 50%; transform: translate(-50%, 50%); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--sol-base03); font-size: 14px; z-index: 10; box-shadow: 0 0 15px rgba(var(--sol-base03-rgb), 0.2); border: 2px solid var(--sol-base03);">
+    <div style="position: absolute; left: ${target.x}%; bottom: ${target.y}%; width: 22px; height: 22px; background: var(--sol-base3); border-radius: 50%; transform: translate(-50%, 50%); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--sol-base01); font-size: 14px; z-index: 10; box-shadow: 0 0 15px rgba(var(--sol-base01-rgb), 0.2); border: 2px solid var(--sol-base01);">
       ?
     </div>
   `;

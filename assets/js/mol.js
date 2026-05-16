@@ -63,10 +63,10 @@ export const dataRow = ({ index, dataObject }) => {
     const badgeClass = typeObj === 'number' ? 'is-info' : (typeObj === 'string' ? 'is-success' : '');
     
     return `
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(var(--sol-base1-rgb), 0.05); padding: 6px 0;">
-        <span style="color: var(--sol-base01); font-size: 0.85em;">${key}</span>
+      <div class="ui-data-cell">
+        <span class="label">${key}</span>
         <div style="display: flex; gap: 8px; align-items: center;">
-          <span style="font-family: var(--font-code); font-size: 0.9em; color: var(--sol-base00);">${utils.truncateText(String(value), 30)}</span>
+          <span class="value">${utils.truncateText(String(value), 30)}</span>
           ${atom.badge({ text: typeObj, colorClass: badgeClass })}
         </div>
       </div>
@@ -74,7 +74,7 @@ export const dataRow = ({ index, dataObject }) => {
   }).join('');
 
   return `
-    <div style="background-color: var(--sol-base3); border: 1px solid var(--sol-base2); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+    <div class="ui-data-row">
       <div style="font-size: 0.75em; color: var(--sol-base01); margin-bottom: 10px; text-transform: uppercase; font-weight: bold;">
         Index: ${atom.badge({ text: String(index) })}
       </div>
@@ -104,8 +104,8 @@ export const tokenizedText = ({ tokens = [], highlightIndex = -1 }) => {
  * 🎨 Espace Vectoriel / Canvas
  */
 export const vectorSpace = ({ content = "", height = "250px", label = "Espace Vectoriel" }) => `
-  <div class="ui-canvas" style="height: ${height}; width: 100%;">
-    ${label ? `<div style="position: absolute; top: 10px; left: 15px; z-index: 5;">${atom.text({ content: label, type: "label" })}</div>` : ''}
+  <div class="ui-canvas" style="height: ${height};">
+    ${label ? `<div style="position: absolute; top: 10px; left: 15px; z-index: 10;">${atom.text({ content: label, type: "label" })}</div>` : ''}
     <div style="width: 100%; height: 100%; position: relative;">
       ${content}
     </div>
@@ -116,16 +116,14 @@ export const vectorSpace = ({ content = "", height = "250px", label = "Espace Ve
  * ⚖️ Grille de Comparaison
  */
 export const comparisonLayout = ({ leftTitle, leftContent, rightTitle, rightContent }) => `
-  <div style="display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0; align-items: flex-start;">
-    <div style="flex: 1; min-width: 250px;">
-      <div class="ui-card-header" style="padding-left: 0; margin-bottom: 10px;">${leftTitle}</div>
+  <div class="ui-comparison">
+    <div class="ui-comparison-panel">
+      <div class="ui-card-header" style="padding-left: 0; margin-bottom: 10px; background: transparent; color: inherit;">${leftTitle}</div>
       ${leftContent}
     </div>
-    <div style="display: flex; align-items: center; justify-content: center; height: 100px; color: var(--sol-base1); font-size: 1.5em;">
-      ➡️
-    </div>
-    <div style="flex: 1; min-width: 250px;">
-      <div class="ui-card-header" style="padding-left: 0; margin-bottom: 10px;">${rightTitle}</div>
+    <div class="ui-comparison-arrow">➡️</div>
+    <div class="ui-comparison-panel">
+      <div class="ui-card-header" style="padding-left: 0; margin-bottom: 10px; background: transparent; color: inherit;">${rightTitle}</div>
       ${rightContent}
     </div>
   </div>

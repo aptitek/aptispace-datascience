@@ -29,11 +29,11 @@ export const badge = ({ text, colorClass = "" }) => `
 /**
  * 📊 Jauge / ProgressBar
  */
-export const progressBar = ({ value, max = 100, color = "var(--sol-yellow)" }) => {
+export const progressBar = ({ value, max = 100, colorClass = "" }) => {
   const percent = Math.min(100, Math.max(0, (value / max) * 100));
   return `
-    <div style="width: 100%; background: var(--sol-base2); border-radius: 3px; height: 6px; display: flex; overflow: hidden;">
-      <div style="width: ${percent}%; background: ${color}; transition: width 0.3s ease;"></div>
+    <div class="ui-progress">
+      <div class="ui-progress-bar ${colorClass}" style="width: ${percent}%;"></div>
     </div>
   `;
 };
@@ -41,13 +41,9 @@ export const progressBar = ({ value, max = 100, color = "var(--sol-yellow)" }) =
 /**
  * 🟩 Data Block
  */
-export const dataBlock = ({ text = "", type = "train" }) => {
+export const dataBlock = ({ type = "train" }) => {
   const colorClass = type === "train" ? "is-info" : (type === "test" ? "is-success" : "");
-  return `
-    <div class="ui-badge ${colorClass}" style="width: 18px; height: 18px; padding: 0; justify-content: center; display: inline-flex; font-size: 0.7em;">
-      ${text}
-    </div>
-  `;
+  return `<div class="ui-badge ${colorClass} is-block"></div>`;
 };
 
 /**
@@ -68,16 +64,11 @@ export const terminalWindow = ({ header = "Console", content = "" }) => `
  * 💬 Ligne de Log Terminal
  */
 export const logLine = ({ message, prefix = "(>", type = "info" }) => {
-  const colorMap = {
-    info: "var(--sol-green)",
-    warning: "var(--sol-yellow)",
-    error: "var(--sol-red)",
-    muted: "var(--sol-base01)"
-  };
+  const colorClass = `is-${type}`;
   return `
-    <div class="ui-terminal-line" style="margin-bottom: 4px; display: flex; gap: 8px;">
-      <span style="color: var(--sol-base01); user-select: none;">${prefix}</span> 
-      <span style="color: ${colorMap[type] || colorMap.info};">${message}</span>
+    <div class="ui-terminal-line ${colorClass}">
+      <span class="prefix">${prefix}</span> 
+      <span class="message">${message}</span>
     </div>
   `;
 };

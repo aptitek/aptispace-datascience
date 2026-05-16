@@ -268,6 +268,16 @@ code, pre {
 .ui-terminal-line {
     opacity: 0;
     animation: reveal-line 0.3s ease forwards;
+    margin-bottom: 4px;
+    display: flex;
+    gap: 8px;
+
+    .prefix { color: var(--sol-base01); user-select: none; }
+    .message { color: var(--sol-green); }
+
+    &.is-warning .message { color: var(--sol-yellow); }
+    &.is-error .message { color: var(--sol-red); }
+    &.is-muted .message { color: var(--sol-base01); }
 }
 
 // Global Terminal Base (macOS Style)
@@ -336,6 +346,125 @@ code, pre {
     background-size: 20px 20px;
 }
 
+// Progress Bar
+.ui-progress {
+    width: 100%;
+    background: var(--sol-base2);
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+    display: flex;
+    margin: 10px 0;
+
+    .ui-progress-bar {
+        height: 100%;
+        transition: width 0.3s ease;
+        background-color: var(--sol-yellow);
+
+        &.is-info { background-color: var(--sol-blue); }
+        &.is-success { background-color: var(--sol-green); }
+    }
+}
+
+// Data Rows (DataFrame)
+.ui-data-row {
+    background-color: var(--sol-base3);
+    border: 1px solid var(--sol-base2);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s;
+
+    &:hover { background-color: rgba(var(--sol-base1-rgb), 0.03); }
+
+    .ui-data-cell {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(var(--sol-base1-rgb), 0.05);
+        padding: 8px 0;
+
+        &:last-child { border-bottom: none; }
+        
+        .label { color: var(--sol-base01); font-size: 0.85em; font-family: var(--font-code); }
+        .value { color: var(--sol-base00); font-size: 0.9em; font-weight: 500; }
+    }
+}
+
+// Comparison Layout
+.ui-comparison {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 25px 0;
+    align-items: flex-start;
+
+    .ui-comparison-panel {
+        flex: 1;
+        min-width: 280px;
+    }
+
+    .ui-comparison-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+        color: var(--sol-base1);
+        font-size: 2em;
+        opacity: 0.5;
+    }
+}
+
+// Confusion Matrix
+.ui-confusion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    flex: 1;
+    min-width: 250px;
+
+    .ui-confusion-cell {
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        border-radius: 8px;
+        background: rgba(var(--sol-base1-rgb), 0.05);
+        border: 1px solid rgba(var(--sol-base1-rgb), 0.1);
+
+        .value { font-size: 1.8em; font-weight: 800; font-family: var(--font-code); }
+        .label { font-size: 0.75em; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+
+        &.is-tp, &.is-tn { color: var(--sol-green); background: rgba(var(--sol-green-rgb), 0.05); border-color: rgba(var(--sol-green-rgb), 0.1); }
+        &.is-fp, &.is-fn { color: var(--sol-red); background: rgba(var(--sol-red-rgb), 0.05); border-color: rgba(var(--sol-red-rgb), 0.1); }
+    }
+}
+
+// Ensemble Simulator Layout
+.ui-ensemble-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 15px;
+
+    &.is-row { flex-direction: row; }
+
+    .ui-tree-node {
+        margin: 0;
+        min-width: 90px;
+        text-align: center;
+        padding: 15px;
+        @extend .ui-card;
+        
+        .icon { font-size: 1.8em; margin-bottom: 5px; }
+        .id { font-weight: bold; font-size: 0.9em; }
+    }
+}
+
 // Global Badge & Button
 .ui-badge {
     background: rgba(var(--sol-base1-rgb), 0.1);
@@ -349,6 +478,20 @@ code, pre {
     
     &.is-info { color: var(--sol-blue); border-color: rgba(var(--sol-blue-rgb), 0.2); }
     &.is-success { color: var(--sol-green); border-color: rgba(var(--sol-green-rgb), 0.2); }
+
+    &.is-block {
+        width: 18px;
+        height: 18px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        background-color: var(--sol-base1);
+
+        &.is-info { background-color: var(--sol-blue); border: none; }
+        &.is-success { background-color: var(--sol-green); border: none; }
+    }
 }
 
 .ui-button {

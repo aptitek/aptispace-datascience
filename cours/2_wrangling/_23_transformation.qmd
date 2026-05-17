@@ -30,8 +30,6 @@ $$Z = \frac{X - \mu}{\sigma}$$
 * **Avantage :** Elle gère globalement mieux les variations naturelles et ne fige pas les données. Elle est indispensable lorsque les données sont collectées sous des conditions variables (ex: variations d'éclairage pour des images).
 * **Alternative pour les extrêmes :** S'il y a trop de valeurs aberrantes, on utilise le **Robust Scaler**. Au lieu de la moyenne, il centre sur la médiane et divise par l'écart interquartile (IQR).
 
----
-
 ### ⚠️ Impact selon l'Algorithme
 
 C'est ici que l'ingénieur se distingue du débutant. Faut-il toujours "scaler" ses données ? **Non.** Cela dépend de l'algorithme choisi.

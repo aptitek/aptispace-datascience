@@ -36,8 +36,6 @@ En stockant les données d'une même colonne côte à côte en mémoire, le proc
 1. **Exécution Immédiate (Eager - Pandas) :** Chaque instruction est exécutée dès qu'elle est lue. Intuitif, mais génère souvent des copies inutiles en RAM.
 2. **Exécution Différée (Lazy - Polars) :** Le moteur construit un plan d'optimisation (**Query Plan**) et ne calcule le résultat qu'au dernier moment, permettant d'ignorer les données inutiles dès la source.
 
----
-
 ::: {.card .card-debug}
 ::: {.card-header}
 🧠 Simulateur : La Mémoire RAM en action

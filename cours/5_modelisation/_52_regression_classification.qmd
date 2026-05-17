@@ -39,8 +39,6 @@ L'objectif est de prédire une catégorie.
 :::
 ::::
 
----
-
 ::: {.card .card-secondary}
 ::: {.card-header}
 🔬 Expérimentation : La Magie du KNN
@@ -137,8 +135,6 @@ ui.render(knnSimulator({ k: k_neighbors }))
 ```
 :::
 :::
-
----
 
 ::: {.card .card-warning}
 ::: {.card-header}

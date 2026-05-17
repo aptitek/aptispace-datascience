@@ -18,8 +18,6 @@ Pour évaluer la force des liens entre vos variables, la communauté s'est longt
 - **Corrélation de Spearman :** Contrairement à Pearson, Spearman s'appuie sur les **rangs** des valeurs plutôt que sur les valeurs brutes.
   - *L'Avantage :* Il est capable de capturer des relations monotones non-linéaires (si X augmente, Y augmente, peu importe la vitesse) et se montre totalement insensible aux valeurs extrêmes qui pollueraient une matrice de Pearson.
 
----
-
 ### 🚀 Coefficients Avancés
 
 L'échec des corrélations linéaires a poussé l'industrie à adopter des métriques agnostiques, capables de gérer le mélange de textes et de nombres.
@@ -29,8 +27,6 @@ L'échec des corrélations linéaires a poussé l'industrie à adopter des métr
   - *Asymétrie :* Le fait que "Code Postal" prédise le "Prix du loyer" ne signifie pas que le "Prix du loyer" permet de prédire exactement un "Code Postal". Pearson, lui, est toujours symétrique.
 - **Coefficient Phik ($\phi_k$) :** Coefficient de corrélation extrêmement robuste qui fonctionne de manière cohérente pour des types de variables mixtes (catégorielles, ordinales, intervalles).
 
----
-
 ### **Simulation : Les limites de Pearson**
 Pour bien comprendre la différence entre Pearson (linéaire) et une véritable force prédictive (non-linéaire), observez comment les scores réagissent face à différentes distributions de données.
 
@@ -38,8 +34,6 @@ Pour bien comprendre la différence entre Pearson (linéaire) et une véritable 
 {"component":"LlmGeneratedComponent","props":{"height":"650px","prompt":"Create an interactive scatter plot simulator to teach the limitations of Pearson Correlation. \n\nObjective: Show that a Pearson score of ~0 does not mean there is no relationship, just no LINEAR relationship.\n\nStructure:\n1. A central 2D Scatter Plot canvas showing data points.\n2. A dropdown or button group to select 'Data Patterns': \n   - 'Linear Positive'\n   - 'Linear Negative'\n   - 'Quadratic (U-shape)'\n   - 'Sine Wave'\n   - 'Random Cloud'\n3. A prominent 'Scoreboard' panel displaying two metrics calculated in real-time based on the pattern:\n   - 'Pearson Correlation (r)': Should be near 1 for Linear Positive, -1 for Linear Negative, and near 0 for Quadratic, Sine, and Random.\n   - 'Predictive Power (Non-linear)': Should be high (>0.8) for Linear, Quadratic, and Sine, but near 0 for Random.\n\nBehavior: When the user selects 'Quadratic', explicitly highlight the fact that Pearson drops to 0 despite the clear visual relationship.","id":"im_1110e01afce77639"}}
 
 ```
-
----
 
 ### ⚖️ Corrélation n'est pas Causalité
 

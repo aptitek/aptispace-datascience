@@ -16,14 +16,10 @@ Quand on explore une seule variable (Analyse 1D), l'objectif est de comprendre s
 2. **Le Diagramme à Barres (Discret) :** Compare des catégories distinctes (ex: Ville). Il y a **toujours un espace** entre les barres.
 3. **Le Diagramme Circulaire (Camembert) :** À limiter strictement à **2 ou 3 catégories** (ex: Oui/Non). L'œil humain gère mal les angles ; préférez un Bar Chart pour plus de précision.
 
----
-
 ### ⚖️ Histogramme vs Bar Chart
 
 ![Comparaison des géométries 1D](../../assets/illustrations/hist_vs_bar.png){width=80%}
 [🔍 Zoom sur la comparaison](../../assets/illustrations/hist_vs_bar.png){.zoom}
-
----
 
 ::: {.card .card-warning}
 ::: {.card-header}

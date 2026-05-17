@@ -154,8 +154,6 @@ Il est statistiquement impossible d'avoir à la fois $0$ Faux Positif et $0$ Fau
 - **🩺 Santé & Génomique** : Ici, l'erreur est fatale. La précision est l'unique règle.
   - **Aide au diagnostic :** Utilisation de la vision par ordinateur pour repérer des anomalies invisibles à l'œil nu sur des radiographies.
 
----
-
 ### ⚖️ L'Éthique de l'Enquêteur
 
 Traiter des données réelles impose des responsabilités majeures. La gouvernance n'est pas une option, c'est un serment.

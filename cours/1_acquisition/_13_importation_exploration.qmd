@@ -71,8 +71,6 @@ df = q.collect()
 Si votre fichier dépasse votre capacité RAM, utilisez le **Chunking** (`chunksize` en Pandas) ou passez en mode **Streaming** avec Polars. Ne laissez jamais un fichier saturer votre établi.
 :::
 :::
----
-
 ### 🔎 Le Sanity Check
 
 Une donnée ingérée n'est pas une donnée fiable. Implémentez un protocole systématique pour détecter les anomalies :

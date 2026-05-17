@@ -39,8 +39,6 @@ Il se décompose en 4 étapes :
 * **A (Answer / Réponse) :** La solution stratégique (votre projet Data).
   * *Ex: "Nous recommandons d'investir 100k€ pour déployer un nouveau modèle de Machine Learning qui personnalisera l'offre à chaque clic, avec un ROI attendu de +15% d'ici 6 mois."*
 
----
-
 ### 🏗️ Architecture d'une présentation percutante
 
 Pour maximiser l'impact sur un comité de direction, structurez vos livrables de communication en entonnoir ascendant selon le modèle pyramidal de McKinsey :

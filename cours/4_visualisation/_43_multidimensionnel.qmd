@@ -41,8 +41,6 @@ Dès que vos données contiennent des latitudes/longitudes ou des codes postaux,
 * **Folium :** Basée sur la librairie JavaScript Leaflet, c'est le standard pour intégrer des cartes interactives (zoomables) avec des marqueurs directement dans un Notebook Jupyter [@papareddy_top_10_python_viz_2025].
 * **La Carte Choroplèthe :** Les régions géographiques (pays, départements) sont colorées en fonction d'une variable statistique (ex: densité de population). Cela nécessite de croiser vos données Pandas avec des fichiers de géométrie (GeoJSON ou Shapefile) gérés par **GeoPandas** [@sharma_top_6_python_viz_2024].
 
----
-
 ### 💻 Implémentation
 
 ```python

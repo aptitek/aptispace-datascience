@@ -33,8 +33,6 @@ C'est le choix privilégié pour des applications de production robustes et comp
 * **Architecture :** Il repose sur Flask et React.js. Il utilise un système de **callbacks** asynchrones. Si l'utilisateur clique sur un filtre, seul le graphique concerné est recalculé et rechargé, pas toute la page.
 * **La limite :** Une courbe d'apprentissage beaucoup plus abrupte et le risque du "Callback Hell" (quand des dizaines de fonctions de mise à jour s'entrecroisent et deviennent impossibles à maintenir).
 
----
-
 ### 🏗️ Architecture d'Exécution
 
 Pour concevoir des applications fluides et performantes, il est crucial de comprendre comment la structure interne du framework réagit aux interactions de l'utilisateur :
@@ -64,7 +62,5 @@ Construire des tableaux de bord interactifs sur de l'énorme volumétrie (Big Da
 
 1. **L'architecture Apache Arrow :** Elle permet le "Zero-copy". Les données circulent entre votre moteur de calcul (Polars) et votre dashboard web sans nécessiter de coûteuses conversions de formats [@narendran_polars_duckdb_2026].
 2. **CPython 3.14 (Free-threading) :** Le verrou global (GIL) de Python ayant été supprimé, les serveurs de dashboards peuvent enfin utiliser le véritable multi-threading pour calculer les filtres des utilisateurs en parallèle sur plusieurs cœurs.
-
----
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'un Dashboard Streamlit complet (avec sidebar, filtres et graphique interactif Plotly).**

@@ -32,8 +32,6 @@ Des recherches de pointe en 2026 introduisent un concept fascinant : l'incohére
 On a découvert que plus les modèles deviennent massifs et "intelligents", plus leurs échecs deviennent imprévisibles. Au lieu de faire des erreurs systématiques (Biais), ils se comportent comme un **"Hot Mess"** (un désordre total) où la **Variance** domine tout [@haegele_2026_hot_mess_ai]. 
 Cela signifie que les futurs risques de l'IA ne seront pas forcément une "mauvaise direction" constante, mais des accidents erratiques et imprévisibles.
 
----
-
 ### 🛠️ Guide de survie du Data Scientist
 
 | Problème | Symptôme | Remède principal |

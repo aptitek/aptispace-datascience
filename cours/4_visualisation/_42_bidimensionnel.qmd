@@ -30,8 +30,6 @@ Le Boxplot est l'instrument de précision pour comparer une variable continue (e
 * **Les Moustaches :** Montrent la dispersion.
 * **Les Outliers :** Les points isolés au-delà des moustaches, souvent des anomalies de capteurs ou des cas exceptionnels.
 
----
-
 #### **Interactif : Décoder un Boxplot**
 Le Boxplot est souvent mal compris par les néophytes. Utilisez ce simulateur pour manipuler les points de données et voir comment la boîte, les moustaches et les "outliers" réagissent en temps réel.
 
@@ -39,8 +37,6 @@ Le Boxplot est souvent mal compris par les néophytes. Utilisez ce simulateur po
 {"component":"LlmGeneratedComponent","props":{"height":"700px","prompt":"Crée un outil interactif pédagogique : 'L'Anatomie du Boxplot'. \n\nObjectif : Expliquer visuellement les concepts de Médiane, Quartiles (Q1, Q3), Écart Interquartile (IQR) et Outliers.\n\nStructure :\n1. Un plan horizontal avec une série de points (données brutes) que l'utilisateur peut ajouter ou déplacer à la souris.\n2. Juste au-dessus, un Boxplot dynamique qui se recalcule en temps réel selon la position des points.\n3. Des étiquettes claires qui s'affichent au survol des composants du Boxplot :\n   - 'Médiane (50%)'\n   - 'Q1 (25%) et Q3 (75%)'\n   - 'Moustaches (1.5 * IQR)'\n   - 'Outliers (Valeurs aberrantes)'.\n\nComportement : Si l'utilisateur déplace un point très loin des autres, le point doit changer d'apparence (devenir une croix par exemple) et le Boxplot doit marquer ce point comme 'Outlier' au-delà des moustaches. Ajouter un bouton 'Réinitialiser' avec un jeu de données standard.","id":"im_349d6bc69ce30f83"}}
 
 ```
-
----
 
 ### 🌳 Choix des Graphiques 2D
 

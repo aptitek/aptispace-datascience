@@ -33,8 +33,6 @@ Si vous utilisez des modèles massifs (Deep Learning ou LLMs comme ChatGPT), la 
 - **IA Explicable (XAI) :** Un décideur n'acceptera jamais qu'une IA refuse un crédit "parce que l'algorithme l'a dit". Vous devez utiliser des techniques comme **SHAP** ou **LIME** pour ouvrir la "boîte noire" (ex: expliquer le poids du ratio d'endettement).
 - **RAG comme Garde-Fou :** L'architecture *Retrieval-Augmented Generation* force le LLM à lire uniquement dans une base sécurisée interne. Si l'information n'y est pas, il refuse de répondre, bloquant ainsi l'hallucination.
 
----
-
 ### 🛡️ Architecture RAG pour le Comex
 
 Pour rassurer vos décideurs sur la fiabilité de l'IA générative et éliminer tout risque d'invention factuelle, voici le flux logique de sécurisation par la recherche documentaire (RAG) :

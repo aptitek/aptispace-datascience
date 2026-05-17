@@ -27,8 +27,6 @@ Le Boosting fonctionne de manière **séquentielle**. Les modèles ne sont pas i
 * **LightGBM :** Développé par Microsoft, il est beaucoup plus rapide sur les très gros jeux de données car il fait croître les arbres par les feuilles plutôt que par niveaux [@nishida_tree_models_tabular_2026].
 * **CatBoost :** Le spécialiste des variables textuelles (catégorielles), capable de les gérer sans préparation manuelle complexe [@kushwaha_tabular_classification_2026].
 
----
-
 #### **Interactif : Bagging vs Boosting**
 
 Comprenez visuellement la différence de stratégie. Dans le Bagging, les modèles s'additionnent simplement. Dans le Boosting, chaque nouveau modèle vient combler les "trous" laissés par ses prédécesseurs.

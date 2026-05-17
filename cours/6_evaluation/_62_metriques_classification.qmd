@@ -30,8 +30,6 @@ En 2026, l'outil **Optuna** est devenu le standard absolu pour remplacer les anc
   3. Choisit les hyperparamètres qui maximisent le ratio $l(x)/g(x)$. Il cible donc les zones à succès et fuit les échecs.
 - **Élagage (Pruning) :** Super-pouvoir d'Optuna. S'il détecte que la courbe d'apprentissage à mi-parcours est désastreuse par rapport aux essais précédents, il stoppe l'entraînement prématurément, économisant d'immenses ressources de calcul.
 
----
-
 #### **Interactif : La course à l'Optimum**
 
 Visualisez pourquoi l'approche Bayésienne écrase les anciennes méthodes. Observez comment chaque algorithme tente de trouver le point le plus bas (le minimum d'erreur) sur une fonction de coût.

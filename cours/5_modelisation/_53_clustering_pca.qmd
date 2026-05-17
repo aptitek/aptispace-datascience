@@ -24,17 +24,12 @@ DBSCAN (*Density-Based Spatial Clustering of Applications with Noise*) est basé
 * **L'Avantage :** Pas besoin de lui donner un nombre de groupes à l'avance ! Il regroupe les points fortement concentrés et peut détecter des clusters de formes arbitraires (ex: une forme de lune ou d'anneau). 
 * **Détection d'Anomalies :** Contrairement au K-Means qui force chaque point à rejoindre un groupe, DBSCAN identifie automatiquement les données isolées comme du "bruit" (valeurs aberrantes) [@karl_dbscan_kmeans_2024].
 
----
-
 #### **Interactif : La faille du K-Means**
 Pour bien comprendre la différence entre ces deux algorithmes, observez comment ils réagissent face à des formes complexes (comme deux demi-lunes imbriquées). K-Means va les couper brutalement avec une ligne droite (car il cherche des sphères), tandis que DBSCAN va suivre la courbe de densité.
 
 ```json?chameleon
 {"component":"LlmGeneratedComponent","props":{"height":"700px","prompt":"Objectif : Créer un visualiseur interactif pour comparer les algorithmes de clustering K-Means et DBSCAN.\n\nÉtat des données : \n1. Générer deux ensembles de données virtuels commutables via un menu : 'Nuages séparés' (3 groupes sphériques distincts avec un peu de bruit) et 'Demi-lunes' (deux formes courbes entrelacées avec du bruit autour).\n\nStratégie : Standard Layout (Zone de dessin principale avec contrôles sur le côté ou en dessous).\n\nContrôles (Interface en Français) :\n1. Sélecteur de jeu de données : 'Nuages (Sphères)' vs 'Demi-Lunes (Formes complexes)'.\n2. Sélecteur d'algorithme : 'K-Means' vs 'DBSCAN'.\n3. Si K-Means est sélectionné : Afficher un curseur 'Nombre de Clusters (K)' allant de 1 à 5.\n4. Si DBSCAN est sélectionné : Afficher un curseur 'Rayon de Densité (Epsilon)' et 'Points minimum'.\n5. Un bouton d'action 'Lancer le Clustering'.\n\nComportement visuel :\n- L'espace central affiche les points en gris avant le clustering.\n- K-Means : Diviser les points géométriquement. Sur les 'Demi-Lunes', K-Means doit échouer à séparer les deux lunes proprement (il doit les couper en deux moitiés gauche/droite ou haut/bas). Afficher de grosses croix pour marquer les Centroïdes.\n- DBSCAN : Mettre en couleur les formes continues. Sur les 'Demi-Lunes', il doit colorer parfaitement chaque lune d'une couleur distincte. Marquer explicitement les points isolés en noir (Bruit/Anomalies).","id":"im_025d179412b7f98e"}}
-
 ```
-
----
 
 ### 🪄 Réduction de Dimension (PCA)
 

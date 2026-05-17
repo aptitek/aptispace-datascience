@@ -39,8 +39,6 @@ L'objectif est d'explorer et de structurer la donnée.
 * **Segmentation de clientèle (Clustering) :** Regrouper des clients aux comportements d'achat similaires pour créer des campagnes marketing ultra-ciblées, révélant des profils insoupçonnés par l'équipe marketing.
 * **Détection d'anomalies :** Identifier des transactions bancaires dont la structure diverge radicalement de la "norme" établie par les autres transactions, signalant potentiellement une fraude [@karl_dbscan_kmeans_2024].
 
----
-
 ### 🧠 Synthèse des deux mondes
 
 Pour résumer la bifurcation fondamentale du Machine Learning, voici une cartographie claire distinguant le mode supervisé (guidé par des étiquettes) du mode non supervisé (guidé par la structure intrinsèque) :

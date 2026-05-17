@@ -49,8 +49,6 @@ L'absence dépend de la *valeur elle-même*.
 :::
 ::::
 
----
-
 ### 🛠️ Stratégies de Traitement
 
 ::: {.panel-tabset}

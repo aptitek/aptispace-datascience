@@ -70,7 +70,6 @@ Matplotlib, Seaborn & Plotly
 De la preuve statique élégante (Seaborn) au tableau de bord interactif (Plotly), ces outils permettent de transformer des colonnes de chiffres en récits visuels percutants.
 :::
 :::
----
 
 ::: {.card .card-success}
 ::: {.card-header}

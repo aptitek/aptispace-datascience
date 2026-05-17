@@ -38,8 +38,6 @@ Pour ne pas avoir à choisir entre les deux, on utilise des scores de synthèse 
 2. **ROC-AUC :** Mesure la capacité du modèle à séparer les classes. Un score de 1.0 est parfait, 0.5 équivaut au hasard.
 * *Attention :* Pour des données extrêmement déséquilibrées (ex: 1 fraude pour 10 000 transactions), le ROC-AUC est souvent trop optimiste. On préférera alors le **PR-AUC** (Precision-Recall AUC) [@imani_rocauc_2026].
 
----
-
 ### 🌳 Boussole des Métriques
 
 Pour guider le choix de votre indicateur d'évaluation selon la distribution de vos classes et la nature des risques métiers, suivez cet arbre décisionnel :

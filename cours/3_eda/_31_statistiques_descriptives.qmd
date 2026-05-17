@@ -32,8 +32,6 @@ En tant qu'ingénieur, vous devez savoir que les statistiques sur ordinateur son
 
 L'arithmétique en virgule flottante standard (IEEE 754) est notoirement non-associative : l'ordre des opérations modifie les décimales du résultat. Pour l'IA financière, on utilise désormais des types spécifiques comme `Decimal` (échelle fixe évitant les débordements) ou `Int128`. Là où le type classique `Int64` est limité à 9 quintillions, le `Int128` capture une plage 18 quintillions de fois plus large, évitant la saturation de la RAM lors de calculs d'agrégation massive.
 
----
-
 ### 🗺️ Moyenne vs Médiane
 
 Pour choisir la mesure de tendance centrale la plus adaptée, vous devez évaluer la sensibilité aux valeurs aberrantes (outliers) et la complexité de calcul induite.

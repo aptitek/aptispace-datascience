@@ -19,8 +19,6 @@ L'expert doit arbitrer entre plusieurs techniques d'encodage selon la nature des
   - *L'Avantage :* Parfait pour éviter un ordre artificiel sur des variables nominales.
   - *Le Piège :* Si vous avez une variable "Code Postal" (36 000 valeurs), vous allez créer 36 000 nouvelles colonnes ! C'est ce qu'on appelle le fléau de la dimensionnalité, qui sature la RAM et provoque du surapprentissage (*Overfitting*).
 
----
-
 ### 🚀 Méthodes Avancées
 
 Quand le One-Hot Encoding fait exploser votre mémoire, il faut ruser. L'industrie utilise souvent la bibliothèque `category_encoders` pour cela.
@@ -31,8 +29,6 @@ Quand le One-Hot Encoding fait exploser votre mémoire, il faut ruser. L'industr
 - **Le Hashing Encoder (Hachage) :** Projette les catégories dans un espace fini (un nombre défini de colonnes, ex: 8 bits) via une fonction de hachage (comme MD5), sans jamais stocker le dictionnaire d'origine.
   - *Avantage :* Empreinte mémoire minuscule et constante. Accepte de nouvelles catégories "inconnues" en production sans planter.
   - *Inconvénient :* Accepte les "collisions" (deux mots différents peuvent être hachés dans la même colonne), ce qui entraîne une légère perte d'information au profit de la vitesse.
-
----
 
 ### 💻 Implémentation en Python
 

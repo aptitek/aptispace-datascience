@@ -33,8 +33,6 @@ On utilise une **API REST**.
 * **FastAPI :** C'est le framework Python ultra-dominant pour servir des modèles. Il est asynchrone (très rapide) et génère automatiquement sa propre documentation technique [@otto_fastapi_2026].
 * **Le Fonctionnement :** L'application web envoie une requête HTTP contenant un fichier JSON avec les données du client. FastAPI reçoit le JSON, le donne au modèle XGBoost, récupère la prédiction, et la renvoie à l'application web sous forme de réponse JSON.
 
----
-
 #### **Comprendre le système : L'API de Prédiction**
 
 Manipulez cette simulation pour comprendre comment un logiciel externe interagit avec votre modèle ML via une API REST (FastAPI).
@@ -170,8 +168,6 @@ html`
 `
 
 ```
-
----
 
 ### 🏗️ L'Architecture MLOps Complète
 

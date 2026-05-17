@@ -20,8 +20,6 @@ On distingue deux phénomènes majeurs qui nécessitent une surveillance algorit
 - **Dérive de Concept (Concept Drift) :** Les données d'entrée semblent identiques, mais **la vérité mathématique a changé** (les règles du jeu ont changé dans votre dos).
   - *Exemple Business :* La détection de fraude. Un achat de 500€ de nuit depuis l'étranger était systématiquement une fraude en 2024. En 2026, avec les néo-banques, c'est devenu banal et légitime. Le concept même de la fraude a évolué.
 
----
-
 #### **Interactif : Le Simulateur de Dérive**
 
 Pour bien saisir la différence entre ces deux dérives, manipulez ce simulateur. Observez comment la ligne de décision (votre modèle figé) devient obsolète face à l'évolution du monde.

@@ -65,3 +65,106 @@ Utilisez des outils comme **Pandera** pour sanctuariser le typage dès l'entrée
 Nombre de valeurs uniques dans une variable. Une cardinalité trop élevée sur des données nominales est un signal d'alerte pour l'architecte de données.
 :::
 :::
+
+
+::: {.card .card-debug}
+::: {.card-header}
+🕵️‍♂️ Atelier Pratique : Qualifiez vos preuves
+:::
+::: {.card-body}
+Un bon enquêteur ne se trompe jamais sur la nature de ses indices. Saurez-vous classifier correctement ces variables avant de les intégrer à votre modèle ?
+
+```{ojs}
+//| echo: false
+viewof classification_game = ui.cablingExercise({
+  title: "PANNEAU DE BRASSAGE DES INDICES",
+  instructions: "Reliez chaque pièce à conviction de gauche à sa catégorie de données logique de droite en cliquant d'abord sur la fiche de gauche puis sur la prise femelle de droite.",
+  leftItems: [
+    { id: "postal", label: "Le code postal du suspect (ex: 75001)", match: "nominale" },
+    { id: "salaire", label: "Le salaire annuel en euros (ex: 45200.50)", match: "continue" },
+    { id: "mention", label: "La mention au bac (Passable, Bien, Très Bien)", match: "ordinale" },
+    { id: "fraud", label: "Le nombre de transactions frauduleuses", match: "discrete" }
+  ],
+  rightItems: [
+    { id: "nominale", label: "Nominale" },
+    { id: "ordinale", label: "Ordinale" },
+    { id: "discrete", label: "Discrète" },
+    { id: "continue", label: "Continue" }
+  ],
+  feedbacks: {
+    postal: "Le code postal est bien nominal. Même s'il s'agit de chiffres, leur somme, leur moyenne ou leur comparaison n'a aucun sens mathématique.",
+    salaire: "Le salaire est quantitatif continu. Il s'exprime sur une échelle infinie de valeurs décimales mesurables.",
+    mention: "La mention au bac est qualitative ordinale. Ce sont des catégories textuelles, mais dotées d'une hiérarchie stricte indiscutable.",
+    fraud: "Le nombre de transactions est quantitatif discret. On dénombre des unités entières distinctes (pas de demi-transaction)."
+  },
+  successMessage: "Excellent ! Tous les signaux sont parfaitement synchronisés. Votre diagnostic d'expert des données est validé !",
+  errorMessage: "Alerte : Des courts-circuits subsistent dans votre brassage de signal. Relisez attentivement la nature de chaque indice."
+})
+```
+
+:::
+:::
+
+
+::: {.card .card-warning}
+::: {.card-header}
+🔎 Simulateur de Sanity Check : L'Impact d'un Outlier
+:::
+::: {.card-body}
+Observez la distribution de l'âge de nos suspects. À l'état brut, le graphique est illisible. Pourquoi ? Parce qu'une erreur de saisie s'est glissée dans le fichier CSV. Activez le filtre pour nettoyer la donnée et révéler la véritable distribution.
+
+```{ojs}
+//| echo: false
+// BLOC 1 : Logique et Contrôles (Inputs)
+normal_ages = Array.from({length: 100}, () => Math.round(Math.random() * 40 + 20))
+brut_ages = [...normal_ages, 455]
+
+viewof apply_filter = Inputs.toggle({ label: "🧹 Appliquer le Sanity Check (Filtrer Age < 120)" })
+
+current_ages = apply_filter ? normal_ages : brut_ages
+current_mean = (current_ages.reduce((a, b) => a + b, 0) / current_ages.length).toFixed(1)
+
+```
+
+```{ojs}
+//| echo: false
+// BLOC 2 : Rendu DOM (Métriques)
+ui.render(`
+  <div class="ui-metrics-row">
+    ${ui.metricCard({ 
+      title: "Âge Moyen Calculé", 
+      value: current_mean + " ans", 
+      trend: apply_filter ? "positive" : "danger", 
+      subtitle: apply_filter ? "Moyenne représentative" : "Moyenne faussée par l'anomalie" 
+    })}
+  </div>
+`)
+
+```
+
+```{ojs}
+//| echo: false
+// BLOC 3 : Rendu DOM (Graphique Plotly)
+ui.plotlyWrapper({
+  title: "Boîte à Moustaches (Boxplot) de l'Âge",
+  height: "250px",
+  data: [{
+    x: current_ages,
+    type: 'box',
+    name: 'Suspects',
+    marker: { color: apply_filter ? ui.colors.green : ui.colors.orange }, // Zéro couleur hardcodée
+    boxpoints: 'all',
+    jitter: 0.3,
+    pointpos: -1.8
+  }],
+  layout: {
+    xaxis: { title: 'Âge enregistré', range: [0, apply_filter ? 100 : 500] },
+    yaxis: { showticklabels: false },
+    margin: { t: 40, r: 20, b: 40, l: 20 }
+  }
+})
+
+```
+
+:::
+:::

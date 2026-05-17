@@ -1,4 +1,4 @@
-## Algorithmes de Clustering et techniques de réduction de dimensionnalité
+## 🎯 Clustering et PCA
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -8,7 +8,7 @@ L'art de l'exploration à l'aveugle
 Contrairement à la régression ou la classification, l'apprentissage non supervisé travaille sur des données **non étiquetées**. L'objectif n'est pas de prédire une réponse précise, mais d'explorer les données pour y découvrir des motifs cachés ou une structure naturelle [@ml_basics_md_2026]. Les deux grandes familles de ces algorithmes sont le *Clustering* (regroupement) et la *Réduction de dimensionnalité*.
 :::
 :::
-### 🎯 1. Le Clustering : Regrouper par similarité
+### 🎯 Le Clustering
 
 Le but du clustering est de diviser un jeu de données en groupes (clusters) de telle sorte que les points d'un même groupe soient très similaires, et très différents des autres groupes.
 
@@ -36,7 +36,7 @@ Pour bien comprendre la différence entre ces deux algorithmes, observez comment
 
 ---
 
-### 🪄 2. L'Analyse en Composantes Principales (PCA)
+### 🪄 Réduction de Dimension (PCA)
 
 Imaginez que vous ayez une base de données avec 50 colonnes (dimensions) différentes pour décrire une maison. Comment visualiser ces maisons sur un écran en 2D ou 3D ? C'est impossible sans perdre de l'information.
 
@@ -51,7 +51,7 @@ L'enquête prend une tournure critique. La découverte du vol des sujets d'exame
 
 Puisque nous cherchons à découvrir des groupes cachés d'acheteurs dans une liste de suspects sans savoir à l'avance qui ils sont, c'est le moment idéal pour introduire l'**Apprentissage Non Supervisé**.
 
-## 🕵️‍♂️ Mission 5 : Profilage des acheteurs avec l'IA
+## 🕵️‍♂️ Mission 5
 
 Le directeur pédagogique est formel : si ces sujets fuitent, toute l'évaluation des Master 1 devra être annulée. Heureusement, vous avez mis la main sur le carnet d'adresses de Charlie sur le Dark Web. 
 

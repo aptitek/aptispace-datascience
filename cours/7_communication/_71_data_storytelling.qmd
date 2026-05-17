@@ -1,4 +1,4 @@
-## L'art du "Data Storytelling" : choisir les bonnes visualisations pour faire passer un message
+## 🎨 L'Art du Data Storytelling
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,33 +10,27 @@ En 2026, 78 % des organisations déclarent utiliser l’IA, mais moins de 31 % d
 :::
 Le rôle du **Data Translator** (Traducteur de Données) est devenu la fonction la plus critique pour garantir le Retour sur Investissement (ROI) des initiatives analytiques. Son but ? Transformer la technicité brute en un levier de croissance stratégique.
 
-### 🧱 1. Le Mur de l'Incompréhension : La faillite des métriques
+### 🧱 Métriques et Décideurs
 
 Les indicateurs de performance classiques de la Data Science (vus au Module 6) sont inaudibles, voire trompeurs, pour un dirigeant.
 
 * **L'erreur du RMSE :** Présenter un "Root Mean Square Error" (RMSE) à un directeur financier est une faute stratégique. Le RMSE n'est pas "scale invariant" (il dépend de l'échelle des données) [@c3ai_rmse]. Le directeur ne saura jamais si un RMSE de 42 est une excellente nouvelle ou une catastrophe financière.
 * **L'erreur de l'Accuracy :** Nous l'avons vu, une exactitude de 99 % sur un jeu de données déséquilibré (détection de fraude) masque souvent un modèle qui ne détecte rien. Pour un Comex, vous devez dépasser ces chiffres pour parler de **coût d'opportunité** et de **risque résiduel**.
 
-### 💱 2. Le Dictionnaire du Translator
+### 💱 Dictionnaire du Data Translator
 
 Le Data Translator ne prononce jamais les mots "Précision" ou "Rappel" devant le Comex. Il les convertit en monnaie sonnante et trébuchante.
 
-#### Traduire le F1-Score (Fraude et Churn)
-Le F1-Score équilibre la Précision et le Rappel. En entreprise, on le traduit grâce à une matrice de coûts asymétriques :
+- **F1-Score (Fraude et Churn) :** Équilibre la précision et le rappel.
+  - *Argument technique :* "Le modèle a un Recall de 95% et une Précision de 80%."
+  - *Traduction Business :* "L'IA va capturer la quasi-totalité des tentatives de fraude, ce qui va **diviser nos pertes financières directes par deux**. En contrepartie, 20 % des alertes seront de fausses alarmes, ce qui nécessitera l'embauche temporaire de 2 modérateurs pour ne pas bloquer nos clients légitimes." [@geeksforgeeks_2026_evaluation_metrics]
+- **RMSE (Supply Chain et Logistique) :**
+  - *Argument technique :* "Nous avons abaissé la RMSE de 15 à 8."
+  - *Traduction Business :* "Nous avons réduit l'incertitude de nos prévisions de ventes. Cela se traduit par une baisse de 30% des **ruptures de stock** (ventes manquées) et une diminution massive de nos **coûts de surstockage**, libérant ainsi 2 millions d'euros de capital immobilisé."
+- **AUC-ROC (Marketing) :**
+  - *Traduction Business :* Cette métrique se traduit directement par l'optimisation du **Coût d'Acquisition Client (CAC)** ou l'efficacité du ciblage publicitaire.
 
-* **Argument technique :** "Le modèle a un Recall de 95% et une Précision de 80%."
-* **Traduction Business :** "L'IA va capturer la quasi-totalité des tentatives de fraude, ce qui va **diviser nos pertes financières directes par deux**. En contrepartie, 20 % des alertes seront de fausses alarmes, ce qui nécessitera l'embauche temporaire de 2 modérateurs pour ne pas bloquer nos clients légitimes." [@geeksforgeeks_2026_evaluation_metrics]
-
-#### Traduire la RMSE (Supply Chain et Logistique)
-
-* **Argument technique :** "Nous avons abaissé la RMSE de 15 à 8."
-* **Traduction Business :** "Nous avons réduit l'incertitude de nos prévisions de ventes. Cela se traduit par une baisse de 30% des **ruptures de stock** (ventes manquées) et une diminution massive de nos **coûts de surstockage**, libérant ainsi 2 millions d'euros de capital immobilisé."
-
-#### Traduire l'AUC-ROC (Marketing)
-
-* **Traduction Business :** Cette métrique se traduit directement par l'optimisation du **Coût d'Acquisition Client (CAC)** ou l'efficacité du ciblage publicitaire.
-
-### 🚀 3. Le Framework O.I.A. (Observation, Insight, Action)
+### 🚀 Framework O.I.A.
 
 Pour éviter le "Data Dumping" (le déversement de statistiques stériles qui endort l'audience), l'industrie utilise le modèle **OIA** [@beautifulai_2026_data_storytelling]. Chaque diapositive de votre présentation doit répondre à la question : *"So What ?"* (Et alors ?).
 
@@ -55,7 +49,7 @@ graph LR
 
 ```
 
-## 🕵️‍♂️ Mission 7 : Le Rapport Exécutif
+## 🕵️‍♂️ Mission 7
 
 *BAM !* Les portes de l'entrepôt virtuel explosent. L'équipe de sécurité interpelle Charlie au moment exact où il allait transférer les données à ses acheteurs. L'opération est un succès total !
 

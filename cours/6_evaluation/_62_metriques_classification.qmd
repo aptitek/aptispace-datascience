@@ -1,4 +1,4 @@
-## Métriques pour la classification
+## ⚙️ Optimisation des Hyperparamètres
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,40 +10,25 @@ Les hyperparamètres ne sont pas appris par le modèle (comme les poids d'un ré
 :::
 Pour trouver la combinaison parfaite d'hyperparamètres (le *Tuning*), l'industrie a connu trois grandes ères.
 
-### 🧱 1. L'Ère de la Force Brute : Grid Search et Random Search
+### 🧱 Grid Search et Random Search
 
 Historiquement, le Data Scientist utilisait les outils de `scikit-learn`.
 
-#### La Recherche par Grille (Grid Search)
+- **Grid Search (Recherche par Grille) :** Vous définissez une liste de valeurs pour chaque paramètre (ex: 3 valeurs pour le paramètre A, 3 valeurs pour le paramètre B). Le moteur teste exhaustivement toutes les combinaisons possibles.
+  - *Le Problème :* Exponentiellement coûteux. Avec 5 paramètres, on atteint des milliers d'entraînements, rendant la méthode inutilisable sur de grands volumes.
+- **Random Search (Recherche Aléatoire) :** L'algorithme choisit des combinaisons au hasard dans l'espace disponible pendant un temps défini.
+  - *L'Avantage :* Beaucoup plus rapide. Mathématiquement, il trouve de meilleurs résultats que le Grid Search en explorant des zones inattendues.
+  - *Le Problème :* C'est une approche "aveugle". L'itération n'apprend rien des essais précédents.
 
-Vous définissez une liste de valeurs pour chaque paramètre (ex: 3 valeurs pour le paramètre A, 3 valeurs pour le paramètre B). Le moteur va tester exhaustivement les 9 combinaisons.
+### 🧠 Optimisation Bayésienne
 
-* **Le problème :** C'est exponentiellement coûteux. Avec 5 paramètres à tester, vous atteignez vite des milliers d'entraînements. Face aux grands jeux de données, cette méthode de force brute devient impraticable [@keylabs_hyperparameter_2024].
+En 2026, l'outil **Optuna** est devenu le standard absolu pour remplacer les anciennes méthodes de recherche. L'optimisation bayésienne agit comme un chercheur d'or : plutôt que de creuser au hasard, elle apprend de ses forages précédents pour déduire où se trouve le filon.
 
-#### La Recherche Aléatoire (Random Search)
-
-Au lieu de tout tester, l'algorithme choisit des combinaisons au hasard dans l'espace disponible pendant un temps donné.
-
-* **L'avantage :** C'est beaucoup plus rapide et, mathématiquement, cela trouve souvent de meilleurs résultats que le Grid Search en explorant des zones inattendues.
-* **Le problème :** C'est une approche "aveugle". L'itération numéro 100 n'apprend absolument rien des erreurs des 99 itérations précédentes [@keylabs_hyperparameter_2024].
-
-### 🧠 2. L'Ère de l'Intelligence : L'Optimisation Bayésienne (Optuna)
-
-En 2026, l'outil **Optuna** est devenu le standard absolu pour remplacer `GridSearchCV`. L'optimisation bayésienne agit comme un chercheur d'or : plutôt que de creuser au hasard, elle apprend de ses forages précédents pour déduire où se trouve le filon.
-
-#### L'Algorithme TPE (Tree-structured Parzen Estimator)
-
-Optuna utilise principalement l'algorithme TPE [@optuna_docs_2026]. Son fonctionnement est fascinant :
-
-1. Il sépare l'historique de vos essais en deux groupes : les "bons" résultats et les "mauvais" résultats.
-2. Il crée deux modèles mathématiques (densités de probabilité) : $l(x)$ pour les bons, et $g(x)$ pour les mauvais.
-3. Pour l'essai suivant, il choisit les paramètres qui maximisent le ratio $l(x)/g(x)$ [@emergentmind_tpe2_2025].
-
-En résumé : **Il cible les zones riches en succès et fuit les zones riches en échecs.**
-
-#### L'Élagage (Pruning)
-
-C'est le super-pouvoir d'Optuna. Si, au milieu d'un entraînement, Optuna détecte que la courbe d'apprentissage est désastreuse par rapport aux essais précédents, il **stoppe l'entraînement prématurément**. Cela économise des heures de calcul sur les serveurs [@markdown_evolution_2026].
+- **Algorithme TPE (Tree-structured Parzen Estimator) :**
+  1. Sépare l'historique des essais en deux groupes : les bons et les mauvais résultats.
+  2. Modélise mathématiquement ces densités de probabilité : $l(x)$ pour les bons et $g(x)$ pour les mauvais.
+  3. Choisit les hyperparamètres qui maximisent le ratio $l(x)/g(x)$. Il cible donc les zones à succès et fuit les échecs.
+- **Élagage (Pruning) :** Super-pouvoir d'Optuna. S'il détecte que la courbe d'apprentissage à mi-parcours est désastreuse par rapport aux essais précédents, il stoppe l'entraînement prématurément, économisant d'immenses ressources de calcul.
 
 ---
 
@@ -52,7 +37,7 @@ C'est le super-pouvoir d'Optuna. Si, au milieu d'un entraînement, Optuna détec
 Visualisez pourquoi l'approche Bayésienne écrase les anciennes méthodes. Observez comment chaque algorithme tente de trouver le point le plus bas (le minimum d'erreur) sur une fonction de coût.
 
 ::: {.callout-note}
-### 🏎️ Simulateur : La course à l'Optimum
+### 🏎️ Simulateur de Course à l'Optimum
 Sélectionnez une stratégie de recherche et lancez l'entraînement. Observez comment chaque algorithme "creuse" pour tenter de trouver le fond de la vallée (l'optimum global). Le score affiché est l'erreur (Loss) : le but est d'atteindre 0.0.
 :::
 
@@ -195,6 +180,7 @@ mesh = {
 }
 
 Plot.plot({
+  title: "Simulateur de Recherche d'Optimum Global (Grid/Random vs Bayésien)",
   height: 600,
   width: 800,
   style: { background: "var(--sol-base03)", color: "var(--sol-base0)", fontVariantNumeric: "tabular-nums" },
@@ -269,7 +255,7 @@ html`
 
 ```
 
-### 💻 Code : La syntaxe Optuna vs Scikit-Learn
+### 💻 Optuna vs Scikit-Learn
 
 ```python
 import optuna
@@ -298,7 +284,7 @@ print("Meilleurs hyperparamètres :", study.best_params)
 
 ```
 
-## 🕵️‍♂️ Mission 6 : Trouver la faille dans l'armure
+## 🕵️‍♂️ Mission 6
 
 Charlie se vante sur le Dark Web : son algorithme de détection de la police aurait une "Accuracy" de 90%. Il se croit intouchable et a confirmé la transaction de ce soir pour la vente des sujets d'examen.
 

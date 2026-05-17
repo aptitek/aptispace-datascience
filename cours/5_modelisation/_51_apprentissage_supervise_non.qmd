@@ -1,4 +1,4 @@
-## Différences fondamentales entre l'apprentissage supervisé et non supervisé
+## 🤖 Supervisé vs Non Supervisé
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -42,6 +42,8 @@ L'objectif est d'explorer et de structurer la donnée.
 ---
 
 ### 🧠 Synthèse des deux mondes
+
+Pour résumer la bifurcation fondamentale du Machine Learning, voici une cartographie claire distinguant le mode supervisé (guidé par des étiquettes) du mode non supervisé (guidé par la structure intrinsèque) :
 
 ```{mermaid}
 flowchart TD

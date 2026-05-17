@@ -1,4 +1,4 @@
-## 🗂️ Classification des Indices : Qualitatif vs Quantitatif
+## 🗂️ Types de Données
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -42,7 +42,7 @@ Représentent des quantités mesurables supportant les opérations mathématique
 
 ---
 
-### ⚠️ Danger : L'Impact sur l'Algorithme
+### ⚠️ Impact sur l'Algorithme
 
 Pourquoi passer du temps sur cette classification ? Parce qu'elle modifie radicalement votre matrice en mémoire :
 

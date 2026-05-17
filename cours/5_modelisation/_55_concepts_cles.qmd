@@ -1,4 +1,4 @@
-## Compréhension des concepts clés
+## 🧠 Concepts Clés
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -8,28 +8,23 @@ La quête de la généralisation
 Le but ultime du Machine Learning n'est pas d'obtenir 100 % de précision sur vos données actuelles, mais de **performer sur des données que le modèle n'a jamais rencontrées**. Pour atteindre cet objectif, l'ingénieur doit naviguer entre deux écueils : le sous-ajustement et le sur-ajustement [@jiang_2026_omnitabbench].
 :::
 :::
-### 🎯 1. Le Compromis Biais-Variance
+### 🎯 Compromis Biais-Variance
 
 C'est l'équilibre délicat au cœur de toute modélisation. Imaginez une cible de tir à l'arc.
 
 * **Le Biais (L'Erreur de Logique) :** C'est l'erreur issue d'un modèle trop simpliste qui ne comprend pas la complexité des données. L'élève applique toujours la même formule, même quand elle ne convient pas. Un biais élevé mène au **Sous-ajustement**.
 * **La Variance (La Sensibilité au Bruit) :** C'est l'erreur issue d'un modèle trop complexe qui réagit à la moindre petite fluctuation des données d'entraînement. L'élève apprend par cœur les exercices mais panique dès qu'un mot change dans l'énoncé. Une variance élevée mène au **Sur-ajustement** [@ohiri_2026_underfitting_overfitting].
 
-### ⚠️ 2. Underfitting vs Overfitting
+### ⚠️ Sous vs Sur-ajustement
 
-#### L'Underfitting (Sous-ajustement)
-Le modèle est trop "paresseux" ou trop simple.
-
-* **La Métaphore :** C'est comme essayer d'apprendre à faire du vélo uniquement sur un vélo d'appartement. Une fois sur un vrai terrain, vos aptitudes seront insuffisantes car vous n'avez pas saisi la complexité de l'équilibre réel [@ohiri_2026_underfitting_overfitting].
-* **Signe :** Erreur élevée à l'entraînement **ET** au test.
-* **Solution :** Augmenter la complexité du modèle ou la durée de l'entraînement.
-
-#### L'Overfitting (Sur-ajustement)
-Le modèle est "trop intelligent" : il mémorise tout, y compris les erreurs et le bruit du passé.
-
-* **La Métaphore :** C'est l'élève qui mémorise toutes les réponses d'un examen blanc par cœur. S'il tombe sur le même examen, il a 20/20. Si l'examen change ne serait-ce qu'une question, il échoue car il n'a pas compris la logique, il a juste mémorisé les données [@ohiri_2026_underfitting_overfitting].
-* **Signe :** Excellente performance à l'entraînement, mais **catastrophe au test**.
-* **Solution :** Simplifier le modèle, utiliser plus de données, ou appliquer de la **Régularisation**.
+- **L'Underfitting (Sous-ajustement) :** Le modèle est trop simple ou "paresseux".
+  - *La Métaphore :* C'est comme essayer d'apprendre à faire du vélo uniquement sur un vélo d'appartement. Une fois sur le terrain, vos aptitudes seront insuffisantes car vous n'avez pas saisi la complexité de l'équilibre réel.
+  - *Signe :* Erreur élevée à l'entraînement **ET** au test.
+  - *Solution :* Augmenter la complexité du modèle ou la durée de l'entraînement.
+- **L'Overfitting (Sur-ajustement) :** Le modèle est "trop intelligent" : il mémorise tout, y compris les erreurs et le bruit du passé.
+  - *La Métaphore :* C'est l'élève qui mémorise toutes les réponses d'un examen blanc par cœur. S'il tombe sur le même examen, il a 20/20. Si l'examen change ne serait-ce qu'une question, il échoue car il n'a pas compris la logique, il a juste mémorisé les données.
+  - *Signe :* Excellente performance à l'entraînement, mais **catastrophe au test**.
+  - *Solution :* Simplifier le modèle, utiliser plus de données, ou appliquer de la **Régularisation**.
 
 ### 🌋 3. La Théorie du "Hot Mess" (L'Incohérence des Erreurs)
 

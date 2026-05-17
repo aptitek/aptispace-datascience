@@ -1,4 +1,4 @@
-## 📥 L'Art de l'Ingestion : Extraire le Signal du Bruit
+## 📥 Ingestion des Données
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -8,7 +8,7 @@
 L'optimisation d'un projet IA commence à l'octet près lors de la lecture du disque. Charger l'intégralité d'un énorme fichier CSV avec les paramètres par défaut est une erreur d'amateur qui peut saturer la mémoire vive (RAM) instantanément.
 :::
 :::
-### 📂 Structure de Dépôt de Données
+### 📂 Structure des Dossiers
 
 Avant d'ingérer, un bon enquêteur organise ses dossiers. Voici la structure attendue pour vos projets :
 
@@ -23,7 +23,7 @@ Avant d'ingérer, un bon enquêteur organise ses dossiers. Voici la structure at
 
 ### 📥 Ingestion Multi-Format
 
-#### Le Standard Industriel : Apache Parquet
+**Le Standard Industriel : Apache Parquet**
 
 Pour l'IA moderne, le format **Apache Parquet** est le roi. Orienté colonne et fortement compressé, il préserve le typage des données et réduit drastiquement l'empreinte disque.
 
@@ -73,7 +73,7 @@ Si votre fichier dépasse votre capacité RAM, utilisez le **Chunking** (`chunks
 :::
 ---
 
-### 🔎 Le "Sanity Check" : L'Audit des Preuves
+### 🔎 Le Sanity Check
 
 Une donnée ingérée n'est pas une donnée fiable. Implémentez un protocole systématique pour détecter les anomalies :
 

@@ -1,4 +1,4 @@
-## 🛠️ L'Arsenal de l'Enquêteur : La Stack Python
+## 🛠️ La Stack Python
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -60,7 +60,7 @@ Dédié au Deep Learning et aux réseaux de neurones complexes (Vision, NLP).
 :::
 ::::
 
-### 📊 Visualisation : Faire Parler les Preuves
+### 📊 Visualisation des Preuves
 
 ::: {.card .card-info}
 ::: {.card-header}

@@ -1,4 +1,4 @@
-## 🔍 L'Anatomie du Vide : Gérer les Indices Manquants
+## 🔍 Valeurs Manquantes
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -8,7 +8,7 @@
 Dans l'investigation numérique, le *Data Wrangling* est le socle de l'intégrité du verdict. Le premier défi est la donnée manquante (`NaN`). Avant de "boucher un trou", l'enquêteur doit se demander : **"Pourquoi cet indice a-t-il été effacé ?"**
 :::
 :::
-### 🕵️‍♂️ Les 3 Mécanismes de l'Absence
+### 🕵️‍♂️ Mécanismes de l'Absence
 
 La stratégie de traitement dépend de la nature statistique de l'absence :
 
@@ -107,7 +107,7 @@ Pour les flux chronologiques (Bourse, IoT), utilisez la méthode **LOCF** (*Last
 :::
 :::
 
-## 🕵️‍♂️ Mission 1 : Interroger la base de données des suspects
+## 🕵️‍♂️ Mission 1
 
 L'inspecteur principal vous a transmis un dossier contenant les données de toutes les personnes présentes sur les lieux. 
 Voici comment la base a été constituée :

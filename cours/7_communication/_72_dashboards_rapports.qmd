@@ -1,4 +1,4 @@
-## Conception de tableaux de bord interactifs et de rapports écrits
+## 🔺 Pyramide de Minto et SCQA
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -12,28 +12,19 @@ Le temps d'attention d'un décideur (C-Level) est extrêmement limité. Naturell
 :::
 Pour capter l'attention et pousser à l'action, l'industrie s'appuie sur deux frameworks narratifs majeurs.
 
-### 🔺 1. La Pyramide de Minto (La communication Top-Down)
+### 🔺 Pyramide de Minto
 
 Développée dans les années 1960 par Barbara Minto chez McKinsey, cette approche est devenue le standard mondial de la communication exécutive [@modelthinkers_minto_scqa].
 
-#### Le principe du "Answer First" (La réponse d'abord)
-La Pyramide de Minto renverse l'ordre académique. Vous devez présenter la recommandation principale tout en haut de votre présentation, avant de descendre vers les détails.
+- **Le principe du "Answer First" (La réponse d'abord) :** La Pyramide de Minto renverse l'ordre académique en plaçant la recommandation principale tout en haut avant de descendre vers les détails.
+  1. *La Recommandation (Le Sommet) :* L'action demandée à l'audience.
+  2. *Les Arguments de Soutien (Le Milieu) :* Généralement 3 arguments clés (ex: gain financier, réduction du risque).
+  3. *Les Données et Preuves (La Base) :* Les graphiques, les métriques ML, les détails techniques.
+- **L'Art des "Action Titles" (Titres d'action) :** Les titres de diapositives ne doivent jamais être descriptifs.
+  - *À éviter :* ❌ *"Performance des canaux d'acquisition en 2026"* (Neutre).
+  - *À préférer :* ✅ *"Le canal SEO génère une valeur vie client (LTV) 30% supérieure"* [@beautifulai_2026_data_storytelling].
 
-1. **La Recommandation (Le Sommet) :** L'action que vous voulez que l'audience prenne aujourd'hui.
-2. **Les Arguments de Soutien (Le Milieu) :** Généralement 3 arguments clés (ex: gain financier, réduction du risque, avantage compétitif).
-3. **Les Données et Preuves (La Base) :** Les graphiques, les métriques ML, les détails d'implémentation. 
-
-*Le dirigeant pressé peut s'arrêter à l'étape 1 et valider le projet. S'il a un doute, il descendra à l'étape 2 ou 3.*
-
-#### L'Art des "Action Titles" (Titres d'action)
-Dans une présentation Minto, **les titres de vos diapositives ne doivent jamais être descriptifs**. 
-
-* ❌ Titre classique : *"Performance des canaux d'acquisition en 2026"* (Neutre, n'apporte aucune information).
-* ✅ Action Title : *"Le canal SEO génère une valeur vie client (LTV) 30% supérieure aux autres canaux"* [@beautifulai_2026_data_storytelling]. 
-
-*Si le dirigeant ne lit que les titres de votre présentation, il doit comprendre toute l'histoire.*
-
-### 📖 2. Le Framework SCQA : Créer la tension narrative
+### 📖 Framework SCQA
 
 Pour vos introductions ou vos synthèses exécutives (Executive Summaries), le framework SCQA permet de justifier un investissement technologique en racontant une histoire captivante [@story53_scqa].
 
@@ -51,6 +42,8 @@ Il se décompose en 4 étapes :
 ---
 
 ### 🏗️ Architecture d'une présentation percutante
+
+Pour maximiser l'impact sur un comité de direction, structurez vos livrables de communication en entonnoir ascendant selon le modèle pyramidal de McKinsey :
 
 ```{mermaid}
 flowchart TD

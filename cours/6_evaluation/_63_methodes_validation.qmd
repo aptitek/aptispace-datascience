@@ -1,4 +1,4 @@
-## Méthodes de validation pour fiabiliser les résultats
+## 🚢 Déploiement et MLOps
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,21 +10,21 @@ En 2026, un modèle bloqué dans un Notebook Jupyter n'est qu'un "artefact inuti
 :::
 Le cycle de vie d'un modèle en production repose sur la résolution de trois grands défis : la mémoire, le partage, et l'accès.
 
-### 📖 1. La Traçabilité (MLflow & DVC)
+### 📖 Traçabilité (MLflow & DVC)
 
 Lorsqu'un Data Scientist fait 50 essais d'optimisation (voir Module 6.2), il oublie souvent quels paramètres ont donné quel résultat.
 
 * **MLflow :** C'est le standard industriel pour le suivi des expérimentations (*Experiment Tracking*). Il enregistre automatiquement chaque version de votre code, les hyperparamètres utilisés, et les métriques de performance obtenues. Son composant **Model Registry** fait office de "tour de contrôle" pour approuver le passage d'un modèle en production [@sharma_mlops_2026].
 * **DVC (Data Version Control) :** Fait la même chose que Git, mais pour vos énormes fichiers de données (qui sont trop lourds pour GitHub).
 
-### 📦 2. L'Encapsulation (Docker & uv)
+### 📦 Encapsulation (Docker & uv)
 
 Imaginons que votre modèle fonctionne parfaitement sur votre ordinateur portable (Windows, Python 3.10, Pandas 2.0). Si vous l'envoyez sur le serveur de production (Linux, Python 3.12, Pandas 3.0), il va planter instantanément.
 
 * **La Conteneurisation (Docker) :** Docker résout ce problème d'environnement. Il crée une "boîte" (un conteneur) qui englobe votre modèle d'IA, la bonne version de Python, et exactement les bibliothèques nécessaires. Ce conteneur est immuable : s'il marche chez vous, il marchera à l'identique sur n'importe quel serveur au monde [@mathukiya_mlops_2026].
 * **L'outil "uv" :** En 2026, l'outil `pip` a largement été remplacé par `uv` (écrit en Rust) pour installer les bibliothèques Python. Il est 10 à 100 fois plus rapide, ce qui permet de construire ces conteneurs Docker de manière quasi-instantanée [@markdown_evolution_2026].
 
-### 🔌 3. Le Service (L'API avec FastAPI)
+### 🔌 Service API (FastAPI)
 
 Votre modèle est dans un conteneur, mais comment une application web ou mobile (ex: l'application de votre banque) peut-elle lui "parler" pour obtenir une prédiction ?
 
@@ -40,7 +40,7 @@ On utilise une **API REST**.
 Manipulez cette simulation pour comprendre comment un logiciel externe interagit avec votre modèle ML via une API REST (FastAPI).
 
 ::: {.callout-note}
-### 🌐 Simulateur : L'API de Prédiction en action
+### 🌐 Simulateur d'API de Prédiction
 Testez cette interface client. Modifiez les paramètres du crédit et cliquez sur "Envoyer". Observez comment l'application cliente transforme vos actions en un fichier JSON, l'envoie sur le réseau, et comment le serveur ML (FastAPI) calcule et renvoie sa prédiction.
 :::
 
@@ -174,6 +174,8 @@ html`
 ---
 
 ### 🏗️ L'Architecture MLOps Complète
+
+Le cycle de vie complet du déploiement industriel d'un modèle d'IA s'articule autour d'un pipeline automatisé, de l'expérimentation locale jusqu'au service Cloud exposé aux clients :
 
 ```{mermaid}
 graph LR

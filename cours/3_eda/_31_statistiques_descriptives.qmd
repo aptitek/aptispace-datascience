@@ -1,4 +1,4 @@
-## Les statistiques descriptives de base
+## 📊 Statistiques Descriptives
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,7 +10,7 @@ Dans l'écosystème analytique de 2026, l'Analyse Exploratoire des Données (EDA
 :::
 L'analyse univariée (l'étude d'une seule variable à la fois) constitue le premier rempart contre les données chaotiques. 
 
-### 🎯 1. Les Mesures de Tendance Centrale
+### 🎯 Tendance Centrale
 
 L'objectif est de trouver la valeur qui résume le mieux l'ensemble des données. L'arbitrage classique se fait entre la moyenne et la médiane.
 
@@ -19,14 +19,14 @@ L'objectif est de trouver la valeur qui résume le mieux l'ensemble des données
   * *Attention Architecturale :* Le calcul de la médiane est beaucoup plus coûteux en ressources CPU, car il nécessite d'effectuer une opération de tri (Sort) sur des millions de lignes.
 * **Le Mode :** Représente la valeur la plus fréquente, très utile pour les variables textuelles/catégorielles.
 
-### 📏 2. Les Mesures de Dispersion
+### 📏 Dispersion
 
 Savoir où est le centre ne suffit pas ; il faut savoir si les données sont très resserrées autour de ce centre ou au contraire très étalées.
 
 * **La Variance et l'Écart-type (Standard Deviation) :** Ces mesures évaluent la fluctuation des données autour de la moyenne ($\mu$). Un écart-type ($\sigma$) élevé indique une forte volatilité des données.
 * **Quartiles et Percentiles :** Ils divisent l'ensemble de données en sections de taille égale (les quartiles divisent en 4 blocs de 25%). Ils sont à la base des graphiques "Boîtes à moustaches" (Boxplots) pour détecter visuellement les valeurs aberrantes.
 
-### ⚙️ 3. Le Défi de la Précision Numérique
+### ⚙️ Précision Numérique
 
 En tant qu'ingénieur, vous devez savoir que les statistiques sur ordinateur sont soumises aux limites du matériel.
 
@@ -34,7 +34,11 @@ L'arithmétique en virgule flottante standard (IEEE 754) est notoirement non-ass
 
 ---
 
-### 🗺️ Synthèse : Moyenne vs Médiane
+### 🗺️ Moyenne vs Médiane
+
+Pour choisir la mesure de tendance centrale la plus adaptée, vous devez évaluer la sensibilité aux valeurs aberrantes (outliers) et la complexité de calcul induite.
+
+Ce schéma résume la stratégie de choix et son impact sur les ressources matérielles :
 
 ```{mermaid}
 flowchart LR

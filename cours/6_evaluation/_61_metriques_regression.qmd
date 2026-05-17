@@ -1,4 +1,4 @@
-## Métriques pour la régression
+## 📊 Métriques de Classification
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -8,7 +8,7 @@ Le piège des métriques de vanité
 En 2026, l'industrie a enfin compris que l'**Accuracy** (exactitude) est souvent une "métrique de vanité". Dans un système de détection de fraude où 99,9 % des transactions sont légitimes, une précision globale de 99,9 % peut être atteinte par un modèle qui ne détecte absolument rien. L'ingénierie moderne exige donc une vision multidimensionnelle du risque [@imani_rocauc_2026].
 :::
 :::
-### 📊 1. L'Anatomie de la Matrice de Confusion
+### 📊 Matrice de Confusion
 
 La matrice de confusion est votre outil de diagnostic fondamental. Elle agit comme un bilan sanguin pour l'algorithme en classant les résultats en quatre quadrants [@google_classification_2026] :
 
@@ -17,25 +17,20 @@ La matrice de confusion est votre outil de diagnostic fondamental. Elle agit com
 * **Faux Positifs (FP) :** La "fausse alerte". Le modèle a prédit "Positif" mais c'était faux.
 * **Faux Négatifs (FN) :** Le "cas manqué". Le modèle a prédit "Négatif" mais c'était positif.
 
-### ⚖️ 2. L'Arbitrage Précision vs Rappel
+### ⚖️ Précision vs Rappel
 
 En tant qu'architecte, votre choix de métrique dépend du coût de l'erreur dans le monde réel [@pedigo_datacamp_2026].
 
-#### La Précision (La fiabilité)
+- **La Précision (Fiabilité) :**
+  - *Question clé :* "Sur toutes mes alertes, combien étaient vraies ?"
+  - *Optimisation :* À optimiser lorsque le coût d'une fausse alerte est trop élevé.
+  - *Exemple :* Un filtre anti-spam (classer un mail important en spam bloque l'utilisateur).
+- **Le Rappel (Exhaustivité) :**
+  - *Question clé :* "Sur tous les cas réels, combien en ai-je capturés ?"
+  - *Optimisation :* À optimiser lorsque rater un cas positif est extrêmement dangereux.
+  - *Exemple :* Le diagnostic médical (mieux vaut une fausse alerte qu'un cancer non soigné).
 
-**Question :** "Sur toutes mes alertes, combien étaient vraies ?"
-
-* **Quand l'optimiser ?** Lorsque le coût d'une fausse alerte est trop élevé.
-* *Exemple :* Un filtre Anti-Spam. Si on classe un e-mail professionnel crucial en "Spam" (Faux Positif), c'est une catastrophe pour l'utilisateur.
-
-#### Le Rappel / Recall (L'exhaustivité)
-
-**Question :** "Sur tous les cas réels, combien en ai-je capturés ?"
-
-* **Quand l'optimiser ?** Lorsque rater un cas positif est dangereux.
-* *Exemple :* Le dépistage d'un cancer. Il vaut mieux déclencher un examen supplémentaire (Faux Positif) que de laisser partir un patient malade sans traitement (Faux Négatif).
-
-### 🏆 3. Les Scores Globaux (F1 et ROC-AUC)
+### 🏆 Scores Globaux
 
 Pour ne pas avoir à choisir entre les deux, on utilise des scores de synthèse :
 
@@ -46,6 +41,8 @@ Pour ne pas avoir à choisir entre les deux, on utilise des scores de synthèse 
 ---
 
 ### 🌳 Boussole des Métriques
+
+Pour guider le choix de votre indicateur d'évaluation selon la distribution de vos classes et la nature des risques métiers, suivez cet arbre décisionnel :
 
 ```{mermaid}
 flowchart TD

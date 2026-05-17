@@ -1,4 +1,4 @@
-## Analyse des relations entre variables : Covariance et Corrélation
+## 🔗 Relations et Corrélations
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,33 +10,24 @@ L'analyse bivariée permet de déceler les structures cachées et les dépendanc
 :::
 Pour évaluer la force des liens entre vos variables, la communauté s'est longtemps reposée sur des matrices mathématiques classiques. Mais face à la complexité des données modernes (non-linéaires, catégorielles), de nouveaux outils sont apparus.
 
-### 📉 1. Les Classiques : Linéarité et Rangs
+### 📉 Linéarité et Rangs
 
-#### La Corrélation de Pearson
-C'est le test statistique le plus célèbre. Il évalue le degré de dépendance **linéaire exacte** entre deux variables numériques continues.
-
-* Il renvoie un score entre **-1** (corrélation négative parfaite) et **1** (corrélation positive parfaite). Un score de **0** indique l'absence de corrélation linéaire.
-* **Le Piège :** Il suppose une relation proportionnelle constante. Si votre relation dessine une courbe (ex: une parabole en forme de U), Pearson renverra 0, vous faisant croire à tort qu'il n'y a aucun lien.
-
-#### La Corrélation de Spearman
-Contrairement à Pearson, Spearman s'appuie sur les **rangs** des valeurs plutôt que sur les valeurs brutes.
-
-* **L'Avantage :** Il est capable de capturer des relations monotones non-linéaires (si X augmente, Y augmente, peu importe la vitesse) et se montre totalement insensible aux valeurs extrêmes qui pollueraient une matrice de Pearson.
+- **Corrélation de Pearson :** Le test statistique le plus célèbre. Il évalue le degré de dépendance **linéaire exacte** entre deux variables numériques continues.
+  - *Indicateur :* Il renvoie un score entre **-1** (corrélation négative parfaite) et **1** (corrélation positive parfaite). Un score de **0** indique l'absence de corrélation linéaire.
+  - *Le Piège :* Il suppose une relation proportionnelle constante. Si la relation dessine une courbe (ex: une parabole en forme de U), Pearson renverra 0, vous faisant croire à tort qu'il n'y a aucun lien.
+- **Corrélation de Spearman :** Contrairement à Pearson, Spearman s'appuie sur les **rangs** des valeurs plutôt que sur les valeurs brutes.
+  - *L'Avantage :* Il est capable de capturer des relations monotones non-linéaires (si X augmente, Y augmente, peu importe la vitesse) et se montre totalement insensible aux valeurs extrêmes qui pollueraient une matrice de Pearson.
 
 ---
 
-### 🚀 2. Les Outils Modernes (L'État de l'art en 2026)
+### 🚀 Coefficients Avancés
 
 L'échec des corrélations linéaires a poussé l'industrie à adopter des métriques agnostiques, capables de gérer le mélange de textes et de nombres.
 
-#### Le Predictive Power Score (PPS)
-C'est une révolution dans l'EDA. Le PPS est un score asymétrique (de 0 à 1). Au lieu de faire des mathématiques pures, il entraîne un mini-Arbre de Décision en arrière-plan pour voir si la variable A permet de deviner la variable B.
-
-* **Avantage :** Il détecte les relations non-linéaires.
-* **Asymétrie :** Le fait que "Code Postal" prédise le "Prix du loyer" ne signifie pas que le "Prix du loyer" permet de prédire exactement un "Code Postal". Pearson, lui, est toujours symétrique.
-
-#### Le Coefficient Phik ($\phi_k$)
-C'est un coefficient de corrélation extrêmement robuste qui fonctionne de manière cohérente pour des types de variables mixtes (catégorielles, ordinales, intervalles).
+- **Predictive Power Score (PPS) :** Score asymétrique de 0 à 1. Au lieu de faire des mathématiques pures, il entraîne un mini-Arbre de Décision en arrière-plan pour voir si la variable A permet de deviner la variable B.
+  - *Avantage :* Il détecte les relations non-linéaires.
+  - *Asymétrie :* Le fait que "Code Postal" prédise le "Prix du loyer" ne signifie pas que le "Prix du loyer" permet de prédire exactement un "Code Postal". Pearson, lui, est toujours symétrique.
+- **Coefficient Phik ($\phi_k$) :** Coefficient de corrélation extrêmement robuste qui fonctionne de manière cohérente pour des types de variables mixtes (catégorielles, ordinales, intervalles).
 
 ---
 
@@ -50,7 +41,7 @@ Pour bien comprendre la différence entre Pearson (linéaire) et une véritable 
 
 ---
 
-### ⚖️ 3. La Règle d'Or : Corrélation n'est pas Causalité
+### ⚖️ Corrélation n'est pas Causalité
 
 C'est le mantra de la Data Science. Si l'EDA permet d'observer que deux variables évoluent de pair, ce lien mathématique n'implique **jamais** *de facto* qu'une variable est la cause de l'évolution de l'autre.
 

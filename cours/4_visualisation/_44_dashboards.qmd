@@ -1,4 +1,4 @@
-## Création de tableaux de bord interactifs (Dashboards) avec des outils comme Plotly et Dash
+## 🕹️ Tableaux de Bord Interactifs
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -8,7 +8,7 @@ La fin du reporting figé
 En 2026, fournir un rapport PDF statique à un décideur n'est plus suffisant. L'interactivité n'est plus un gadget esthétique, c'est une nécessité stratégique pour le "drill-down" (l'exploration en profondeur) [@landscape_data_viz_2026]. Un décideur doit pouvoir zoomer sur une région, filtrer par année ou exclure une catégorie d'un simple clic. C'est ici qu'interviennent les Dashboards (Tableaux de bord).
 :::
 :::
-### 🕹️ 1. Le Moteur Interactif : Plotly
+### 🕹️ Le Moteur Plotly
 
 Avant de construire une application web complète, il faut changer la nature de nos graphiques. Avec Matplotlib ou Seaborn, le code génère une image "morte" (un fichier PNG). 
 
@@ -17,7 +17,7 @@ Avec **Plotly**, le code Python génère un objet web interactif interprété pa
 * **Avantage immédiat :** L'utilisateur peut survoler les points pour lire les valeurs (Hover), zoomer, ou désactiver des courbes dans la légende.
 * **Haute Performance :** Grâce à l'utilisation de WebGL/WebGPU, Plotly peut rendre des millions de points directement dans le navigateur en déchargeant le calcul sur la carte graphique (GPU) [@plotly_high_performance_2026].
 
-### 🥊 2. Le Duel des Frameworks : Streamlit vs Dash
+### 🥊 Streamlit vs Dash
 
 Pour encapsuler ces graphiques Plotly dans une vraie page web avec des boutons, des menus déroulants et des curseurs, le marché est dominé par deux philosophies.
 
@@ -35,7 +35,9 @@ C'est le choix privilégié pour des applications de production robustes et comp
 
 ---
 
-# 🏗️ Architecture d'Exécution : Streamlit vs Dash
+### 🏗️ Architecture d'Exécution
+
+Pour concevoir des applications fluides et performantes, il est crucial de comprendre comment la structure interne du framework réagit aux interactions de l'utilisateur :
 
 ```{mermaid}
 flowchart LR
@@ -56,7 +58,7 @@ flowchart LR
 
 ```
 
-### ⚡ 3. La Révolution 2026 : Zéro Latence
+### ⚡ Révolution Zéro Latence
 
 Construire des tableaux de bord interactifs sur de l'énorme volumétrie (Big Data) était autrefois synonyme d'interface lente (l'application "freeze" pendant le calcul). L'écosystème Python a résolu cela en 2026 via deux avancées :
 

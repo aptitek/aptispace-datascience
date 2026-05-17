@@ -1,6 +1,6 @@
-## 🕵️‍♂️ Mission : De l'Indice Brut à la Vérité Stratégique
+## 🕵️‍♂️ Mission Data Detective
 
-### 🌪️ L'Art du Raffinage : Transformer le Chaos en Actif
+### 🌪️ L'Art du Raffinage
 
 La science des données s'est imposée comme le pivot central des architectures d'information modernes. Elle n'est plus une discipline technique isolée dans un laboratoire ; elle est le socle méthodologique sur lequel repose l'ensemble de la circulation de l'information d'une organisation [@markdown_2026_cadrestrategique].
 
@@ -25,7 +25,7 @@ flowchart LR
 
 ```
 
-### 🔎 L'Interrogatoire Préalable : L'Analyse Exploratoire (EDA)
+### 🔎 Analyse Exploratoire (EDA)
 
 Historiquement, cette philosophie de découverte de la valeur puise ses racines dans l'**Analyse Exploratoire des Données (EDA)**, un concept popularisé par le mathématicien John Tukey dans les années 1970 [@ibm_2026_eda].
 

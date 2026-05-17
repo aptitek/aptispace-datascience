@@ -1,4 +1,4 @@
-## Techniques pour atténuer le surajustement
+## 🚨 Surveillance et Dérive
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,23 +10,15 @@ Il existe un mythe tenace selon lequel une fois déployé, le travail du Data Sc
 :::
 Il est vital de comprendre que si un modèle d'IA se trompe de plus en plus au fil du temps, ce n'est pas parce que son code s'est cassé, mais parce que **le monde a changé**.
 
-### 📉 1. Les deux visages de la Dérive
+### 📉 Les Deux Dérives
 
 On distingue deux phénomènes majeurs qui nécessitent une surveillance algorithmique constante.
 
-#### La Dérive des Données (Data Drift)
-
-La relation métier est toujours vraie, mais **la population d'entrée a changé** [@martyr_drift_2025].
-
-* **La Métaphore :** Vous avez appris à conduire dans une petite ville de campagne (données d'entraînement). Demain, on vous lâche en plein centre de Paris à l'heure de pointe. Les règles du code de la route sont les mêmes, mais votre environnement (la distribution de vos données) a totalement muté. Vous allez commettre des erreurs.
-* **Exemple Business :** Un modèle de risque de crédit bancaire a été entraîné uniquement sur des clients de plus de 40 ans. La banque lance une campagne ciblant les étudiants. Le modèle va recevoir des âges (20 ans) et des salaires qu'il ne sait pas traiter correctement.
-
-#### La Dérive de Concept (Concept Drift)
-
-C'est le phénomène le plus pernicieux. Les données d'entrée semblent identiques, mais **la vérité mathématique a changé** [@martyr_drift_2025].
-
-* **La Métaphore :** Les règles du jeu ont été modifiées dans votre dos.
-* **Exemple Business :** La détection de fraude. Un achat de 500€ à 3h du matin depuis l'étranger était systématiquement une fraude en 2024. Mais en 2026, avec l'explosion des néo-banques internationales, ce comportement devient banal et légitime. Les fraudeurs, eux, utilisent de nouvelles techniques. Le "Concept" même de la fraude a évolué. Le modèle est aveugle à cette nouvelle réalité.
+- **Dérive des Données (Data Drift) :** La relation métier reste vraie, mais **la population d'entrée a changé**.
+  - *La Métaphore :* Vous avez appris à conduire dans une petite ville de campagne (données d'entraînement) et on vous lâche en plein Paris. Les règles du code sont identiques, mais l'environnement (distribution des données) a totalement muté.
+  - *Exemple Business :* Un modèle de crédit entraîné sur des clients de plus de 40 ans reçoit soudainement des profils étudiants de 20 ans.
+- **Dérive de Concept (Concept Drift) :** Les données d'entrée semblent identiques, mais **la vérité mathématique a changé** (les règles du jeu ont changé dans votre dos).
+  - *Exemple Business :* La détection de fraude. Un achat de 500€ de nuit depuis l'étranger était systématiquement une fraude en 2024. En 2026, avec les néo-banques, c'est devenu banal et légitime. Le concept même de la fraude a évolué.
 
 ---
 
@@ -35,7 +27,7 @@ C'est le phénomène le plus pernicieux. Les données d'entrée semblent identiq
 Pour bien saisir la différence entre ces deux dérives, manipulez ce simulateur. Observez comment la ligne de décision (votre modèle figé) devient obsolète face à l'évolution du monde.
 
 ::: {.callout-note}
-### 🚨 Simulateur Interactif : Le crash silencieux (Drift)
+### 🚨 Simulateur de Crash Silencieux (Drift)
 Le graphique ci-dessous représente votre modèle en production. Le fond de couleur (Bleu/Rouge) représente les zones de décision figées de l'algorithme. Observez comment la précision de votre modèle s'effondre lorsque le monde réel (les points) évolue, sans même qu'une ligne de code n'ait été modifiée.
 :::
 
@@ -112,6 +104,7 @@ accuracy = (currentData.filter(d => d.isCorrect).length / currentData.length) * 
 import {Plot} from "@observablehq/plot"
 
 Plot.plot({
+  title: "Simulateur de Dérive de Données et de Concept en Production",
   height: 450,
   width: 800,
   style: { background: "var(--sol-base3)", fontSize: "14px", borderRadius: "8px", border: "1px solid var(--sol-base2)" },
@@ -170,18 +163,12 @@ html`
 
 ```
 
-### 🕵️‍♂️ 2. Surveillance et MLOps : La Boucle de Guérison
+### 🕵️‍♂️ Boucle de Ré-entraînement
 
 Pour survivre à la dérive, les architectures MLOps de 2026 intègrent des mécanismes de **Continuous Training** (Entraînement Continu) [@dsstream_monitoring_2026].
 
-#### L'Indicateur d'Alarme : Le PSI
-
-Pour détecter le Data Drift sans avoir besoin d'attendre de voir si les prédictions étaient fausses (ce qui peut prendre des mois pour un crédit immobilier), on utilise le **PSI (Population Stability Index)**.
-Il compare la distribution statistique des données d'aujourd'hui avec celle du jour de l'entraînement. Si le PSI dépasse $0.2$, une alerte rouge est levée : la population a trop muté.
-
-#### La Boucle de Ré-entraînement
-
-Dès que l'alerte est levée, le pipeline MLOps s'active automatiquement :
+- **Indicateur d'Alarme (PSI) :** Le *Population Stability Index* compare la distribution statistique des données d'aujourd'hui avec celle du jour de l'entraînement. Si le PSI dépasse $0.2$, une alerte rouge est levée : la population a trop muté.
+- **Boucle de Ré-entraînement :** Dès que le PSI dépasse la limite, le pipeline extrait les données récentes, ré-entraîne le modèle, valide s'il est plus performant, et le déploie de manière transparente.
 
 ```{mermaid}
 graph LR
@@ -200,7 +187,7 @@ graph LR
 
 ```
 
-### ⚖️ 3. L'EU AI Act : La Loi entre en jeu
+### ⚖️ L'EU AI Act
 
 En 2026, surveiller la dérive n'est plus seulement une bonne pratique technique, c'est une **obligation légale**.
 

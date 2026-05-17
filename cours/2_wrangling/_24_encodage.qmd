@@ -1,4 +1,4 @@
-## Encodage des variables catégorielles pour les algorithmes : Label Encoding et One-Hot Encoding
+## 🏷️ Encodage des Variables
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,37 +10,27 @@ Le Machine Learning est une discipline purement mathématique : il calcule des g
 :::
 L'expert doit arbitrer entre plusieurs techniques d'encodage selon la nature des catégories et leur cardinalité (le nombre de valeurs uniques).
 
-### 🧮 1. Les Méthodes Classiques
+### 🧮 Méthodes Classiques
 
-#### Le Label Encoding (Encodage par étiquette)
-Attribue simplement un nombre entier unique à chaque catégorie (ex: Paris=1, Lyon=2, Marseille=3).
-
-* **Le Piège :** Cette méthode introduit un "ordre artificiel" (2 est plus grand que 1). Si la variable est nominale (sans ordre), le modèle peut déduire à tort que Lyon est supérieur à Paris. 
-* **Quand l'utiliser ?** Uniquement pour les variables **ordinales** (ex: Tailles de vêtement S=1, M=2, L=3).
-
-#### Le One-Hot Encoding (Encodage binaire)
-Crée une nouvelle colonne binaire (0 ou 1) pour *chaque* modalité possible de la variable catégorielle.
-
-* **L'Avantage :** Parfait pour éviter un ordre artificiel sur des variables nominales.
-* **Le Piège :** Si vous avez une variable "Code Postal" (36 000 valeurs), vous allez créer 36 000 nouvelles colonnes ! C'est ce qu'on appelle le fléau de la dimensionnalité, qui sature la RAM et provoque du surapprentissage (*Overfitting*).
+- **Le Label Encoding (Étiquettes) :** Attribue simplement un nombre entier unique à chaque catégorie (ex: Paris=1, Lyon=2, Marseille=3).
+  - *Le Piège :* Cette méthode introduit un "ordre artificiel" (2 est plus grand que 1). Si la variable est nominale (sans ordre), le modèle peut déduire à tort que Lyon est supérieur à Paris. 
+  - *Quand l'utiliser ?* Uniquement pour les variables **ordinales** (ex: Tailles de vêtement S=1, M=2, L=3).
+- **Le One-Hot Encoding (Binaire) :** Crée une nouvelle colonne binaire (0 ou 1) pour *chaque* modalité possible de la variable catégorielle.
+  - *L'Avantage :* Parfait pour éviter un ordre artificiel sur des variables nominales.
+  - *Le Piège :* Si vous avez une variable "Code Postal" (36 000 valeurs), vous allez créer 36 000 nouvelles colonnes ! C'est ce qu'on appelle le fléau de la dimensionnalité, qui sature la RAM et provoque du surapprentissage (*Overfitting*).
 
 ---
 
-### 🚀 2. Les Méthodes Avancées (Pour la Haute Cardinalité)
+### 🚀 Méthodes Avancées
 
 Quand le One-Hot Encoding fait exploser votre mémoire, il faut ruser. L'industrie utilise souvent la bibliothèque `category_encoders` pour cela.
 
-#### Le Target Encoding (La méthode puissante mais dangereuse)
-Substitue une catégorie par une statistique tirée de la variable cible (ce qu'on cherche à prédire). Par exemple, on remplace "Paris" par le *taux de fraude moyen* observé à Paris sur l'ensemble d'entraînement.
-
-* **Avantage :** Ne crée aucune nouvelle colonne, très performant pour les modèles basés sur les arbres (XGBoost).
-* **Danger (Target Leakage) :** Risque majeur de "fuite de la cible". Si on calcule la moyenne en incluant la ligne en cours, le modèle apprend par cœur le résultat au lieu de le prédire. Il faut appliquer un "lissage" ou calculer la moyenne en excluant la ligne actuelle (*Leave-one-out*).
-
-#### Le Hashing Encoder (L'astuce pour la cardinalité extrême)
-Projette les catégories dans un espace fini (un nombre défini de colonnes, ex: 8 bits) via une fonction de hachage (comme MD5), sans jamais stocker le dictionnaire d'origine.
-
-* **Avantage :** Empreinte mémoire minuscule et constante. Accepte de nouvelles catégories "inconnues" en production sans planter.
-* **Inconvénient :** Accepte les "collisions" (deux mots différents peuvent être hachés dans la même colonne), ce qui entraîne une légère perte d'information au profit de la vitesse.
+- **Le Target Encoding (Moyenne Cible) :** Substitue une catégorie par une statistique tirée de la variable cible (ce qu'on cherche à prédire). Par exemple, on remplace "Paris" par le *taux de fraude moyen* observé à Paris sur l'ensemble d'entraînement.
+  - *Avantage :* Ne crée aucune nouvelle colonne, très performant pour les modèles basés sur les arbres (XGBoost).
+  - *Danger (Target Leakage) :* Risque majeur de "fuite de la cible". Si on calcule la moyenne en incluant la ligne en cours, le modèle prend par cœur le résultat au lieu de le prédire. Il faut appliquer un "lissage" ou calculer la moyenne en excluant la ligne actuelle (*Leave-one-out*).
+- **Le Hashing Encoder (Hachage) :** Projette les catégories dans un espace fini (un nombre défini de colonnes, ex: 8 bits) via une fonction de hachage (comme MD5), sans jamais stocker le dictionnaire d'origine.
+  - *Avantage :* Empreinte mémoire minuscule et constante. Accepte de nouvelles catégories "inconnues" en production sans planter.
+  - *Inconvénient :* Accepte les "collisions" (deux mots différents peuvent être hachés dans la même colonne), ce qui entraîne une légère perte d'information au profit de la vitesse.
 
 ---
 

@@ -1,4 +1,4 @@
-## Harmonisation des formats et correction des erreurs
+## 🧹 Harmonisation & Correction
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,11 +10,11 @@ L'hétérogénéité des formats est un obstacle majeur au traitement algorithmi
 :::
 L'harmonisation est une étape de nettoyage stricte visant à unifier le "grain" de la donnée. Elle repose sur deux piliers principaux : le traitement du texte libre et la standardisation temporelle.
 
-### 🔤 1. Le Nettoyage Typographique (Chaînes de caractères)
+### 🔤 Nettoyage Typographique
 
 Les données issues de formulaires ou de saisies manuelles sont systématiquement polluées par des erreurs typographiques. Les corriger nécessite une approche industrielle.
 
-#### Les Règles d'Or de la Typographie :
+**Les Règles d'Or de la Typographie :**
 
 1. **La Casse Unifiée :** Tout convertir en minuscules (ou majuscules) pour regrouper les variations d'une même entité.
 2. **Le Trim (Élagage) :** Supprimer les espaces invisibles en début et fin de chaîne.
@@ -31,11 +31,11 @@ df['Genre'] = df['Genre'].replace({'h': 'homme', 'f': 'femme'}) # Étape 3 : Map
 
 ```
 
-### ⏱️ 2. La Standardisation Temporelle (Dates et Heures)
+### ⏱️ Standardisation Temporelle
 
 Des dates saisies sous des formats multiples (`12/04/2026`, `2026-04-12`, `12 April 26`) empêchent toute agrégation cohérente et ruinent les modèles de séries temporelles.
 
-#### Le Standard Industriel : ISO 8601
+**Le Standard Industriel : ISO 8601**
 
 L'imposition du format standard international **AAAA-MM-JJ** (Année-Mois-Jour) garantit une manipulation sans erreur par toutes les bibliothèques logicielles (Python, SQL, Spark).
 

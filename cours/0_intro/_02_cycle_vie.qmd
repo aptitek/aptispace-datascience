@@ -1,4 +1,4 @@
-## 🔄 Le Pipeline de Raffinage : De l'Acquisition au MLOps
+## 🔄 De l'Acquisition au MLOps
 
 ::: {.card .card-info}
 ::: {.card-header}

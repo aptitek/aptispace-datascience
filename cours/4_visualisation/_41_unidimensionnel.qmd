@@ -1,4 +1,4 @@
-## 📊 Preuves Unidimensionnelles : La Distribution du Signal
+## 📊 Distribution du Signal
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -18,7 +18,7 @@ Quand on explore une seule variable (Analyse 1D), l'objectif est de comprendre s
 
 ---
 
-### ⚖️ Comparaison : Histogramme vs Bar Chart
+### ⚖️ Histogramme vs Bar Chart
 
 ![Comparaison des géométries 1D](../../assets/illustrations/hist_vs_bar.png){width=80%}
 [🔍 Zoom sur la comparaison](../../assets/illustrations/hist_vs_bar.png){.zoom}
@@ -42,7 +42,7 @@ Utilisez la couleur pour mettre en évidence une anomalie ou une catégorie spé
 :::
 :::
 
-## 🕵️‍♂️ Mission 4 : Découvrir le mobile du crime
+## 🕵️‍♂️ Mission 4
 
 À l'intérieur du conteneur, les serveurs tournent à plein régime. Vous réussissez à pirater la console d'administration et à extraire le journal d'activité (les "logs"). Celui-ci indique les volumes de données qui ont été exfiltrés par Charlie.
 

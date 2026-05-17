@@ -1,4 +1,4 @@
-## 🏷️ Le Duel : Régression vs Classification
+## 🏷️ Régression vs Classification
 
 ::: {.card .card-success}
 ::: {.card-header}

@@ -1,4 +1,4 @@
-## 🌍 De l'Indice au Verdict : Applications Sectorielles
+## 🌍 Applications Sectorielles
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -12,11 +12,9 @@ L'analyse de données alimente aujourd'hui des systèmes d'IA critiques dans la 
 
 ### 🏛️ Les Scènes de Crime par Industrie
 
-#### 💸 Banque & Fintech
-Secteur à haute tension où la donnée doit être traitée à la milliseconde.
-
-- **Détection de Fraude :** Analyse en temps réel des flux de transactions pour bloquer les "suspects" avant même qu'ils ne quittent la banque.
-- **Scoring de Crédit :** Profilage statistique pour évaluer la fiabilité d'un emprunteur.
+- **💸 Banque & Fintech** : Secteur à haute tension où la donnée doit être traitée à la milliseconde.
+  - **Détection de Fraude :** Analyse en temps réel des flux de transactions pour bloquer les "suspects" avant même qu'ils ne quittent la banque.
+  - **Scoring de Crédit :** Profilage statistique pour évaluer la fiabilité d'un emprunteur.
 
 ::: {.card .card-warning}
 ::: {.card-header}
@@ -151,17 +149,10 @@ Il est statistiquement impossible d'avoir à la fois $0$ Faux Positif et $0$ Fau
 :::
 :::
 
-
-
-#### 🏭 Industrie 4.0
-L'usine connectée est une mine d'or d'indices.
-
-- **Maintenance Prédictive :** Analyse des vibrations et températures pour prédire une défaillance mécanique avant qu'elle ne paralyse la ligne de production. C'est l'art d'écouter les "murmures" des machines.
-
-#### 🩺 Santé & Génomique
-Ici, l'erreur est fatale. La précision est l'unique règle.
-
-- **Aide au diagnostic :** Utilisation de la vision par ordinateur pour repérer des anomalies invisibles à l'œil nu sur des radiographies.
+- **🏭 Industrie 4.0** : L'usine connectée est une mine d'or d'indices.
+  - **Maintenance Prédictive :** Analyse des vibrations et températures pour prédire une défaillance mécanique avant qu'elle ne paralyse la ligne de production. C'est l'art d'écouter les "murmures" des machines.
+- **🩺 Santé & Génomique** : Ici, l'erreur est fatale. La précision est l'unique règle.
+  - **Aide au diagnostic :** Utilisation de la vision par ordinateur pour repérer des anomalies invisibles à l'œil nu sur des radiographies.
 
 ---
 

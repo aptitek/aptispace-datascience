@@ -1,4 +1,4 @@
-## Méthodes d'ensemble pour améliorer les performances
+## 🗳️ Méthodes d'Ensemble
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,7 +10,7 @@ Pourquoi se contenter d'un seul avis quand on peut consulter un jury d'experts ?
 :::
 Il existe deux grandes philosophies pour faire travailler les modèles en groupe : le **Bagging** et le **Boosting**.
 
-### 🗳️ 1. Le Bagging : Le vote démocratique (Random Forest)
+### 🗳️ Bagging (Random Forest)
 
 Le Bagging (*Bootstrap Aggregation*) consiste à entraîner de nombreux modèles de manière **indépendante et en parallèle** sur des sous-ensembles aléatoires de vos données.
 
@@ -18,7 +18,7 @@ Le Bagging (*Bootstrap Aggregation*) consiste à entraîner de nombreux modèles
 * **Le champion : La Forêt Aléatoire (Random Forest).** Elle crée des centaines d'arbres de décision. Pour s'assurer qu'ils ne soient pas tous identiques, elle ajoute du hasard : chaque arbre ne voit qu'une partie des colonnes et une partie des lignes.
 * **Force :** Très robuste contre le sur-ajustement (*Overfitting*).
 
-### 🚀 2. Le Boosting : L'amélioration continue (XGBoost)
+### 🚀 Boosting (XGBoost)
 
 Le Boosting fonctionne de manière **séquentielle**. Les modèles ne sont pas indépendants : ils apprennent les uns des autres.
 
@@ -34,7 +34,7 @@ Le Boosting fonctionne de manière **séquentielle**. Les modèles ne sont pas i
 Comprenez visuellement la différence de stratégie. Dans le Bagging, les modèles s'additionnent simplement. Dans le Boosting, chaque nouveau modèle vient combler les "trous" laissés par ses prédécesseurs.
 
 ::: {.callout-note}
-### 🕹️ Simulateur Interactif : Bagging vs Boosting
+### 🕹️ Simulateur Bagging vs Boosting
 
 Manipulez les contrôles ci-dessous pour observer comment la Forêt Aléatoire (Bagging) et l'algorithme XGBoost (Boosting) construisent leurs prédictions différemment.
 
@@ -59,7 +59,7 @@ ui.render(
 
 :::
 
-### 🥊 Synthèse : Quel camp choisir ?
+### 🥊 Quel camp choisir ?
 
 | Caractéristique | Bagging (Random Forest) | Boosting (XGBoost/LightGBM) |
 | --- | --- | --- |
@@ -68,7 +68,7 @@ ui.render(
 | **Vitesse** | Très rapide (Multi-thread) | Plus lent (Séquentiel par nature) |
 | **Complexité** | Facile à régler | Nécessite un réglage fin (Hyperparamètres) |
 
-### 💻 Code : Utiliser les champions avec Scikit-Learn
+### 💻 Implémentation Scikit-Learn
 
 ```python
 from sklearn.ensemble import RandomForestClassifier

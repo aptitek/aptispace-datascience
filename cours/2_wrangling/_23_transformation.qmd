@@ -1,4 +1,4 @@
-## Transformation des données : Normalisation (Min-Max, Z-score) et discrétisation (binning)
+## 📈 Transformation et Normalisation
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -10,7 +10,7 @@ Imaginez que vous prédisiez le prix d'une maison avec deux variables : le *Nomb
 :::
 Il existe deux grandes approches pour résoudre ce problème, avec des formules et des cas d'usage très différents.
 
-### 📏 1. Normalisation (Le Min-Max Scaler)
+### 📏 Normalisation (Min-Max)
 
 La normalisation compresse (ou étire) les données pour qu'elles s'insèrent exactement dans une plage définie, généralement entre 0 et 1. 
 
@@ -20,7 +20,7 @@ $$X_{norm} = \frac{X - X_{min}}{X_{max} - X_{min}}$$
 * **Avantage :** Maintient toutes les données dans des limites strictes.
 * **Le Piège :** Comme elle utilise le $X_{min}$ et le $X_{max}$, elle est **extrêmement vulnérable aux valeurs aberrantes (Outliers)**. Si une seule maison coûte 1 milliard d'euros (une erreur de saisie), toutes les autres maisons seront écrasées autour de 0.001.
 
-### 🎯 2. Standardisation (Le Z-Score)
+### 🎯 Standardisation (Z-Score)
 
 La standardisation ne fixe pas de limites strictes. Elle décale les données pour que la distribution soit centrée sur une moyenne ($\mu$) de 0, avec un écart-type ($\sigma$) de 1.
 
@@ -32,15 +32,12 @@ $$Z = \frac{X - \mu}{\sigma}$$
 
 ---
 
-### ⚠️ Le calque "So What ?" : Impact selon l'Algorithme
+### ⚠️ Impact selon l'Algorithme
 
 C'est ici que l'ingénieur se distingue du débutant. Faut-il toujours "scaler" ses données ? **Non.** Cela dépend de l'algorithme choisi.
 
-#### 🟢 Indispensable (Distance & Gradients)
-Pour les modèles basés sur le calcul de distances géométriques (K-Nearest Neighbors, SVM) ou sur la descente de gradient (Réseaux de Neurones, Régression Logistique). Une variable sur une grande échelle dominerait les plus petites et ralentirait dramatiquement la convergence.
-
-#### 🔴 Inutile (Modèles basés sur les Arbres)
-Pour les algorithmes d'ensemble (Arbres de Décision, Random Forest, XGBoost, LightGBM). Pourquoi ? Parce que ces modèles divisent les données grâce à des comparaisons de seuils logiques ($Si \, X > 10$). Les transformations (Z-score ou Min-Max) sont dites **monotones** : elles préservent l'ordre absolu. Que le seuil soit 10 ou 0.85, la coupure de l'arbre sera mathématiquement identique.
+- **🟢 Indispensable (Distance & Gradients) :** Pour les modèles basés sur le calcul de distances géométriques (K-Nearest Neighbors, SVM) ou sur la descente de gradient (Réseaux de Neurones, Régression Logistique). Une variable sur une grande échelle dominerait les plus petites et ralentirait dramatiquement la convergence.
+- **🔴 Inutile (Modèles basés sur les Arbres) :** Pour les algorithmes d'ensemble (Arbres de Décision, Random Forest, XGBoost, LightGBM). Ces modèles divisent les données grâce à des comparaisons de seuils logiques ($Si \, X > 10$). Les transformations (Z-score ou Min-Max) sont dites **monotones** : elles préservent l'ordre absolu. Que le seuil soit 10 ou 0.85, la coupure de l'arbre sera mathématiquement identique.
 
 ::: {.card .card-success}
 ::: {.card-header}
@@ -51,7 +48,7 @@ Pour des architectures IA complexes, on intègre cette mise à l'échelle direct
 :::
 :::
 
-## 🕵️‍♂️ Mission 2 : Croiser les sources d'informations
+## 🕵️‍♂️ Mission 2
 
 Votre instinct était bon : Charlie tente de fuir par la mer ! L'inspecteur principal vient de vous faire parvenir le registre piraté des départs maritimes d'aujourd'hui.
 

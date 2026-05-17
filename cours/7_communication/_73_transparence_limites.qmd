@@ -1,4 +1,4 @@
-## Importance de communiquer avec transparence sur la fiabilité et les limites du modèle
+## 🛡️ Transparence et Limites
 
 ::: {.card .card-warning}
 ::: {.card-header}
@@ -10,40 +10,34 @@ Un Data Scientist junior a souvent peur d'avouer à sa direction que son modèle
 :::
 Pour instaurer une confiance durable avec un Conseil d'Administration, il faut transformer la notion mathématique d'erreur en outil de gestion des risques.
 
-### 🎲 1. Les deux visages de l'Incertitude
+### 🎲 Deux Visages de l'Incertitude
 
 Un expert doit éduquer ses décideurs sur la nature du risque auquel ils font face [@galorath_2026_uncertainty_analysis] :
 
 * **L'Incertitude Aléatoire (Random/Aleatoric) :** Elle provient de la variabilité naturelle du monde (ex: la météo, un krach boursier soudain, le comportement humain). **Elle est irréductible.** On ne peut que l'absorber avec des marges financières (des *buffers*).
 * **L'Incertitude Épistémique (Knowledge) :** Elle est due à un manque de données ou à un modèle trop faible. **Elle est réductible.** Si le Comex veut réduire ce risque, vous pouvez leur demander du budget pour acheter de nouvelles données ou entraîner un modèle plus puissant.
 
-### 📊 2. Visualiser et Communiquer le Doute
+### 📊 Communiquer le Doute
 
 Bannissez les prévisions sous forme de points fixes. Utilisez des probabilités et des intervalles.
 
-#### Les Intervalles de Confiance (IC)
-Au lieu de dire "Ce projet rapportera 2 millions d'euros", on utilise la statistique pour annoncer : *"Nous avons 95% de chances de générer entre 1,6 et 2,4 millions d'euros de ROI"* [@amplitude_confidence_intervals]. Cela montre que vous maîtrisez la variabilité. 
+- **Intervalles de Confiance (IC) :** Au lieu de dire "Ce projet rapportera 2 millions d'euros", on utilise la statistique pour annoncer : *"Nous avons 95% de chances de générer entre 1,6 et 2,4 millions d'euros de ROI"* [@amplitude_confidence_intervals]. Cela montre que vous maîtrisez la variabilité. 
+- **Graphiques pour Dirigeants :** Pour rendre l'incertitude actionnable, on utilise des visualisations spécifiques [@dev3lop_2025_visualizing_uncertainty] :
+  - *Graphique en Éventail (Fan Chart) :* Utilisé par les banques centrales, il montre un cône s'élargissant au fil du temps. Il illustre visuellement que plus la prédiction est lointaine, plus l'incertitude grandit.
+  - *Graphique en Tornade (Tornado Chart) :* Il classe les variables du modèle de la plus impactante à la moins impactante pour voir immédiatement les principaux facteurs de risque.
 
-#### Les Graphiques pour Dirigeants
-Pour rendre l'incertitude actionnable, on utilise des visualisations spécifiques [@dev3lop_2025_visualizing_uncertainty] :
-
-* **Le Graphique en Éventail (Fan Chart) :** Utilisé par les banques centrales, il montre un cône qui s'élargit au fil du temps. Il illustre visuellement que plus la prédiction est lointaine, plus l'incertitude est grande.
-* **Le Graphique en Tornade (Tornado Chart) :** Il classe les variables de votre modèle de la plus impactante (en haut) à la moins impactante (en bas). Il permet au Comex de voir immédiatement quel facteur de risque (ex: le prix des matières premières) menace le plus la prédiction.
-
-### 🤖 3. IA Générative : Hallucinations et Explicabilité (XAI)
+### 🤖 GenAI, Hallucinations et XAI
 
 Si vous utilisez des modèles massifs (Deep Learning ou LLMs comme ChatGPT), la communication de leurs limites est une obligation légale et éthique, notamment face au risque d'hallucination (qui peut atteindre plus de 80% d'erreurs sur des tâches juridiques complexes) [@sqmagazine_2026_llm_hallucination].
 
-#### L'IA Explicable (XAI)
-Un décideur n'acceptera jamais qu'une IA refuse un crédit à un client "parce que l'algorithme l'a dit". Vous devez utiliser des techniques de **XAI (Explainable AI)** comme **SHAP** ou **LIME** pour ouvrir la "boîte noire". Ces outils permettent d'expliquer une décision locale : *"Le crédit a été refusé principalement à cause du ratio d'endettement (impact -40%) malgré un bon salaire (impact +15%)."*
-
-#### Le RAG comme Garde-Fou
-Pour empêcher les modèles de langage d'inventer des faits face aux clients, le standard de l'industrie en 2026 est l'architecture **RAG (Retrieval-Augmented Generation)** [@squirro_2026_rag]. 
-Le principe à expliquer au Comex est simple : avant de répondre, on force l'IA à "lire" exclusivement dans la base de données sécurisée de l'entreprise. Si la réponse n'y est pas, elle a l'ordre de dire "Je ne sais pas", bloquant ainsi l'hallucination factuelle.
+- **IA Explicable (XAI) :** Un décideur n'acceptera jamais qu'une IA refuse un crédit "parce que l'algorithme l'a dit". Vous devez utiliser des techniques comme **SHAP** ou **LIME** pour ouvrir la "boîte noire" (ex: expliquer le poids du ratio d'endettement).
+- **RAG comme Garde-Fou :** L'architecture *Retrieval-Augmented Generation* force le LLM à lire uniquement dans une base sécurisée interne. Si l'information n'y est pas, il refuse de répondre, bloquant ainsi l'hallucination.
 
 ---
 
 ### 🛡️ Architecture RAG pour le Comex
+
+Pour rassurer vos décideurs sur la fiabilité de l'IA générative et éliminer tout risque d'invention factuelle, voici le flux logique de sécurisation par la recherche documentaire (RAG) :
 
 ```{mermaid}
 flowchart LR

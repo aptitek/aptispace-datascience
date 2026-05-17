@@ -1,4 +1,4 @@
-## Regroupement et segmentation des données avec la fonction GroupBy
+## 🧩 Regroupement et Segmentation
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -8,7 +8,7 @@ Méfiez-vous de la moyenne globale
 Calculer le salaire moyen de l'ensemble d'une entreprise donne une information, mais elle masque les réalités locales. C'est en segmentant ces données (ex: Salaire moyen *par département* et *par niveau d'ancienneté*) que l'on extrait la véritable valeur métier. La transformation de données brutes en segments actionnables repose sur une mécanique que tout ingénieur Data doit maîtriser : le **Split-Apply-Combine**.
 :::
 :::
-### 🧩 1. Le Paradigme "Split-Apply-Combine"
+### 🧩 Split-Apply-Combine
 
 Derrière la célèbre fonction `.groupby()`, le moteur de calcul (qu'il s'agisse de Pandas ou de Polars) effectue toujours trois opérations distinctes :
 
@@ -32,26 +32,21 @@ flowchart TD
 
 ```
 
-### 🏎️ 2. Optimisation : GroupBy vs Pivot_Table
+### 🏎️ GroupBy vs Pivot Table
 
 Un point de friction classique pour le Data Scientist est de choisir entre `.groupby().agg()` et `.pivot_table()`. Bien qu'elles produisent des résultats similaires, leur mécanique interne est fondamentalement différente.
 
 * **L'implémentation de `pivot_table**` utilise souvent des boucles Python pures sous le capot pour appliquer vos fonctions, ce qui est extrêmement lent.
 * **L'implémentation de `groupby().agg()**` vérifie d'abord si une fonction optimisée en **C/Cython** est disponible pour ce que vous demandez (comme `sum` ou `mean`). Si oui, le moteur court-circuite Python et utilise le code C compilé. Sur des millions de lignes, `groupby` peut être jusqu'à **60 fois plus rapide**.
 
-### ⚙️ 3. L'évolution Moderne : Groupes Non-Observés et Polars
+### ⚙️ Évolutions Modernes
 
 Face à l'explosion volumétrique, les bibliothèques ont dû repenser leur comportement par défaut.
 
-#### La norme Pandas 3.0
+- **Pandas 3.0 :** Le paramètre `observed=True` est devenu le standard par défaut. Si vous groupez par une catégorie existante mais absente des données (un "groupe non-observé"), Pandas n'insère plus de ligne vide remplie de `NaN`. Cela évite la saturation inutile de la RAM.
+- **Polars :** Pousse l'optimisation encore plus loin grâce au **"Morsel-Driven Parallelism"**. Au lieu de traiter un groupe entier sur un seul cœur, Polars découpe les données en petits fragments (*morsels*) distribués et calculés en parallèle sur tous les cœurs CPU disponibles simultanément.
 
-Dans les anciennes versions, si vous groupiez par une catégorie existante dans le dictionnaire mais non présente dans les données (un "groupe non-observé"), Pandas générait une ligne vide remplie de `NaN`, saturant inutilement la RAM. Dans **Pandas 3.0**, le paramètre `observed=True` est devenu la norme par défaut : seules les catégories réellement présentes sont traitées, améliorant radicalement les performances.
-
-### L'approche Polars
-
-Polars pousse l'optimisation encore plus loin grâce au **"Morsel-Driven Parallelism"**. Au lieu de traiter un groupe entier sur un seul cœur de processeur, Polars découpe les données en petits fragments (*morsels*) qui sont distribués et calculés en parallèle sur tous les cœurs CPU disponibles simultanément.
-
-## 🕵️‍♂️ Mission 3 : Forcer le conteneur suspect
+## 🕵️‍♂️ Mission 3
 
 Vous arrivez en trombe sur le quai n°7. La "Mouette" est amarrée. Sur le pont supérieur, vous repérez une caisse massive marquée d'un "C". Elle est verrouillée par un cadenas numérique à 4 chiffres.
 

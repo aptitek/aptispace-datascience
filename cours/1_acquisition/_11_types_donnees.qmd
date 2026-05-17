@@ -72,7 +72,7 @@ Nombre de valeurs uniques dans une variable. Une cardinalité trop élevée sur 
 🕵️‍♂️ Atelier Pratique : Qualifiez vos preuves
 :::
 ::: {.card-body}
-Un bon enquêteur ne se trompe jamais sur la nature de ses indices. Saurez-vous classifier correctement ces variables avant de les intégrer à votre modèle ?
+Une bombe statistique est sur la scène du crime. Saurez-vous classifier correctement ces variables avant de les intégrer à votre modèle pour la désamorçer ?
 
 ```{ojs}
 //| echo: false
@@ -119,7 +119,20 @@ Observez la distribution de l'âge de nos suspects. À l'état brut, le graphiqu
 normal_ages = Array.from({length: 100}, () => Math.round(Math.random() * 40 + 20))
 brut_ages = [...normal_ages, 455]
 
-viewof apply_filter = Inputs.toggle({ label: "🧹 Appliquer le Sanity Check (Filtrer Age < 120)" })
+viewof filter_selection = ui.toggle({
+  label: "Nettoyage des Données :",
+  options: {
+    "brut": "Données Brutes (Avec Outlier) ⚠️",
+    "clean": "Sanity Check (Âge < 120) 🧹"
+  },
+  value: "brut",
+  states: {
+    "brut": "warning",
+    "clean": "success"
+  }
+})
+
+apply_filter = filter_selection === "clean"
 
 current_ages = apply_filter ? normal_ages : brut_ages
 current_mean = (current_ages.reduce((a, b) => a + b, 0) / current_ages.length).toFixed(1)
@@ -148,19 +161,102 @@ ui.render(`
 ui.plotlyWrapper({
   title: "Boîte à Moustaches (Boxplot) de l'Âge",
   height: "250px",
-  data: [{
-    x: current_ages,
-    type: 'box',
-    name: 'Suspects',
-    marker: { color: apply_filter ? ui.colors.green : ui.colors.orange }, // Zéro couleur hardcodée
-    boxpoints: 'all',
-    jitter: 0.3,
-    pointpos: -1.8
-  }],
+  data: [
+    {
+      x: current_ages,
+      type: 'box',
+      name: 'Suspects',
+      marker: { color: apply_filter ? ui.colors.green : ui.colors.orange }, // Zéro couleur hardcodée
+      boxpoints: 'all',
+      jitter: 0.3,
+      pointpos: 0
+    },
+    ...(apply_filter ? [] : [
+      // Halo externe de l'aura
+      {
+        x: [455],
+        y: ['Suspects'],
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Outlier Aura 1',
+        showlegend: false,
+        marker: {
+          symbol: 'circle',
+          size: 38,
+          color: 'rgba(203, 75, 22, 0.15)',
+          line: {
+            color: 'rgba(203, 75, 22, 0.3)',
+            width: 1.5
+          }
+        }
+      },
+      // Halo intermédiaire
+      {
+        x: [455],
+        y: ['Suspects'],
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Outlier Aura 2',
+        showlegend: false,
+        marker: {
+          symbol: 'circle',
+          size: 22,
+          color: 'rgba(203, 75, 22, 0.25)',
+          line: {
+            color: 'rgba(203, 75, 22, 0.6)',
+            width: 1.5,
+            dash: 'dash'
+          }
+        }
+      },
+      // Point central surbrillant
+      {
+        x: [455],
+        y: ['Suspects'],
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Outlier Aura 3',
+        showlegend: false,
+        marker: {
+          symbol: 'circle',
+          size: 8,
+          color: '#cb4b16',
+          line: {
+            color: '#fdf6e3',
+            width: 1
+          }
+        }
+      }
+    ])
+  ],
   layout: {
     xaxis: { title: 'Âge enregistré', range: [0, apply_filter ? 100 : 500] },
     yaxis: { showticklabels: false },
-    margin: { t: 40, r: 20, b: 40, l: 20 }
+    margin: { t: 40, r: 20, b: 40, l: 20 },
+    annotations: apply_filter ? [] : [
+      {
+        x: 455,
+        y: 'Suspects',
+        xref: 'x',
+        yref: 'y',
+        text: '⚠️ Outlier : Suspect de 455 ans !',
+        showarrow: true,
+        arrowhead: 2,
+        ax: -70,
+        ay: -50,
+        arrowcolor: '#cb4b16',
+        font: {
+          color: '#cb4b16',
+          size: 11,
+          family: '"Recursive", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          weight: 'bold'
+        },
+        bgcolor: 'rgba(0, 43, 54, 0.95)',
+        bordercolor: '#cb4b16',
+        borderwidth: 1.5,
+        borderpad: 5
+      }
+    ]
   }
 })
 

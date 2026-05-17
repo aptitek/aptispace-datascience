@@ -1456,10 +1456,16 @@ div.sourceCode {
     // Header Bar
     .card-header {
         @extend %ui-macos-window-header;
+        justify-content: flex-start !important; // Align elements sequentially to the left
         
         // Hide duplicate centered title that Quarto-Live generates
         > .d-flex > div:not(.btn-group):not(.exercise-editor-eval-indicator) {
             display: none !important;
+        }
+
+        // Push the buttons/controls container to the far right using margin auto on the next sibling of tabs
+        .ui-code-tabs + .d-flex {
+            margin-left: auto !important;
         }
         
         // Setup details and controls

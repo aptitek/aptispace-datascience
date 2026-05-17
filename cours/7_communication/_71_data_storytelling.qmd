@@ -54,3 +54,80 @@ graph LR
     style C fill:#859900,stroke:#073642,color:#fdf6e3
 
 ```
+
+## 🕵️‍♂️ Mission 7 : Le Rapport Exécutif
+
+*BAM !* Les portes de l'entrepôt virtuel explosent. L'équipe de sécurité, menée par Sayf, interpelle Charlie au moment exact où il allait transférer les données à ses acheteurs. L'opération est un succès total !
+
+Mais il reste une dernière tâche, et non des moindres : rédiger le rapport officiel pour le conseil de discipline. Un bon Data Scientist sait transformer ses variables brutes en une histoire compréhensible par tous (le *Data Storytelling*).
+
+Exécutez la cellule pour recharger en mémoire les pièces à conviction accumulées lors de votre enquête :
+
+```python
+# Pièces à conviction rassemblées par les Data Detectives
+coupable_identifie = "Charlie"
+donnees_volees = "Sujets d'Examens"
+nombre_acheteurs_vip = 3
+taux_echec_ia_suspect = 100  # 10 échecs sur 10 vrais dangers
+
+print("Pièces à conviction chargées sur le bureau du directeur.")
+
+```
+
+Votre objectif : Rédiger le rapport automatisé. Utilisez la puissance des `f-strings` de Python pour injecter directement vos variables dans le texte de conclusion.
+
+```{pyodide}
+#| exercise: suspect_storytelling
+#| setup: true
+coupable_identifie = "Charlie"
+donnees_volees = "Sujets d'Examens"
+nombre_acheteurs_vip = 3
+taux_echec_ia_suspect = 100
+
+```
+
+```{pyodide}
+#| exercise: suspect_storytelling
+# A VOUS DE JOUER :
+# Complétez le rapport en plaçant les bonnes variables entre les accolades { }
+# N'oubliez pas le préfixe 'f' devant les guillemets pour activer le f-string !
+
+rapport_officiel = f"Monsieur le Directeur, l'enquête est close. \
+Le responsable de l'intrusion est l'étudiant nommé {___}. \
+Son objectif était de dérober les {___} pour les revendre sur le Dark Web à {___} acheteurs à haut budget. \
+La transaction a été interceptée car le système d'alerte du suspect avait un taux d'échec de {___}% face à la police."
+
+print("--- APERÇU DU RAPPORT ---")
+print(rapport_officiel)
+
+```
+
+```{pyodide}
+#| exercise: suspect_storytelling
+#| check: true
+try:
+    assert 'rapport_officiel' in globals(), "La variable 'rapport_officiel' n'a pas été créée."
+    
+    # Vérification que le texte n'a pas été tapé "en dur" et contient bien les valeurs
+    if "Charlie" not in rapport_officiel:
+        raise AssertionError("Le nom du coupable n'apparaît pas dans le rapport.")
+    if "Sujets d'Examens" not in rapport_officiel:
+        raise AssertionError("L'objet du vol n'est pas mentionné.")
+    if " 3 " not in rapport_officiel:
+        raise AssertionError("Le nombre d'acheteurs est manquant ou mal formaté.")
+    if "100%" not in rapport_officiel:
+        raise AssertionError("Le taux d'échec de l'IA (100) n'a pas été correctement intégré avant le symbole %.")
+        
+    # Vérification anti-triche (vérifier que l'étudiant n'a pas effacé les variables du setup)
+    if not isinstance(rapport_officiel, str):
+         raise AssertionError("Le rapport doit être une chaîne de caractères (string).")
+
+    print("✅ RAPPORT VALIDÉ ET SOUMIS AU CONSEIL DE DISCIPLINE !")
+    print("🎓 FÉLICITATIONS ! Vous avez brillamment mené cette enquête de bout en bout. Le cycle de vie de la donnée n'a plus de secret pour vous. L'école vous remercie !")
+        
+except AssertionError as e:
+    print(f"❌ Le rapport a été refusé par le secrétariat : {e}")
+except SyntaxError:
+    print("❌ Erreur de syntaxe. Avez-vous bien gardé le 'f' avant les guillemets et utilisé les accolades {} ?")
+
+```

@@ -50,3 +50,88 @@ Dans les anciennes versions, si vous groupiez par une catégorie existante dans 
 ### L'approche Polars
 
 Polars pousse l'optimisation encore plus loin grâce au **"Morsel-Driven Parallelism"**. Au lieu de traiter un groupe entier sur un seul cœur de processeur, Polars découpe les données en petits fragments (*morsels*) qui sont distribués et calculés en parallèle sur tous les cœurs CPU disponibles simultanément.
+
+## 🕵️‍♂️ Mission 3 : Forcer le conteneur suspect
+
+Vous arrivez en trombe sur le quai n°7. La "Mouette" est amarrée. Sur le pont supérieur, vous repérez une caisse massive marquée d'un "C". Elle est verrouillée par un cadenas numérique à 4 chiffres.
+
+Le capitaine du port vous transmet le manifeste des marchandises chargées aujourd'hui.
+Exécutez la cellule pour examiner le manifeste :
+
+```python
+import pandas as pd
+
+# Manifeste des marchandises du port
+data_manifeste = {
+    'proprietaire': ['Alice', 'Bob', 'Charlie', 'Alice', 'Charlie', 'Diana', 'Charlie'],
+    'type_marchandise': ['Textiles', 'Electronique', 'Poissons', 'Meubles', 'Glace', 'Livres', 'Produits Chimiques'],
+    'poids_kg': [150, 420, 1042, 300, 2105, 50, 1000]
+}
+df_manifeste = pd.DataFrame(data_manifeste)
+
+print("Manifeste récupéré avec succès !")
+display(df_manifeste)
+
+```
+
+Un docker vous glisse une information : *"Le code du cadenas est toujours le poids total cumulé des marchandises du propriétaire."*
+
+Votre objectif : Utiliser le regroupement de données (`groupby`) pour calculer le poids total des marchandises de chaque propriétaire, et déduire le code de Charlie.
+
+```{pyodide}
+#| exercise: suspect_groupby
+#| setup: true
+import pandas as pd
+
+data_manifeste = {
+    'proprietaire': ['Alice', 'Bob', 'Charlie', 'Alice', 'Charlie', 'Diana', 'Charlie'],
+    'type_marchandise': ['Textiles', 'Electronique', 'Poissons', 'Meubles', 'Glace', 'Livres', 'Produits Chimiques'],
+    'poids_kg': [150, 420, 1042, 300, 2105, 50, 1000]
+}
+df_manifeste = pd.DataFrame(data_manifeste)
+
+```
+
+```{pyodide}
+#| exercise: suspect_groupby
+# A VOUS DE JOUER :
+# 1. Regroupez les données par 'proprietaire' et calculez la somme (sum) de la colonne 'poids_kg'
+poids_par_proprietaire = df_manifeste.groupby('___')['___'].___()
+
+print("--- Poids cumulé par propriétaire ---")
+print(poids_par_proprietaire)
+
+# 2. Récupérez le poids total de Charlie pour ouvrir le cadenas
+code_cadenas = poids_par_proprietaire['___']
+
+print(f"\nTentative d'ouverture avec le code : {code_cadenas}")
+
+```
+
+```{pyodide}
+#| exercise: suspect_groupby
+#| check: true
+try:
+    assert 'poids_par_proprietaire' in globals(), "La variable 'poids_par_proprietaire' est manquante."
+    assert 'code_cadenas' in globals(), "Vous n'avez pas défini la variable 'code_cadenas'."
+    
+    # Vérification que l'étudiant a bien utilisé une série groupée avec les bonnes valeurs
+    if 'Charlie' not in poids_par_proprietaire.index:
+         raise AssertionError("Votre regroupement ne semble pas contenir les noms des propriétaires en index. Avez-vous bien groupé par 'proprietaire' ?")
+         
+    if poids_par_proprietaire['Alice'] != 450:
+         raise AssertionError("Le calcul est incorrect. Avez-vous utilisé la méthode sum() pour faire la somme ?")
+         
+    # Validation du code final
+    if code_cadenas == 4147:
+        print("✅ *CLIC* Le cadenas s'ouvre !")
+        print("🎯 INDICE DÉVERROUILLÉ : À l'intérieur du conteneur, vous trouvez des serveurs qui tournent à plein régime. Charlie a volé la base de données de l'école !")
+    else:
+        raise AssertionError("Bip rouge ! Le code est incorrect, le cadenas reste fermé.")
+        
+except AssertionError as e:
+    print(f"❌ Accès refusé : {e}")
+except TypeError:
+    print("❌ Erreur de typage. Assurez-vous d'avoir bien sélectionné la colonne de poids avant d'appliquer la somme.")
+
+```

@@ -46,3 +46,99 @@ Imaginez que vous ayez une base de données avec 50 colonnes (dimensions) diffé
 * **L'Objectif Métier :** Elle est idéale pour faciliter la visualisation de données de très grande dimension (projeter 50 dimensions sur un plan 2D) ou pour réduire le bruit (supprimer la corrélation entre les variables) avant d'appliquer d'autres algorithmes comme le K-Means.
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'un graphique 2D montrant des points séparés après une réduction PCA depuis un dataset à N dimensions.**
+
+L'enquête prend une tournure critique. La découverte du vol des sujets d'examen fait monter la pression : le directeur pédagogique, Sayf, vient de vous appeler en urgence sur la ligne sécurisée. Les sujets volés sont ceux de la prochaine session d'IA des Master 1 ! Il faut absolument identifier à qui Charlie compte les vendre avant que la transaction n'ait lieu.
+
+Puisque nous cherchons à découvrir des groupes cachés d'acheteurs dans une liste de suspects sans savoir à l'avance qui ils sont, c'est le moment idéal pour introduire l'**Apprentissage Non Supervisé**.
+
+## 🕵️‍♂️ Mission 5 : Profilage des acheteurs avec l'IA
+
+Le directeur Sayf est formel : si ces sujets fuitent, toute l'évaluation des Master 1 devra être annulée. Heureusement, vous avez mis la main sur le carnet d'adresses de Charlie sur le Dark Web. 
+
+Exécutez la cellule ci-dessous pour charger la base des prospects :
+
+```python
+import pandas as pd
+from sklearn.cluster import KMeans
+
+# Données récupérées sur le serveur de Charlie
+donnees_darkweb = {
+    'pseudo': ['Shadow99', 'NoobMaster', 'IA_Slayer', 'StressMax', 'RichKid', 'GhostHacker', 'BeauGosseDu69'],
+    'budget_crypto': [50, 20, 2500, 100, 3000, 40, 2800],
+    'niveau_stress': [2, 1, 9, 8, 10, 3, 9]
+}
+df_prospects = pd.DataFrame(donnees_darkweb)
+
+print("Carnet d'adresses Dark Web décrypté.")
+display(df_prospects)
+
+```
+
+Votre objectif : Demander à un algorithme de *Clustering* (K-Means) de regrouper ces individus en 3 catégories distinctes, afin d'isoler automatiquement le cluster des "Acheteurs VIP" (haut budget, haut stress).
+
+```{pyodide}
+#| exercise: suspect_kmeans
+#| setup: true
+import pandas as pd
+# Importation de la bibliothèque de Machine Learning
+from sklearn.cluster import KMeans 
+
+donnees_darkweb = {
+    'pseudo': ['Shadow99', 'NoobMaster', 'IA_Slayer', 'StressMax', 'RichKid', 'GhostHacker', 'PanicStudent'],
+    'budget_crypto': [50, 20, 2500, 100, 3000, 40, 2800],
+    'niveau_stress': [2, 1, 9, 8, 10, 3, 9]
+}
+df_prospects = pd.DataFrame(donnees_darkweb)
+
+```
+
+```{pyodide}
+#| exercise: suspect_kmeans
+# A VOUS DE JOUER :
+# 1. Initialisez l'algorithme KMeans pour créer 3 groupes (clusters)
+modele_ia = KMeans(n_clusters=___, random_state=42)
+
+# 2. Isolez les colonnes numériques qui vont servir à l'entraînement
+X = df_prospects[['___', '___']]
+
+# 3. Entraînez le modèle avec la méthode .fit()
+modele_ia.fit(___)
+
+# 4. Ajoutez les prédictions (les numéros de groupes) dans le tableau
+df_prospects['groupe_assigne'] = modele_ia.labels_
+
+print("--- Segmentation IA terminée ---")
+display(df_prospects.sort_values(by='groupe_assigne'))
+
+```
+
+```{pyodide}
+#| exercise: suspect_kmeans
+#| check: true
+try:
+    assert 'modele_ia' in globals(), "Le modèle 'modele_ia' n'a pas été initialisé."
+    assert 'X' in globals(), "Les données d'entraînement 'X' n'ont pas été définies."
+    assert 'groupe_assigne' in df_prospects.columns, "La colonne 'groupe_assigne' est manquante dans df_prospects."
+    
+    # Vérification des hyperparamètres
+    if modele_ia.n_clusters != 3:
+        raise AssertionError("L'inspecteur avait demandé de configurer l'algorithme pour 3 clusters exacts.")
+        
+    # Vérification des features
+    if 'budget_crypto' not in X.columns or 'niveau_stress' not in X.columns:
+        raise AssertionError("L'IA doit s'entraîner sur le 'budget_crypto' et le 'niveau_stress'. Vérifiez vos colonnes.")
+        
+    # Validation logique de la séparation (les riches stressés sont ensemble)
+    vip_cluster = df_prospects[df_prospects['pseudo'] == 'RichKid']['groupe_assigne'].iloc[0]
+    if df_prospects[df_prospects['pseudo'] == 'IA_Slayer']['groupe_assigne'].iloc[0] == vip_cluster:
+        print("✅ EXCELLENT ! L'algorithme a parfaitement identifié la cible.")
+        print("🎯 INDICE DÉVERROUILLÉ : Le groupe contenant 'RichKid', 'IA_Slayer' et 'PanicStudent' est le cluster VIP. Charlie a prévu de les rencontrer ce soir dans une ruelle virtuelle à 22h00 !")
+    else:
+        raise AssertionError("La segmentation semble incorrecte. Avez-vous bien entraîné le modèle (fit) sur les bonnes données (X) ?")
+
+except AssertionError as e:
+    print(f"❌ L'algorithme renvoie une erreur : {e}")
+except Exception as e:
+    print("❌ Une erreur de syntaxe ou d'exécution s'est produite. Vérifiez vos méthodes scikit-learn.")
+
+```

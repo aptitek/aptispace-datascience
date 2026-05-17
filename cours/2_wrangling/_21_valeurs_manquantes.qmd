@@ -106,3 +106,86 @@ Si vos données sont **MNAR**, boucher les trous sans précaution détruit l'inf
 Pour les flux chronologiques (Bourse, IoT), utilisez la méthode **LOCF** (*Last Observation Carried Forward*) : `df.fillna(method='ffill')`.
 :::
 :::
+
+## 🕵️‍♂️ Mission 1 : Interroger la base de données des suspects
+
+L'inspecteur principal vous a transmis un dossier contenant les données de toutes les personnes présentes sur les lieux. 
+Voici comment la base a été constituée :
+
+```python
+import pandas as pd
+import numpy as np
+
+data = {
+    'nom': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'],
+    'age': [25, np.nan, 35, 42, np.nan],
+    'has_alibi': [True, False, False, True, False]
+}
+df_suspects = pd.DataFrame(data)
+
+```
+
+Cependant, la base est bruitée. Votre premier objectif : nettoyer les valeurs manquantes et filtrer les suspects qui ont un alibi (colonne `has_alibi`).
+
+Complétez le code ci-dessous pour démasquer les coupables potentiels.
+
+```{pyodide}
+#| exercise: suspect_filtering
+#| setup: true
+# Ce bloc est invisible pour l'étudiant mais charge les données en mémoire pour CET exercice
+import pandas as pd
+import numpy as np
+
+data = {
+    'nom': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'],
+    'age': [25, np.nan, 35, 42, np.nan],
+    'has_alibi': [True, False, False, True, False]
+}
+df_suspects = pd.DataFrame(data)
+
+```
+
+```{pyodide}
+#| exercise: suspect_filtering
+# A VOUS DE JOUER :
+# 1. Supprimez les lignes où l'âge est manquant avec la méthode appropriée
+# 2. Gardez uniquement les suspects qui n'ont pas d'alibi (has_alibi == False)
+
+# Affiche les données de départ pour rappel
+print("--- Données brutes ---")
+display(df_suspects)
+print("\n--- Début du nettoyage ---")
+
+# 1. Nettoyage
+df_suspects_clean = df_suspects.___() 
+
+# 2. Filtrage
+df_coupables_potentiels = df_suspects_clean[___]
+
+print(df_coupables_potentiels)
+
+```
+
+```{pyodide}
+#| exercise: suspect_filtering
+#| check: true
+try:
+    assert 'df_suspects_clean' in globals(), "Oups, la variable 'df_suspects_clean' a disparu."
+    assert 'df_coupables_potentiels' in globals(), "Oups, la variable 'df_coupables_potentiels' n'a pas été créée."
+    
+    if df_suspects_clean.isna().sum().sum() > 0:
+        raise AssertionError("Il reste des valeurs manquantes. Pensez à la méthode dropna().")
+        
+    if df_coupables_potentiels['has_alibi'].any():
+        raise AssertionError("Attention, certains suspects dans votre liste finale ont un alibi !")
+        
+    if len(df_coupables_potentiels) == 1 and df_coupables_potentiels.iloc[0]['nom'] == 'Charlie':
+        print("✅ EXCELLENT ! Base nettoyée.")
+        print("🎯 INDICE DÉVERROUILLÉ : Le suspect a été vu s'enfuir vers le port.")
+    else:
+        raise AssertionError("Le nombre de suspects finaux n'est pas le bon. Revoyez vos filtres !")
+        
+except AssertionError as e:
+    print(f"❌ Échec de l'investigation : {e}")
+
+```

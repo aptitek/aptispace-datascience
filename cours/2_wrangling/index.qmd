@@ -17,6 +17,14 @@ _stabilize = true
 
 {{< include _24_encodage.qmd >}}
 
+## TP1 : Le Titanic
+
+::: {.filetree title="Dataset du Titanic" zip="../lab/tp1.zip"}
+- [tp1.ipynb](../lab/titanic/tp1.ipynb)
+- [train.csv](../lab/titanic/train.csv)
+:::
+
+
 ## 🌉 Conclusion et Transition
 
 Vos données sont maintenant propres et prêtes à être analysées. L'étape suivante consiste à explorer ces données pour en extraire des tendances et des relations.

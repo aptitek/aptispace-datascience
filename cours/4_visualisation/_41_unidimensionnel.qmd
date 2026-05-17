@@ -41,3 +41,86 @@ N'utilisez jamais de 3D décorative sur vos graphiques. Cela introduit des disto
 Utilisez la couleur pour mettre en évidence une anomalie ou une catégorie spécifique, et non pour faire du "coloriage". Chaque variable visuelle doit porter une information.
 :::
 :::
+
+## 🕵️‍♂️ Mission 4 : Découvrir le mobile du crime
+
+À l'intérieur du conteneur, les serveurs tournent à plein régime. Vous réussissez à pirater la console d'administration et à extraire le journal d'activité (les "logs"). Celui-ci indique les volumes de données qui ont été exfiltrés par Charlie.
+
+Exécutez cette cellule pour consulter le journal intercepté :
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Logs des volumes de données exfiltrés
+donnees_logs = {
+    'cible': ['Dossiers_Scolaires', 'Sujets_Examens', 'Bulletins_Notes', 'Comptabilite', 'Mots_de_Passe'],
+    'volume_mo': [150, 3200, 420, 80, 15]
+}
+df_logs = pd.DataFrame(donnees_logs)
+
+print("Logs d'exfiltration interceptés.")
+display(df_logs)
+
+```
+
+Un simple tableau de chiffres est parfois difficile à interpréter dans l'urgence. Un bon détective sait faire parler les données avec un graphique !
+
+Votre objectif : Compléter le code pour générer un graphique en barres afin d'identifier visuellement quelle cible a été la plus touchée, puis consigner votre conclusion dans votre rapport.
+
+```{pyodide}
+#| exercise: suspect_dataviz
+#| setup: true
+import pandas as pd
+import matplotlib.pyplot as plt
+
+donnees_logs = {
+    'cible': ['Dossiers_Scolaires', 'Sujets_Examens', 'Bulletins_Notes', 'Comptabilite', 'Mots_de_Passe'],
+    'volume_mo': [150, 3200, 420, 80, 15]
+}
+df_logs = pd.DataFrame(donnees_logs)
+
+```
+
+```{pyodide}
+#| exercise: suspect_dataviz
+# A VOUS DE JOUER :
+# 1. Utilisez la méthode .plot() de Pandas pour tracer un graphique en barres (kind='bar')
+# L'axe x doit être la 'cible', et l'axe y le 'volume_mo'.
+df_logs.plot(kind='___', x='___', y='___', color='darkred', legend=False)
+
+# Configuration visuelle du graphique
+plt.title("Volume de données volées par cible")
+plt.ylabel("Volume (Mégaoctets)")
+plt.xticks(rotation=45)
+plt.show()
+
+# 2. Observez le graphique généré en dessous. 
+# Quelle est la cible principale de Charlie ? (Copiez le nom exact de la catégorie)
+cible_principale = "___"
+
+```
+
+```{pyodide}
+#| exercise: suspect_dataviz
+#| check: true
+try:
+    assert 'cible_principale' in globals(), "La variable 'cible_principale' n'a pas été définie."
+    
+    # On vérifie que l'étudiant a bien rempli le champ
+    if cible_principale == "___" or cible_principale == "":
+         raise AssertionError("Vous n'avez pas consigné la cible dans votre rapport. Regardez la barre la plus haute du graphique !")
+         
+    # On valide la réponse visuelle
+    if cible_principale != "Sujets_Examens":
+        raise AssertionError(f"Erreur d'analyse. Êtes-vous sûr que '{cible_principale}' représente la plus grande barre ? Re-vérifiez votre graphique.")
+        
+    print("✅ ANALYSE VISUELLE CONFIRMÉE !")
+    print("🎯 INDICE DÉVERROUILLÉ : C'est un désastre... Charlie a volé les sujets du prochain examen final d'IA ! Son objectif est de les revendre au plus offrant sur le dark web. L'enquête prend une toute autre tournure...")
+        
+except AssertionError as e:
+    print(f"❌ Le chef de la police rejette votre rapport : {e}")
+except Exception as e:
+    print("❌ Une erreur s'est produite lors de la génération du graphique. Avez-vous bien mis les bons noms de colonnes et le type 'bar' ?")
+
+```

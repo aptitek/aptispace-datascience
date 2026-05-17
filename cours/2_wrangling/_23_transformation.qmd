@@ -50,3 +50,94 @@ Focus Deep Learning : Batchnorm et CMN
 Pour des architectures IA complexes, on intègre cette mise à l'échelle directement *dans* le modèle. Par exemple, la **Batchnorm** (Normalisation par lots) stabilise l'apprentissage à chaque couche d'un réseau de neurones. En analyse audio (reconnaissance vocale type LibriSpeech), on utilise la **CMN** (*Cepstral Mean Normalization*) pour gommer les distorsions liées au bruit ambiant.
 :::
 :::
+
+## 🕵️‍♂️ Mission 2 : Croiser les sources d'informations
+
+Votre instinct était bon : Charlie tente de fuir par la mer ! L'inspecteur principal vient de vous faire parvenir le registre piraté des départs maritimes d'aujourd'hui.
+
+Exécutez la cellule ci-dessous pour consulter ce nouveau registre :
+
+```python
+import pandas as pd
+
+# Registre des embarquements du jour
+donnees_port = {
+    'passager': ['Alice', 'Bob', 'Charlie', 'Diana', 'Zoe'],
+    'navire': ['Le Triton', 'L\'Océan', 'La Mouette', 'L\'Océan', 'Le Poséidon'],
+    'quai': [4, 12, 7, 12, 2]
+}
+df_embarquements = pd.DataFrame(donnees_port)
+
+print("Registre maritime téléchargé.")
+display(df_embarquements)
+
+```
+
+Votre objectif : Croiser (joindre) la liste de vos coupables potentiels avec ce registre maritime pour découvrir où se cache Charlie.
+*Indice : Regardez bien le nom des colonnes contenant les noms des individus dans les deux tables !*
+
+```{pyodide}
+#| exercise: suspect_merging
+#| setup: true
+import pandas as pd
+
+# On recrée l'état de la Mission 1 en arrière-plan pour sécuriser l'exercice
+df_coupables_potentiels = pd.DataFrame({
+    'nom': ['Charlie'],
+    'age': [35.0],
+    'has_alibi': [False]
+})
+
+# On charge la nouvelle table
+df_embarquements = pd.DataFrame({
+    'passager': ['Alice', 'Bob', 'Charlie', 'Diana', 'Zoe'],
+    'navire': ['Le Triton', 'L\'Océan', 'La Mouette', 'L\'Océan', 'Le Poséidon'],
+    'quai': [4, 12, 7, 12, 2]
+})
+
+```
+
+```{pyodide}
+#| exercise: suspect_merging
+# A VOUS DE JOUER :
+# Utilisez la méthode pd.merge() pour joindre df_coupables_potentiels et df_embarquements.
+# Attention : la colonne s'appelle 'nom' dans la 1ère table, et 'passager' dans la 2ème !
+
+df_localisation = pd.merge(
+    left=___, 
+    right=___, 
+    left_on=___, 
+    right_on=___,
+    how='inner'
+)
+
+print(df_localisation)
+
+```
+
+```{pyodide}
+#| exercise: suspect_merging
+#| check: true
+try:
+    assert 'df_localisation' in globals(), "La variable 'df_localisation' n'a pas été créée."
+    
+    # Vérification que le merge a bien été fait
+    colonnes_attendues = ['nom', 'age', 'has_alibi', 'passager', 'navire', 'quai']
+    if not all(col in df_localisation.columns for col in colonnes_attendues):
+         raise AssertionError("Il manque des colonnes. Avez-vous bien croisé les DEUX tables complètes ?")
+         
+    if len(df_localisation) != 1:
+        raise AssertionError("La table finale devrait contenir une seule ligne (notre suspect). Vérifiez les clés de jointure (left_on et right_on) !")
+        
+    # Validation finale du résultat
+    quai_fuite = df_localisation.iloc[0]['quai']
+    if quai_fuite == 7:
+        print("✅ INCROYABLE ! Vous avez localisé la cible.")
+        print("🎯 INDICE DÉVERROUILLÉ : Vite, rendez-vous au quai numéro 7 pour intercepter 'La Mouette' !")
+    else:
+        raise AssertionError("Le quai identifié n'est pas le bon. Quelque chose s'est mal passé lors de la jointure.")
+        
+except AssertionError as e:
+    print(f"❌ La piste refroidit : {e}")
+
+```

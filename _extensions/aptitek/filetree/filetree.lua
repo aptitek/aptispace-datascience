@@ -60,17 +60,49 @@ local function get_href(path, filename)
     end
 end
 
+local function split_name_desc(text)
+    local name, desc = text:match("^([^%(]+)(.*)$")
+    if not name then
+        name = text
+        desc = ""
+    end
+    -- Trim whitespace
+    name = name:gsub("^%s*(.-)%s*$", "%1")
+    desc = desc:gsub("^%s*(.-)%s*$", "%1")
+    return name, desc
+end
+
+local function format_item_html(name, desc, icon_class, is_link, url, frame_name, container_id)
+    local desc_html = ""
+    if desc ~= "" then
+        desc_html = string.format(' <span class="filetree-comment">%s</span>', desc)
+    end
+    
+    local name_html = string.format('<span class="filetree-name">%s</span>', name)
+    
+    if is_link then
+        return string.format(
+            '<li class="file"><a href="#" class="filetree-link" data-url="%s" data-frame="%s" data-container="%s"><i class="bi %s file-icon"></i> %s%s</a></li>',
+            url, frame_name, container_id, icon_class, name_html, desc_html
+        )
+    else
+        local li_class = "file-leaf"
+        local icon_color_class = "file-icon"
+        -- If it represents a directory
+        if name:find("/$") then
+            li_class = "folder-leaf"
+            icon_color_class = "folder-icon"
+        end
+        return string.format(
+            '<li class="%s"><span><i class="bi %s %s"></i> %s%s</span></li>',
+            li_class, icon_class, icon_color_class, name_html, desc_html
+        )
+    end
+end
+
 local function render_item(item, frame_name, container_id)
     -- Item is a Block (Plain or Para) containing Link or Str
     -- or a BulletList (subfolder)
-
-    -- We need to check if it's a folder (has sublist) or file
-    -- But pandoc AST for BulletList is [[Blocks], [Blocks], ...]
-    -- Often: [Para(Link), BulletList(...)] is how a folder with children looks in Markdown list?
-    -- Actually:
-    -- - Folder
-    --   - Child
-    -- Is represented as one item containing [Para(Str "Folder"), BulletList(...)]
 
     local blocks = item
     local is_folder = false
@@ -83,17 +115,10 @@ local function render_item(item, frame_name, container_id)
             is_folder = true
             sublist = block
         elseif block.t == "Para" or block.t == "Plain" then
-            -- Check content
-            -- Usually [Link] or [Str]
-            -- We extract text or link
+            text = pandoc.utils.stringify(block)
             pandoc.walk_block(block, {
-                Link = function(el) link = el end,
-                Str = function(el) if text == "" then text = el.text end end,
-                Code = function(el) if text == "" then text = el.text end end
+                Link = function(el) link = el end
             })
-            if not text and link then
-                text = pandoc.utils.stringify(link.content)
-            end
         end
     end
 
@@ -103,9 +128,16 @@ local function render_item(item, frame_name, container_id)
         if link then folder_name = pandoc.utils.stringify(link.content) end
         if folder_name == "" then folder_name = "Folder" end
 
+        local f_name, f_desc = split_name_desc(folder_name)
+        local desc_html = ""
+        if f_desc ~= "" then
+            desc_html = string.format(' <span class="filetree-comment">%s</span>', f_desc)
+        end
+        local name_html = string.format('<span class="filetree-name">%s</span>', f_name)
+
         content = content ..
-            '<li class="folder"><details open><summary><i class="bi bi-chevron-right folder-arrow"></i>'
-            .. folder_name .. '</summary><ul>'
+            '<li class="folder"><details open><summary><i class="bi bi-chevron-right folder-arrow"></i><i class="bi bi-folder-fill folder-icon"></i> '
+            .. name_html .. desc_html .. '</summary><ul>'
 
         if sublist then
             for _, child_item in ipairs(sublist.content) do
@@ -116,29 +148,31 @@ local function render_item(item, frame_name, container_id)
         content = content .. '</ul></details></li>'
         return content
     else
-        -- File
+        -- Leaf node (File or empty Directory)
         if not link then
-            -- Plain text in list, maybe just a file name without link?
-            -- If no link provided, we can't really open it. Treat as disabled or just text.
-            return '<li class="file"><span style="opacity:0.5"><i class="bi bi-file-earmark"></i> ' ..
-                text .. '</span></li>'
+            local is_dir = text:find("/%s") or text:find("/$")
+            local f_name, f_desc = split_name_desc(text)
+            local icon = is_dir and "bi-folder-fill" or "bi-file-earmark"
+            
+            if not is_dir then
+                -- Try to extract extension from first word
+                local first_word = f_name:match("^%s*([^%s]+)") or f_name
+                icon = get_icon(first_word)
+            end
+            
+            return format_item_html(f_name, f_desc, icon, false, nil, nil, nil)
         end
 
         local path = link.target
-        local filename = text
-        if filename == "" then filename = path:match("^.+/(.+)$") or path end
+        local f_name, f_desc = split_name_desc(text)
+        if f_name == "" then f_name = path:match("^.+/(.+)$") or path end
 
-        local icon = get_icon(filename)
-        local final_url = get_href(path, filename)
+        local is_dir = f_name:find("/$") or path:find("/$")
+        local icon = is_dir and "bi-folder-fill" or get_icon(path)
+        local final_url = get_href(path, f_name)
 
-        -- Use data attributes for the event listener
-        return string.format(
-            '<li class="file"><a href="#" class="filetree-link" data-url="%s" data-frame="%s" data-container="%s"><i class="bi %s"></i> %s</a></li>'
-            ,
-            final_url, frame_name, container_id, icon, filename
-        )
+        return format_item_html(f_name, f_desc, icon, true, final_url, frame_name, container_id)
     end
-
 end
 
 local function generate_zip(zip_path, source_dir)
@@ -160,15 +194,6 @@ end
 return {
     ["filetree"] = function(args, kwargs, meta)
         -- This is a custom block: ::: {.filetree} ... :::
-        -- But wait, standard Div filter signature is (div)
-        -- If registered as 'filetree' in custom Lua module, it might be for a Shortcode?
-        -- The user wants "remplace l'extension actuelle".
-        -- The previous extension returned: ["filetree"] = function(args, kwargs) ... which is a Shortcode.
-        -- Shortcodes can't contain block content (like a list) easily.
-        -- So we should probably keep it as a Div filter -> `function Div(div)`
-        -- BUT the user might use it as shortcode? No, shortcode is {{< filetree >}}.
-        -- New requirement: "structure de liste Markdown simple".
-        -- This implies using a Div `::: {.filetree}`
     end,
 
     Div = function(div)
@@ -184,12 +209,10 @@ return {
             local zip_html = ""
             if zip_link then
                 local zip_name = zip_link:match("^.+/(.+)$") or zip_link
-                zip_html = string.format('<a href="%s" class="ide-download-btn" title="Download %s"><i class="bi bi-file-earmark-zip-fill"></i> ZIP</a>'
+                zip_html = string.format('<a href="%s" class="ui-ide-download" title="Download %s"><i class="bi bi-file-earmark-zip-fill"></i> ZIP</a>'
                     , zip_link, zip_name)
 
                 -- Determine output path in _site
-                -- zip_link is like "lab/TP1.zip"
-                -- we want to write to "_site/lab/TP1.zip"
                 local site_zip_path = "_site/" .. zip_link
 
                 -- Check if it exists in _site
@@ -197,8 +220,6 @@ return {
                 if f ~= nil then
                     io.close(f)
                 else
-                    -- source folder is inferred from zip_link (stripping .zip)
-                    -- e.g. "lab/TP1.zip" -> "lab/TP1"
                     local source_dir = zip_link:match("(.+)%.zip$")
                     if source_dir then
                         generate_zip(site_zip_path, source_dir)
@@ -236,17 +257,17 @@ return {
             end
 
             local html = string.format([[
-<div class="ide-container" id="%s">
-  <div class="ide-sidebar">
-    <div class="ide-header-row">
-        <span class="ide-title">%s</span>
+<div class="ui-ide" id="%s">
+  <div class="ui-ide-sidebar">
+    <div class="ui-ide-header">
+        <span class="ui-ide-title">%s</span>
         %s
     </div>
-    <ul class="file-tree-list">
+    <ul class="ui-ide-list">
         %s
     </ul>
   </div>
-  <div class="ide-main">
+  <div class="ui-ide-main">
     <iframe name="%s" src="about:blank" onload="this.style.opacity=1"></iframe>
   </div>
   <script>

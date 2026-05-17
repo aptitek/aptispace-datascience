@@ -297,3 +297,89 @@ study.optimize(objective, n_trials=50) # 50 essais intelligents
 print("Meilleurs hyperparamètres :", study.best_params)
 
 ```
+
+## 🕵️‍♂️ Mission 6 : Trouver la faille dans l'armure
+
+Charlie se vante sur le Dark Web : son algorithme de détection de la police aurait une "Accuracy" de 90%. Il se croit intouchable et a confirmé la transaction de ce soir pour la vente des sujets d'examen.
+
+Vous avez réussi à intercepter les données de test de son algorithme.
+Exécutez la cellule pour examiner les résultats bruts de ses 100 dernières simulations :
+
+```python
+import pandas as pd
+import numpy as np
+
+# 0 = Pas de police (Voie libre), 1 = Police présente (Danger)
+# Dans 90 cas sur 100, il n'y a pas de police. Charlie a simplement fait un modèle qui prédit TOUJOURS 0 !
+y_vrai = np.array([0]*90 + [1]*10)
+y_prediction = np.array([0]*100)
+
+print(f"Précision globale (Accuracy) calculée par Charlie : {np.mean(y_vrai == y_prediction) * 100}%")
+
+```
+
+90% de précision... Cela semble excellent. Mais en tant que Data Detectives, vous savez qu'il faut regarder sous le capot, surtout quand les événements (la présence de la police) sont rares.
+
+Votre objectif : Générez la **Matrice de Confusion** pour analyser les erreurs du modèle de Charlie. Combien de fois son IA a-t-elle indiqué "Voie libre" (0) alors que la police était "Présente" (1) ? C'est ce qu'on appelle les Faux Négatifs, et c'est notre porte d'entrée !
+
+```{pyodide}
+#| exercise: suspect_evaluation
+#| setup: true
+import numpy as np
+from sklearn.metrics import confusion_matrix
+
+y_vrai = np.array([0]*90 + [1]*10)
+y_prediction = np.array([0]*100)
+
+```
+
+```{pyodide}
+#| exercise: suspect_evaluation
+# A VOUS DE JOUER :
+# 1. Importez la fonction confusion_matrix depuis sklearn.metrics (déjà fait en arrière-plan, mais bonne pratique de s'en souvenir)
+from sklearn.metrics import ___
+
+# 2. Calculez la matrice de confusion en comparant la réalité (y_vrai) et les prédictions de Charlie (y_prediction)
+matrice = ___(y_true=___, y_pred=___)
+
+print("--- Matrice de Confusion de Charlie ---")
+print(matrice)
+# Rappel de lecture de la matrice Scikit-Learn :
+# [[Vrais Négatifs (VN),  Faux Positifs (FP)]
+#  [Faux Négatifs (FN),   Vrais Positifs (VP)]]
+
+# 3. En lisant la matrice ci-dessus, combien y a-t-il de Faux Négatifs (FN) ?
+# (C'est-à-dire le nombre de fois où Charlie s'est mis en danger sans le savoir)
+nombre_faux_negatifs = ___
+
+```
+
+```{pyodide}
+#| exercise: suspect_evaluation
+#| check: true
+try:
+    assert 'matrice' in globals(), "Vous n'avez pas créé la variable 'matrice'."
+    assert 'nombre_faux_negatifs' in globals(), "Vous n'avez pas renseigné le 'nombre_faux_negatifs'."
+    
+    # Vérification de la matrice
+    if matrice.shape != (2, 2) or matrice[0,0] != 90:
+        raise AssertionError("La matrice semble incorrecte. Avez-vous bien passé y_vrai puis y_prediction à la fonction ?")
+        
+    # Vérification de l'interprétation
+    if nombre_faux_negatifs == 0:
+         raise AssertionError("0 ? Non, regardez bien la ligne du bas de la matrice (la réalité où y=1).")
+    if nombre_faux_negatifs == 90:
+         raise AssertionError("90 correspond aux Vrais Négatifs (les fois où il n'y avait vraiment pas de police). Cherchez les Faux Négatifs !")
+         
+    if nombre_faux_negatifs == 10:
+        print("✅ ANALYSE VALIDÉE !")
+        print("🎯 INDICE DÉVERROUILLÉ : L'IA de Charlie est aveugle ! Elle a fait un 'surapprentissage' sur les cas pacifiques et n'a JAMAIS réussi à détecter la police (10 échecs sur 10). La voie est libre pour l'équipe d'intervention de Sayf. Préparez-vous pour l'arrestation !")
+    else:
+        raise AssertionError("Ce n'est pas le bon nombre de Faux Négatifs. Lisez bien les commentaires d'aide sous votre code.")
+
+except AssertionError as e:
+    print(f"❌ Erreur d'analyse : {e}")
+except Exception as e:
+    print("❌ Une erreur s'est produite. Avez-vous bien appelé confusion_matrix(y_vrai, y_prediction) ?")
+
+```

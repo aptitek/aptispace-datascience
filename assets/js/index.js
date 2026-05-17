@@ -216,11 +216,39 @@ const decorateCodeBlocks = () => {
   });
 };
 
+const translateExerciseButtons = (header) => {
+  if (!header) return;
+  const parentCard = header.closest(".card.exercise-editor");
+  if (!parentCard) return;
+  
+  const buttons = parentCard.querySelectorAll("button, a.btn");
+  buttons.forEach(btn => {
+    const textNodes = [];
+    const walk = document.createTreeWalker(btn, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walk.nextNode()) {
+      textNodes.push(node);
+    }
+    
+    textNodes.forEach(node => {
+      const text = node.textContent.trim().toUpperCase();
+      if (text === "START OVER") {
+        node.textContent = " Recommencer";
+      } else if (text === "RUN CODE") {
+        node.textContent = " Exécuter";
+      }
+    });
+  });
+};
+
 const decorateExerciseHeader = (header) => {
   if (!header) return;
   
   // If already decorated, skip to avoid duplicate tabs or infinite recursion
-  if (header.querySelector(".ui-code-tabs")) return;
+  if (header.querySelector(".ui-code-tabs")) {
+    translateExerciseButtons(header);
+    return;
+  }
   
   // Find any inner div containing exactly the title "Exercise" to remove it
   const titleDivs = header.querySelectorAll("div");
@@ -248,30 +276,39 @@ const decorateExerciseHeader = (header) => {
   tabsContainer.innerHTML = `
     <div class="ui-code-tab">
       <i class="bi bi-cpu-fill ui-code-tab-icon"></i>
-      <span class="ui-code-tab-title">Exercise</span>
+      <span class="ui-code-tab-title">Exercice</span>
     </div>
   `;
   
   // Prepend the tab container at the very beginning of the header
   header.prepend(tabsContainer);
+  translateExerciseButtons(header);
 };
 
 const setupExerciseObserver = () => {
   if (typeof document === "undefined") return;
   
-  const existing = document.querySelectorAll(".card.exercise-editor .card-header");
-  existing.forEach(decorateExerciseHeader);
-  
-  const observer = new MutationObserver((mutations) => {
+  const runDecoration = () => {
     const headers = document.querySelectorAll(".card.exercise-editor .card-header");
-    headers.forEach(decorateExerciseHeader);
-  });
+    headers.forEach(header => {
+      decorateExerciseHeader(header);
+      translateExerciseButtons(header);
+    });
+  };
+
+  // Run immediately
+  runDecoration();
   
+  // 1. Observe DOM mutations (for performance and responsiveness)
+  const observer = new MutationObserver(runDecoration);
   observer.observe(document.body, {
     childList: true,
     subtree: true,
     characterData: true
   });
+
+  // 2. Poll periodically (fail-proof fallback against React/Preact Virtual DOM overrides on status/run changes)
+  setInterval(runDecoration, 150);
 };
 
 // Robust initial execution

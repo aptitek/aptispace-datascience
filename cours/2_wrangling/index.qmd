@@ -19,9 +19,9 @@ _stabilize = true
 
 ## TP1 : Le Titanic
 
-::: {.filetree title="Dataset du Titanic" zip="../lab/tp1.zip"}
-- [tp1.ipynb](../lab/titanic/tp1.ipynb)
-- [train.csv](../lab/titanic/train.csv)
+::: {.filetree title="Dataset du Titanic" zip="lab/tp1.zip"}
+- [tp1.ipynb](lab/titanic/tp1.ipynb)
+- [train.csv](lab/titanic/train.csv)
 :::
 
 

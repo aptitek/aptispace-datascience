@@ -1024,21 +1024,10 @@ form[class*="oi-"],
 // ==========================================
 
 .ui-ide {
+    @extend %ui-macos-window-light-theme;
     display: flex;
     min-height: 100px;
-    border: 1px solid $sol-base1;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 2rem;
     font-family: $font-family-base;
-    background-color: $sol-base3;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 4px 12px rgba(var(--sol-base03-rgb), 0.05);
-
-    &:hover {
-        box-shadow: 0 8px 24px rgba(var(--sol-base03-rgb), 0.08);
-        border-color: rgba($sol-base1, 0.8);
-    }
 }
 
 /* --- SIDEBAR --- */
@@ -1083,11 +1072,15 @@ form[class*="oi-"],
 
 /* --- UI ELEMENTS --- */
 .ui-ide-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    @extend %ui-macos-window-header;
+    justify-content: space-between !important;
+    background-color: $sol-base2 !important;
+    border-bottom: 1px solid rgba(var(--sol-base01-rgb), 0.08) !important;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: -16px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
     margin-bottom: 14px;
 }
 
@@ -1101,33 +1094,31 @@ form[class*="oi-"],
     display: flex;
     align-items: center;
     gap: 6px;
-    
-    &::before {
-        content: "";
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: $sol-blue;
-        border-radius: 50%;
-    }
 }
 
 .ui-ide-download {
-    font-size: 0.75em;
-    background-color: $sol-base3;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-family: $font-family-base !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    background-color: $sol-base3 !important;
     color: $sol-blue !important;
-    border: 1px solid $sol-base1;
-    padding: 3px 10px;
-    border-radius: 6px;
+    border: 1px solid rgba(var(--sol-base01-rgb), 0.15) !important;
+    padding: 4px 12px !important;
+    border-radius: 6px !important;
     text-decoration: none !important;
-    font-weight: bold;
-    font-family: $font-family-code;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    height: 26px !important;
+    box-sizing: border-box !important;
     
     &:hover {
-        background-color: $sol-blue;
-        color: white !important;
-        box-shadow: 0 4px 8px rgba($sol-blue, 0.15);
+        background-color: $sol-blue !important;
+        color: $sol-base3 !important;
+        border-color: $sol-blue !important;
+        box-shadow: 0 4px 8px rgba($sol-blue, 0.15) !important;
     }
 }
 

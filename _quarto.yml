@@ -5,6 +5,7 @@ project:
   output-dir: _site
   pre-render: bash _extensions/aptitek/download-fonts/download_fonts.sh
   resources:
+    - "lab/**"
     - "assets/**"
     - "**/_*.qmd"
 

@@ -47,13 +47,13 @@ Imaginez que vous ayez une base de données avec 50 colonnes (dimensions) diffé
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'un graphique 2D montrant des points séparés après une réduction PCA depuis un dataset à N dimensions.**
 
-L'enquête prend une tournure critique. La découverte du vol des sujets d'examen fait monter la pression : le directeur pédagogique, Sayf, vient de vous appeler en urgence sur la ligne sécurisée. Les sujets volés sont ceux de la prochaine session d'IA des Master 1 ! Il faut absolument identifier à qui Charlie compte les vendre avant que la transaction n'ait lieu.
+L'enquête prend une tournure critique. La découverte du vol des sujets d'examen fait monter la pression : le directeur pédagogique vient de vous appeler en urgence sur la ligne sécurisée. Les sujets volés sont ceux de la prochaine session d'IA des Master 1 ! Il faut absolument identifier à qui Charlie compte les vendre avant que la transaction n'ait lieu.
 
 Puisque nous cherchons à découvrir des groupes cachés d'acheteurs dans une liste de suspects sans savoir à l'avance qui ils sont, c'est le moment idéal pour introduire l'**Apprentissage Non Supervisé**.
 
 ## 🕵️‍♂️ Mission 5 : Profilage des acheteurs avec l'IA
 
-Le directeur Sayf est formel : si ces sujets fuitent, toute l'évaluation des Master 1 devra être annulée. Heureusement, vous avez mis la main sur le carnet d'adresses de Charlie sur le Dark Web. 
+Le directeur pédagogique est formel : si ces sujets fuitent, toute l'évaluation des Master 1 devra être annulée. Heureusement, vous avez mis la main sur le carnet d'adresses de Charlie sur le Dark Web. 
 
 Exécutez la cellule ci-dessous pour charger la base des prospects :
 

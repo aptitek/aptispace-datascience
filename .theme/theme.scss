@@ -338,15 +338,22 @@ code, pre {
 // ==========================================
 
 /* Ciblage global du conteneur Mermaid avec style de carte Premium macOS */
-.cell-output-display .mermaid {
+.cell-output-display .mermaid,
+.cell-output-display div:has(> svg.mermaid-js) {
     font-family: $font-family-code !important;
     background-color: $sol-base3 !important;
+
+    svg {
+        font-size: 14px !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
     border: 1px solid $sol-base2 !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba($sol-base03, 0.05) !important;
     margin: 2rem auto !important;
     padding: 40px 24px 24px 24px !important; // 40px top padding for absolute macos dots
-    width: fit-content !important;
+    width: 100% !important;
     max-width: 100% !important;
     display: flex !important;
     justify-content: center !important;
@@ -393,6 +400,7 @@ code, pre {
         color: $sol-base00 !important;
         font-family: $font-family-code !important;
         font-weight: 500;
+        font-size: 14px !important;
     }
 
     /* Hack pour le texte HTML dans Mermaid */
@@ -400,6 +408,7 @@ code, pre {
     g.node .label div {
         color: $sol-base00 !important;
         background-color: transparent !important;
+        font-size: 14px !important;
     }
 
     /* 3. LES LIENS (Flèches) */
@@ -430,6 +439,7 @@ code, pre {
     g.note .label {
         color: $sol-base00 !important;
         font-family: $font-family-code !important;
+        font-size: 14px !important;
     }
 
     /* 6. ÉTIQUETTES SUR LES FLÈCHES */
@@ -438,6 +448,7 @@ code, pre {
         color: $sol-base00 !important;
         fill: $sol-base00 !important;
         font-family: $font-family-code !important;
+        font-size: 14px !important;
     }
 
     g.edgeLabel p {
@@ -445,7 +456,7 @@ code, pre {
         color: $sol-base00 !important;
         font-family: $font-family-code !important;
         padding: 2px 4px;
-        font-size: 0.9em;
+        font-size: 0.9em !important;
     }
 
     g.edgeLabel rect {

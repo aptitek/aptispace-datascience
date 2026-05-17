@@ -57,7 +57,7 @@ graph LR
 
 ## 🕵️‍♂️ Mission 7 : Le Rapport Exécutif
 
-*BAM !* Les portes de l'entrepôt virtuel explosent. L'équipe de sécurité, menée par Sayf, interpelle Charlie au moment exact où il allait transférer les données à ses acheteurs. L'opération est un succès total !
+*BAM !* Les portes de l'entrepôt virtuel explosent. L'équipe de sécurité interpelle Charlie au moment exact où il allait transférer les données à ses acheteurs. L'opération est un succès total !
 
 Mais il reste une dernière tâche, et non des moindres : rédiger le rapport officiel pour le conseil de discipline. Un bon Data Scientist sait transformer ses variables brutes en une histoire compréhensible par tous (le *Data Storytelling*).
 

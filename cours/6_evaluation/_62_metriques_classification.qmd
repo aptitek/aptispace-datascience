@@ -373,7 +373,7 @@ try:
          
     if nombre_faux_negatifs == 10:
         print("✅ ANALYSE VALIDÉE !")
-        print("🎯 INDICE DÉVERROUILLÉ : L'IA de Charlie est aveugle ! Elle a fait un 'surapprentissage' sur les cas pacifiques et n'a JAMAIS réussi à détecter la police (10 échecs sur 10). La voie est libre pour l'équipe d'intervention de Sayf. Préparez-vous pour l'arrestation !")
+        print("🎯 INDICE DÉVERROUILLÉ : L'IA de Charlie est aveugle ! Elle a fait un 'surapprentissage' sur les cas pacifiques et n'a JAMAIS réussi à détecter la police (10 échecs sur 10). La voie est libre pour l'équipe d'intervention. Préparez-vous pour l'arrestation !")
     else:
         raise AssertionError("Ce n'est pas le bon nombre de Faux Négatifs. Lisez bien les commentaires d'aide sous votre code.")
 

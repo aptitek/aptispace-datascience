@@ -593,10 +593,17 @@ code, pre {
 // 8. OJS CONTROLS (Observable Inputs)
 // ==========================================
 
+// Global high-specificity overrides to completely prevent OJS label and output clipping / ellipses
 form[class*="oi-"], 
-.observablehq--input {
+.observablehq--input,
+[class*="oi-"] {
     width: 100% !important;
     max-width: 100% !important;
+    
+    &, & * {
+        text-overflow: clip !important;
+        overflow: visible !important;
+    }
 }
 
 .observablehq--input, 
@@ -645,6 +652,7 @@ form[class*="oi-"],
         font-size: 0.85em;
         color: var(--sol-base01);
         margin-left: 10px;
+        margin-right: 15px;
         flex: 0 0 auto !important;
     }
 
@@ -792,4 +800,17 @@ form[class*="oi-"],
             &::before { color: var(--tl-color-accent) !important; }
         }
     }
+}
+
+// ==========================================
+// 9. COPY-TO-CLIPBOARD FIX
+// ==========================================
+
+// Hide Copy to Clipboard buttons on hidden cells or active OJS widgets
+.sourceCode.cell-code.hidden ~ .code-copy-button {
+    display: none !important;
+}
+
+.cell:has(.observablehq) .code-copy-button {
+    display: none !important;
 }

@@ -139,11 +139,11 @@ ui.plotlyWrapper({
       mode: 'lines+markers',
       type: 'scatter',
       name: 'Précision',
-      line: { color: ui.colors.blue || "#268bd2", width: ui.chart.lineWidth },
+      line: { color: ui.colors.blue, width: ui.chart.lineWidth },
       marker: { 
         size: ui.chart.markerSize, 
-        color: ui.colors.blue || "#268bd2",
-        line: { color: ui.colors.base03 || "#002b36", width: ui.chart.markerLineWidth }
+        color: ui.colors.blue,
+        line: { color: ui.colors.base03, width: ui.chart.markerLineWidth }
       }
     },
     // Trace 2 (Optionnelle) : La ligne verticale d'intervention
@@ -152,7 +152,7 @@ ui.plotlyWrapper({
       y: [50, 100],
       mode: 'lines',
       name: 'Ré-entraînement',
-      line: { color: ui.colors.orange || "#cb4b16", width: ui.chart.markerLineWidth, dash: 'dot' },
+      line: { color: ui.colors.orange, width: ui.chart.markerLineWidth, dash: 'dot' },
       hoverinfo: 'none'
     } : {}
   ].filter(trace => trace.x), // Le filter permet d'ignorer la trace 2 si on est à 0

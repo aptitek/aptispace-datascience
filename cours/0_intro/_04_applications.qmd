@@ -89,14 +89,14 @@ ui.plotlyWrapper({
       x: legit_scores,
       type: 'histogram',
       name: 'Légitimes',
-      marker: { color: (ui.colors.cyan || "#2aa198") + "99" },
+      marker: { color: ui.colors.green + "99" },
       xbins: { start: 0, end: 100, size: 2 }
     },
     {
       x: fraud_scores,
       type: 'histogram',
       name: 'Fraudeurs',
-      marker: { color: (ui.colors.red || "#dc322f") + "b3" },
+      marker: { color: ui.colors.red + "b3" },
       xbins: { start: 0, end: 100, size: 2 }
     }
   ],
@@ -104,7 +104,6 @@ ui.plotlyWrapper({
     barmode: 'overlay', // Superposition des histogrammes pour voir le chevauchement
     xaxis: { title: 'Score de Risque de la Transaction', range: [0, 100] },
     yaxis: { title: 'Nombre de Transactions' },
-    margin: { t: 40, r: 20, b: 40, l: 40 },
     legend: { orientation: 'h', y: -0.2 },
     shapes: [
       // La ligne verticale représentant le seuil choisi par l'étudiant
@@ -115,7 +114,7 @@ ui.plotlyWrapper({
         y0: 0,
         y1: 1,
         yref: 'paper', // La ligne prend toute la hauteur du graphique
-        line: { color: ui.colors.yellow || "#b58900", width: ui.chart.lineWidth, dash: 'dash' }
+        line: { color: ui.colors.yellow, width: ui.chart.lineWidth, dash: 'dash' }
       }
     ]
   }
@@ -125,6 +124,33 @@ ui.plotlyWrapper({
 
 :::
 :::
+
+
+::: {.card .card-info}
+::: {.card-header}
+🕵️‍♂️ Le Décodeur de l'Enquêteur : La Matrice de Confusion
+:::
+::: {.card-body}
+
+Pour un enquêteur, chaque décision de l'algorithme a une conséquence réelle. Voici la grille de lecture pour interpréter les verdicts du modèle :
+
+| | **Réalité : Fraude (Positif)** | **Réalité : Légitime (Négatif)** |
+| :--- | :--- | :--- |
+| **Prédiction : Bloqué (Positif)** | **🟢 Vrais Positifs (TP)**<br>L'IA suspecte et bloque une fraude à juste titre.<br>👉 *Impact : Argent sauvé !* | **🔴 Faux Positifs (FP)**<br>L'IA suspecte et bloque un client honnête à tort.<br>👉 *Impact : Client frustré.* |
+| **Prédiction : Autorisé (Négatif)** | **⚠️ Faux Négatifs (FN)**<br>L'IA ne détecte rien et laisse passer un fraudeur à tort.<br>👉 *Impact : Perte financière.* | **🔵 Vrais Négatifs (TN)**<br>L'IA ne détecte rien et laisse passer un client honnête.<br>👉 *Impact : Client heureux.* |
+
+:::
+:::
+
+::: {.card .card-warning}
+::: {.card-header}
+⚖️ Le Compromis Fondamental : Le Dilemme du Banquier
+:::
+::: {.card-body}
+Il est statistiquement impossible d'avoir à la fois $0$ Faux Positif et $0$ Faux Négatif. Ajuster le seuil d'alerte déplace simplement le curseur du compromis : baisser le seuil élimine les fraudes (FN) mais bloque tous vos clients (FP), tandis que l'élever libère vos clients mais ouvre les portes aux fraudeurs. C'est l'essence même du **Dilemme du Banquier**.
+:::
+:::
+
 
 
 #### 🏭 Industrie 4.0

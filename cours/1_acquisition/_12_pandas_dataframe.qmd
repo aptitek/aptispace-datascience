@@ -86,79 +86,14 @@ tableData = [
 
 colors = ({ ID: ui.colors.blue, Âge: ui.colors.green, Salaire: ui.colors.orange })
 
-// 3. Logique de rendu dynamique en HTML/CSS
-html`
-<style>
-  .ram-grid { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 8px; 
-    padding: 20px; 
-    background: var(--sol-base3); 
-    border: 2px solid var(--sol-base2); 
-    border-radius: 12px;
-    align-items: center;
-  }
-  .ram-block { 
-    padding: 12px 18px; 
-    border-radius: 6px; 
-    color: var(--sol-base3); 
-    font-weight: 700; 
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 4px rgba(0, 43, 54, 0.1);
-  }
-  .ram-block.active { 
-    transform: scale(1.1); 
-    box-shadow: 0 10px 15px -3px rgba(0, 43, 54, 0.2); 
-    z-index: 10;
-  }
-  .ram-block.dimmed { 
-    opacity: 0.15; 
-    filter: grayscale(80%);
-  }
-  .ram-pointer { 
-    font-size: 20px; 
-    color: var(--sol-base1); 
-    font-weight: bold;
-    margin: 0 5px;
-  }
-</style>
-
-<div>
-  <div class="ram-grid">
-    ${
-      storageMode === "ligne"
-        ? tableData.map(row =>
-            ["ID", "Âge", "Salaire"].map(col =>
-              `<div class="ram-block ${queryCol === "Aucune" ? "" : queryCol === col ? "active" : "dimmed"}" style="background-color: ${colors[col]}">${row[col]}</div>`
-            ).join("")
-          ).join(`<div class="ram-pointer">→</div>`)
-        : ["ID", "Âge", "Salaire"].map(col =>
-            tableData.map(row =>
-              `<div class="ram-block ${queryCol === "Aucune" ? "" : queryCol === col ? "active" : "dimmed"}" style="background-color: ${colors[col]}">${row[col]}</div>`
-            ).join("")
-          ).join(`<div class="ram-pointer">→</div>`)
-    }
-  </div>
-
-  <div class="ui-card ${
-    queryCol === 'Aucune' ? 'is-debug' : 
-    storageMode === 'ligne' ? 'is-danger' : 'is-success'
-  }" style="margin-top: 20px; margin-bottom: 0;">
-    <div class="ui-card-header">🔍 Analyse CPU</div>
-    <div class="ui-card-body">
-      ${
-        queryCol === "Aucune"
-          ? "Sélectionnez une colonne ci-dessus pour observer le comportement du processeur lors de la lecture."
-          : storageMode === "ligne"
-            ? `Pour lire '${queryCol}', le processeur doit scanner toute la mémoire et faire des sauts inutiles (<strong>Cache Misses</strong>). C'est inefficace.`
-            : `Toutes les données '${queryCol}' sont côte à côte. Le processeur lit le bloc d'un seul coup (<strong>Cache Hits</strong>). C'est ultra-rapide !`
-      }
-    </div>
-  </div>
-</div>
-`
+// 3. Logique de rendu via le composant réutilisable ramPathSimulator
+ui.render(ui.ramPathSimulator({
+  storageMode: storageMode,
+  queryCol: queryCol,
+  tableData: tableData,
+  colors: colors,
+  arcMultiplier: 0.95 // Arcs majestueux pour des sauts bien visibles (30% plus hauts !)
+}))
 
 ```
 :::

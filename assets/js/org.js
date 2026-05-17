@@ -997,3 +997,224 @@ export const cablingExercise = ({
 
   return container;
 };
+
+/**
+ * 🧠 Simulateur de Parcours Mémoire RAM (Stockage Ligne vs Colonne)
+ * Visualise de manière interactive les sauts du CPU (Cache Misses/Hits) avec des arcs animés.
+ */
+export const ramPathSimulator = ({
+  storageMode = "ligne",
+  queryCol = "Aucune",
+  tableData = [
+    { ID: "A1", Âge: 25, Salaire: "50k" },
+    { ID: "B2", Âge: 30, Salaire: "60k" },
+    { ID: "C3", Âge: 28, Salaire: "55k" }
+  ],
+  columns = ["ID", "Âge", "Salaire"],
+  colors = {
+    ID: "var(--sol-blue)",
+    "Âge": "var(--sol-green)",
+    Salaire: "var(--sol-orange)"
+  },
+  arcMultiplier = 0.9,     // Multiplicateur pour régler la hauteur des sauts (plus haut !)
+  particleDuration = "1.8s" // Vitesse de la particule CPU
+}) => {
+  // Calcul des slots de mémoire physique en fonction du mode de stockage
+  const slots = [];
+  if (storageMode === "ligne") {
+    // Mode Ligne : regroupement par ligne
+    tableData.forEach((row, rowIndex) => {
+      columns.forEach(col => {
+        slots.push({
+          colLabel: col,
+          val: row[col],
+          colName: col,
+          physIndex: rowIndex * columns.length + columns.indexOf(col)
+        });
+      });
+    });
+  } else {
+    // Mode Colonne : regroupement par colonne
+    columns.forEach(col => {
+      tableData.forEach((row, rowIndex) => {
+        slots.push({
+          colLabel: col,
+          val: row[col],
+          colName: col,
+          physIndex: rowIndex * columns.length + columns.indexOf(col)
+        });
+      });
+    });
+  }
+
+  // Abscisse X de chaque slot dans le SVG
+  const getX = (index) => {
+    const group = Math.floor(index / 3);
+    const posInGroup = index % 3;
+    return 30 + group * 218 + posInGroup * 64;
+  };
+
+  // Génération des fonds des blocs mémoire (Arrière-plan, calque 1)
+  const slotsBackgroundHtml = slots.map((slot, index) => {
+    const x = getX(index);
+    const isActive = queryCol === "Aucune" || slot.colName === queryCol;
+    const opacityVal = isActive ? 1.0 : 0.15;
+    const fillCol = colors[slot.colName] || "var(--sol-base01)";
+    
+    return `
+      <!-- Rectangle de bloc mémoire -->
+      <rect class="ram-rect" x="${x}" y="80" width="60" height="45" rx="6" ry="6" fill="${fillCol}" opacity="${opacityVal}" stroke="${isActive && queryCol !== 'Aucune' ? 'var(--sol-base3)' : 'none'}" stroke-width="1.5" style="transition: all 0.4s ease;" />
+    `;
+  }).join('');
+
+  // Génération des textes et labels des blocs mémoire (Premier plan, calque 3)
+  const slotsTextHtml = slots.map((slot, index) => {
+    const x = getX(index);
+    const isActive = queryCol === "Aucune" || slot.colName === queryCol;
+    
+    return `
+      <g style="pointer-events: none;">
+        <!-- Label de colonne au-dessus -->
+        <text x="${x + 30}" y="65" font-family="'Recursive', sans-serif" font-size="9" font-weight="800" fill="var(--sol-base01)" text-anchor="middle" letter-spacing="0.5" opacity="${isActive ? 0.9 : 0.4}">
+          ${slot.colLabel.toUpperCase()}
+        </text>
+        
+        <!-- Valeur dans le bloc -->
+        <text class="ram-text" x="${x + 30}" y="108" font-family="'Recursive', monospace" font-size="14" font-weight="900" fill="${isActive ? 'var(--sol-base3)' : 'var(--sol-base01)'}" text-anchor="middle" opacity="${isActive ? 1.0 : 0.4}" style="transition: all 0.4s ease;">
+          ${slot.val}
+        </text>
+        
+        <!-- Adresse physique RAM en dessous -->
+        <text x="${x + 30}" y="142" font-family="'Recursive', monospace" font-size="9" font-weight="bold" fill="var(--sol-base1)" text-anchor="middle" opacity="${isActive ? 0.75 : 0.3}">
+          0x${(index * 8).toString(16).toUpperCase().padStart(2, '0')}
+        </text>
+      </g>
+    `;
+  }).join('');
+
+  // Recherche des indices des slots actifs pour le parcours CPU
+  const activeIndices = [];
+  if (queryCol !== "Aucune") {
+    slots.forEach((slot, index) => {
+      if (slot.colName === queryCol) {
+        activeIndices.push(index);
+      }
+    });
+  }
+
+  // Tracé du chemin CPU réactif
+  let cpuPathHtml = "";
+  if (activeIndices.length >= 2) {
+    let d = `M ${getX(activeIndices[0]) + 30} 102.5`;
+    let jumpLabels = "";
+
+    for (let i = 0; i < activeIndices.length - 1; i++) {
+      const idx0 = activeIndices[i];
+      const idx1 = activeIndices[i+1];
+      const x0 = getX(idx0) + 30;
+      const x1 = getX(idx1) + 30;
+      const dist = Math.abs(x1 - x0);
+      
+      // Hauteur de l'arc (avec le nouveau arcMultiplier plus généreux et haut !)
+      const ctrl_y = 102.5 - dist * arcMultiplier;
+      const peakY = 102.5 - dist * (arcMultiplier / 2);
+      d += ` Q ${(x0 + x1) / 2} ${ctrl_y} ${x1} 102.5`;
+
+      // Libellés sémantiques (Cache Miss si saut, Cache Hit si contigu)
+      const isContiguous = (idx1 - idx0 === 1);
+      const labelText = isContiguous ? "⚡ Cache Hit" : "⚠️ Cache Miss";
+      const labelCol = isContiguous ? "var(--sol-green)" : "var(--sol-red)";
+      
+      jumpLabels += `
+        <text x="${(x0 + x1) / 2}" y="${peakY - 12}" font-family="'Recursive', sans-serif" font-size="9" font-weight="800" fill="${labelCol}" text-anchor="middle" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))">
+          ${labelText}
+        </text>
+      `;
+    }
+
+    const activeColor = colors[queryCol] || "var(--sol-yellow)";
+
+    cpuPathHtml = `
+      <!-- Chemin de guidage (piste) -->
+      <path d="${d}" stroke="rgba(var(--sol-base01-rgb), 0.15)" stroke-width="4" fill="none" />
+      
+      <!-- Chemin animé montrant l'impulsion électrique -->
+      <path class="cpu-path" d="${d}" stroke="${activeColor}" stroke-width="3" fill="none" stroke-dasharray="10 6" style="animation: cpu-dash 1s linear infinite;" />
+      
+      <!-- Particule néon active circulant le long du chemin -->
+      <circle r="6" fill="${activeColor}" filter="url(#glow-particle)">
+        <animateMotion dur="${particleDuration}" repeatCount="indefinite" path="${d}" rotate="auto" />
+      </circle>
+      
+      <!-- Libellés Cache Hits / Misses -->
+      ${jumpLabels}
+    `;
+  }
+
+  return `
+    <style>
+      @keyframes cpu-dash {
+        to {
+          stroke-dashoffset: -20;
+        }
+      }
+      .cpu-path {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .ram-container {
+        background: var(--sol-base3);
+        border: 2px solid var(--sol-base2);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: inset 0 2px 8px rgba(0, 43, 54, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+    </style>
+
+    <div class="ram-container">
+      <!-- Le viewBox de y=-110 à y=175 offre 285px de hauteur totale pour accommoder des arcs élevés majestueux -->
+      <svg viewBox="0 -110 700 285" width="100%" height="100%" style="max-height: 290px; overflow: visible;">
+        <defs>
+          <filter id="glow-particle" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Flèches de liaison physiques par défaut (inter-groupes) -->
+        <g opacity="0.25" stroke="var(--sol-base1)" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M 218 102.5 L 238 102.5 M 232 96.5 L 238 102.5 L 232 108.5" />
+          <path d="M 446 102.5 L 466 102.5 M 460 96.5 L 466 102.5 L 460 108.5" />
+        </g>
+
+        ${slotsBackgroundHtml}
+        ${cpuPathHtml}
+        ${slotsTextHtml}
+      </svg>
+
+      <!-- Carte d'Analyse CPU intégrée de façon transparente -->
+      <div class="ui-card ${
+        queryCol === 'Aucune' ? 'is-debug' : 
+        storageMode === 'ligne' ? 'is-danger' : 'is-success'
+      }" style="margin-top: 20px; margin-bottom: 0; width: 100%;">
+        <div class="ui-card-header">🔍 Analyse CPU</div>
+        <div class="ui-card-body">
+          ${
+            queryCol === "Aucune"
+              ? "Sélectionnez une colonne ci-dessus pour observer le comportement du processeur lors de la lecture."
+              : storageMode === "ligne"
+                ? `Pour lire '${queryCol}', le processeur doit scanner toute la mémoire et faire des sauts inutiles (<strong>Cache Misses</strong>). C'est inefficace.`
+                : `Toutes les données '${queryCol}' sont côte à côte. Le processeur lit le bloc d'un seul coup (<strong>Cache Hits</strong>). C'est ultra-rapide !`
+          }
+        </div>
+      </div>
+    </div>
+  `;
+};

@@ -2,7 +2,7 @@
 
 ### 🌪️ L'Art du Raffinage
 
-La science des données s'est imposée comme le pivot central des architectures d'information modernes. Elle n'est plus une discipline technique isolée dans un laboratoire ; elle est le socle méthodologique sur lequel repose l'ensemble de la circulation de l'information d'une organisation [@markdown_2026_cadrestrategique].
+La science des données s'est imposée comme le pivot central des architectures d'information modernes. Elle n'est plus une discipline technique isolée dans un laboratoire ; elle est le socle méthodologique sur lequel repose l'ensemble de la circulation de l'information d'une organisation.
 
 L'objectif fondamental de la Data Science est de transformer un **signal brut**, souvent fragmenté et chaotique, en un **actif stratégique** capable de guider la prise de décision de haut niveau. 
 
@@ -11,7 +11,7 @@ L'objectif fondamental de la Data Science est de transformer un **signal brut**,
 ⚠️ Danger : Le Dark Data
 :::
 ::: {.card-body}
-Une donnée n'a pas de valeur statique. Si une organisation se contente de stocker de l'information sans vocation métier précise, elle accumule ce que l'on appelle du **Dark Data** (données sombres). Ces "friches industrielles" numériques génèrent des coûts de stockage énormes (serveurs, cloud) sans aucune valeur ajoutée [@markdown_2026_cadrestrategique].
+Une donnée n'a pas de valeur statique. Si une organisation se contente de stocker de l'information sans vocation métier précise, elle accumule ce que l'on appelle du **Dark Data** (données sombres). Ces "friches industrielles" numériques génèrent des coûts de stockage énormes (serveurs, cloud) sans aucune valeur ajoutée.
 :::
 :::
 ```{mermaid}

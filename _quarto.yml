@@ -79,6 +79,7 @@ format:
       theme: neutral
     html-math-method: katex
     number-sections: true
+    number-depth: 3
     number-offset: -1
     header-includes: |
       <meta name="robots" content="noindex, nofollow">

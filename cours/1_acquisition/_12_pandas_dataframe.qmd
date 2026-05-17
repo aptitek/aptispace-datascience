@@ -5,7 +5,7 @@
 💡 Concept Clé : Au-delà du tableau Excel
 :::
 ::: {.card-body}
-Un DataFrame n'est pas qu'un simple tableau visuel. Pour le raffineur de données, c'est un agencement complexe en mémoire vive (RAM) dont la structure physique dicte la vitesse de vos calculs. Passer d'un code "qui marche" à un code industriel demande de comprendre comment ces données sont stockées [@markdown_2026_cadrestrategique].
+Un DataFrame n'est pas qu'un simple tableau visuel. Pour le raffineur de données, c'est un agencement complexe en mémoire vive (RAM) dont la structure physique dicte la vitesse de vos calculs. Passer d'un code "qui marche" à un code industriel demande de comprendre comment ces données sont stockées.
 :::
 :::
 ### 🏗️ L'Anatomie du DataFrame

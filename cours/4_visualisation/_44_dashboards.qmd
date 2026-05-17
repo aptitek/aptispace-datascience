@@ -5,7 +5,7 @@
 La fin du reporting figé
 :::
 ::: {.card-body}
-En 2026, fournir un rapport PDF statique à un décideur n'est plus suffisant. L'interactivité n'est plus un gadget esthétique, c'est une nécessité stratégique pour le "drill-down" (l'exploration en profondeur) [@landscape_data_viz_2026]. Un décideur doit pouvoir zoomer sur une région, filtrer par année ou exclure une catégorie d'un simple clic. C'est ici qu'interviennent les Dashboards (Tableaux de bord).
+En 2026, fournir un rapport PDF statique à un décideur n'est plus suffisant. L'interactivité n'est plus un gadget esthétique, c'est une nécessité stratégique pour le "drill-down" (l'exploration en profondeur). Un décideur doit pouvoir zoomer sur une région, filtrer par année ou exclure une catégorie d'un simple clic. C'est ici qu'interviennent les Dashboards (Tableaux de bord).
 :::
 :::
 ### 🕹️ Le Moteur Plotly

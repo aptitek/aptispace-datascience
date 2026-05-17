@@ -1,7 +1,4 @@
----
-title: "✅ Aides-mémoire"
-
----
+# ✅ Aides-mémoire {.unnumbered}
 
 Ce document rassemble tous les aides-mémoire du cours, organisés par chapitre.
 

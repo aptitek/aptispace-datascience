@@ -8,7 +8,7 @@
 L'Intelligence Artificielle n'est pas une intuition magique : c'est le résultat d'un processus industriel extrêmement structuré. Ce pipeline, souvent inspiré de standards comme CRISP-DM ou OSEMN, est ce que l'on appelle le **Cycle de Vie de la Donnée**. 
 :::
 :::
-Pour éviter que notre projet ne se transforme en un gouffre financier (ou que notre algorithme ne produise des résultats absurdes), tout projet d'Analyse de Données suit **7 étapes séquentielles et itératives** [@markdown_2026_cadrestrategique ; @datasciencepm_2026_lifecycle].
+Pour éviter que notre projet ne se transforme en un gouffre financier (ou que notre algorithme ne produise des résultats absurdes), tout projet d'Analyse de Données suit **7 étapes séquentielles et itératives** [@datasciencepm_2026_lifecycle].
 
 ### 🕰️ Les 7 Étapes de l'Investigation
 

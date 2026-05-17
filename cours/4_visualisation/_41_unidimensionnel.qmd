@@ -5,7 +5,7 @@
 💡 Concept Clé : La Grammaire des Graphiques
 :::
 ::: {.card-body}
-Avant de coder, il faut comprendre l'anatomie d'une image. La Data Visualisation moderne repose sur la **Grammar of Graphics** : une décomposition en couches indépendantes (Données, Esthétiques, Géométries). Un mauvais choix graphique est une faute d'enquête qui induit le décideur en erreur [@4_visualisation_md].
+Avant de coder, il faut comprendre l'anatomie d'une image. La Data Visualisation moderne repose sur la **Grammar of Graphics** : une décomposition en couches indépendantes (Données, Esthétiques, Géométries). Un mauvais choix graphique est une faute d'enquête qui induit le décideur en erreur.
 :::
 :::
 Quand on explore une seule variable (Analyse 1D), l'objectif est de comprendre sa **distribution** ou sa **composition**.

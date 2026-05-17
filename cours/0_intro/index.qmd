@@ -1,6 +1,4 @@
----
-title: "🚀 Introduction à la Science des Données"
----
+# 🚀 Introduction à la Science des Données {.unnumbered}
 
 ```{ojs}
 //| echo: false

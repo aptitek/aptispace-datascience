@@ -5,7 +5,7 @@
 Le syndrome du 'Ça marche sur ma machine'
 :::
 ::: {.card-body}
-En 2026, un modèle bloqué dans un Notebook Jupyter n'est qu'un "artefact inutile". Le MLOps (Machine Learning Operations) est la discipline qui fusionne la Data Science et le DevOps pour transformer un code de recherche en un service logiciel industriel, robuste et accessible par des millions d'utilisateurs [@markdown_evolution_2026].
+En 2026, un modèle bloqué dans un Notebook Jupyter n'est qu'un "artefact inutile". Le MLOps (Machine Learning Operations) est la discipline qui fusionne la Data Science et le DevOps pour transformer un code de recherche en un service logiciel industriel, robuste et accessible par des millions d'utilisateurs.
 :::
 :::
 Le cycle de vie d'un modèle en production repose sur la résolution de trois grands défis : la mémoire, le partage, et l'accès.
@@ -22,7 +22,7 @@ Lorsqu'un Data Scientist fait 50 essais d'optimisation (voir Module 6.2), il oub
 Imaginons que votre modèle fonctionne parfaitement sur votre ordinateur portable (Windows, Python 3.10, Pandas 2.0). Si vous l'envoyez sur le serveur de production (Linux, Python 3.12, Pandas 3.0), il va planter instantanément.
 
 * **La Conteneurisation (Docker) :** Docker résout ce problème d'environnement. Il crée une "boîte" (un conteneur) qui englobe votre modèle d'IA, la bonne version de Python, et exactement les bibliothèques nécessaires. Ce conteneur est immuable : s'il marche chez vous, il marchera à l'identique sur n'importe quel serveur au monde [@mathukiya_mlops_2026].
-* **L'outil "uv" :** En 2026, l'outil `pip` a largement été remplacé par `uv` (écrit en Rust) pour installer les bibliothèques Python. Il est 10 à 100 fois plus rapide, ce qui permet de construire ces conteneurs Docker de manière quasi-instantanée [@markdown_evolution_2026].
+* **L'outil "uv" :** En 2026, l'outil `pip` a largement été remplacé par `uv` (écrit en Rust) pour installer les bibliothèques Python. Il est 10 à 100 fois plus rapide, ce qui permet de construire ces conteneurs Docker de manière quasi-instantanée.
 
 ### 🔌 Service API (FastAPI)
 

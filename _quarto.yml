@@ -81,6 +81,7 @@ format:
     number-offset: -1
     header-includes: |
       <meta name="robots" content="noindex, nofollow">
+      <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
       <script type="module" src="/assets/js/index.js"></script>
     include-after-body: assets/fix_links.html
 

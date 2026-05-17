@@ -128,3 +128,47 @@ export const comparisonLayout = ({ leftTitle, leftContent, rightTitle, rightCont
     </div>
   </div>
 `;
+
+/**
+ * 🎛️ Toggle Switcher (Replicated from IA)
+ * Compatible with Observable's viewof syntax
+ */
+export const toggle = ({ label: labelText, options, value, states, layout = 'horizontal' }) => {
+  const container = document.createElement('div');
+  container.className = `mol-toggle ${layout === 'horizontal' ? 'is-horizontal' : ''}`;
+
+  if (labelText) {
+    container.appendChild(atom.label(labelText));
+  }
+
+  const group = document.createElement('div');
+  group.className = 'toggle-group';
+
+  const isObjectOptions = !Array.isArray(options);
+  const keys = isObjectOptions ? Object.keys(options) : options;
+
+  keys.forEach(key => {
+    const displayValue = isObjectOptions ? options[key] : key;
+    const btn = document.createElement('button');
+    btn.className = `toggle-option ${key === value ? 'active' : ''}`;
+
+    // Semantic states (info, success, warning, danger)
+    if (states && states[key]) {
+      btn.setAttribute('data-state', states[key]);
+    }
+
+    btn.innerText = displayValue;
+    btn.onclick = () => {
+      if (container.value === key) return;
+      group.querySelectorAll('.toggle-option').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      container.value = key;
+      container.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+    group.appendChild(btn);
+  });
+
+  container.appendChild(group);
+  container.value = value;
+  return container;
+};

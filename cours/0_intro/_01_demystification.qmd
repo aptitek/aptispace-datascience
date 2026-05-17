@@ -49,3 +49,113 @@ C'est ce travail de détective qui constitue le premier rempart contre les concl
 Pour ne pas transformer votre base de données en cimetière numérique, chaque donnée collectée doit répondre à une question métier spécifique ou à un indicateur de performance (KPI) clairement identifié.
 :::
 :::
+
+
+::: {.card .card-debug}
+::: {.card-header}
+🕵️‍♂️ Simulateur d'Illusion : Ne faites jamais confiance aux résumés
+:::
+::: {.card-body}
+Sélectionnez les différents jeux de données. Observez bien les statistiques descriptives (moyennes, corrélation) : elles sont **strictement identiques**. Pourtant, regardez ce que l'Analyse Exploratoire Visuelle (EDA) révèle...
+
+```{ojs}
+//| echo: false
+
+// 2. Les Preuves : Ajout des parenthèses () autour de l'objet pour OJS
+datasets = ({
+  "α (Standard)": { 
+    x: [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5], 
+    y: [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68] 
+  },
+  "β (Non-linéaire)": { 
+    x: [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5], 
+    y: [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74] 
+  },
+  "γ (Outlier Y)": { 
+    x: [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5], 
+    y: [7.46, 6.77, 12.74, 7.11, 7.81, 8.84, 6.08, 5.39, 8.15, 6.42, 5.73] 
+  },
+  "δ (Outlier X)": { 
+    x: [8, 8, 8, 8, 8, 8, 8, 19, 8, 8, 8], 
+    y: [6.58, 5.76, 7.71, 8.84, 8.47, 7.04, 5.25, 12.50, 5.56, 7.91, 6.89] 
+  }
+})
+```
+
+```{ojs}
+//| echo: false
+// 3. Interface de sélection
+viewof selected_case = ui.toggle({
+  options: Object.keys(datasets),
+  value: "α (Standard)",
+  states: {
+    "α (Standard)": "success",
+    "β (Non-linéaire)": "info",
+    "γ (Outlier Y)": "warning",
+    "δ (Outlier X)": "danger"
+  }
+})
+```
+
+```{ojs}
+//| echo: false
+current_data = datasets[selected_case]
+
+case_colors = ({
+  "α (Standard)": ui.colors.green,
+  "β (Non-linéaire)": ui.colors.blue,
+  "γ (Outlier Y)": ui.colors.orange,
+  "δ (Outlier X)": ui.colors.red
+})
+
+// 4. Rendu des KPI (Molécules)
+ui.render(`
+  <div class="ui-metrics-row" style="margin-top: 15px; margin-bottom: 25px;">
+    ${ui.metricCard({ title: "Moyenne (X)", value: "9.0", trend: "neutral", subtitle: "Immuable" })}
+    ${ui.metricCard({ title: "Moyenne (Y)", value: "7.5", trend: "neutral", subtitle: "Immuable" })}
+    ${ui.metricCard({ title: "Corrélation", value: "0.816", trend: "positive", subtitle: "Forte (Apparemment...)" })}
+  </div>
+`)
+
+// 5. Rendu du Graphique (Plotly via le Wrapper)
+ui.plotlyWrapper({
+  title: `Scène de crime : ${selected_case}`,
+  height: ui.chart.height,
+  data: [
+    {
+      x: current_data.x,
+      y: current_data.y,
+      mode: 'markers',
+      type: 'scatter',
+      name: 'Points',
+      marker: { 
+        size: ui.chart.markerSize, 
+        color: case_colors[selected_case],
+        line: { color: ui.colors.base03, width: ui.chart.markerLineWidth } 
+      }
+    },
+    {
+      x: [2, 20],
+      y: [4, 13],
+      mode: 'lines',
+      type: 'scatter',
+      name: 'Tendance (y = 3 + 0.5x)',
+      line: {
+        color: ui.colors.yellow,
+        width: ui.chart.lineWidth,
+        dash: 'dash'
+      }
+    }
+  ],
+  layout: {
+    xaxis: { range: [2, 20], title: 'X' },
+    yaxis: { range: [2, 14], title: 'Y' },
+    margin: { t: 40, r: 20, b: 40, l: 40 },
+    showlegend: true,
+    legend: { orientation: 'h', y: -0.2 }
+  }
+})
+```
+
+:::
+:::

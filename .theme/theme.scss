@@ -41,6 +41,234 @@ $sidebar-fg:    $sol-base01 !default;
 /*-- scss:rules --*/
 
 // ==========================================
+// 1.5 PREMIUM MAC OS WINDOW SYSTEM (Central Source of Truth Placeholders)
+// ==========================================
+
+// Central Theme Variables
+$macos-light-bg: $sol-base3;
+$macos-light-border: rgba(var(--sol-base01-rgb), 0.12);
+$macos-light-shadow: 0 4px 12px rgba(var(--sol-base03-rgb), 0.03);
+$macos-light-shadow-hover: 0 8px 24px rgba(var(--sol-base03-rgb), 0.05);
+$macos-light-border-hover: rgba($sol-base1, 0.4);
+
+$macos-light-header-bg: $sol-base2;
+$macos-light-header-border: rgba(var(--sol-base01-rgb), 0.08);
+
+$macos-light-tab-active-bg: $sol-base3;
+$macos-light-tab-active-color: var(--sol-base01);
+$macos-light-tab-active-border: rgba(var(--sol-base01-rgb), 0.08);
+$macos-light-tab-inactive-color: var(--sol-base1);
+
+// Dark Theme variables
+$macos-dark-bg: var(--sol-base03);
+$macos-dark-border: var(--sol-base02);
+$macos-dark-shadow: 0 10px 30px rgba(0,0,0,0.15);
+$macos-dark-shadow-hover: 0 12px 36px rgba(0,0,0,0.22);
+$macos-dark-border-hover: var(--sol-base01);
+
+$macos-dark-header-bg: var(--sol-base02);
+$macos-dark-header-border: rgba(var(--sol-base1-rgb), 0.1);
+
+$macos-dark-tab-active-bg: var(--sol-base03);
+$macos-dark-tab-active-color: var(--sol-base1);
+$macos-dark-tab-active-border: rgba(var(--sol-base1-rgb), 0.1);
+$macos-dark-tab-inactive-color: var(--sol-base01);
+
+%ui-macos-window-structural-shell {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    margin-bottom: 2rem !important;
+    position: relative !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+%ui-macos-window-header {
+    display: flex !important;
+    align-items: center !important;
+    height: 38px !important;
+    padding: 0 16px !important;
+    user-select: none !important;
+    
+    // built-in CSS macOS dots sémantique à gauche
+    &::before {
+        content: "" !important;
+        display: inline-block !important;
+        flex-shrink: 0 !important;
+        width: 8px !important;
+        height: 8px !important;
+        background-color: #{$sol-red} !important;
+        border-radius: 50% !important;
+        box-shadow: 14px 0 0 #{$sol-yellow}, 28px 0 0 #{$sol-green} !important;
+        margin-right: 42px !important; // creates perfect space for dots
+        opacity: 0.85 !important;
+    }
+}
+
+%ui-macos-tab-base {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+    padding: 5px 14px !important;
+    font-family: $font-family-code !important;
+    font-size: 0.8rem !important;
+    height: 28px !important;
+    line-height: 1 !important;
+    margin-bottom: -1px !important;
+    transition: all 0.15s ease !important;
+    text-decoration: none !important;
+}
+
+@mixin ui-apply-macos-light {
+    background-color: $macos-light-bg !important;
+    border: 1px solid $macos-light-border !important;
+    box-shadow: $macos-light-shadow !important;
+
+    &:hover {
+        box-shadow: $macos-light-shadow-hover !important;
+        border-color: $macos-light-border-hover !important;
+    }
+
+    // Header
+    .ui-macos-header, 
+    .ui-code-header, 
+    .ui-terminal-header, 
+    .card-header, 
+    .nav-tabs {
+        background-color: $macos-light-header-bg !important;
+        border-bottom: 1px solid $macos-light-header-border !important;
+    }
+
+    // Tabs / Tab items
+    .nav-link {
+        @extend %ui-macos-tab-base;
+        background-color: transparent !important;
+        border: 1px solid transparent !important;
+        border-bottom: none !important;
+        color: $macos-light-tab-inactive-color !important;
+
+        &::before {
+            color: $macos-light-tab-inactive-color !important;
+            opacity: 0.7;
+        }
+
+        &:hover {
+            background-color: rgba(var(--sol-base01-rgb), 0.03) !important;
+            color: $macos-light-tab-active-color !important;
+        }
+
+        &.active, &:active {
+            background-color: $macos-light-tab-active-bg !important;
+            border-color: $macos-light-tab-active-border !important;
+            border-bottom-color: $macos-light-tab-active-bg !important;
+            color: $macos-light-tab-active-color !important;
+            font-weight: 700 !important;
+            box-shadow: 0 -2px 4px rgba(var(--sol-base03-rgb), 0.01) !important;
+
+            &::before {
+                color: $sol-blue !important;
+                opacity: 1 !important;
+            }
+        }
+    }
+
+    .ui-code-tab {
+        @extend %ui-macos-tab-base;
+        background-color: $macos-light-tab-active-bg !important;
+        border: 1px solid $macos-light-tab-active-border !important;
+        border-bottom-color: $macos-light-tab-active-bg !important;
+        color: $macos-light-tab-active-color !important;
+        font-weight: 700 !important;
+        box-shadow: 0 -2px 4px rgba(var(--sol-base03-rgb), 0.01) !important;
+
+        .ui-code-tab-icon {
+            color: $sol-blue !important;
+            opacity: 1 !important;
+        }
+    }
+}
+
+@mixin ui-apply-macos-dark {
+    background-color: $macos-dark-bg !important;
+    border: 1px solid $macos-dark-border !important;
+    box-shadow: $macos-dark-shadow !important;
+
+    &:hover {
+        box-shadow: $macos-dark-shadow-hover !important;
+        border-color: $macos-dark-border-hover !important;
+    }
+
+    // Header
+    .ui-macos-header, 
+    .ui-code-header, 
+    .ui-terminal-header, 
+    .card-header, 
+    .nav-tabs {
+        background-color: $macos-dark-header-bg !important;
+        border-bottom: 1px solid $macos-dark-header-border !important;
+    }
+
+    // Tabs / Tab items
+    .nav-link {
+        @extend %ui-macos-tab-base;
+        background-color: transparent !important;
+        border: 1px solid transparent !important;
+        border-bottom: none !important;
+        color: $macos-dark-tab-inactive-color !important;
+
+        &::before {
+            color: $macos-dark-tab-inactive-color !important;
+            opacity: 0.7;
+        }
+
+        &:hover {
+            background-color: rgba(var(--sol-base1-rgb), 0.03) !important;
+            color: $macos-dark-tab-active-color !important;
+        }
+
+        &.active, &:active {
+            background-color: $macos-dark-tab-active-bg !important;
+            border-color: $macos-dark-tab-active-border !important;
+            border-bottom-color: $macos-dark-tab-active-bg !important;
+            color: $macos-dark-tab-active-color !important;
+            font-weight: 700 !important;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.01) !important;
+
+            &::before {
+                color: $sol-blue !important;
+                opacity: 1 !important;
+            }
+        }
+    }
+
+    .ui-code-tab {
+        @extend %ui-macos-tab-base;
+        background-color: $macos-dark-tab-active-bg !important;
+        border: 1px solid $macos-dark-tab-active-border !important;
+        border-bottom-color: $macos-dark-tab-active-bg !important;
+        color: $macos-dark-tab-active-color !important;
+        font-weight: 700 !important;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.01) !important;
+
+        .ui-code-tab-icon {
+            color: $sol-blue !important;
+            opacity: 1 !important;
+        }
+    }
+}
+
+%ui-macos-window-light-theme {
+    @extend %ui-macos-window-structural-shell;
+    @include ui-apply-macos-light;
+}
+
+%ui-macos-window-dark-theme {
+    @extend %ui-macos-window-structural-shell;
+    @include ui-apply-macos-dark;
+}
+
+// ==========================================
 // 2. CORE TYPOGRAPHY & LAYOUT
 // ==========================================
 
@@ -404,44 +632,20 @@ code, pre {
     &.is-muted .message { color: var(--sol-base01); }
 }
 
-// Global Terminal Base (macOS Style)
+// Global Terminal Base (macOS Style - Inherits Dark macOS Window System)
 .ui-terminal {
-    background-color: var(--sol-base03);
-    border: 1px solid var(--sol-base02);
-    border-radius: 8px;
-    overflow: hidden;
+    @extend %ui-macos-window-dark-theme;
     font-family: var(--font-code);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    margin-bottom: 1.5rem;
 
     .ui-terminal-header {
-        background-color: var(--sol-base02);
-        padding: 8px 15px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        border-bottom: 1px solid rgba(var(--sol-base1-rgb), 0.1);
-
-        // MacOS Dots (CSS Circles: Original + 2 shadows)
-        &::before {
-            content: "";
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: var(--sol-red);
-            border-radius: 50%;
-            box-shadow: 15px 0 0 var(--sol-yellow), 30px 0 0 var(--sol-green);
-            margin-right: 45px;
-            opacity: 0.8;
-        }
+        @extend %ui-macos-window-header;
 
         .ui-terminal-title {
-            color: var(--sol-base1);
-            font-size: 0.75em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-            opacity: 0.7;
+            color: $macos-dark-tab-active-color !important;
+            font-family: $font-family-code !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.3px;
         }
     }
 
@@ -1050,4 +1254,367 @@ ul.ui-ide-list ul {
         opacity: 0.9;
     }
 }
+
+
+
+// ==========================================
+// 11. PREMIUM CODE BLOCKS (.ui-code-header & div.sourceCode)
+// ==========================================
+
+// ==========================================
+// 11. PREMIUM CODE BLOCKS (.ui-code-header & div.sourceCode)
+// ==========================================
+
+div.sourceCode {
+    @extend %ui-macos-window-light-theme;
+    
+    &.ui-macos-dark {
+        @include ui-apply-macos-dark;
+        
+        .code-copy-button {
+            background-color: var(--sol-base02) !important;
+            border-color: rgba(var(--sol-base1-rgb), 0.15) !important;
+            
+            &:hover {
+                background-color: $sol-blue !important;
+            }
+        }
+    }
+    
+    pre.sourceCode {
+        margin: 0 !important;
+        background-color: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 16px 20px !important;
+        
+        // Ensure scrollbar is styled beautifully
+        &::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(var(--sol-base01-rgb), 0.15);
+            border-radius: 4px;
+            
+            &:hover {
+                background: rgba(var(--sol-base01-rgb), 0.3);
+            }
+        }
+        
+        code.sourceCode {
+            background-color: transparent !important;
+            font-family: $font-family-code !important;
+            font-variation-settings: 'MONO' 1, 'CASL' 0, 'wght' 450 !important;
+            line-height: 1.55 !important;
+            font-size: 0.88rem !important;
+        }
+    }
+
+    // Modern Hover Copy Button
+    .code-copy-button {
+        top: 6px !important;
+        right: 6px !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        border-radius: 6px !important;
+        background-color: $sol-base2 !important;
+        border: 1px solid rgba(var(--sol-base01-rgb), 0.15) !important;
+        color: $sol-blue !important;
+        padding: 4px 8px !important;
+        transform: translateY(2px) !important;
+        
+        i.bi {
+            color: $sol-blue !important;
+        }
+        
+        &:hover {
+            background-color: $sol-blue !important;
+            color: white !important;
+            border-color: $sol-blue !important;
+            transform: translateY(0px) !important;
+            box-shadow: 0 4px 8px rgba($sol-blue, 0.15) !important;
+            
+            i.bi {
+                color: white !important;
+            }
+        }
+    }
+    
+    &:hover .code-copy-button {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0px) !important;
+    }
+}
+
+// Window Tab Header
+.ui-code-header {
+    @extend %ui-macos-window-header;
+}
+
+// Tabs Bar
+.ui-code-tabs {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+    margin-left: 10px;
+}
+
+// Active Editor Tab
+.ui-code-tab {
+    @extend %ui-macos-tab-base;
+    
+    &.active, &.ui-code-tab-active {
+        font-weight: 700 !important;
+        
+        .ui-code-tab-icon {
+            color: $sol-blue !important;
+            opacity: 1 !important;
+        }
+    }
+    
+    .ui-code-tab-title {
+        letter-spacing: 0.3px;
+    }
+}
+
+// ==========================================
+// 12. PREMIUM PANEL TABSETS (.panel-tabset as macOS Window)
+// ==========================================
+
+.panel-tabset {
+    @extend %ui-macos-window-light-theme;
+
+    // Tab Header Bar
+    .nav-tabs {
+        @extend %ui-macos-window-header;
+        list-style: none !important;
+
+        .nav-item {
+            margin-bottom: -1px !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .nav-link {
+            @extend %ui-macos-tab-base;
+            
+            &::before {
+                content: "\f3e6"; // Bootstrap icon bi-file-earmark-code
+                font-family: "bootstrap-icons" !important;
+                font-size: 0.85rem !important;
+            }
+        }
+    }
+
+    // Body content wrapper
+    .tab-content {
+        background-color: $sol-base3 !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0 0 8px 8px !important;
+
+        .tab-pane {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background-color: transparent !important;
+        }
+        
+        // Nested code block
+        div.sourceCode {
+            margin: 0 !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            background-color: transparent !important;
+            
+            pre.sourceCode {
+                padding: 16px 20px !important;
+            }
+        }
+    }
+}
+
+// ==========================================
+// 13. PREMIUM INTERACTIVE EDITORS (Pyodide / Quarto-Live)
+// ==========================================
+
+// Main Window Container
+.card.exercise-editor {
+    @extend %ui-macos-window-light-theme;
+    
+    // Inject Custom Solarized CSS Variables to override Quarto-Live defaults
+    --exercise-cap-bg: #{$sol-base2} !important;
+    --exercise-main-bg: #{$sol-base3} !important;
+    --exercise-code-block-bg: #{$sol-base3} !important;
+    --exercise-gray: rgba(var(--sol-base01-rgb), 0.12) !important;
+
+    // Header Bar
+    .card-header {
+        @extend %ui-macos-window-header;
+        
+        // Hide duplicate centered title that Quarto-Live generates
+        > .d-flex > div:not(.btn-group):not(.exercise-editor-eval-indicator) {
+            display: none !important;
+        }
+        
+        // Setup details and controls
+        .exercise-loading-details {
+            font-family: $font-family-code !important;
+            font-size: 0.8rem !important;
+            font-weight: 500 !important;
+            color: var(--sol-base1) !important;
+        }
+
+        // Beautiful new tab container positioned on the left next to dots
+        .ui-code-tabs {
+            font-size: 0.8rem !important;
+            height: 100% !important;
+            display: flex !important;
+            align-items: flex-end !important;
+            margin-left: 10px !important;
+            margin-bottom: -1px !important; // Align tab border with header bottom
+        }
+
+        // Align editor buttons cleanly on the right
+        .btn-exercise-editor {
+            font-size: 0.78rem !important; // Restore font size
+            &:first-of-type {
+                margin-left: auto !important;
+            }
+        }
+    }
+
+    // CodeMirror Editor Area
+    .cm-editor {
+        background-color: $sol-base3 !important;
+        color: var(--sol-base00) !important;
+        border-radius: 0 !important;
+        border: none !important;
+        font-family: $font-family-code !important;
+        font-variation-settings: 'MONO' 1, 'CASL' 0, 'wght' 450 !important;
+        font-size: 0.88rem !important;
+        
+        .cm-scroller {
+            line-height: 1.55 !important;
+            padding: 8px 0 !important;
+        }
+
+        // Line number gutters
+        .cm-gutters {
+            background-color: $sol-base2 !important;
+            border-right: 1px solid rgba(var(--sol-base01-rgb), 0.08) !important;
+            color: var(--sol-base1) !important;
+            font-family: $font-family-code !important;
+            font-weight: 400 !important;
+        }
+
+        // Active Line
+        .cm-activeLine {
+            background-color: rgba(var(--sol-blue-rgb), 0.04) !important;
+        }
+        .cm-activeLineGutter {
+            background-color: rgba(var(--sol-blue-rgb), 0.08) !important;
+            color: var(--sol-blue) !important;
+            font-weight: 700 !important;
+        }
+        
+        // Selection
+        .cm-selectionBackground, .cm-content ::selection {
+            background-color: rgba(var(--sol-blue-rgb), 0.1) !important;
+        }
+        
+        // Caret cursor
+        .cm-cursor {
+            border-left-color: var(--sol-blue) !important;
+        }
+    }
+
+    // Interactive Action Buttons
+    .btn-exercise-editor {
+        font-family: $font-family-base !important;
+        font-size: 0.78rem !important;
+        font-weight: 600 !important;
+        border-radius: 6px !important;
+        padding: 4px 10px !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        cursor: pointer !important;
+        margin-right: 6px !important;
+        
+        // Primary Action Button (Run Code - Green)
+        &.btn-primary {
+            background-color: $sol-green !important;
+            border-color: $sol-green !important;
+            color: $sol-base3 !important;
+            
+            &:hover {
+                background-color: darken($sol-green, 8%) !important;
+                border-color: darken($sol-green, 8%) !important;
+                color: $sol-base3 !important;
+                box-shadow: 0 4px 12px rgba($sol-green, 0.25) !important;
+            }
+            
+            &:disabled, &.disabled {
+                background-color: rgba(var(--sol-green-rgb), 0.5) !important;
+                border-color: transparent !important;
+                opacity: 0.7 !important;
+            }
+        }
+        
+        // Start Over Action Button (Red)
+        &.btn-outline-dark {
+            background-color: $sol-red !important;
+            border-color: $sol-red !important;
+            color: $sol-base3 !important;
+            
+            &:hover {
+                background-color: darken($sol-red, 8%) !important;
+                border-color: darken($sol-red, 8%) !important;
+                color: $sol-base3 !important;
+                box-shadow: 0 4px 12px rgba($sol-red, 0.25) !important;
+            }
+        }
+    }
+
+    // Output and Console Panel
+    .exercise-cell-output {
+        border-top: 1px solid rgba(var(--sol-base01-rgb), 0.08) !important;
+        background-color: $sol-base2 !important;
+        padding: 12px 16px !important;
+        border-radius: 0 0 8px 8px !important;
+        
+        pre {
+            margin: 0 !important;
+            background-color: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            
+            code {
+                font-family: $font-family-code !important;
+                font-size: 0.85rem !important;
+                color: var(--sol-base01) !important;
+                line-height: 1.5 !important;
+            }
+        }
+    }
+}
+
+// Global Wasm Loading indicator styling
+#exercise-loading-indicator {
+    border: 1px solid rgba(var(--sol-base01-rgb), 0.15) !important;
+    background-color: $sol-base2 !important;
+    color: var(--sol-base01) !important;
+    font-family: $font-family-code !important;
+    font-size: 0.8rem !important;
+    border-top-left-radius: 8px !important;
+    box-shadow: 0 -2px 10px rgba(var(--sol-base03-rgb), 0.05) !important;
+    padding: 6px 14px !important;
+}
+
+
+
 

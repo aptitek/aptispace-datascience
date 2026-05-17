@@ -87,3 +87,202 @@ if (typeof window !== "undefined") {
   window.ui = ui;
   window.theme = theme;
 }
+
+// ==========================================
+// 11. DYNAMIC CODE BLOCKS DECORATOR (Tabs & macOS Controls)
+// ==========================================
+
+const decorateCodeBlocks = () => {
+  if (typeof document === "undefined") return;
+  
+  // 1. Process Quarto code blocks with custom filenames
+  const filenameWrappers = document.querySelectorAll(".code-with-filename");
+  filenameWrappers.forEach(wrapper => {
+    // If wrapper is inside a tabset, skip filename/header addition and let tabset handle it!
+    if (wrapper.closest(".tab-pane")) {
+      const fileDiv = wrapper.querySelector(".code-with-filename-file");
+      if (fileDiv) fileDiv.style.display = "none";
+      return;
+    }
+    
+    const fileDiv = wrapper.querySelector(".code-with-filename-file");
+    const sourceCode = wrapper.querySelector("div.sourceCode");
+    if (fileDiv && sourceCode) {
+      const filename = fileDiv.textContent.trim();
+      fileDiv.style.display = "none"; // Hide standard Quarto filename label
+      
+      const pre = sourceCode.querySelector("pre");
+      if (pre && !pre.dataset.hasHeader) {
+        // Determine language from pre/code class list
+        let lang = "code";
+        pre.classList.forEach(cls => {
+          if (cls !== "sourceCode" && cls !== "code-with-filename" && cls !== "cell-code" && cls !== "code-with-copy") {
+            lang = cls;
+          }
+        });
+        const lowerLang = lang.toLowerCase();
+        
+        // Choose tab icon and window theme based on language/filename
+        const isDark = (lowerLang === "sh" || lowerLang === "bash" || filename.endsWith(".sh") || filename.endsWith(".bash"));
+        let icon = "bi-file-earmark-code";
+        if (isDark) {
+          icon = "bi-terminal-fill";
+          sourceCode.classList.add("ui-macos-dark");
+        } else {
+          sourceCode.classList.add("ui-macos-light");
+        }
+        
+        const header = document.createElement("div");
+        header.className = "ui-code-header ui-macos-header";
+        header.innerHTML = `
+          <div class="ui-code-tabs">
+            <div class="ui-code-tab">
+              <i class="bi ${icon} ui-code-tab-icon"></i>
+              <span class="ui-code-tab-title">${filename}</span>
+            </div>
+          </div>
+        `;
+        pre.parentNode.insertBefore(header, pre);
+        pre.dataset.hasHeader = "true";
+      }
+    }
+  });
+
+  // 2. Process all other standard Quarto code blocks
+  const codeDivs = document.querySelectorAll("div.sourceCode");
+  codeDivs.forEach(div => {
+    // If inside a tabset pane, skip decoration completely!
+    if (div.closest(".tab-pane")) return;
+    
+    const pre = div.querySelector("pre");
+    if (!pre || pre.dataset.hasHeader === "true") return;
+    
+    // Determine language from pre/code class list
+    let lang = "code";
+    pre.classList.forEach(cls => {
+      if (cls !== "sourceCode" && cls !== "code-with-filename" && cls !== "cell-code" && cls !== "code-with-copy") {
+        lang = cls;
+      }
+    });
+    
+    // Capitalize beautifully and map specific short names
+    let displayLang = lang;
+    const lowerLang = lang.toLowerCase();
+    if (lowerLang === "py" || lowerLang === "python") displayLang = "Python";
+    else if (lowerLang === "js" || lowerLang === "javascript") displayLang = "JavaScript";
+    else if (lowerLang === "sh" || lowerLang === "bash") displayLang = "Terminal";
+    else if (lowerLang === "yml" || lowerLang === "yaml") displayLang = "YAML";
+    else if (lowerLang === "html") displayLang = "HTML";
+    else if (lowerLang === "css") displayLang = "CSS";
+    else if (lowerLang === "scss") displayLang = "SCSS";
+    else if (lowerLang === "json") displayLang = "JSON";
+    else if (lowerLang === "r") displayLang = "R";
+    else if (lowerLang === "sql") displayLang = "SQL";
+    else displayLang = lang.charAt(0).toUpperCase() + lang.slice(1);
+    
+    // Choose tab icon and window theme based on language
+    let icon = "bi-file-earmark-code";
+    const isDark = (lowerLang === "sh" || lowerLang === "bash");
+    if (isDark) {
+      icon = "bi-terminal-fill";
+      div.classList.add("ui-macos-dark");
+    } else {
+      div.classList.add("ui-macos-light");
+    }
+    
+    const header = document.createElement("div");
+    header.className = "ui-code-header ui-macos-header";
+    header.innerHTML = `
+      <div class="ui-code-tabs">
+        <div class="ui-code-tab">
+          <i class="bi ${icon} ui-code-tab-icon"></i>
+          <span class="ui-code-tab-title">${displayLang}</span>
+        </div>
+      </div>
+    `;
+    pre.parentNode.insertBefore(header, pre);
+    pre.dataset.hasHeader = "true";
+  });
+
+  // 3. Mark Pyodide interactive exercises with our unified header class
+  const exercises = document.querySelectorAll(".card.exercise-editor");
+  exercises.forEach(ex => {
+    const header = ex.querySelector(".card-header");
+    if (header) {
+      header.classList.add("ui-macos-header");
+      header.classList.add("ui-pyodide-header");
+      ex.classList.add("ui-macos-light"); // Make exercise-editor explicitly light theme!
+    }
+  });
+};
+
+const decorateExerciseHeader = (header) => {
+  if (!header) return;
+  
+  // If already decorated, skip to avoid duplicate tabs or infinite recursion
+  if (header.querySelector(".ui-code-tabs")) return;
+  
+  // Find any inner div containing exactly the title "Exercise" to remove it
+  const titleDivs = header.querySelectorAll("div");
+  titleDivs.forEach(div => {
+    const text = div.textContent.trim().toLowerCase();
+    if (text === "exercise" && div.childNodes.length === 1 && div.childNodes[0].nodeType === Node.TEXT_NODE) {
+      div.style.display = "none";
+    }
+  });
+
+  // Extract and clear direct text nodes just in case
+  const childNodes = Array.from(header.childNodes);
+  for (const node of childNodes) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const trimmed = node.textContent.trim().toLowerCase();
+      if (trimmed.includes("exercise")) {
+        node.textContent = "";
+      }
+    }
+  }
+  
+  // Create tabs container
+  const tabsContainer = document.createElement("div");
+  tabsContainer.className = "ui-code-tabs";
+  tabsContainer.innerHTML = `
+    <div class="ui-code-tab">
+      <i class="bi bi-cpu-fill ui-code-tab-icon"></i>
+      <span class="ui-code-tab-title">Exercise</span>
+    </div>
+  `;
+  
+  // Prepend the tab container at the very beginning of the header
+  header.prepend(tabsContainer);
+};
+
+const setupExerciseObserver = () => {
+  if (typeof document === "undefined") return;
+  
+  const existing = document.querySelectorAll(".card.exercise-editor .card-header");
+  existing.forEach(decorateExerciseHeader);
+  
+  const observer = new MutationObserver((mutations) => {
+    const headers = document.querySelectorAll(".card.exercise-editor .card-header");
+    headers.forEach(decorateExerciseHeader);
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    characterData: true
+  });
+};
+
+// Robust initial execution
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      decorateCodeBlocks();
+      setupExerciseObserver();
+    });
+  } else {
+    decorateCodeBlocks();
+    setupExerciseObserver();
+  }
+}

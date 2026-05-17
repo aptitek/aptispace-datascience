@@ -290,6 +290,7 @@ code, pre {
     .ui-card, .card {
         margin: 0 !important;
         height: 100%;
+        max-width: 280px;
     }
 }
 
@@ -592,10 +593,21 @@ code, pre {
 // 8. OJS CONTROLS (Observable Inputs)
 // ==========================================
 
+form[class*="oi-"], 
+.observablehq--input {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
 .observablehq--input, 
 .observablehq-inspector, 
 [class*="oi-"] {
     font-family: inherit;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
     
     // Sliders (Range)
     input[type="range"] {
@@ -605,13 +617,15 @@ code, pre {
         border-radius: 5px;
         appearance: none;
         cursor: pointer;
-
+        flex: 1 1 auto !important;
+        min-width: 100px !important;
+ 
         &::-webkit-slider-runnable-track { background: transparent; }
         &::-webkit-slider-thumb { border-radius: 50%; }
     }
-
+ 
     // Labels
-    label {
+    label, .observablehq--label {
         font-family: var(--font-code);
         font-size: 0.75em;
         font-weight: bold;
@@ -619,6 +633,19 @@ code, pre {
         letter-spacing: 0.5px;
         color: var(--sol-base1);
         margin-right: 12px;
+        white-space: nowrap !important;
+        flex: 0 0 auto !important;
+        width: auto !important;
+        max-width: none !important;
+    }
+
+    // Valeur de sortie numérique
+    output {
+        font-family: var(--font-code);
+        font-size: 0.85em;
+        color: var(--sol-base01);
+        margin-left: 10px;
+        flex: 0 0 auto !important;
     }
 
     // Radio / Checkbox

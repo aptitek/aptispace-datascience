@@ -68,3 +68,104 @@ Ne considérez jamais le déploiement comme une fin. Un bon "Raffineur" consacre
 :::
 :::
  et Operations. C'est l'ensemble des pratiques visant à déployer et maintenir des modèles d'IA en production de manière fiable et efficace.
+
+
+::: {.card .card-info}
+::: {.card-header}
+📈 Simulateur de Dérive (Drift) : Le mythe de l'IA éternelle
+:::
+::: {.card-body}
+En production, les performances d'un modèle se dégradent naturellement avec le temps (les comportements des utilisateurs changent, l'économie évolue...). C'est ce qu'on appelle la **dérive (Concept Drift)**. 
+Utilisez le curseur pour simuler l'intervention de l'équipe MLOps (ré-entraînement du modèle avec de nouvelles données) et observez l'impact sur la fiabilité de l'IA à la fin de l'année.
+
+```{ojs}
+//| echo: false
+// 1. Input interactif : L'étudiant choisit quand intervenir
+viewof intervention_month = Inputs.range([0, 11], {
+  value: 0, 
+  step: 1, 
+  label: "🛠️ Mois du ré-entraînement MLOps (0 = Jamais) :"
+})
+
+// 2. Logique du modèle : Génération de la précision sur 12 mois
+months = Array.from({length: 12}, (_, i) => i + 1)
+
+calculate_accuracy = (month, intervention) => {
+  // Dérive initiale (le modèle perd environ 2.5% de précision par mois)
+  let base_acc = 95 - (month * 2.5)
+  
+  // Si l'équipe intervient, la précision remonte au mois de l'intervention
+  if (intervention > 0 && month >= intervention) {
+      let months_since_retrain = month - intervention
+      base_acc = 95 - (months_since_retrain * 2.5)
+  }
+  
+  // On s'assure que ça reste réaliste (pas en dessous de 50%)
+  return Math.max(50, base_acc)
+}
+
+// Construction du tableau de données dynamique
+accuracies = months.map(m => calculate_accuracy(m, intervention_month))
+
+// 3. Extraction de la métrique clé pour la carte de score
+final_accuracy = accuracies[11]
+trend_color = final_accuracy >= 80 ? "positive" : (final_accuracy >= 65 ? "warning" : "negative")
+trend_subtitle = intervention_month === 0 ? "Modèle à l'abandon" : (intervention_month < 6 ? "Intervention trop précoce" : "Modèle maintenu")
+
+// 4. Rendu du KPI via ta molécule metricCard
+ui.render(`
+  <div class="ui-metrics-row">
+    ${ui.metricCard({ 
+      title: "Précision Finale (Mois 12)", 
+      value: final_accuracy.toFixed(1) + " %", 
+      trend: trend_color, 
+      subtitle: trend_subtitle
+    })}
+  </div>
+`)
+```
+
+```{ojs}
+//| echo: false
+// 5. Rendu du Graphique Plotly
+ui.plotlyWrapper({
+  title: "Surveillance MLOps en Production",
+  height: ui.chart.height,
+  data: [
+    // Trace 1 : La courbe de précision
+    {
+      x: months,
+      y: accuracies,
+      mode: 'lines+markers',
+      type: 'scatter',
+      name: 'Précision',
+      line: { color: ui.colors.blue || "#268bd2", width: ui.chart.lineWidth },
+      marker: { 
+        size: ui.chart.markerSize, 
+        color: ui.colors.blue || "#268bd2",
+        line: { color: ui.colors.base03 || "#002b36", width: ui.chart.markerLineWidth }
+      }
+    },
+    // Trace 2 (Optionnelle) : La ligne verticale d'intervention
+    intervention_month > 0 ? {
+      x: [intervention_month, intervention_month],
+      y: [50, 100],
+      mode: 'lines',
+      name: 'Ré-entraînement',
+      line: { color: ui.colors.orange || "#cb4b16", width: ui.chart.markerLineWidth, dash: 'dot' },
+      hoverinfo: 'none'
+    } : {}
+  ].filter(trace => trace.x), // Le filter permet d'ignorer la trace 2 si on est à 0
+  
+  layout: {
+    xaxis: { title: 'Temps en production (Mois)', tickmode: 'linear', dtick: 1 },
+    yaxis: { title: 'Précision (%)', range: [50, 100] },
+    margin: { t: 40, r: 20, b: 40, l: 40 },
+    showlegend: false
+  }
+})
+
+```
+
+:::
+:::

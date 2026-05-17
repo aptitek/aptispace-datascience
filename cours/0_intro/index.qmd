@@ -10,12 +10,12 @@ _stabilize = true
 ```
 
 {{< include _01_demystification.qmd >}}
-
+ 
 {{< include _02_cycle_vie.qmd >}}
-
-{{< include _03_boite_outils.qmd >}}
-
+ 
 {{< include _04_applications.qmd >}}
+ 
+{{< include _03_boite_outils.qmd >}}
 
 ## 🌉 Conclusion et Transition
 

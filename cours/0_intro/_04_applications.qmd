@@ -18,6 +18,115 @@ Secteur à haute tension où la donnée doit être traitée à la milliseconde.
 - **Détection de Fraude :** Analyse en temps réel des flux de transactions pour bloquer les "suspects" avant même qu'ils ne quittent la banque.
 - **Scoring de Crédit :** Profilage statistique pour évaluer la fiabilité d'un emprunteur.
 
+::: {.card .card-warning}
+::: {.card-header}
+⚖️ Le Dilemme du Banquier : Le coût d'une décision
+:::
+::: {.card-body}
+Un modèle d'IA ne dit jamais "Ce client est un fraudeur", il dit "Ce client a un score de risque de 72%". C'est à vous, l'Enquêteur, de fixer la frontière (le seuil). 
+Déplacez le curseur ci-dessous pour ajuster la sévérité de l'algorithme. Observez l'impact direct sur les clients légitimes (Faux Positifs) et sur l'argent perdu (Faux Négatifs).
+
+```{ojs}
+//| echo: false
+// 1. Génération de données déterministes (Score de risque de 0 à 100)
+// Clients légitimes : concentrés vers le bas (moyenne ~30)
+legit_scores = Array.from({length: 400}, (_, i) => 
+  Math.max(0, Math.min(100, 30 + Math.sin(i) * 15 + (i % 20) - 10))
+)
+// Fraudeurs : concentrés vers le haut (moyenne ~75)
+fraud_scores = Array.from({length: 80}, (_, i) => 
+  Math.max(0, Math.min(100, 75 + Math.cos(i) * 12 + (i % 15) - 7.5))
+)
+
+// 2. Input interactif : Le seuil de décision du Banquier
+viewof decision_threshold = Inputs.range([10, 90], {
+  value: 50, 
+  step: 1, 
+  label: "🚩 Seuil d'Alerte Fraude (Score) :"
+})
+
+// 3. Calcul des conséquences métier (Matrice de confusion simplifiée)
+// Faux Positifs : Légitimes bloqués (Score > seuil)
+fp_count = legit_scores.filter(s => s >= decision_threshold).length
+// Faux Négatifs : Fraudeurs non détectés (Score < seuil)
+fn_count = fraud_scores.filter(s => s < decision_threshold).length
+// Vrais Positifs : Fraudeurs bloqués (Score >= seuil)
+tp_count = fraud_scores.filter(s => s >= decision_threshold).length
+
+// 4. Rendu des KPI (Impact Métier)
+ui.render(`
+  <div class="ui-metrics-row">
+    ${ui.metricCard({ 
+      title: "Fraudes Déjouées", 
+      value: tp_count, 
+      trend: "positive", 
+      subtitle: "Vrais Positifs (Succès)" 
+    })}
+    ${ui.metricCard({ 
+      title: "Clients Mécontents", 
+      value: fp_count, 
+      trend: fp_count > 50 ? "danger" : (fp_count > 20 ? "warning" : "positive"), 
+      subtitle: "Bloqués à tort (Faux Positifs)" 
+    })}
+    ${ui.metricCard({ 
+      title: "Fraudes Manquées", 
+      value: fn_count, 
+      trend: fn_count > 15 ? "danger" : (fn_count > 5 ? "warning" : "positive"), 
+      subtitle: "Pertes €€€ (Faux Négatifs)" 
+    })}
+  </div>
+`)
+```
+
+```{ojs}
+//| echo: false
+// 5. Rendu du Graphique Plotly (Histogrammes superposés)
+ui.plotlyWrapper({
+  title: "Distribution des Scores de Risque",
+  height: ui.chart.height,
+  data: [
+    {
+      x: legit_scores,
+      type: 'histogram',
+      name: 'Légitimes',
+      marker: { color: (ui.colors.cyan || "#2aa198") + "99" },
+      xbins: { start: 0, end: 100, size: 2 }
+    },
+    {
+      x: fraud_scores,
+      type: 'histogram',
+      name: 'Fraudeurs',
+      marker: { color: (ui.colors.red || "#dc322f") + "b3" },
+      xbins: { start: 0, end: 100, size: 2 }
+    }
+  ],
+  layout: {
+    barmode: 'overlay', // Superposition des histogrammes pour voir le chevauchement
+    xaxis: { title: 'Score de Risque de la Transaction', range: [0, 100] },
+    yaxis: { title: 'Nombre de Transactions' },
+    margin: { t: 40, r: 20, b: 40, l: 40 },
+    legend: { orientation: 'h', y: -0.2 },
+    shapes: [
+      // La ligne verticale représentant le seuil choisi par l'étudiant
+      {
+        type: 'line',
+        x0: decision_threshold,
+        x1: decision_threshold,
+        y0: 0,
+        y1: 1,
+        yref: 'paper', // La ligne prend toute la hauteur du graphique
+        line: { color: ui.colors.yellow || "#b58900", width: ui.chart.lineWidth, dash: 'dash' }
+      }
+    ]
+  }
+})
+
+```
+
+:::
+:::
+
+
 #### 🏭 Industrie 4.0
 L'usine connectée est une mine d'or d'indices.
 

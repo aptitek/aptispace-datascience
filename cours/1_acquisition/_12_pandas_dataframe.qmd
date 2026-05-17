@@ -38,22 +38,40 @@ En stockant les données d'une même colonne côte à côte en mémoire, le proc
 
 ---
 
-#### 🧠 Simulateur : La Mémoire RAM en action
-
+::: {.card .card-debug}
+::: {.card-header}
+🧠 Simulateur : La Mémoire RAM en action
+:::
+::: {.card-body}
 Observez comment le processeur accède aux données selon le type de stockage. Le format colonnaire est le secret de la rapidité des enquêteurs modernes.
 
 ```{ojs}
 //| panel: input
+//| echo: false
 // 1. Définition des contrôles interactifs
-viewof storageMode = Inputs.radio(
-  ["Orienté Ligne (ex: CSV, Pandas classique)", "Orienté Colonne (ex: Parquet, Polars, Arrow)"],
-  { value: "Orienté Ligne (ex: CSV, Pandas classique)", label: "Structure en RAM :" }
-)
+viewof storageMode = ui.toggle({
+  label: "Structure en RAM :",
+  options: {
+    "ligne": "Orienté Ligne (CSV, Pandas)",
+    "colonne": "Orienté Colonne (Parquet, Polars, Arrow)"
+  },
+  value: "ligne",
+  states: {
+    "ligne": "danger",
+    "colonne": "success"
+  }
+})
 
-viewof queryCol = Inputs.radio(
-  ["Aucune", "Âge", "Salaire"],
-  { value: "Aucune", label: "Simuler une requête d'analyse sur :" }
-)
+viewof queryCol = ui.toggle({
+  label: "Simuler une requête d'analyse sur :",
+  options: ["Aucune", "Âge", "Salaire"],
+  value: "Aucune",
+  states: {
+    "Aucune": "info",
+    "Âge": "warning",
+    "Salaire": "warning"
+  }
+})
 
 ```
 
@@ -66,7 +84,7 @@ tableData = [
   { ID: "C3", Âge: 28, Salaire: "55k" }
 ]
 
-colors = ({ ID: "var(--sol-blue)", Âge: "var(--sol-green)", Salaire: "var(--sol-orange)" })
+colors = ({ ID: ui.colors.blue, Âge: ui.colors.green, Salaire: ui.colors.orange })
 
 // 3. Logique de rendu dynamique en HTML/CSS
 html`
@@ -105,22 +123,12 @@ html`
     font-weight: bold;
     margin: 0 5px;
   }
-  .feedback-box {
-    margin-top: 20px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-  }
-  .feedback-bad { background: rgba(220, 50, 47, 0.1); color: var(--sol-red); border-left: 5px solid var(--sol-red); }
-  .feedback-good { background: rgba(133, 153, 0, 0.1); color: var(--sol-green); border-left: 5px solid var(--sol-green); }
-  .feedback-neutral { background: var(--sol-base2); color: var(--sol-base01); border-left: 5px solid var(--sol-base1); }
 </style>
 
 <div>
   <div class="ram-grid">
     ${
-      storageMode.includes("Ligne")
+      storageMode === "ligne"
         ? tableData.map(row =>
             ["ID", "Âge", "Salaire"].map(col =>
               `<div class="ram-block ${queryCol === "Aucune" ? "" : queryCol === col ? "active" : "dimmed"}" style="background-color: ${colors[col]}">${row[col]}</div>`
@@ -134,23 +142,27 @@ html`
     }
   </div>
 
-  <div class="feedback-box ${
-    queryCol === 'Aucune' ? 'feedback-neutral' : 
-    storageMode.includes('Ligne') ? 'feedback-bad' : 'feedback-good'
-  }">
-    <strong>🔍 Analyse CPU :</strong><br>
-    ${
-      queryCol === "Aucune"
-        ? "Sélectionnez une colonne ci-dessus pour observer le comportement du processeur lors de la lecture."
-        : storageMode.includes("Ligne")
-          ? `Pour lire '${queryCol}', le processeur doit scanner toute la mémoire et faire des sauts inutiles (<strong>Cache Misses</strong>). C'est inefficace.`
-          : `Toutes les données '${queryCol}' sont côte à côte. Le processeur lit le bloc d'un seul coup (<strong>Cache Hits</strong>). C'est ultra-rapide !`
-    }
+  <div class="ui-card ${
+    queryCol === 'Aucune' ? 'is-debug' : 
+    storageMode === 'ligne' ? 'is-danger' : 'is-success'
+  }" style="margin-top: 20px; margin-bottom: 0;">
+    <div class="ui-card-header">🔍 Analyse CPU</div>
+    <div class="ui-card-body">
+      ${
+        queryCol === "Aucune"
+          ? "Sélectionnez une colonne ci-dessus pour observer le comportement du processeur lors de la lecture."
+          : storageMode === "ligne"
+            ? `Pour lire '${queryCol}', le processeur doit scanner toute la mémoire et faire des sauts inutiles (<strong>Cache Misses</strong>). C'est inefficace.`
+            : `Toutes les données '${queryCol}' sont côte à côte. Le processeur lit le bloc d'un seul coup (<strong>Cache Hits</strong>). C'est ultra-rapide !`
+      }
+    </div>
   </div>
 </div>
 `
 
 ```
+:::
+:::
 
 ::: {.card .card-info}
 ::: {.card-header}
@@ -168,4 +180,12 @@ Capacité d'un processeur à effectuer la même opération sur plusieurs donnée
 Évitez de multiplier les copies de DataFrames intermédiaires. En mode "Eager", chaque copie consomme une portion précieuse de votre RAM.
 :::
 :::
-Evaluation :** Stratégie consistant à attendre le dernier moment pour calculer un résultat, permettant d'optimiser l'ensemble des étapes de calcul.
+
+::: {.card .card-info}
+::: {.card-header}
+💡 Concept Clé : Évaluation Paresseuse (Lazy Evaluation)
+:::
+::: {.card-body}
+**Évaluation Paresseuse (Lazy Evaluation) :** Stratégie consistant à attendre le dernier moment pour calculer un résultat, permettant d'optimiser l'ensemble des étapes de calcul.
+:::
+:::

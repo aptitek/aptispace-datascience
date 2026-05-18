@@ -15,7 +15,6 @@ _stabilize = true
 
 {{< include _43_multidimensionnel.qmd >}}
 
-{{< include _44_dashboards.qmd >}}
 
 ## 🌉 Conclusion et Transition
 

@@ -11,12 +11,10 @@ _stabilize = true
 
 {{< include _11_types_donnees.qmd >}}
 
-{{< include _12_pandas_dataframe.qmd >}}
-
 {{< include _13_importation_exploration.qmd >}}
 
 ## 🌉 Conclusion et Transition
 
-Maintenant que nous savons comment acquérir des données et les structurer dans des DataFrames, nous allons voir comment les nettoyer pour les rendre exploitables.
+Maintenant que nous savons comment acquérir des données de différentes sources, nous allons voir comment les manipuler, les structurer et les nettoyer pour les rendre exploitables à l'aide de l'outil phare du Data Scientist : Pandas.
 
 C'est l'objectif du **[Chapitre 2 : Data Wrangling (Nettoyage et Préparation)](../2_wrangling/index.qmd)**.

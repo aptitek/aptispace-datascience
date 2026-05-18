@@ -9,6 +9,8 @@ title: "🧹 Data Wrangling (Nettoyage et Préparation)"
 _stabilize = true
 ```
 
+{{< include _20_pandas_dataframe.qmd >}}
+
 {{< include _21_valeurs_manquantes.qmd >}}
 
 {{< include _22_harmonisation.qmd >}}

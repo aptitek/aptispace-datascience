@@ -152,3 +152,75 @@ Un modèle trop complexe (ex: KNN avec $K=1$) apprendra les bruits de la scène 
 Pour les problèmes où les classes sont difficilement séparables, le SVM est votre meilleur allié. Il cherche à tracer l'autoroute la plus large possible entre deux groupes pour éviter toute ambiguïté.
 :::
 :::
+
+## 📐 Techniques de Régularisation (Ridge et Lasso)
+
+::: {.card .card-info}
+::: {.card-header}
+Brider pour mieux généraliser
+:::
+::: {.card-body}
+Lorsqu'un modèle (comme une régression linéaire) s'entraîne sur des données contenant beaucoup de bruit ou des variables très corrélées, il a tendance à sur-ajuster (*Overfitting*). Il attribue des poids extrêmement élevés à certaines variables pour s'ajuster parfaitement au jeu d'entraînement. 
+
+La **Régularisation** consiste à ajouter une contrainte (une "pénalité") sur la taille de ces poids dans la fonction de coût, forçant le modèle à rester simple et à privilégier la généralisation.
+:::
+:::
+
+### ⚖️ Ridge vs Lasso vs ElasticNet
+
+Pour pénaliser la complexité d'un modèle linéaire, on dispose de trois grandes approches mathématiques.
+
+#### 1. Régression Ridge (Pénalité L2)
+La régression Ridge ajoute une pénalité proportionnelle à la **somme des carrés des coefficients** ($\lambda \sum w_i^2$).
+* **Effet :** Elle force les coefficients à se rapprocher de zéro, sans jamais les annuler complètement. 
+* **Cas d'usage :** Idéal lorsque toutes les variables explicatives ont une influence ou en présence de forte colinéarité (les variables sont corrélées entre elles) [@mcdonald_ridge_2026].
+
+#### 2. Régression Lasso (Pénalité L1)
+La régression Lasso ajoute une pénalité proportionnelle à la **somme des valeurs absolues des coefficients** ($\lambda \sum |w_i|$).
+* **Effet :** Elle a la particularité de pouvoir réduire certains coefficients à **exactement zéro**. Elle agit donc comme un algorithme de sélection de variables (*Feature Selection*) automatique en éliminant les variables inutiles.
+* **Cas d'usage :** Idéal lorsque vous suspectez que seul un petit nombre de variables a un réel impact sur la cible [@mcdonald_ridge_2026].
+
+#### 3. ElasticNet (Pénalité Hybride)
+ElasticNet combine les deux pénalités L1 et L2 avec un dosage ajustable ($\alpha$).
+* **Effet :** Il bénéficie de l'effet de groupe de Ridge (les variables corrélées sont conservées ensemble) tout en effectuant de la sélection de caractéristiques comme Lasso.
+
+---
+
+### 📊 Tableau Comparatif
+
+| Caractéristique | Régression Ridge (L2) | Régression Lasso (L1) | ElasticNet (L1 + L2) |
+| :--- | :--- | :--- | :--- |
+| **Pénalité** | $\lambda \sum w_i^2$ (Carré) | $\lambda \sum \|w_i\|$ (Absolu) | Mélange des deux |
+| **Sélection de variables** | ❌ Non (Garde toutes les colonnes) | ✅ Oui (Annule les coefficients) | ✅ Oui (Sélectionne en groupe) |
+| **Gestion colinéarité** | ✅ Excellente | ❌ Moyenne (Choisit une variable au hasard) | ✅ Excellente |
+| **Objectif** | Réduire la variance globale | Obtenir un modèle parcimonieux | Compromis optimal |
+
+---
+
+### 💻 Implémentation Scikit-Learn
+
+Voici comment instancier et comparer ces modèles en Python en utilisant `scikit-learn` :
+
+```python
+from sklearn.linear_model import Ridge, Lasso, ElasticNet
+
+# L'hyperparamètre 'alpha' (équivalent à lambda) contrôle la force de la régularisation.
+# Plus 'alpha' est grand, plus les coefficients sont contraints vers 0.
+
+# 1. Régression Ridge
+model_ridge = Ridge(alpha=1.0)
+model_ridge.fit(X_train, y_train)
+
+# 2. Régression Lasso
+model_lasso = Lasso(alpha=0.1)
+model_lasso.fit(X_train, y_train)
+
+# 3. ElasticNet (l1_ratio contrôle le dosage entre L1 et L2)
+model_elastic = ElasticNet(alpha=0.5, l1_ratio=0.5)
+model_elastic.fit(X_train, y_train)
+
+# Inspection des coefficients annulés par Lasso
+coefficients_inutiles = sum(model_lasso.coef_ == 0)
+print(f"Lasso a automatiquement éliminé {coefficients_inutiles} variables !")
+```
+

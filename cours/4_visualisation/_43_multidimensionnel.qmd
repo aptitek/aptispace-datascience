@@ -64,3 +64,61 @@ plt.show()
 ```
 
 **[ACTION REQUISE] : Ajouter capture d'écran d'une Heatmap générée avec Seaborn montrant un dégradé `coolwarm` clair.**
+
+
+### 🪟 Visualisation à Haute Dimension : L'ACP / PCA
+
+Imaginez que vous ayez une base de données avec 50 colonnes (dimensions) différentes pour décrire des produits ou des profils clients. Comment visualiser ces points sur un écran plat en 2D ou en 3D ? Il est physiquement et cognitivement impossible de représenter 50 axes orthogonaux simultanément.
+
+C'est ici qu'intervient la **PCA** (*Principal Component Analysis* / Analyse en Composantes Principales), une technique fondamentale de **réduction de dimensionnalité** [@ml_basics_md_2026].
+
+#### 🪄 Le Concept Mathématique
+Au lieu de simplement jeter à la poubelle 48 variables sur 50, la PCA effectue un changement de repère géométrique. Elle crée de nouvelles variables artificielles appelées **Composantes Principales** (PC1, PC2, etc.) qui sont des combinaisons linéaires des variables d'origine.
+* **PC1 (Première composante) :** C'est l'axe sur lequel les données sont le plus étalées (variance maximale).
+* **PC2 (Deuxième composante) :** Perpendiculaire à la première, elle capture le maximum de la variance restante.
+* **Le Ratio de Variance Expliquée :** Indique le pourcentage de l'information d'origine conservé par chaque composante. En projetant les données sur un plan 2D constitué de PC1 et PC2, on peut souvent conserver 70% à 90% de l'information totale d'un jeu de données complexe.
+
+#### 🎯 L'Objectif en EDA et Visualisation
+La PCA n'est pas un modèle prédictif final, mais un outil d'exploration visuelle ultra-puissant :
+1. **Cartographie 2D :** Projeter des données multi-dimensionnelles sur un plan 2D pour repérer visuellement des groupes (clusters) ou des comportements hors normes (*outliers*).
+2. **Réduction du bruit :** Éliminer la redondance d'information en éliminant les variables d'entrée fortement corrélées entre elles.
+
+#### 💻 Implémentation PCA avec Scikit-Learn
+Voici comment compresser et visualiser des données à haute dimension en 2D avec Python :
+
+```python
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. La PCA nécessite impérativement de standardiser les données au préalable
+# (sinon les variables à forte échelle écrasent le calcul).
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 2. Instanciation et calcul de la PCA pour 2 dimensions
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+# 3. Récupération de la variance expliquée
+print(f"Variance capturée par PC1 + PC2 : {sum(pca.explained_variance_ratio_)*100:.1f}%")
+
+# 4. Rendu visuel 2D du dataset à haute dimension
+plt.figure(figsize=(8, 6))
+sns.scatterplot(
+    x=X_pca[:, 0], 
+    y=X_pca[:, 1], 
+    hue=y,             # Coloration selon la classe cible
+    palette='viridis',
+    alpha=0.8
+)
+plt.xlabel(f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}% de variance)")
+plt.ylabel(f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}% de variance)")
+plt.title("Visualisation 2D via Analyse en Composantes Principales (PCA)")
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.show()
+```
+
+**[ACTION REQUISE] : Ajouter capture d'écran d'un graphique 2D montrant des points séparés après une réduction PCA depuis un dataset à N dimensions.**
+

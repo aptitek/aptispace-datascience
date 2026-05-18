@@ -15,7 +15,7 @@ _stabilize = true
 
 {{< include _63_methodes_validation.qmd >}}
 
-{{< include _64_techniques_regularisation.qmd >}}
+{{< include _64_surveillance_derive.qmd >}}
 
 ## 🌉 Conclusion et Transition
 

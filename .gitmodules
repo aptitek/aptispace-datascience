@@ -1,0 +1,3 @@
+[submodule "lab/projet"]
+	path = lab/projet
+	url = https://github.com/aptitek/aptispace-datascience-projet.git

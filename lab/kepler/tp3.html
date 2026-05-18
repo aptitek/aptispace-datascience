@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>🪐 TP3 : Classification et Exploration de Données d’Exoplanètes (Kepler)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="tp3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tp3_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="tp3_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="tp3_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="tp3_files/libs/quarto-html/popper.min.js"></script>
+<script src="tp3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="tp3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="tp3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tp3_files/libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="tp3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="tp3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="tp3_files/libs/bootstrap/bootstrap-97967431a5ddaa356ee49f654c4597a6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#rappel-les-7-étapes-de-la-datascience" id="toc-rappel-les-7-étapes-de-la-datascience" class="nav-link active" data-scroll-target="#rappel-les-7-étapes-de-la-datascience">📋 Rappel : Les 7 Étapes de la Datascience</a></li>
+  <li><a href="#étape-1-acquisition-lextraction" id="toc-étape-1-acquisition-lextraction" class="nav-link" data-scroll-target="#étape-1-acquisition-lextraction">📥 Étape 1 : Acquisition (L’Extraction)</a></li>
+  <li><a href="#étape-2-nettoyage-le-décrassage" id="toc-étape-2-nettoyage-le-décrassage" class="nav-link" data-scroll-target="#étape-2-nettoyage-le-décrassage">🧼 Étape 2 : Nettoyage (Le Décrassage)</a></li>
+  <li><a href="#étape-3-analyse-exploratoire-linterrogatoire" id="toc-étape-3-analyse-exploratoire-linterrogatoire" class="nav-link" data-scroll-target="#étape-3-analyse-exploratoire-linterrogatoire">🔍 Étape 3 : Analyse Exploratoire (L’Interrogatoire)</a></li>
+  <li><a href="#étape-4-visualisation-le-témoignage" id="toc-étape-4-visualisation-le-témoignage" class="nav-link" data-scroll-target="#étape-4-visualisation-le-témoignage">📊 Étape 4 : Visualisation (Le Témoignage)</a></li>
+  <li><a href="#étape-5-modélisation-le-profilage" id="toc-étape-5-modélisation-le-profilage" class="nav-link" data-scroll-target="#étape-5-modélisation-le-profilage">🤖 Étape 5 : Modélisation (Le Profilage)</a>
+  <ul class="collapse">
+  <li><a href="#feature-engineering-pourquoi-le-logarithme" id="toc-feature-engineering-pourquoi-le-logarithme" class="nav-link" data-scroll-target="#feature-engineering-pourquoi-le-logarithme">🛠️ Feature Engineering : Pourquoi le logarithme ?</a></li>
+  </ul></li>
+  <li><a href="#étape-6-évaluation-laudit" id="toc-étape-6-évaluation-laudit" class="nav-link" data-scroll-target="#étape-6-évaluation-laudit">🎯 Étape 6 : Évaluation (L’Audit)</a></li>
+  <li><a href="#étape-7-communication-des-résultats-la-transmission" id="toc-étape-7-communication-des-résultats-la-transmission" class="nav-link" data-scroll-target="#étape-7-communication-des-résultats-la-transmission">📣 Étape 7 : Communication des résultats (La Transmission)</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">🪐 TP3 : Classification et Exploration de Données d’Exoplanètes (Kepler)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Bienvenue dans ce TP d’application pratique ! L’objectif de ce travail est de découvrir comment structurer un projet complet de <strong>Science des Données (Data Science)</strong> en appliquant les <strong>7 étapes du cycle de vie de la donnée</strong>.</p>
+<p>Nous allons étudier un jeu de données recensant des exoplanètes découvertes par le télescope Kepler (et d’autres instruments), nettoyer ses incertitudes physiques, explorer ses motifs, modéliser les caractéristiques physiques à l’aide d’un algorithme de partitionnement (<strong>K-Means</strong>), et enfin déployer une interface interactive pour analyser nos résultats.</p>
+<hr>
+<section id="rappel-les-7-étapes-de-la-datascience" class="level3">
+<h3 class="anchored" data-anchor-id="rappel-les-7-étapes-de-la-datascience">📋 Rappel : Les 7 Étapes de la Datascience</h3>
+<ol type="1">
+<li><strong>Acquisition</strong> 📥 : Extraction du signal brut depuis des sources externes.</li>
+<li><strong>Nettoyage</strong> 🧼 : Traitement des anomalies, valeurs aberrantes et formatage (GIGO).</li>
+<li><strong>Analyse Exploratoire</strong> 🔍 : Recherche de motifs, distributions et corrélations statistiques.</li>
+<li><strong>Visualisation</strong> 📊 : Représentation visuelle des données (Data Storytelling).</li>
+<li><strong>Modélisation</strong> 🤖 : Entraînement de modèles statistiques ou d’apprentissage automatique.</li>
+<li><strong>Évaluation</strong> 🎯 : Audit des performances et interprétation des résultats du modèle.</li>
+<li><strong>Communication des résultats</strong> 📣 : Présentation et transmission des résultats sous forme interactive ou d’exports de données.</li>
+</ol>
+</section>
+<section id="étape-1-acquisition-lextraction" class="level2">
+<h2 class="anchored" data-anchor-id="étape-1-acquisition-lextraction">📥 Étape 1 : Acquisition (L’Extraction)</h2>
+<p>L’objectif de cette première phase est d’importer le signal brut depuis une source publique. Ici, nous allons utiliser l’API <strong>kagglehub</strong> pour télécharger dynamiquement un jeu de données hébergé sur Kaggle contenant des informations détaillées sur des milliers d’exoplanètes.</p>
+<p>Commençons par installer les bibliothèques requises pour l’ensemble du TP.</p>
+<div id="step1_pip" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1 Installation des dépendances (exécuter une seule fois au début)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pandas numpy matplotlib seaborn scikit<span class="op">-</span>learn kagglehub dash plotly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Une fois les dépendances installées, nous pouvons importer les modules nécessaires pour les premières manipulations de données et la gestion des chemins.</p>
+<div id="step1_imports" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.2 Importation des bibliothèques fondamentales</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> kagglehub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Nous téléchargeons le dataset depuis Kaggle en utilisant son identifiant de dépôt. L’API <code>kagglehub</code> stocke automatiquement les fichiers dans un dossier cache local et retourne le chemin d’accès.</p>
+<div id="step1_download" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.3 Téléchargement du jeu de données depuis Kaggle</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> kagglehub.dataset_download(<span class="st">"diaaessam/exoplanets-planets-outside-our-galaxy"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Chemin du dataset téléchargé :"</span>, path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Nous pouvons maintenant charger le fichier CSV <code>exoplanets.csv</code> dans un DataFrame Pandas afin de pouvoir le manipuler en mémoire. Affichons les 5 premières lignes pour comprendre la structure globale.</p>
+<div id="step1_load" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.4 Chargement et aperçu du dataset brut</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>csv_path <span class="op">=</span> os.path.join(path, <span class="st">"exoplanets.csv"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(csv_path)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage du début du DataFrame</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>display(df.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Avant de modifier ou manipuler les données, il est crucial d’auditer leurs métadonnées pour connaître le type de chaque colonne et repérer les valeurs manquantes (valeurs nulles).</p>
+<div id="step1_audit" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5 Audit des métadonnées et recherche de valeurs manquantes</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Informations Générales ==="</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df.info()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Nombre de valeurs manquantes par colonne ==="</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isnull().<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="étape-2-nettoyage-le-décrassage" class="level2">
+<h2 class="anchored" data-anchor-id="étape-2-nettoyage-le-décrassage">🧼 Étape 2 : Nettoyage (Le Décrassage)</h2>
+<p>Comme vous pouvez le constater, les données physiques brutes (telles que la masse de la planète ou la période orbitale) contiennent des incertitudes de mesure stockées sous forme de chaînes de caractères complexes, par exemple <code>"0.7±0.1"</code> ou <code>"1891+56−48"</code>.</p>
+<p>Pour pouvoir réaliser des calculs numériques et entraîner un modèle mathématique, nous devons impérativement extraire la <strong>valeur centrale</strong> (le premier nombre) et ignorer l’incertitude. Si nous laissons les données en l’état, notre modèle ne fonctionnera pas : c’est le principe du <strong>Garbage In, Garbage Out (GIGO)</strong>.</p>
+<p>Commençons par préparer un DataFrame propre (<code>clean_df</code>) et formater les colonnes d’identification et de méthode.</p>
+<div id="step2_init" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.1 Initialisation du DataFrame nettoyé et typage de base</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>clean_df <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion explicite des types pour optimiser la mémoire et la cohérence</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>clean_df[<span class="st">'Name'</span>] <span class="op">=</span> df[<span class="st">'Name'</span>].astype(<span class="st">"str"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>clean_df[<span class="st">'Discovery method'</span>] <span class="op">=</span> df[<span class="st">'Discovery method'</span>].astype(<span class="st">"category"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Écrivons maintenant une première fonction utilitaire simple pour extraire l’année de découverte. Parfois, l’année contient des anomalies ou des formats mixtes ; nous ne conserverons que les 4 premiers caractères que nous convertirons en entier.</p>
+<div id="step2_year" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.2 Fonction de nettoyage de l'année de découverte</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean_year(val):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># On extrait les 4 premiers caractères correspondant à l'année (ex: 2009)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">int</span>(<span class="bu">str</span>(val)[:<span class="dv">4</span>])</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.nan</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Application sur la colonne Disc. Year</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>clean_df[<span class="st">"Disc. Year"</span>] <span class="op">=</span> df[<span class="st">"Disc. Year"</span>].<span class="bu">apply</span>(clean_year).astype(<span class="st">'Int64'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Pour traiter les colonnes de mesures physiques, nous allons définir des expressions régulières (Regex) capables de détecter : 1. Les valeurs avec incertitude asymétrique (ex: <code>123.0+234.2-324.3</code>) 2. Les valeurs avec incertitude symétrique (ex: <code>123.0±45.6</code>) 3. Les valeurs numériques simples (ex: <code>123.0</code>)</p>
+<p>Définisons d’abord une fonction de conversion en float gérant la virgule décimale française <code>,</code> par le point <code>.</code>.</p>
+<div id="step2_regex_functions" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.3 Définition des fonctions de conversion et d'extraction par Regex</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_float(s):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Convertit une chaîne en float en gérant les formats régionaux."""</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">float</span>(<span class="bu">str</span>(s).replace(<span class="st">','</span>, <span class="st">'.'</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_central_value(s):</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Extrait la valeur centrale d'une mesure textuelle contenant des incertitudes.</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Exemples d'entrées : '1.23+0.05-0.03', '2.5±0.1', '14.2'</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cas 1 : Format 'valeur+incertitude_sup-incertitude_inf'</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    match <span class="op">=</span> re.match(<span class="vs">r'</span><span class="dv">^\s</span><span class="op">*</span><span class="kw">(</span><span class="pp">[+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">*</span><span class="ch">\.</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>(?:<span class="pp">[eE][+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>)<span class="op">?</span><span class="kw">)</span>(?:<span class="ch">\+</span><span class="kw">(</span><span class="pp">[+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">*</span><span class="ch">\.</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>(?:<span class="pp">[eE][+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>)<span class="op">?</span><span class="kw">)</span>)<span class="op">?</span>(?:<span class="ch">\-</span><span class="kw">(</span><span class="pp">[+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">*</span><span class="ch">\.</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>(?:<span class="pp">[eE][+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>)<span class="op">?</span><span class="kw">)</span>)<span class="op">?</span><span class="dv">\s</span><span class="op">*</span><span class="dv">$</span><span class="vs">'</span>, <span class="bu">str</span>(s))</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> match:</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Cas 2 : Format avec le symbole ± ou \u00B1</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        match_pm <span class="op">=</span> re.match(<span class="vs">r'</span><span class="dv">^\s</span><span class="op">*</span><span class="kw">(</span><span class="pp">[+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">*</span><span class="ch">\.</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>(?:<span class="pp">[eE][+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>)<span class="op">?</span><span class="kw">)</span><span class="pp">[±</span><span class="ch">\u00B1</span><span class="pp">]</span><span class="kw">(</span><span class="pp">[+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">*</span><span class="ch">\.</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>(?:<span class="pp">[eE][+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span>)<span class="op">?</span><span class="kw">)</span><span class="dv">\s</span><span class="op">*</span><span class="dv">$</span><span class="vs">'</span>, <span class="bu">str</span>(s))</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> match_pm:</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> to_float(match_pm.group(<span class="dv">1</span>))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Cas 3 : Valeur numérique simple sans incertitude</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        match_single <span class="op">=</span> re.match(<span class="vs">r'</span><span class="dv">^\s</span><span class="op">*</span><span class="kw">(</span><span class="pp">[+-]</span><span class="op">?</span><span class="dv">\d</span><span class="op">*</span><span class="ch">\.</span><span class="op">?</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="dv">\s</span><span class="op">*</span><span class="dv">$</span><span class="vs">'</span>, <span class="bu">str</span>(s))</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> match_single:</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> to_float(match_single.group(<span class="dv">1</span>))</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> to_float(match.group(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Nous appliquons cette puissante fonction d’extraction sur nos trois colonnes physiques stratégiques : - La masse de l’exoplanète (<code>Mass (MJ)</code>) - Sa période orbitale (<code>Period (days)</code>) - La masse de son étoile hôte (<code>Host star mass (M☉)</code>)</p>
+<div id="step2_apply" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.4 Application de la fonction de nettoyage Regex sur les caractéristiques physiques</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>float_columns <span class="op">=</span> {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mass (MJ)"</span>: <span class="st">"mass"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Period (days)"</span>: <span class="st">"period"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Host star mass (M☉)"</span>: <span class="st">"star_mass"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dirty_col, clean_col <span class="kw">in</span> float_columns.items():</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    clean_df[clean_col] <span class="op">=</span> df[dirty_col].<span class="bu">apply</span>(extract_central_value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Pour terminer l’étape de nettoyage, nous supprimons les lignes qui contiennent des valeurs manquantes dans nos trois caractéristiques physiques principales, car un algorithme de clustering ne peut pas travailler avec des valeurs <code>NaN</code>.</p>
+<div id="step2_dropna" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.5 Suppression des valeurs manquantes et aperçu du jeu propre</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>clean_df.dropna(subset<span class="op">=</span>[<span class="st">'mass'</span>, <span class="st">'period'</span>, <span class="st">'star_mass'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage des dimensions et des premières lignes nettoyées</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nombre d'exoplanètes après nettoyage : </span><span class="sc">{</span><span class="bu">len</span>(clean_df)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>display(clean_df.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="étape-3-analyse-exploratoire-linterrogatoire" class="level2">
+<h2 class="anchored" data-anchor-id="étape-3-analyse-exploratoire-linterrogatoire">🔍 Étape 3 : Analyse Exploratoire (L’Interrogatoire)</h2>
+<p>Maintenant que nos données sont propres et typées correctement, passons à l’<strong>Analyse Exploratoire des Données (EDA)</strong>. Cette étape vise à interroger nos données pour en extraire des premières statistiques globales, comprendre les distributions et identifier les corrélations évidentes.</p>
+<p>Commençons par examiner les résumés statistiques (moyennes, écarts-types, quartiles) des variables physiques.</p>
+<div id="step3_describe" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.1 Statistiques descriptives des variables physiques nettoyées</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>display(clean_df[[<span class="st">'mass'</span>, <span class="st">'period'</span>, <span class="st">'star_mass'</span>]].describe())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Regardons également comment se répartissent les exoplanètes selon leur <strong>méthode de découverte</strong> (<code>Discovery method</code>). Cela nous indiquera quelles techniques d’observation (Transit, Vitesse Radiale, etc.) sont majoritaires dans nos données.</p>
+<div id="step3_categorical" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.2 Fréquence des différentes méthodes de découverte</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>discovery_counts <span class="op">=</span> clean_df[<span class="st">'Discovery method'</span>].value_counts()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>display(discovery_counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="étape-4-visualisation-le-témoignage" class="level2">
+<h2 class="anchored" data-anchor-id="étape-4-visualisation-le-témoignage">📊 Étape 4 : Visualisation (Le Témoignage)</h2>
+<p>Le <strong>Data Storytelling</strong> consiste à transformer des tableaux bruts en figures parlantes. Pour appréhender la relation complexe entre la masse d’une exoplanète et sa période de révolution (le temps qu’elle met à faire le tour de son étoile), nous allons tracer des visualisations graphiques.</p>
+<p>Tout d’abord, créons une figure statique avec <strong>Matplotlib</strong> en appliquant une échelle logarithmique. Pourquoi ? Parce que les périodes vont de moins d’un jour à des milliers de jours, et les masses de fractions de Terre à plusieurs fois Jupiter !</p>
+<div id="step4_matplotlib" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.1 Visualisation brute des relations physiques (Masse vs Période)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>clean_df, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'period'</span>, </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'mass'</span>, </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.6</span>, </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">'w'</span>, </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'#2b5c8f'</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">"log"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Période Orbitale (jours) - Échelle Log"</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Masse de la Planète (MJ) - Échelle Log"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution Physique des Exoplanètes Découvertes"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, which<span class="op">=</span><span class="st">"both"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Pour permettre une exploration dynamique où chaque point affiche le nom de l’exoplanète au survol de la souris, nous générons un graphique interactif en utilisant la bibliothèque <strong>Plotly Express</strong>.</p>
+<div id="step4_plotly" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.2 Graphique interactif Plotly Express</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fig_raw <span class="op">=</span> px.scatter(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    clean_df,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'mass'</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'period'</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">'Name'</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    log_x<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    log_y<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'mass'</span>: <span class="st">'Masse de la Planète (MJ)'</span>, <span class="st">'period'</span>: <span class="st">'Période (jours)'</span>},</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Exploration Interactive : Masse vs Période orbitale'</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>fig_raw.update_traces(marker<span class="op">=</span><span class="bu">dict</span>(size<span class="op">=</span><span class="dv">6</span>, opacity<span class="op">=</span><span class="fl">0.7</span>))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>fig_raw.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="étape-5-modélisation-le-profilage" class="level2">
+<h2 class="anchored" data-anchor-id="étape-5-modélisation-le-profilage">🤖 Étape 5 : Modélisation (Le Profilage)</h2>
+<p>L’intelligence artificielle entre en jeu ! Nous voulons partitionner nos exoplanètes en groupes homogènes (clusters) en nous basant sur leur masse et leur période orbitale. Pour cela, nous allons utiliser l’algorithme d’apprentissage non supervisé du <strong>K-Means</strong>.</p>
+<section id="feature-engineering-pourquoi-le-logarithme" class="level3">
+<h3 class="anchored" data-anchor-id="feature-engineering-pourquoi-le-logarithme">🛠️ Feature Engineering : Pourquoi le logarithme ?</h3>
+<p>L’algorithme K-Means calcule des distances euclidiennes entre les points. Si nous lui fournissons directement la masse (qui varie de <span class="math inline">0.001</span> à <span class="math inline">50</span>) et la période (qui varie de <span class="math inline">0.1</span> à <span class="math inline">10000</span>), la période écrasera complètement la masse en raison de sa plus grande échelle numérique. En appliquant la transformation <span class="math inline">\log_{10}(X + 10^{-8})</span>, nous normalisons les échelles afin que chaque variable contribue équitablement au calcul des distances.</p>
+<div id="step5_engineering" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5.1 Préparation des données (Feature Engineering avec échelle logarithmique)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> clean_df[[<span class="st">'period'</span>, <span class="st">'mass'</span>, <span class="st">'star_mass'</span>]].copy()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Passage à l'échelle log10 pour stabiliser les écarts d'échelle</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>X_log <span class="op">=</span> np.log10(X <span class="op">+</span> <span class="fl">1e-8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Nous configurons et entraînons à présent l’algorithme <strong>K-Means</strong> de la bibliothèque <code>scikit-learn</code>. Nous choisissons de répartir nos exoplanètes en <strong>3 groupes distincts</strong>. Les étiquettes de clusters prédites sont ensuite ajoutées à notre DataFrame propre.</p>
+<div id="step5_kmeans" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5.2 Initialisation et entraînement du modèle K-Means</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Paramétrage : 3 clusters, initialisation stable avec n_init=10</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Entraînement et prédiction des clusters sur nos variables cibles</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>clean_df[<span class="st">"cluster"</span>] <span class="op">=</span> kmeans.fit_predict(X_log[[<span class="st">'period'</span>, <span class="st">'mass'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="étape-6-évaluation-laudit" class="level2">
+<h2 class="anchored" data-anchor-id="étape-6-évaluation-laudit">🎯 Étape 6 : Évaluation (L’Audit)</h2>
+<p>Une fois le modèle entraîné, l’étape d’<strong>Évaluation</strong> consiste à auditer la cohérence de nos groupes. Est-ce que les 3 clusters formés par le K-Means ont une signification physique réelle du point de vue de l’astrophysique ?</p>
+<p>Commençons par tracer graphiquement les clusters avec leurs couleurs respectives pour analyser visuellement la séparation.</p>
+<div id="step6_plot" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6.1 Visualisation des clusters générés par K-Means</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> plt.scatter(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    clean_df[<span class="st">'period'</span>], </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    clean_df[<span class="st">'mass'</span>], </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    c<span class="op">=</span>clean_df[<span class="st">'cluster'</span>], </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis"</span>, </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.6</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">'w'</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">"log"</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Période (jours)"</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Masse (MJ)"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Résultat du Clustering K-Means des Exoplanètes"</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>plt.colorbar(scatter, label<span class="op">=</span><span class="st">"Identifiant du Cluster"</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, which<span class="op">=</span><span class="st">"both"</span>, ls<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Pour aller plus loin dans notre audit, calculons le <strong>profil moyen (médiane et moyenne)</strong> des caractéristiques physiques de chaque cluster. Cela nous permettra d’interpréter scientifiquement les catégories découvertes automatiquement par l’algorithme.</p>
+<div id="step6_profile" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6.2 Profilage statistique des clusters d'exoplanètes</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster_id <span class="kw">in</span> <span class="bu">sorted</span>(clean_df[<span class="st">'cluster'</span>].unique()):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> clean_df[clean_df[<span class="st">'cluster'</span>] <span class="op">==</span> cluster_id]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">🚀 --- CLUSTER </span><span class="sc">{</span>cluster_id<span class="sc">}</span><span class="ss"> (Nombre de planètes : </span><span class="sc">{</span><span class="bu">len</span>(subset)<span class="sc">}</span><span class="ss">) ---"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Période orbitale médiane : </span><span class="sc">{</span>subset[<span class="st">'period'</span>]<span class="sc">.</span>median()<span class="sc">:.2f}</span><span class="ss"> jours"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Masse planétaire médiane : </span><span class="sc">{</span>subset[<span class="st">'mass'</span>]<span class="sc">.</span>median()<span class="sc">:.4f}</span><span class="ss"> MJ (masses de Jupiter)"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Masse médiane de l'étoile hôte : </span><span class="sc">{</span>subset[<span class="st">'star_mass'</span>]<span class="sc">.</span>median()<span class="sc">:.2f}</span><span class="ss"> M☉ (masses solaires)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p>[!NOTE] <strong>Interprétation Astrophysique des Groupes :</strong> - <strong>Les Jupiters Chauds (Hot Jupiters)</strong> : Planètes géantes très massives situées extrêmement près de leur étoile (période de révolution très courte, de l’ordre de quelques jours seulement). - <strong>Les Planètes Tempérées / Périodes Longues</strong> : Planètes géantes gazeuses ou telluriques plus éloignées de leur soleil, ayant des périodes orbitales de plusieurs centaines à milliers de jours. - <strong>Les Planètes Légères à Période Moyenne / Courte</strong> : Planètes de type Super-Terres ou Mini-Neptunes, de faible masse, orbitant relativement près de leur étoile.</p>
+</blockquote>
+</section>
+<section id="étape-7-communication-des-résultats-la-transmission" class="level2">
+<h2 class="anchored" data-anchor-id="étape-7-communication-des-résultats-la-transmission">📣 Étape 7 : Communication des résultats (La Transmission)</h2>
+<p>Dernière étape indispensable du cycle de vie consiste à <strong>communiquer les résultats</strong> de manière claire, concise et exploitable pour des interlocuteurs (décideurs, astrophysiciens ou grand public). Ici, nous communiquons de deux manières : 1. En offrant une <strong>application web interactive (Dash)</strong> qui permet à tout le monde d’explorer dynamiquement les clusters en direct sans toucher au code. 2. En fournissant une fonction d’exportation pour échanger les données nettoyées et groupées avec d’autres collaborateurs ou logiciels (comme <strong>Universe Sandbox</strong>).</p>
+<p>Créons le graphique Plotly labellisé par nos clusters et lançons l’application web Dash dans notre cellule de notebook.</p>
+<div id="step7_dash" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7.1 Lancement de l'application Web interactive Dash en mode inline</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dash</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dash <span class="im">import</span> dcc, html</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Préparation du graphique interactif Plotly</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    clean_df,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'mass'</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'period'</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>clean_df[<span class="st">'cluster'</span>].astype(<span class="bu">str</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">'Name'</span>,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    log_x<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    log_y<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'mass'</span>: <span class="st">'Masse (MJ)'</span>, <span class="st">'period'</span>: <span class="st">'Période (jours)'</span>, <span class="st">'color'</span>: <span class="st">'Cluster ID'</span>},</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Clustering Exoplanétaire : Masse vs Période orbitale'</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>fig.update_traces(marker<span class="op">=</span><span class="bu">dict</span>(size<span class="op">=</span><span class="dv">6</span>, opacity<span class="op">=</span><span class="fl">0.8</span>))</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuration de l'application Dash</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> dash.Dash(<span class="va">__name__</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>app.layout <span class="op">=</span> html.Div(style<span class="op">=</span>{<span class="st">'fontFamily'</span>: <span class="st">'Arial, sans-serif'</span>, <span class="st">'padding'</span>: <span class="st">'20px'</span>}, children<span class="op">=</span>[</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    html.H2(<span class="st">"Visualiseur de Clusters d'Exoplanètes Kepler"</span>, style<span class="op">=</span>{<span class="st">'color'</span>: <span class="st">'#2c3e50'</span>}),</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    html.P(<span class="st">"Cet explorateur dynamique vous permet de filtrer visuellement les différents groupes physiques d'exoplanètes trouvés par l'algorithme K-Means."</span>),</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    dcc.Graph(figure<span class="op">=</span>fig)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Démarrage du serveur web local</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>app.run(mode<span class="op">=</span><span class="st">'inline'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Pour finir, nous concevons une fonction de déploiement d’export de données sous format JSON ou CSV. Cela permet d’extraire les planètes d’un système stellaire spécifique (comme le célèbre système <strong>Kepler-11</strong>) afin de les injecter directement dans un simulateur physique d’orbites.</p>
+<div id="step7_export_function" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7.2 Fonction de déploiement : Exportation de données vers des formats tiers</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> export_system_for_universe_sandbox(dataframe, system_name, format_type<span class="op">=</span><span class="st">'json'</span>):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Filtre et exporte les planètes d'un système stellaire donné.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Permet l'interopérabilité avec des simulateurs comme Universe Sandbox.</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filtrer les planètes appartenant au système ciblé</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    system_data <span class="op">=</span> dataframe[dataframe[<span class="st">'Name'</span>].<span class="bu">str</span>.contains(system_name, na<span class="op">=</span><span class="va">False</span>, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Exportation du système '</span><span class="sc">{</span>system_name<span class="sc">}</span><span class="ss">' (</span><span class="sc">{</span><span class="bu">len</span>(system_data)<span class="sc">}</span><span class="ss"> planètes trouvées)."</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(system_data) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>system_name<span class="sc">.</span>replace(<span class="st">' '</span>, <span class="st">'_'</span>)<span class="sc">}</span><span class="ss">.</span><span class="sc">{</span>format_type<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> format_type <span class="op">==</span> <span class="st">'json'</span>:</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>            system_data.to_json(filename, orient<span class="op">=</span><span class="st">"records"</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> format_type <span class="op">==</span> <span class="st">'csv'</span>:</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>            system_data.to_csv(filename, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"✅ Fichier '</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">' généré avec succès dans votre espace de travail !"</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"❌ Système introuvable dans le jeu de données."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Appliquons maintenant notre fonction d’exportation pour le système de <strong>Kepler-11</strong> afin de générer son fichier d’échange.</p>
+<div id="step7_run_export" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7.3 Exemple pratique d'exportation pour Kepler-11</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>export_system_for_universe_sandbox(clean_df, <span class="st">'Kepler-11'</span>, <span class="st">'json'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

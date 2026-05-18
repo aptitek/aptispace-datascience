@@ -19,6 +19,28 @@ _stabilize = true
 
 {{< include _55_concepts_cles.qmd >}}
 
+## TP3 : L'Exploration Exoplanétaire (Kepler)
+
+Dans ce TP de synthèse de grande envergure, vous appliquerez **l'intégralité du cycle de vie des données (les 7 étapes du cycle de la data science)** sur un jeu de données réelles d'exoplanètes observées par le télescope spatial **Kepler** de la NASA. 
+
+L'objectif final est de concevoir un algorithme d'apprentissage non supervisé (**K-Means**) capable d'identifier de manière autonome les grandes familles physiques de planètes et de déployer une application web interactive pour communiquer ces insights aux astrophysiciens.
+
+### 🎯 Objectifs Pédagogiques
+- **Mise en Place du Pipeline Complet (End-to-End) :** Dérouler de bout en bout l'acquisition, le nettoyage, l'exploration, la visualisation, la modélisation, l'évaluation et la communication.
+- **Nettoyage Automatisé par Regex :** Rédiger des expressions régulières (Regex) en Python pour extraire la valeur centrale numérique depuis des colonnes de mesures physiques complexes intégrant des marges d'incertitude asymétriques et symétriques (ex: `0.7±0.1` ou `1891+56−48`).
+- **Feature Engineering & Échelles logarithmiques :** Comprendre l'impact des échelles physiques sur les métriques de distance (Euclidienne) et appliquer une transformation logarithmique ($\log_{10}$) pour normaliser les variables explicatives.
+- **Apprentissage Non Supervisé (Clustering) :** Instancier, entraîner et évaluer l'algorithme des **K-Means** de Scikit-Learn pour segmenter les planètes en 3 grands clusters physiques.
+- **Interprétation Astrophysique :** Auditer les caractéristiques physiques moyennes des clusters trouvés par l'IA et les faire correspondre à des typologies spatiales réelles (*Jupiters chauds*, *Mini-Neptunes*, *Planètes légères tempérées*).
+- **Communication & Déploiement :** Construire une interface utilisateur dynamique avec **Dash** (Plotly) en mode inline pour permettre à des utilisateurs tiers de manipuler et d'explorer les groupes de planètes de manière interactive.
+
+### 📁 Fichiers du TP
+Vous pouvez explorer l'arborescence des fichiers du TP ci-dessous et télécharger directement l'archive complète de départ :
+
+::: {.filetree title="Exoplanètes Kepler" zip="lab/tp3.zip"}
+- [tp3.ipynb](lab/kepler/tp3.ipynb) (Notebook complet de synthèse à compléter)
+:::
+
+
 ## 🌉 Conclusion et Transition
 
 Nous avons exploré les principaux algorithmes de Machine Learning. Cependant, construire un modèle ne suffit pas ; il faut être capable de mesurer sa performance de manière rigoureuse pour s'assurer de sa fiabilité.

@@ -17,11 +17,22 @@ _stabilize = true
 
 {{< include _24_encodage.qmd >}}
 
-## TP1 : Le Titanic
+## TP1 : Le Titanic (Wrangling)
+
+Dans ce premier Travail Pratique, vous allez mettre en pratique les techniques fondamentales de **Data Wrangling** sur le célèbre jeu de données du **Spaceship Titanic**. L'objectif est d'effectuer un nettoyage complet pour restaurer une base de données corrompue afin de la rendre exploitable pour les étapes futures.
+
+### 🎯 Objectifs Pédagogiques
+- **Audit de Qualité :** Explorer un jeu de données brut pour dresser un bilan des anomalies physiques, des doublons et des incohérences de typage.
+- **Gestion des Valeurs Manquantes :** Concevoir et appliquer des stratégies d'imputation adaptées (imputation par la médiane pour l'âge, par la valeur par défaut pour le statut VIP).
+- **Feature Engineering Initial :** Apprendre à combiner et agréger des variables corrélées en créant une nouvelle caractéristique de synthèse (`Total_Spent` représentant la somme des dépenses individuelles).
+- **Export Propre :** Sauvegarder vos résultats dans un format structuré et standardisé pour garantir la reproductibilité.
+
+### 📁 Fichiers du TP
+Vous pouvez explorer l'arborescence des fichiers du TP ci-dessous et télécharger directement l'archive complète de départ :
 
 ::: {.filetree title="Dataset du Titanic" zip="lab/tp1.zip"}
-- [tp1.ipynb](lab/titanic/tp1.ipynb)
-- [train.csv](lab/titanic/train.csv)
+- [tp1.ipynb](lab/titanic/tp1.ipynb) (Notebook d'exploration et de nettoyage à compléter)
+- [train.csv](lab/titanic/train.csv) (Jeu de données brut de l'équipage et des passagers)
 :::
 
 

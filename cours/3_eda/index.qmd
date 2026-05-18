@@ -15,6 +15,27 @@ _stabilize = true
 
 {{< include _33_regroupement_segmentation.qmd >}}
 
+## TP2 : L'Enquête Dimensionnelle (EDA)
+
+Félicitations ! Grâce à votre travail de Data Wrangling (TP1), la base de données du **Spaceship Titanic** est propre et exploitable. Néanmoins, une question fondamentale subsiste : *quel est le profil des passagers qui ont été transportés dans une autre dimension spatio-temporelle ?*
+
+Dans ce deuxième TP, vous incarnerez un Analyste de l'équipe de sauvetage et explorerez ces données pour identifier des tendances et des profils types qui permettront d'aider les équipes de recherche spatiale.
+
+### 🎯 Objectifs Pédagogiques
+- **Statistiques Descriptives Globales :** Dresser un état des lieux de base de la population à l'aide de méthodes globales (`.describe()` et `.value_counts()`) pour évaluer le taux de disparition global et l'âge moyen des passagers.
+- **Tris Croisés & Analyse Croisée :** Croiser des variables qualitatives stratégiques (le statut `VIP` et la cible `Transported`) via `pd.crosstab()` pour vérifier scientifiquement la rumeur selon laquelle les cabines VIP offraient une protection contre l'anomalie.
+- **Regroupement et Profilage :** Regrouper les passagers selon leur planète d'origine (`HomePlanet`) à l'aide de `.groupby()` et `.agg()` pour modéliser leurs comportements et leurs dépenses moyennes.
+- **Matrice de Corrélation :** Évaluer et cartographier les interactions financières des passagers (RoomService, Spa, VRDeck, etc.) à l'aide de matrices de corrélation (`.corr()`) pour détecter des motifs d'achat corrélés.
+
+### 📁 Fichiers du TP
+Vous pouvez explorer l'arborescence des fichiers du TP ci-dessous et télécharger directement l'archive de départ :
+
+::: {.filetree title="Dataset du Titanic - EDA" zip="lab/tp2.zip"}
+- [tp2.ipynb](lab/titanic/tp2.ipynb) (Notebook de l'enquête exploratoire à compléter)
+- [train.csv](lab/titanic/train.csv) (Jeu de données brut servant de support)
+:::
+
+
 ## 🌉 Conclusion et Transition
 
 L'analyse exploratoire nous a permis de comprendre les tendances et les corrélations au sein de nos données. Pour rendre ces découvertes plus percutantes et accessibles, nous allons maintenant apprendre à les visualiser efficacement.

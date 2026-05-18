@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; 🧹 Data Wrangling (Nettoyage et Préparation) – Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../cours/3_eda/index.html" rel="next">
+<link href="../../cours/1_acquisition/index.html" rel="prev">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-17337c04c83a066f87002efd464b4315.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="../../site_libs/quarto-contrib/timeline-0.1.0/timeline.js"></script>
+<link href="../../site_libs/quarto-contrib/timeline-0.1.0/timeline.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<script type="module" src="../../assets/js/index.js"></script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cours/2_wrangling/index.html">🧹 Préparation &amp; Analyse</a></li><li class="breadcrumb-item"><a href="../../cours/2_wrangling/index.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">🧹 Data Wrangling (Nettoyage et Préparation)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../" class="sidebar-logo-link">
+      <img src="../../assets/logo.svg" alt="Aptitek" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../assets/logo.svg" alt="Aptitek" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Data Science</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📊 Data Science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">🎯 Module</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../meta/module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📋 Fiche Module</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../meta/syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📑 Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../meta/planning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">⏳ Chronologie du Module</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">🔭 Fondations &amp; Acquisition</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/0_intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🚀 Introduction à la Science des Données</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/1_acquisition/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">📥 Acquisition et Compréhension des Données</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">🧹 Préparation &amp; Analyse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/2_wrangling/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">🧹 Data Wrangling (Nettoyage et Préparation)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/3_eda/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">📊 Analyse Exploratoire des Données (EDA)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">📈 Visualisation &amp; Modélisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/4_visualisation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">📈 Visualisation des Données</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/5_modelisation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">🤖 Modélisation et Machine Learning</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">🧪 Évaluation &amp; Communication</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/6_evaluation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">🧪 Évaluation des Modèles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/7_communication/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">📢 Communication des Résultats</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎓 Projet Fil Rouge Data Science : Sujet Libre</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">📚 Annexes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../annexes/aides_memoire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">✅ Aides-mémoire</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../annexes/glossaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📖 Glossaire</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#valeurs-manquantes" id="toc-valeurs-manquantes" class="nav-link active" data-scroll-target="#valeurs-manquantes"><span class="header-section-number">2.1</span> 🔍 Valeurs Manquantes</a>
+  <ul class="collapse">
+  <li><a href="#mécanismes-de-labsence" id="toc-mécanismes-de-labsence" class="nav-link" data-scroll-target="#mécanismes-de-labsence"><span class="header-section-number">2.1.1</span> 🕵️‍♂️ Mécanismes de l’Absence</a></li>
+  <li><a href="#stratégies-de-traitement" id="toc-stratégies-de-traitement" class="nav-link" data-scroll-target="#stratégies-de-traitement"><span class="header-section-number">2.1.2</span> 🛠️ Stratégies de Traitement</a></li>
+  </ul></li>
+  <li><a href="#mission-1" id="toc-mission-1" class="nav-link" data-scroll-target="#mission-1"><span class="header-section-number">2.2</span> 🕵️‍♂️ Mission 1</a></li>
+  <li><a href="#harmonisation-correction" id="toc-harmonisation-correction" class="nav-link" data-scroll-target="#harmonisation-correction"><span class="header-section-number">2.3</span> 🧹 Harmonisation &amp; Correction</a>
+  <ul class="collapse">
+  <li><a href="#nettoyage-typographique" id="toc-nettoyage-typographique" class="nav-link" data-scroll-target="#nettoyage-typographique"><span class="header-section-number">2.3.1</span> 🔤 Nettoyage Typographique</a></li>
+  <li><a href="#standardisation-temporelle" id="toc-standardisation-temporelle" class="nav-link" data-scroll-target="#standardisation-temporelle"><span class="header-section-number">2.3.2</span> ⏱️ Standardisation Temporelle</a></li>
+  </ul></li>
+  <li><a href="#transformation-et-normalisation" id="toc-transformation-et-normalisation" class="nav-link" data-scroll-target="#transformation-et-normalisation"><span class="header-section-number">2.4</span> 📈 Transformation et Normalisation</a>
+  <ul class="collapse">
+  <li><a href="#normalisation-min-max" id="toc-normalisation-min-max" class="nav-link" data-scroll-target="#normalisation-min-max"><span class="header-section-number">2.4.1</span> 📏 Normalisation (Min-Max)</a></li>
+  <li><a href="#standardisation-z-score" id="toc-standardisation-z-score" class="nav-link" data-scroll-target="#standardisation-z-score"><span class="header-section-number">2.4.2</span> 🎯 Standardisation (Z-Score)</a></li>
+  <li><a href="#impact-selon-lalgorithme" id="toc-impact-selon-lalgorithme" class="nav-link" data-scroll-target="#impact-selon-lalgorithme"><span class="header-section-number">2.4.3</span> ⚠️ Impact selon l’Algorithme</a></li>
+  </ul></li>
+  <li><a href="#mission-2" id="toc-mission-2" class="nav-link" data-scroll-target="#mission-2"><span class="header-section-number">2.5</span> 🕵️‍♂️ Mission 2</a></li>
+  <li><a href="#encodage-des-variables" id="toc-encodage-des-variables" class="nav-link" data-scroll-target="#encodage-des-variables"><span class="header-section-number">2.6</span> 🏷️ Encodage des Variables</a>
+  <ul class="collapse">
+  <li><a href="#méthodes-classiques" id="toc-méthodes-classiques" class="nav-link" data-scroll-target="#méthodes-classiques"><span class="header-section-number">2.6.1</span> 🧮 Méthodes Classiques</a></li>
+  <li><a href="#méthodes-avancées" id="toc-méthodes-avancées" class="nav-link" data-scroll-target="#méthodes-avancées"><span class="header-section-number">2.6.2</span> 🚀 Méthodes Avancées</a></li>
+  <li><a href="#implémentation-en-python" id="toc-implémentation-en-python" class="nav-link" data-scroll-target="#implémentation-en-python"><span class="header-section-number">2.6.3</span> 💻 Implémentation en Python</a></li>
+  </ul></li>
+  <li><a href="#tp1-le-titanic-wrangling" id="toc-tp1-le-titanic-wrangling" class="nav-link" data-scroll-target="#tp1-le-titanic-wrangling"><span class="header-section-number">2.7</span> TP1 : Le Titanic (Wrangling)</a>
+  <ul class="collapse">
+  <li><a href="#objectifs-pédagogiques" id="toc-objectifs-pédagogiques" class="nav-link" data-scroll-target="#objectifs-pédagogiques"><span class="header-section-number">2.7.1</span> 🎯 Objectifs Pédagogiques</a></li>
+  <li><a href="#fichiers-du-tp" id="toc-fichiers-du-tp" class="nav-link" data-scroll-target="#fichiers-du-tp"><span class="header-section-number">2.7.2</span> 📁 Fichiers du TP</a></li>
+  </ul></li>
+  <li><a href="#conclusion-et-transition" id="toc-conclusion-et-transition" class="nav-link" data-scroll-target="#conclusion-et-transition"><span class="header-section-number">2.8</span> 🌉 Conclusion et Transition</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cours/2_wrangling/index.html">🧹 Préparation &amp; Analyse</a></li><li class="breadcrumb-item"><a href="../../cours/2_wrangling/index.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">🧹 Data Wrangling (Nettoyage et Préparation)</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">🧹 Data Wrangling (Nettoyage et Préparation)</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Voir le code source</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="7" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 6;"><span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Block de stabilisation OJS pour le projet Quarto</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>_stabilize <span class="op">=</span> <span class="kw">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<section id="valeurs-manquantes" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="valeurs-manquantes"><span class="header-section-number">2.1</span> 🔍 Valeurs Manquantes</h2>
+<div class="card card-info">
+<div class="card-header">
+<p>💡 Concept Clé : Le Mythe du Dataset Parfait</p>
+</div>
+<div class="card-body">
+<p>Dans l’investigation numérique, le <em>Data Wrangling</em> est le socle de l’intégrité du verdict. Le premier défi est la donnée manquante (<code>NaN</code>). Avant de “boucher un trou”, l’enquêteur doit se demander : <strong>“Pourquoi cet indice a-t-il été effacé ?”</strong></p>
+</div>
+</div>
+<section id="mécanismes-de-labsence" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="mécanismes-de-labsence"><span class="header-section-number">2.1.1</span> 🕵️‍♂️ Mécanismes de l’Absence</h3>
+<p>La stratégie de traitement dépend de la nature statistique de l’absence :</p>
+<div class="quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="card card-primary quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="card-header">
+<p>MCAR</p>
+</div>
+<div class="card-body">
+<p><strong>Aléatoire Pur</strong> L’absence est un pur hasard.</p>
+<ul>
+<li><strong>Exemple</strong> : Une goutte de café sur un formulaire rend l’âge illisible.</li>
+</ul>
+</div>
+</div>
+<div class="card card-secondary quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="card-header">
+<p>MAR</p>
+</div>
+<div class="card-body">
+<p><strong>Aléatoire Conditionnel</strong> L’absence dépend d’une <em>autre</em> variable connue.</p>
+<ul>
+<li><strong>Exemple</strong> : Un capteur omet le rythme cardiaque uniquement quand le patient dort.</li>
+</ul>
+</div>
+</div>
+<div class="card card-danger quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="card-header">
+<p>MNAR</p>
+</div>
+<div class="card-body">
+<p><strong>Non Aléatoire</strong> L’absence dépend de la <em>valeur elle-même</em>.</p>
+<ul>
+<li><strong>Exemple</strong> : Les hauts revenus refusent de déclarer leur salaire. <strong>L’absence est un indice en soi.</strong></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="stratégies-de-traitement" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="stratégies-de-traitement"><span class="header-section-number">2.1.2</span> 🛠️ Stratégies de Traitement</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Suppression (Naïve)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Imputation (Statistique)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Imputation (Prédictive / MICE)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ Suppression des lignes avec au moins un NaN</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ Suppression d'une colonne trop vide</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'Variable_Inutile'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Verdict</strong> : À n’utiliser que si le manque est <strong>MCAR</strong> et représente moins de 5% du total. Risque majeur de perte d’information.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Remplissage par la Médiane (Robuste aux outliers)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Salaire'</span>] <span class="op">=</span> df[<span class="st">'Salaire'</span>].fillna(df[<span class="st">'Salaire'</span>].median())</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Remplissage par le Mode (Pour le qualitatif)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Ville'</span>] <span class="op">=</span> df[<span class="st">'Ville'</span>].fillna(df[<span class="st">'Ville'</span>].mode()[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Verdict</strong> : Préserve la taille du dataset, mais réduit la variance globale.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> IterativeImputer</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 🚀 Utilise l'IA pour "deviner" les valeurs manquantes</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>imputer <span class="op">=</span> IterativeImputer(max_iter<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df_impute <span class="op">=</span> pd.DataFrame(imputer.fit_transform(df), columns<span class="op">=</span>df.columns)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Verdict</strong> : La méthode la plus rigoureuse. Utilise les corrélations entre variables pour estimer l’absence.</p>
+</div>
+</div>
+</div>
+<div class="card card-warning">
+<div class="card-header">
+<p>⚠️ Danger : Ignorer le MNAR</p>
+</div>
+<div class="card-body">
+<p>Si vos données sont <strong>MNAR</strong>, boucher les trous sans précaution détruit l’information. <strong>Astuce Pro</strong> : Créez une colonne binaire <code>Salaire_Est_Manquant</code> pour que le modèle “sache” qu’il y a eu une absence suspecte.</p>
+</div>
+</div>
+<div class="card card-success">
+<div class="card-header">
+<p>🎒 Astuce Pro : Séries Temporelles</p>
+</div>
+<div class="card-body">
+<p>Pour les flux chronologiques (Bourse, IoT), utilisez la méthode <strong>LOCF</strong> (<em>Last Observation Carried Forward</em>) : <code>df.fillna(method='ffill')</code>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="mission-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="mission-1"><span class="header-section-number">2.2</span> 🕵️‍♂️ Mission 1</h2>
+<p>L’inspecteur principal vous a transmis un dossier contenant les données de toutes les personnes présentes sur les lieux. Voici comment la base a été constituée :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'nom'</span>: [<span class="st">'Alice'</span>, <span class="st">'Bob'</span>, <span class="st">'Charlie'</span>, <span class="st">'Diana'</span>, <span class="st">'Eve'</span>],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'age'</span>: [<span class="dv">25</span>, np.nan, <span class="dv">35</span>, <span class="dv">42</span>, np.nan],</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'has_alibi'</span>: [<span class="va">True</span>, <span class="va">False</span>, <span class="va">False</span>, <span class="va">True</span>, <span class="va">False</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>df_suspects <span class="op">=</span> pd.DataFrame(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cependant, la base est bruitée. Votre premier objectif : nettoyer les valeurs manquantes et filtrer les suspects qui ont un alibi (colonne <code>has_alibi</code>).</p>
+<p>Complétez le code ci-dessous pour démasquer les coupables potentiels.</p>
+<script type="exercise-setup-suspect_filtering-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic3VzcGVjdF9maWx0ZXJpbmciLCJzZXR1cCI6dHJ1ZX0sImNvZGUiOiIjIENlIGJsb2MgZXN0IGludmlzaWJsZSBwb3VyIGwnw6l0dWRpYW50IG1haXMgY2hhcmdlIGxlcyBkb25uw6llcyBlbiBtw6ltb2lyZSBwb3VyIENFVCBleGVyY2ljZVxuaW1wb3J0IHBhbmRhcyBhcyBwZFxuaW1wb3J0IG51bXB5IGFzIG5wXG5cbmRhdGEgPSB7XG4gICAgJ25vbSc6IFsnQWxpY2UnLCAnQm9iJywgJ0NoYXJsaWUnLCAnRGlhbmEnLCAnRXZlJ10sXG4gICAgJ2FnZSc6IFsyNSwgbnAubmFuLCAzNSwgNDIsIG5wLm5hbl0sXG4gICAgJ2hhc19hbGliaSc6IFtUcnVlLCBGYWxzZSwgRmFsc2UsIFRydWUsIEZhbHNlXVxufVxuZGZfc3VzcGVjdHMgPSBwZC5EYXRhRnJhbWUoZGF0YSkifQ==
+</script>
+<div>
+<div id="pyodide-2" class="exercise-cell">
+
+</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic3VzcGVjdF9maWx0ZXJpbmcifSwiY29kZSI6IiMgQSBWT1VTIERFIEpPVUVSIDpcbiMgMS4gU3VwcHJpbWV6IGxlcyBsaWduZXMgb8O5IGwnw6JnZSBlc3QgbWFucXVhbnQgYXZlYyBsYSBtw6l0aG9kZSBhcHByb3ByacOpZVxuIyAyLiBHYXJkZXogdW5pcXVlbWVudCBsZXMgc3VzcGVjdHMgcXVpIG4nb250IHBhcyBkJ2FsaWJpIChoYXNfYWxpYmkgPT0gRmFsc2UpXG5cbiMgQWZmaWNoZSBsZXMgZG9ubsOpZXMgZGUgZMOpcGFydCBwb3VyIHJhcHBlbFxucHJpbnQoXCItLS0gRG9ubsOpZXMgYnJ1dGVzIC0tLVwiKVxuZGlzcGxheShkZl9zdXNwZWN0cylcbnByaW50KFwiXFxuLS0tIETDqWJ1dCBkdSBuZXR0b3lhZ2UgLS0tXCIpXG5cbiMgMS4gTmV0dG95YWdlXG5kZl9zdXNwZWN0c19jbGVhbiA9IGRmX3N1c3BlY3RzLl9fXygpIFxuXG4jIDIuIEZpbHRyYWdlXG5kZl9jb3VwYWJsZXNfcG90ZW50aWVscyA9IGRmX3N1c3BlY3RzX2NsZWFuW19fX11cblxucHJpbnQoZGZfY291cGFibGVzX3BvdGVudGllbHMpIn0=
+</script>
+</div>
+<script type="exercise-check-suspect_filtering-contents">
+eyJhdHRyIjp7ImNoZWNrIjp0cnVlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6InN1c3BlY3RfZmlsdGVyaW5nIn0sImNvZGUiOiJ0cnk6XG4gICAgYXNzZXJ0ICdkZl9zdXNwZWN0c19jbGVhbicgaW4gZ2xvYmFscygpLCBcIk91cHMsIGxhIHZhcmlhYmxlICdkZl9zdXNwZWN0c19jbGVhbicgYSBkaXNwYXJ1LlwiXG4gICAgYXNzZXJ0ICdkZl9jb3VwYWJsZXNfcG90ZW50aWVscycgaW4gZ2xvYmFscygpLCBcIk91cHMsIGxhIHZhcmlhYmxlICdkZl9jb3VwYWJsZXNfcG90ZW50aWVscycgbidhIHBhcyDDqXTDqSBjcsOpw6llLlwiXG4gICAgXG4gICAgaWYgZGZfc3VzcGVjdHNfY2xlYW4uaXNuYSgpLnN1bSgpLnN1bSgpID4gMDpcbiAgICAgICAgcmFpc2UgQXNzZXJ0aW9uRXJyb3IoXCJJbCByZXN0ZSBkZXMgdmFsZXVycyBtYW5xdWFudGVzLiBQZW5zZXogw6AgbGEgbcOpdGhvZGUgZHJvcG5hKCkuXCIpXG4gICAgICAgIFxuICAgIGlmIGRmX2NvdXBhYmxlc19wb3RlbnRpZWxzWydoYXNfYWxpYmknXS5hbnkoKTpcbiAgICAgICAgcmFpc2UgQXNzZXJ0aW9uRXJyb3IoXCJBdHRlbnRpb24sIGNlcnRhaW5zIHN1c3BlY3RzIGRhbnMgdm90cmUgbGlzdGUgZmluYWxlIG9udCB1biBhbGliaSAhXCIpXG4gICAgICAgIFxuICAgIGlmIGxlbihkZl9jb3VwYWJsZXNfcG90ZW50aWVscykgPT0gMSBhbmQgZGZfY291cGFibGVzX3BvdGVudGllbHMuaWxvY1swXVsnbm9tJ10gPT0gJ0NoYXJsaWUnOlxuICAgICAgICBwcmludChcIuKchSBFWENFTExFTlQgISBCYXNlIG5ldHRvecOpZS5cIilcbiAgICAgICAgcHJpbnQoXCLwn46vIElORElDRSBEw4lWRVJST1VJTEzDiSA6IExlIHN1c3BlY3QgYSDDqXTDqSB2dSBzJ2VuZnVpciB2ZXJzIGxlIHBvcnQuXCIpXG4gICAgZWxzZTpcbiAgICAgICAgcmFpc2UgQXNzZXJ0aW9uRXJyb3IoXCJMZSBub21icmUgZGUgc3VzcGVjdHMgZmluYXV4IG4nZXN0IHBhcyBsZSBib24uIFJldm95ZXogdm9zIGZpbHRyZXMgIVwiKVxuICAgICAgICBcbmV4Y2VwdCBBc3NlcnRpb25FcnJvciBhcyBlOlxuICAgIHByaW50KGZcIuKdjCDDiWNoZWMgZGUgbCdpbnZlc3RpZ2F0aW9uIDoge2V9XCIpIn0=
+</script>
+</section>
+<section id="harmonisation-correction" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="harmonisation-correction"><span class="header-section-number">2.3</span> 🧹 Harmonisation &amp; Correction</h2>
+<div class="card card-info">
+<div class="card-header">
+<p>L’enfer des données saisies manuellement</p>
+</div>
+<div class="card-body">
+<p>L’hétérogénéité des formats est un obstacle majeur au traitement algorithmique automatisé. Un algorithme de Machine Learning est d’une bêtise absolue concernant la sémantique : pour lui, “Homme”, “homme” et “H” (avec un espace à la fin) sont trois catégories totalement distinctes. L’uniformité est la règle d’or pour éviter la dilution de la puissance statistique de votre modèle.</p>
+</div>
+</div>
+<p>L’harmonisation est une étape de nettoyage stricte visant à unifier le “grain” de la donnée. Elle repose sur deux piliers principaux : le traitement du texte libre et la standardisation temporelle.</p>
+<section id="nettoyage-typographique" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="nettoyage-typographique"><span class="header-section-number">2.3.1</span> 🔤 Nettoyage Typographique</h3>
+<p>Les données issues de formulaires ou de saisies manuelles sont systématiquement polluées par des erreurs typographiques. Les corriger nécessite une approche industrielle.</p>
+<p><strong>Les Règles d’Or de la Typographie :</strong></p>
+<ol type="1">
+<li><strong>La Casse Unifiée :</strong> Tout convertir en minuscules (ou majuscules) pour regrouper les variations d’une même entité.</li>
+<li><strong>Le Trim (Élagage) :</strong> Supprimer les espaces invisibles en début et fin de chaîne.</li>
+<li><strong>Le Remplacement (Regex) :</strong> Utiliser les expressions régulières pour supprimer les caractères spéciaux indésirables ou extraire des motifs précis.</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ Avant : ['  Homme', 'homme', 'H', 'Femme ']</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Genre'</span>] <span class="op">=</span> df[<span class="st">'Genre'</span>].<span class="bu">str</span>.lower()       <span class="co"># Étape 1 : Tout en minuscules -&gt; ['  homme', 'homme', 'h', 'femme ']</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Genre'</span>] <span class="op">=</span> df[<span class="st">'Genre'</span>].<span class="bu">str</span>.strip()       <span class="co"># Étape 2 : Enlever les espaces -&gt; ['homme', 'homme', 'h', 'femme']</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Genre'</span>] <span class="op">=</span> df[<span class="st">'Genre'</span>].replace({<span class="st">'h'</span>: <span class="st">'homme'</span>, <span class="st">'f'</span>: <span class="st">'femme'</span>}) <span class="co"># Étape 3 : Mapping</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Après : ['homme', 'homme', 'homme', 'femme']</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="standardisation-temporelle" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="standardisation-temporelle"><span class="header-section-number">2.3.2</span> ⏱️ Standardisation Temporelle</h3>
+<p>Des dates saisies sous des formats multiples (<code>12/04/2026</code>, <code>2026-04-12</code>, <code>12 April 26</code>) empêchent toute agrégation cohérente et ruinent les modèles de séries temporelles.</p>
+<p><strong>Le Standard Industriel : ISO 8601</strong></p>
+<p>L’imposition du format standard international <strong>AAAA-MM-JJ</strong> (Année-Mois-Jour) garantit une manipulation sans erreur par toutes les bibliothèques logicielles (Python, SQL, Spark).</p>
+<p>De plus, il est souvent critique d’extraire des <strong>Features (Caractéristiques) Temporelles</strong> à partir d’une date (comme le jour de la semaine ou le mois) car l’algorithme ne “comprend” pas une date brute.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir une colonne hétérogène en un objet Datetime standardisé</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date_Achat'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date_Achat'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'mixed'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction d'informations temporelles (Feature Engineering de base)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Annee'</span>] <span class="op">=</span> df[<span class="st">'Date_Achat'</span>].dt.year</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Mois'</span>] <span class="op">=</span> df[<span class="st">'Date_Achat'</span>].dt.month</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Est_Weekend'</span>] <span class="op">=</span> df[<span class="st">'Date_Achat'</span>].dt.dayofweek <span class="op">&gt;</span> <span class="dv">4</span> <span class="co"># Retourne un booléen</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="card card-warning">
+<div class="card-header">
+<p>Validation de Domaine</p>
+</div>
+<div class="card-body">
+<p>Une fois vos données harmonisées, appliquez toujours une <strong>Validation de Domaine</strong>. S’assurer que les données respectent les plages de valeurs logiques propres au métier (ex: l’âge ne peut pas être de 250 ans, un mois ne peut pas dépasser 12) est la dernière barrière de sécurité avant la modélisation.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="transformation-et-normalisation" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="transformation-et-normalisation"><span class="header-section-number">2.4</span> 📈 Transformation et Normalisation</h2>
+<div class="card card-info">
+<div class="card-header">
+<p>Le problème des échelles disparates</p>
+</div>
+<div class="card-body">
+<p>Imaginez que vous prédisiez le prix d’une maison avec deux variables : le <em>Nombre de chambres</em> (entre 1 et 5) et le <em>Prix du terrain</em> (entre 10 000 et 1 000 000 €). Pour un algorithme mathématique (comme un réseau de neurones), la variable avec les plus grands nombres va “écraser” l’autre lors du calcul des gradients, la rendant virtuellement invisible. La transformation numérique ramène tout le monde sur un pied d’égalité.</p>
+</div>
+</div>
+<p>Il existe deux grandes approches pour résoudre ce problème, avec des formules et des cas d’usage très différents.</p>
+<section id="normalisation-min-max" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="normalisation-min-max"><span class="header-section-number">2.4.1</span> 📏 Normalisation (Min-Max)</h3>
+<p>La normalisation compresse (ou étire) les données pour qu’elles s’insèrent exactement dans une plage définie, généralement entre 0 et 1.</p>
+<p><strong>La mathématique (Formule LaTeX) :</strong> <span class="math display">X_{norm} = \frac{X - X_{min}}{X_{max} - X_{min}}</span></p>
+<ul>
+<li><strong>Avantage :</strong> Maintient toutes les données dans des limites strictes.</li>
+<li><strong>Le Piège :</strong> Comme elle utilise le <span class="math inline">X_{min}</span> et le <span class="math inline">X_{max}</span>, elle est <strong>extrêmement vulnérable aux valeurs aberrantes (Outliers)</strong>. Si une seule maison coûte 1 milliard d’euros (une erreur de saisie), toutes les autres maisons seront écrasées autour de 0.001.</li>
+</ul>
+</section>
+<section id="standardisation-z-score" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="standardisation-z-score"><span class="header-section-number">2.4.2</span> 🎯 Standardisation (Z-Score)</h3>
+<p>La standardisation ne fixe pas de limites strictes. Elle décale les données pour que la distribution soit centrée sur une moyenne (<span class="math inline">\mu</span>) de 0, avec un écart-type (<span class="math inline">\sigma</span>) de 1.</p>
+<p><strong>La mathématique :</strong> <span class="math display">Z = \frac{X - \mu}{\sigma}</span></p>
+<ul>
+<li><strong>Avantage :</strong> Elle gère globalement mieux les variations naturelles et ne fige pas les données. Elle est indispensable lorsque les données sont collectées sous des conditions variables (ex: variations d’éclairage pour des images).</li>
+<li><strong>Alternative pour les extrêmes :</strong> S’il y a trop de valeurs aberrantes, on utilise le <strong>Robust Scaler</strong>. Au lieu de la moyenne, il centre sur la médiane et divise par l’écart interquartile (IQR).</li>
+</ul>
+</section>
+<section id="impact-selon-lalgorithme" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="impact-selon-lalgorithme"><span class="header-section-number">2.4.3</span> ⚠️ Impact selon l’Algorithme</h3>
+<p>C’est ici que l’ingénieur se distingue du débutant. Faut-il toujours “scaler” ses données ? <strong>Non.</strong> Cela dépend de l’algorithme choisi.</p>
+<ul>
+<li><strong>🟢 Indispensable (Distance &amp; Gradients) :</strong> Pour les modèles basés sur le calcul de distances géométriques (K-Nearest Neighbors, SVM) ou sur la descente de gradient (Réseaux de Neurones, Régression Logistique). Une variable sur une grande échelle dominerait les plus petites et ralentirait dramatiquement la convergence.</li>
+<li><strong>🔴 Inutile (Modèles basés sur les Arbres) :</strong> Pour les algorithmes d’ensemble (Arbres de Décision, Random Forest, XGBoost, LightGBM). Ces modèles divisent les données grâce à des comparaisons de seuils logiques (<span class="math inline">Si \, X &gt; 10</span>). Les transformations (Z-score ou Min-Max) sont dites <strong>monotones</strong> : elles préservent l’ordre absolu. Que le seuil soit 10 ou 0.85, la coupure de l’arbre sera mathématiquement identique.</li>
+</ul>
+<div class="card card-success">
+<div class="card-header">
+<p>Focus Deep Learning : Batchnorm et CMN</p>
+</div>
+<div class="card-body">
+<p>Pour des architectures IA complexes, on intègre cette mise à l’échelle directement <em>dans</em> le modèle. Par exemple, la <strong>Batchnorm</strong> (Normalisation par lots) stabilise l’apprentissage à chaque couche d’un réseau de neurones. En analyse audio (reconnaissance vocale type LibriSpeech), on utilise la <strong>CMN</strong> (<em>Cepstral Mean Normalization</em>) pour gommer les distorsions liées au bruit ambiant.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="mission-2" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="mission-2"><span class="header-section-number">2.5</span> 🕵️‍♂️ Mission 2</h2>
+<p>Votre instinct était bon : Charlie tente de fuir par la mer ! L’inspecteur principal vient de vous faire parvenir le registre piraté des départs maritimes d’aujourd’hui.</p>
+<p>Exécutez la cellule ci-dessous pour consulter ce nouveau registre :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Registre des embarquements du jour</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>donnees_port <span class="op">=</span> {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'passager'</span>: [<span class="st">'Alice'</span>, <span class="st">'Bob'</span>, <span class="st">'Charlie'</span>, <span class="st">'Diana'</span>, <span class="st">'Zoe'</span>],</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'navire'</span>: [<span class="st">'Le Triton'</span>, <span class="st">'L</span><span class="ch">\'</span><span class="st">Océan'</span>, <span class="st">'La Mouette'</span>, <span class="st">'L</span><span class="ch">\'</span><span class="st">Océan'</span>, <span class="st">'Le Poséidon'</span>],</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'quai'</span>: [<span class="dv">4</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">12</span>, <span class="dv">2</span>]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df_embarquements <span class="op">=</span> pd.DataFrame(donnees_port)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Registre maritime téléchargé."</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>display(df_embarquements)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Votre objectif : Croiser (joindre) la liste de vos coupables potentiels avec ce registre maritime pour découvrir où se cache Charlie. <em>Indice : Regardez bien le nom des colonnes contenant les noms des individus dans les deux tables !</em></p>
+<script type="exercise-setup-suspect_merging-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic3VzcGVjdF9tZXJnaW5nIiwic2V0dXAiOnRydWV9LCJjb2RlIjoiaW1wb3J0IHBhbmRhcyBhcyBwZFxuXG4jIE9uIHJlY3LDqWUgbCfDqXRhdCBkZSBsYSBNaXNzaW9uIDEgZW4gYXJyacOocmUtcGxhbiBwb3VyIHPDqWN1cmlzZXIgbCdleGVyY2ljZVxuZGZfY291cGFibGVzX3BvdGVudGllbHMgPSBwZC5EYXRhRnJhbWUoe1xuICAgICdub20nOiBbJ0NoYXJsaWUnXSxcbiAgICAnYWdlJzogWzM1LjBdLFxuICAgICdoYXNfYWxpYmknOiBbRmFsc2VdXG59KVxuXG4jIE9uIGNoYXJnZSBsYSBub3V2ZWxsZSB0YWJsZVxuZGZfZW1iYXJxdWVtZW50cyA9IHBkLkRhdGFGcmFtZSh7XG4gICAgJ3Bhc3NhZ2VyJzogWydBbGljZScsICdCb2InLCAnQ2hhcmxpZScsICdEaWFuYScsICdab2UnXSxcbiAgICAnbmF2aXJlJzogWydMZSBUcml0b24nLCAnTFxcJ09jw6lhbicsICdMYSBNb3VldHRlJywgJ0xcXCdPY8OpYW4nLCAnTGUgUG9zw6lpZG9uJ10sXG4gICAgJ3F1YWknOiBbNCwgMTIsIDcsIDEyLCAyXVxufSkifQ==
+</script>
+<div>
+<div id="pyodide-5" class="exercise-cell">
+
+</div>
+<script type="pyodide-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic3VzcGVjdF9tZXJnaW5nIn0sImNvZGUiOiIjIEEgVk9VUyBERSBKT1VFUiA6XG4jIFV0aWxpc2V6IGxhIG3DqXRob2RlIHBkLm1lcmdlKCkgcG91ciBqb2luZHJlIGRmX2NvdXBhYmxlc19wb3RlbnRpZWxzIGV0IGRmX2VtYmFycXVlbWVudHMuXG4jIEF0dGVudGlvbiA6IGxhIGNvbG9ubmUgcydhcHBlbGxlICdub20nIGRhbnMgbGEgMcOocmUgdGFibGUsIGV0ICdwYXNzYWdlcicgZGFucyBsYSAyw6htZSAhXG5cbmRmX2xvY2FsaXNhdGlvbiA9IHBkLm1lcmdlKFxuICAgIGxlZnQ9X19fLCBcbiAgICByaWdodD1fX18sIFxuICAgIGxlZnRfb249X19fLCBcbiAgICByaWdodF9vbj1fX18sXG4gICAgaG93PSdpbm5lcidcbilcblxucHJpbnQoZGZfbG9jYWxpc2F0aW9uKSJ9
+</script>
+</div>
+<script type="exercise-check-suspect_merging-contents">
+eyJhdHRyIjp7ImNoZWNrIjp0cnVlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJleGVyY2lzZSI6InN1c3BlY3RfbWVyZ2luZyJ9LCJjb2RlIjoidHJ5OlxuICAgIGFzc2VydCAnZGZfbG9jYWxpc2F0aW9uJyBpbiBnbG9iYWxzKCksIFwiTGEgdmFyaWFibGUgJ2RmX2xvY2FsaXNhdGlvbicgbidhIHBhcyDDqXTDqSBjcsOpw6llLlwiXG4gICAgXG4gICAgIyBWw6lyaWZpY2F0aW9uIHF1ZSBsZSBtZXJnZSBhIGJpZW4gw6l0w6kgZmFpdFxuICAgIGNvbG9ubmVzX2F0dGVuZHVlcyA9IFsnbm9tJywgJ2FnZScsICdoYXNfYWxpYmknLCAncGFzc2FnZXInLCAnbmF2aXJlJywgJ3F1YWknXVxuICAgIGlmIG5vdCBhbGwoY29sIGluIGRmX2xvY2FsaXNhdGlvbi5jb2x1bW5zIGZvciBjb2wgaW4gY29sb25uZXNfYXR0ZW5kdWVzKTpcbiAgICAgICAgIHJhaXNlIEFzc2VydGlvbkVycm9yKFwiSWwgbWFucXVlIGRlcyBjb2xvbm5lcy4gQXZlei12b3VzIGJpZW4gY3JvaXPDqSBsZXMgREVVWCB0YWJsZXMgY29tcGzDqHRlcyA/XCIpXG4gICAgICAgICBcbiAgICBpZiBsZW4oZGZfbG9jYWxpc2F0aW9uKSAhPSAxOlxuICAgICAgICByYWlzZSBBc3NlcnRpb25FcnJvcihcIkxhIHRhYmxlIGZpbmFsZSBkZXZyYWl0IGNvbnRlbmlyIHVuZSBzZXVsZSBsaWduZSAobm90cmUgc3VzcGVjdCkuIFbDqXJpZmlleiBsZXMgY2zDqXMgZGUgam9pbnR1cmUgKGxlZnRfb24gZXQgcmlnaHRfb24pICFcIilcbiAgICAgICAgXG4gICAgIyBWYWxpZGF0aW9uIGZpbmFsZSBkdSByw6lzdWx0YXRcbiAgICBxdWFpX2Z1aXRlID0gZGZfbG9jYWxpc2F0aW9uLmlsb2NbMF1bJ3F1YWknXVxuICAgIGlmIHF1YWlfZnVpdGUgPT0gNzpcbiAgICAgICAgcHJpbnQoXCLinIUgSU5DUk9ZQUJMRSAhIFZvdXMgYXZleiBsb2NhbGlzw6kgbGEgY2libGUuXCIpXG4gICAgICAgIHByaW50KFwi8J+OryBJTkRJQ0UgRMOJVkVSUk9VSUxMw4kgOiBWaXRlLCByZW5kZXotdm91cyBhdSBxdWFpIG51bcOpcm8gNyBwb3VyIGludGVyY2VwdGVyICdMYSBNb3VldHRlJyAhXCIpXG4gICAgZWxzZTpcbiAgICAgICAgcmFpc2UgQXNzZXJ0aW9uRXJyb3IoXCJMZSBxdWFpIGlkZW50aWZpw6kgbidlc3QgcGFzIGxlIGJvbi4gUXVlbHF1ZSBjaG9zZSBzJ2VzdCBtYWwgcGFzc8OpIGxvcnMgZGUgbGEgam9pbnR1cmUuXCIpXG4gICAgICAgIFxuZXhjZXB0IEFzc2VydGlvbkVycm9yIGFzIGU6XG4gICAgcHJpbnQoZlwi4p2MIExhIHBpc3RlIHJlZnJvaWRpdCA6IHtlfVwiKSJ9
+</script>
+</section>
+<section id="encodage-des-variables" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="encodage-des-variables"><span class="header-section-number">2.6</span> 🏷️ Encodage des Variables</h2>
+<div class="card card-info">
+<div class="card-header">
+<p>La barrière de la langue algorithmique</p>
+</div>
+<div class="card-body">
+<p>Le Machine Learning est une discipline purement mathématique : il calcule des gradients, des distances et des probabilités. Par conséquent, il ne peut traiter nativement <em>que</em> des nombres. Si vous lui donnez une colonne “Ville” avec “Paris”, “Lyon” et “Marseille”, il plantera. La conversion des variables catégorielles (textuelles) en format numérique est donc une étape obligatoire.</p>
+</div>
+</div>
+<p>L’expert doit arbitrer entre plusieurs techniques d’encodage selon la nature des catégories et leur cardinalité (le nombre de valeurs uniques).</p>
+<section id="méthodes-classiques" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="méthodes-classiques"><span class="header-section-number">2.6.1</span> 🧮 Méthodes Classiques</h3>
+<ul>
+<li><strong>Le Label Encoding (Étiquettes) :</strong> Attribue simplement un nombre entier unique à chaque catégorie (ex: Paris=1, Lyon=2, Marseille=3).
+<ul>
+<li><em>Le Piège :</em> Cette méthode introduit un “ordre artificiel” (2 est plus grand que 1). Si la variable est nominale (sans ordre), le modèle peut déduire à tort que Lyon est supérieur à Paris.</li>
+<li><em>Quand l’utiliser ?</em> Uniquement pour les variables <strong>ordinales</strong> (ex: Tailles de vêtement S=1, M=2, L=3).</li>
+</ul></li>
+<li><strong>Le One-Hot Encoding (Binaire) :</strong> Crée une nouvelle colonne binaire (0 ou 1) pour <em>chaque</em> modalité possible de la variable catégorielle.
+<ul>
+<li><em>L’Avantage :</em> Parfait pour éviter un ordre artificiel sur des variables nominales.</li>
+<li><em>Le Piège :</em> Si vous avez une variable “Code Postal” (36 000 valeurs), vous allez créer 36 000 nouvelles colonnes ! C’est ce qu’on appelle le fléau de la dimensionnalité, qui sature la RAM et provoque du surapprentissage (<em>Overfitting</em>).</li>
+</ul></li>
+</ul>
+</section>
+<section id="méthodes-avancées" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="méthodes-avancées"><span class="header-section-number">2.6.2</span> 🚀 Méthodes Avancées</h3>
+<p>Quand le One-Hot Encoding fait exploser votre mémoire, il faut ruser. L’industrie utilise souvent la bibliothèque <code>category_encoders</code> pour cela.</p>
+<ul>
+<li><strong>Le Target Encoding (Moyenne Cible) :</strong> Substitue une catégorie par une statistique tirée de la variable cible (ce qu’on cherche à prédire). Par exemple, on remplace “Paris” par le <em>taux de fraude moyen</em> observé à Paris sur l’ensemble d’entraînement.
+<ul>
+<li><em>Avantage :</em> Ne crée aucune nouvelle colonne, très performant pour les modèles basés sur les arbres (XGBoost).</li>
+<li><em>Danger (Target Leakage) :</em> Risque majeur de “fuite de la cible”. Si on calcule la moyenne en incluant la ligne en cours, le modèle prend par cœur le résultat au lieu de le prédire. Il faut appliquer un “lissage” ou calculer la moyenne en excluant la ligne actuelle (<em>Leave-one-out</em>).</li>
+</ul></li>
+<li><strong>Le Hashing Encoder (Hachage) :</strong> Projette les catégories dans un espace fini (un nombre défini de colonnes, ex: 8 bits) via une fonction de hachage (comme MD5), sans jamais stocker le dictionnaire d’origine.
+<ul>
+<li><em>Avantage :</em> Empreinte mémoire minuscule et constante. Accepte de nouvelles catégories “inconnues” en production sans planter.</li>
+<li><em>Inconvénient :</em> Accepte les “collisions” (deux mots différents peuvent être hachés dans la même colonne), ce qui entraîne une légère perte d’information au profit de la vitesse.</li>
+</ul></li>
+</ul>
+</section>
+<section id="implémentation-en-python" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="implémentation-en-python"><span class="header-section-number">2.6.3</span> 💻 Implémentation en Python</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> category_encoders <span class="im">import</span> TargetEncoder, HashingEncoder</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. One-Hot Encoding natif avec Pandas (pour faible cardinalité)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>df_onehot <span class="op">=</span> pd.get_dummies(df, columns<span class="op">=</span>[<span class="st">'Genre'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Target Encoding (Scikit-learn Contrib)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># On encode la variable "Ville" en fonction de la variable cible "A_Fraude"</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>target_enc <span class="op">=</span> TargetEncoder(smoothing<span class="op">=</span><span class="dv">10</span>) <span class="co"># Le smoothing évite le Target Leakage</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Ville_Encoded'</span>] <span class="op">=</span> target_enc.fit_transform(df[<span class="st">'Ville'</span>], df[<span class="st">'A_Fraude'</span>])</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Hashing Encoder (Pour les très hautes cardinalités comme "ID_Produit")</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># On force le résultat sur seulement 8 colonnes (n_components=8)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>hash_enc <span class="op">=</span> HashingEncoder(cols<span class="op">=</span>[<span class="st">'ID_Produit'</span>], n_components<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>df_hashed <span class="op">=</span> hash_enc.fit_transform(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="tp1-le-titanic-wrangling" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="tp1-le-titanic-wrangling"><span class="header-section-number">2.7</span> TP1 : Le Titanic (Wrangling)</h2>
+<p>Dans ce premier Travail Pratique, vous allez mettre en pratique les techniques fondamentales de <strong>Data Wrangling</strong> sur le célèbre jeu de données du <strong>Spaceship Titanic</strong>. L’objectif est d’effectuer un nettoyage complet pour restaurer une base de données corrompue afin de la rendre exploitable pour les étapes futures.</p>
+<section id="objectifs-pédagogiques" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="objectifs-pédagogiques"><span class="header-section-number">2.7.1</span> 🎯 Objectifs Pédagogiques</h3>
+<ul>
+<li><strong>Audit de Qualité :</strong> Explorer un jeu de données brut pour dresser un bilan des anomalies physiques, des doublons et des incohérences de typage.</li>
+<li><strong>Gestion des Valeurs Manquantes :</strong> Concevoir et appliquer des stratégies d’imputation adaptées (imputation par la médiane pour l’âge, par la valeur par défaut pour le statut VIP).</li>
+<li><strong>Feature Engineering Initial :</strong> Apprendre à combiner et agréger des variables corrélées en créant une nouvelle caractéristique de synthèse (<code>Total_Spent</code> représentant la somme des dépenses individuelles).</li>
+<li><strong>Export Propre :</strong> Sauvegarder vos résultats dans un format structuré et standardisé pour garantir la reproductibilité.</li>
+</ul>
+</section>
+<section id="fichiers-du-tp" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="fichiers-du-tp"><span class="header-section-number">2.7.2</span> 📁 Fichiers du TP</h3>
+<p>Vous pouvez explorer l’arborescence des fichiers du TP ci-dessous et télécharger directement l’archive complète de départ :</p>
+<div class="ui-ide" id="ide_1779080183521">
+  <div class="ui-ide-sidebar">
+    <div class="ui-ide-header">
+        <span class="ui-ide-title">Dataset du Titanic</span>
+        <a href="../../lab/tp1.zip" class="ui-ide-download" title="Download tp1.zip"><i class="bi bi-file-earmark-zip-fill"></i> ZIP</a>
+    </div>
+    <ul class="ui-ide-list">
+        <li class="file"><a href="#" class="filetree-link" data-url="/assets/viewer.html#file=/lab/titanic/tp1.html&amp;mode=render" data-frame="viewer_ide_1779080183521" data-container="ide_1779080183521"><i class="bi bi-journal-code file-icon"></i> <span class="filetree-name">tp1.ipynb</span> <span class="filetree-comment">(Notebook d’exploration et de nettoyage à compléter)</span></a></li><li class="file"><a href="#" class="filetree-link" data-url="/assets/viewer.html#file=/lab/titanic/train.csv" data-frame="viewer_ide_1779080183521" data-container="ide_1779080183521"><i class="bi bi-file-earmark file-icon"></i> <span class="filetree-name">train.csv</span> <span class="filetree-comment">(Jeu de données brut de l’équipage et des passagers)</span></a></li>
+    </ul>
+  </div>
+  <div class="ui-ide-main">
+    <iframe name="viewer_ide_1779080183521" src="about:blank" onload="this.style.opacity=1"></iframe>
+  </div>
+  <script>
+    (function() {
+        var container = document.getElementById('ide_1779080183521');
+        if (!container) return;
+        var links = container.querySelectorAll('.filetree-link');
+        links.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var url = this.getAttribute('data-url');
+                var frameName = this.getAttribute('data-frame');
+                var containerId = this.getAttribute('data-container');
+                
+                console.log('File clicked:', url);
+                
+                var container = document.getElementById(containerId);
+                if (container) container.classList.add('is-active');
+                
+                var iframe = document.querySelector('iframe[name="' + frameName + '"]');
+                if (iframe) {
+                    iframe.src = url;
+                    console.log('Iframe src set to', url);
+                } else {
+                    console.error('Iframe not found:', frameName);
+                }
+            });
+        });
+    })();
+  </script>
+</div>
+
+</section>
+</section>
+<section id="conclusion-et-transition" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="conclusion-et-transition"><span class="header-section-number">2.8</span> 🌉 Conclusion et Transition</h2>
+<p>Vos données sont maintenant propres et prêtes à être analysées. L’étape suivante consiste à explorer ces données pour en extraire des tendances et des relations.</p>
+<p>C’est ce que nous allons voir dans le <strong><a href="../../cours/3_eda/index.html">Chapitre 3 : Analyse Exploratoire des Données (EDA)</a></strong>.</p>
+
+
+<!-- -->
+
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcInB5b2RpZGUtNS1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IocHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbl9weW9kaWRlX2ZlZWRiYWNrXzUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBQeW9kaWRlR3JhZGVyKF9weW9kaWRlX3ZhbHVlXzUuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIn0seyJjZWxsTmFtZSI6InB5b2RpZGUtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3B5b2RpZGVfZWRpdG9yXzIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwicHlvZGlkZS0yLWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFB5b2RpZGVFeGVyY2lzZUVkaXRvcihweW9kaWRlT2pzLnB5b2RpZGVQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3B5b2RpZGVfdmFsdWVfMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMiwge30pO1xuX3B5b2RpZGVfZmVlZGJhY2tfMiA9IHtcbiAgY29uc3QgeyBQeW9kaWRlR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFB5b2RpZGVHcmFkZXIoX3B5b2RpZGVfdmFsdWVfMi5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4ifSx7ImNlbGxOYW1lIjoicHlvZGlkZS1wcmVsdWRlIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoicHlvZGlkZU9qcyA9IHtcbiAgY29uc3Qge1xuICAgIFB5b2RpZGVFdmFsdWF0b3IsXG4gICAgUHlvZGlkZUVudmlyb25tZW50TWFuYWdlcixcbiAgICBzZXR1cFB5dGhvbixcbiAgICBzdGFydFB5b2RpZGVXb3JrZXIsXG4gICAgYjY0RGVjb2RlLFxuICAgIGNvbGxhcHNlUGF0aCxcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIFB5b2RpZGUgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgbGV0IHB5b2RpZGVQcm9taXNlID0gKGFzeW5jICgpID0+IHtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIFB5b2RpZGVgO1xuICAgIGNvbnN0IHB5b2RpZGUgPSBhd2FpdCBzdGFydFB5b2RpZGVXb3JrZXIoZGF0YS5vcHRpb25zKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcGFja2FnZTogbWljcm9waXBgO1xuICAgIGF3YWl0IHB5b2RpZGUubG9hZFBhY2thZ2UoXCJtaWNyb3BpcFwiKTtcbiAgICBjb25zdCBtaWNyb3BpcCA9IGF3YWl0IHB5b2RpZGUucHlpbXBvcnQoXCJtaWNyb3BpcFwiKTtcbiAgICBhd2FpdCBkYXRhLnBhY2thZ2VzLnBrZ3MubWFwKChwa2cpID0+ICgpID0+IHtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcGFja2FnZTogJHtwa2d9YDtcbiAgICAgIHJldHVybiBtaWNyb3BpcC5pbnN0YWxsKHBrZyk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG4gICAgYXdhaXQgbWljcm9waXAuZGVzdHJveSgpO1xuXG4gICAgLy8gRG93bmxvYWQgYW5kIGluc3RhbGwgcmVzb3VyY2VzXG4gICAgYXdhaXQgZmlsZXMubWFwKChmaWxlKSA9PiBhc3luYyAoKSA9PiB7XG4gICAgICBjb25zdCBuYW1lID0gZmlsZS5zdWJzdHJpbmcoZmlsZS5sYXN0SW5kZXhPZignLycpICsgMSk7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHJlc291cmNlOiAke25hbWV9YDtcbiAgICAgIGNvbnN0IHJlc3BvbnNlID0gYXdhaXQgZmV0Y2goZmlsZSk7XG4gICAgICBpZiAoIXJlc3BvbnNlLm9rKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgQ2FuJ3QgZG93bmxvYWQgXFxgJHtmaWxlfVxcYC4gRXJyb3IgJHtyZXNwb25zZS5zdGF0dXN9OiBcIiR7cmVzcG9uc2Uuc3RhdHVzVGV4dH1cIi5gKTtcbiAgICAgIH1cbiAgICAgIGNvbnN0IGRhdGEgPSBhd2FpdCByZXNwb25zZS5hcnJheUJ1ZmZlcigpO1xuXG4gICAgICAvLyBTdG9yZSBVUkxzIGluIHRoZSBjd2Qgd2l0aG91dCBhbnkgc3ViZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgaWYgKGZpbGUuaW5jbHVkZXMoXCI6Ly9cIikpIHtcbiAgICAgICAgZmlsZSA9IG5hbWU7XG4gICAgICB9XG5cbiAgICAgIC8vIENvbGxhcHNlIGhpZ2hlciBkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBmaWxlID0gY29sbGFwc2VQYXRoKGZpbGUpO1xuXG4gICAgICAvLyBDcmVhdGUgZGlyZWN0b3J5IHRyZWUsIGlnbm9yaW5nIFwiZGlyZWN0b3J5IGV4aXN0c1wiIFZGUyBlcnJvcnNcbiAgICAgIGNvbnN0IHBhcnRzID0gZmlsZS5zcGxpdCgnLycpLnNsaWNlKDAsIC0xKTtcbiAgICAgIGxldCBwYXRoID0gJyc7XG4gICAgICB3aGlsZSAocGFydHMubGVuZ3RoID4gMCkge1xuICAgICAgICBwYXRoICs9IHBhcnRzLnNoaWZ0KCkgKyAnLyc7XG4gICAgICAgIHRyeSB7XG4gICAgICAgICAgYXdhaXQgcHlvZGlkZS5GUy5ta2RpcihwYXRoKTtcbiAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICAgIGlmIChlLmVycm5vICE9PSAyMCkge1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0UHRyID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLl9zdHJlcnJvcihlLmVycm5vKTtcbiAgICAgICAgICAgIGNvbnN0IGVycm9yVGV4dCA9IGF3YWl0IHB5b2RpZGUuX21vZHVsZS5VVEY4VG9TdHJpbmcoZXJyb3JUZXh0UHRyKTtcbiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICB9XG5cbiAgICAgIC8vIFdyaXRlIHRoaXMgZmlsZSB0byB0aGUgVkZTXG4gICAgICB0cnkge1xuICAgICAgICByZXR1cm4gYXdhaXQgcHlvZGlkZS5GUy53cml0ZUZpbGUoZmlsZSwgbmV3IFVpbnQ4QXJyYXkoZGF0YSkpO1xuICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICBpZiAoZS5uYW1lICE9PSBcIkVycm5vRXJyb3JcIikgdGhyb3cgZTtcbiAgICAgICAgY29uc3QgZXJyb3JUZXh0UHRyID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLl9zdHJlcnJvcihlLmVycm5vKTtcbiAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYEZpbGVzeXN0ZW0gRXJyb3IgJHtlLmVycm5vfSBcIiR7ZXJyb3JUZXh0fVwiLmApO1xuICAgICAgfVxuICAgIH0pLnJlZHVjZSgoY3VyLCBuZXh0KSA9PiBjdXIudGhlbihuZXh0KSwgUHJvbWlzZS5yZXNvbHZlKCkpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBQeW9kaWRlIGVudmlyb25tZW50IHNldHVwYDtcbiAgICBhd2FpdCBzZXR1cFB5dGhvbihweW9kaWRlKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiBweW9kaWRlO1xuICB9KSgpLmNhdGNoKChlcnIpID0+IHtcbiAgICBzdGF0dXNUZXh0LnN0eWxlLmNvbG9yID0gXCJ2YXIoLS1leGVyY2lzZS1lZGl0b3ItaGwtZXIsICNBRDAwMDApXCI7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGVyci5tZXNzYWdlO1xuICAgIC8vaW5kaWNhdG9yQ29udGFpbmVyLnF1ZXJ5U2VsZWN0b3IoXCIuc3Bpbm5lci1ncm93XCIpLmNsYXNzTGlzdC5hZGQoXCJkLW5vbmVcIik7XG4gICAgdGhyb3cgZXJyO1xuICB9KTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHB5b2RpZGVQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBQeW9kaWRlRXZhbHVhdG9yKHB5b2RpZGUsIGNvbnRleHQpO1xuICAgIGF3YWl0IGV2YWx1YXRvci5wcm9jZXNzKGlucHV0cyk7XG4gICAgcmV0dXJuIGV2YWx1YXRvci5jb250YWluZXI7XG4gIH1cblxuICByZXR1cm4ge1xuICAgIHB5b2RpZGVQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICAgIHByb2Nlc3MsXG4gIH07XG59XG4ifV19
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Fix script running");
+        // Select .ipynb and .html links that are likely notebooks (e.g. in lab/ folder or just generic .html that isn't the current page)
+        // For now, let's target all checking for 'lab/' in href as a heuristic based on user project structure, content folder etc.
+        // Or simpler: target all local .html links that are not anchors?
+        const links = document.querySelectorAll('a[href$=".ipynb"], a[href*="/lab/"][href$=".html"]');
+
+        links.forEach(link => {
+            // Check if the link already has a target
+            if (!link.hasAttribute('target')) {
+                // Force open in new tab
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+                console.log("Fixed link target:", link.href);
+            }
+        });
+    });
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEJsb2NrIGRlIHN0YWJpbGlzYXRpb24gT0pTIHBvdXIgbGUgcHJvamV0IFF1YXJ0b1xuX3N0YWJpbGl6ZSA9IHRydWVcbiJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../cours/2_wrangling";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../cours/1_acquisition/index.html" class="pagination-link" aria-label="📥 Acquisition et Compréhension des Données">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">📥 Acquisition et Compréhension des Données</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../cours/3_eda/index.html" class="pagination-link" aria-label="📊 Analyse Exploratoire des Données (EDA)">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">📊 Analyse Exploratoire des Données (EDA)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "🧹 Data Wrangling (Nettoyage et Préparation)"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: false</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">//| output: false</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">// Block de stabilisation OJS pour le projet Quarto</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>_stabilize <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>{{&lt; include _21_valeurs_manquantes.qmd &gt;}}</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>{{&lt; include _22_harmonisation.qmd &gt;}}</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>{{&lt; include _23_transformation.qmd &gt;}}</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>{{&lt; include _24_encodage.qmd &gt;}}</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## TP1 : Le Titanic (Wrangling)</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>Dans ce premier Travail Pratique, vous allez mettre en pratique les techniques fondamentales de **Data Wrangling** sur le célèbre jeu de données du **Spaceship Titanic**. L'objectif est d'effectuer un nettoyage complet pour restaurer une base de données corrompue afin de la rendre exploitable pour les étapes futures.</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🎯 Objectifs Pédagogiques</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Audit de Qualité :** Explorer un jeu de données brut pour dresser un bilan des anomalies physiques, des doublons et des incohérences de typage.</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Gestion des Valeurs Manquantes :** Concevoir et appliquer des stratégies d'imputation adaptées (imputation par la médiane pour l'âge, par la valeur par défaut pour le statut VIP).</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Feature Engineering Initial :** Apprendre à combiner et agréger des variables corrélées en créant une nouvelle caractéristique de synthèse (<span class="in">`Total_Spent`</span> représentant la somme des dépenses individuelles).</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Export Propre :** Sauvegarder vos résultats dans un format structuré et standardisé pour garantir la reproductibilité.</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### 📁 Fichiers du TP</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>Vous pouvez explorer l'arborescence des fichiers du TP ci-dessous et télécharger directement l'archive complète de départ :</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>::: {.filetree title="Dataset du Titanic" zip="lab/tp1.zip"}</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">tp1.ipynb</span><span class="co">](lab/titanic/tp1.ipynb)</span> (Notebook d'exploration et de nettoyage à compléter)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">train.csv</span><span class="co">](lab/titanic/train.csv)</span> (Jeu de données brut de l'équipage et des passagers)</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🌉 Conclusion et Transition</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>Vos données sont maintenant propres et prêtes à être analysées. L'étape suivante consiste à explorer ces données pour en extraire des tendances et des relations.</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>C'est ce que nous allons voir dans le **[Chapitre 3 : Analyse Exploratoire des Données (EDA)](../3_eda/index.qmd)**.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

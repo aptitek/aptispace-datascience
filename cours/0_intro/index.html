@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>🚀 Introduction à la Science des Données – Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../cours/1_acquisition/index.html" rel="next">
+<link href="../../meta/planning.html" rel="prev">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7c12f3927fd323b841ad2e3d2d69d7c6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-17337c04c83a066f87002efd464b4315.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="../../site_libs/quarto-contrib/timeline-0.1.0/timeline.js"></script>
+<link href="../../site_libs/quarto-contrib/timeline-0.1.0/timeline.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<meta name="mermaid-theme" content="neutral">
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<script type="module" src="../../assets/js/index.js"></script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cours/0_intro/index.html">🔭 Fondations &amp; Acquisition</a></li><li class="breadcrumb-item"><a href="../../cours/0_intro/index.html">🚀 Introduction à la Science des Données</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../" class="sidebar-logo-link">
+      <img src="../../assets/logo.svg" alt="Aptitek" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../assets/logo.svg" alt="Aptitek" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Data Science</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📊 Data Science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">🎯 Module</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../meta/module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📋 Fiche Module</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../meta/syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📑 Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../meta/planning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">⏳ Chronologie du Module</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">🔭 Fondations &amp; Acquisition</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/0_intro/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">🚀 Introduction à la Science des Données</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/1_acquisition/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">📥 Acquisition et Compréhension des Données</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">🧹 Préparation &amp; Analyse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/2_wrangling/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">🧹 Data Wrangling (Nettoyage et Préparation)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/3_eda/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">📊 Analyse Exploratoire des Données (EDA)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">📈 Visualisation &amp; Modélisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/4_visualisation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">📈 Visualisation des Données</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/5_modelisation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">🤖 Modélisation et Machine Learning</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">🧪 Évaluation &amp; Communication</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/6_evaluation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">🧪 Évaluation des Modèles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cours/7_communication/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">📢 Communication des Résultats</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎓 Projet Fil Rouge Data Science : Sujet Libre</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">📚 Annexes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../annexes/aides_memoire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">✅ Aides-mémoire</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../annexes/glossaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">📖 Glossaire</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#mission-data-detective" id="toc-mission-data-detective" class="nav-link active" data-scroll-target="#mission-data-detective">🕵️‍♂️ Mission Data Detective</a>
+  <ul class="collapse">
+  <li><a href="#lart-du-raffinage" id="toc-lart-du-raffinage" class="nav-link" data-scroll-target="#lart-du-raffinage">🌪️ L’Art du Raffinage</a></li>
+  <li><a href="#analyse-exploratoire-eda" id="toc-analyse-exploratoire-eda" class="nav-link" data-scroll-target="#analyse-exploratoire-eda">🔎 Analyse Exploratoire (EDA)</a></li>
+  </ul></li>
+  <li><a href="#de-lacquisition-au-mlops" id="toc-de-lacquisition-au-mlops" class="nav-link" data-scroll-target="#de-lacquisition-au-mlops">🔄 De l’Acquisition au MLOps</a>
+  <ul class="collapse">
+  <li><a href="#les-7-étapes-de-linvestigation" id="toc-les-7-étapes-de-linvestigation" class="nav-link" data-scroll-target="#les-7-étapes-de-linvestigation">🕰️ Les 7 Étapes de l’Investigation</a></li>
+  </ul></li>
+  <li><a href="#applications-sectorielles" id="toc-applications-sectorielles" class="nav-link" data-scroll-target="#applications-sectorielles">🌍 Applications Sectorielles</a>
+  <ul class="collapse">
+  <li><a href="#les-scènes-de-crime-par-industrie" id="toc-les-scènes-de-crime-par-industrie" class="nav-link" data-scroll-target="#les-scènes-de-crime-par-industrie">🏛️ Les Scènes de Crime par Industrie</a></li>
+  <li><a href="#léthique-de-lenquêteur" id="toc-léthique-de-lenquêteur" class="nav-link" data-scroll-target="#léthique-de-lenquêteur">⚖️ L’Éthique de l’Enquêteur</a></li>
+  </ul></li>
+  <li><a href="#la-stack-python" id="toc-la-stack-python" class="nav-link" data-scroll-target="#la-stack-python">🛠️ La Stack Python</a>
+  <ul class="collapse">
+  <li><a href="#les-outils-de-manipulation" id="toc-les-outils-de-manipulation" class="nav-link" data-scroll-target="#les-outils-de-manipulation">🧰 Les Outils de Manipulation</a></li>
+  <li><a href="#modélisation-et-intelligence-artificielle" id="toc-modélisation-et-intelligence-artificielle" class="nav-link" data-scroll-target="#modélisation-et-intelligence-artificielle">🧠 Modélisation et Intelligence Artificielle</a></li>
+  <li><a href="#visualisation-des-preuves" id="toc-visualisation-des-preuves" class="nav-link" data-scroll-target="#visualisation-des-preuves">📊 Visualisation des Preuves</a></li>
+  </ul></li>
+  <li><a href="#conclusion-et-transition" id="toc-conclusion-et-transition" class="nav-link" data-scroll-target="#conclusion-et-transition">🌉 Conclusion et Transition</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cours/0_intro/index.html">🔭 Fondations &amp; Acquisition</a></li><li class="breadcrumb-item"><a href="../../cours/0_intro/index.html">🚀 Introduction à la Science des Données</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">🚀 Introduction à la Science des Données</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Voir le code source</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="5" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 4;"><span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Block de stabilisation OJS pour le projet Quarto</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>_stabilize <span class="op">=</span> <span class="kw">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p></p><div class="ratio-embed"><iframe src="https://view.genially.com/692c310a95ba19c812c12b8b" title="Présentation Génially" allowfullscreen=""></iframe></div><p></p>
+<section id="mission-data-detective" class="level2">
+<h2 class="anchored" data-anchor-id="mission-data-detective">🕵️‍♂️ Mission Data Detective</h2>
+<section id="lart-du-raffinage" class="level3">
+<h3 class="anchored" data-anchor-id="lart-du-raffinage">🌪️ L’Art du Raffinage</h3>
+<p>La science des données s’est imposée comme le pivot central des architectures d’information modernes. Elle n’est plus une discipline technique isolée dans un laboratoire ; elle est le socle méthodologique sur lequel repose l’ensemble de la circulation de l’information d’une organisation.</p>
+<p>L’objectif fondamental de la Data Science est de transformer un <strong>signal brut</strong>, souvent fragmenté et chaotique, en un <strong>actif stratégique</strong> capable de guider la prise de décision de haut niveau.</p>
+<div class="card card-warning">
+<div class="card-header">
+<p>⚠️ Danger : Le Dark Data</p>
+</div>
+<div class="card-body">
+<p>Une donnée n’a pas de valeur statique. Si une organisation se contente de stocker de l’information sans vocation métier précise, elle accumule ce que l’on appelle du <strong>Dark Data</strong> (données sombres). Ces “friches industrielles” numériques génèrent des coûts de stockage énormes (serveurs, cloud) sans aucune valeur ajoutée.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[(Données Brutes\nLe Chaos)] --&gt;|Nettoyage &amp; \nRaffinage| B(Information\nLe Contexte)
+    B --&gt;|Investigation &amp;\nModélisation| C{Connaissance\nLes Motifs}
+    C --&gt;|Storytelling &amp;\nDéploiement| D([Décision Métier\nL'Action])
+    
+    style A fill:#dc322f,stroke:#073642,stroke-width:2px,color:#fdf6e3
+    style D fill:#859900,stroke:#073642,stroke-width:4px,color:#fdf6e3
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="analyse-exploratoire-eda" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-exploratoire-eda">🔎 Analyse Exploratoire (EDA)</h3>
+<p>Historiquement, cette philosophie de découverte de la valeur puise ses racines dans l’<strong>Analyse Exploratoire des Données (EDA)</strong>, un concept popularisé par le mathématicien John Tukey dans les années 1970 <span class="citation" data-cites="ibm_2026_eda">(<a href="#ref-ibm_2026_eda" role="doc-biblioref">IBM, n.d.</a>)</span>.</p>
+<p>Contrairement à l’analyse confirmatoire classique (où l’on cherche simplement à valider ou infirmer une hypothèse préétablie), l’EDA se distingue par une approche d’<strong>investigation systématique</strong>. Le but ? Laisser la donnée “parler” d’elle-même pour révéler des structures, des anomalies (Outliers) ou des motifs cachés <strong>avant</strong> d’appliquer le moindre algorithme de Machine Learning complexe <span class="citation" data-cites="ibm_2026_eda">(<a href="#ref-ibm_2026_eda" role="doc-biblioref">IBM, n.d.</a>)</span>.</p>
+<p>C’est ce travail de détective qui constitue le premier rempart contre les conclusions hâtives et les biais algorithmiques.</p>
+<div class="card card-info">
+<div class="card-header">
+<p>💡 Concept Clé : EDA</p>
+</div>
+<div class="card-body">
+<p><strong>EDA (Exploratory Data Analysis) :</strong> Phase d’investigation utilisant des statistiques descriptives et des outils visuels pour résumer les caractéristiques d’un jeu de données et découvrir des modèles cachés avant toute modélisation prédictive.</p>
+</div>
+</div>
+<div class="card card-success">
+<div class="card-header">
+<p>🎒 Astuce Pro : Éviter le Dark Data</p>
+</div>
+<div class="card-body">
+<p>Pour ne pas transformer votre base de données en cimetière numérique, chaque donnée collectée doit répondre à une question métier spécifique ou à un indicateur de performance (KPI) clairement identifié.</p>
+</div>
+</div>
+<div class="card card-debug">
+<div class="card-header">
+<p>🕵️‍♂️ Simulateur d’Illusion : Ne faites jamais confiance aux résumés</p>
+</div>
+<div class="card-body">
+<p>Sélectionnez les différents jeux de données. Observez bien les statistiques descriptives (moyennes, corrélation) : elles sont <strong>strictement identiques</strong>. Pourtant, regardez ce que l’Analyse Exploratoire Visuelle (EDA) révèle…</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb2-0"><a href="#cb2-0" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Les Preuves : Ajout des parenthèses () autour de l'objet pour OJS</span></span>
+<span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>datasets <span class="op">=</span> ({</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"α (Standard)"</span><span class="op">:</span> { </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">11</span><span class="op">,</span> <span class="dv">14</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> [<span class="fl">8.04</span><span class="op">,</span> <span class="fl">6.95</span><span class="op">,</span> <span class="fl">7.58</span><span class="op">,</span> <span class="fl">8.81</span><span class="op">,</span> <span class="fl">8.33</span><span class="op">,</span> <span class="fl">9.96</span><span class="op">,</span> <span class="fl">7.24</span><span class="op">,</span> <span class="fl">4.26</span><span class="op">,</span> <span class="fl">10.84</span><span class="op">,</span> <span class="fl">4.82</span><span class="op">,</span> <span class="fl">5.68</span>] </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"β (Non-linéaire)"</span><span class="op">:</span> { </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">11</span><span class="op">,</span> <span class="dv">14</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> [<span class="fl">9.14</span><span class="op">,</span> <span class="fl">8.14</span><span class="op">,</span> <span class="fl">8.74</span><span class="op">,</span> <span class="fl">8.77</span><span class="op">,</span> <span class="fl">9.26</span><span class="op">,</span> <span class="fl">8.10</span><span class="op">,</span> <span class="fl">6.13</span><span class="op">,</span> <span class="fl">3.10</span><span class="op">,</span> <span class="fl">9.13</span><span class="op">,</span> <span class="fl">7.26</span><span class="op">,</span> <span class="fl">4.74</span>] </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"γ (Outlier Y)"</span><span class="op">:</span> { </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">11</span><span class="op">,</span> <span class="dv">14</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> [<span class="fl">7.46</span><span class="op">,</span> <span class="fl">6.77</span><span class="op">,</span> <span class="fl">12.74</span><span class="op">,</span> <span class="fl">7.11</span><span class="op">,</span> <span class="fl">7.81</span><span class="op">,</span> <span class="fl">8.84</span><span class="op">,</span> <span class="fl">6.08</span><span class="op">,</span> <span class="fl">5.39</span><span class="op">,</span> <span class="fl">8.15</span><span class="op">,</span> <span class="fl">6.42</span><span class="op">,</span> <span class="fl">5.73</span>] </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"δ (Outlier X)"</span><span class="op">:</span> { </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> [<span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">19</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">,</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> [<span class="fl">6.58</span><span class="op">,</span> <span class="fl">5.76</span><span class="op">,</span> <span class="fl">7.71</span><span class="op">,</span> <span class="fl">8.84</span><span class="op">,</span> <span class="fl">8.47</span><span class="op">,</span> <span class="fl">7.04</span><span class="op">,</span> <span class="fl">5.25</span><span class="op">,</span> <span class="fl">12.50</span><span class="op">,</span> <span class="fl">5.56</span><span class="op">,</span> <span class="fl">7.91</span><span class="op">,</span> <span class="fl">6.89</span>] </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb3-0"><a href="#cb3-0" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Interface de sélection</span></span>
+<span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>viewof selected_case <span class="op">=</span> ui<span class="op">.</span><span class="fu">toggle</span>({</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">options</span><span class="op">:</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(datasets)<span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"α (Standard)"</span><span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">states</span><span class="op">:</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"α (Standard)"</span><span class="op">:</span> <span class="st">"success"</span><span class="op">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"β (Non-linéaire)"</span><span class="op">:</span> <span class="st">"info"</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"γ (Outlier Y)"</span><span class="op">:</span> <span class="st">"warning"</span><span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"δ (Outlier X)"</span><span class="op">:</span> <span class="st">"danger"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>current_data <span class="op">=</span> datasets[selected_case]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>case_colors <span class="op">=</span> ({</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"α (Standard)"</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">green</span><span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"β (Non-linéaire)"</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">blue</span><span class="op">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"γ (Outlier Y)"</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">orange</span><span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"δ (Outlier X)"</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">red</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">// 4. Rendu des KPI (Molécules)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>ui<span class="op">.</span><span class="fu">render</span>(<span class="vs">`</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="ui-metrics-row" style="margin-top: 15px; margin-bottom: 25px;"&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>ui<span class="op">.</span><span class="fu">metricCard</span>({ <span class="dt">title</span><span class="op">:</span> <span class="st">"Moyenne (X)"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"9.0"</span><span class="op">,</span> <span class="dt">trend</span><span class="op">:</span> <span class="st">"neutral"</span><span class="op">,</span> <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Immuable"</span> })<span class="sc">}</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>ui<span class="op">.</span><span class="fu">metricCard</span>({ <span class="dt">title</span><span class="op">:</span> <span class="st">"Moyenne (Y)"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"7.5"</span><span class="op">,</span> <span class="dt">trend</span><span class="op">:</span> <span class="st">"neutral"</span><span class="op">,</span> <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Immuable"</span> })<span class="sc">}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>ui<span class="op">.</span><span class="fu">metricCard</span>({ <span class="dt">title</span><span class="op">:</span> <span class="st">"Corrélation"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"0.816"</span><span class="op">,</span> <span class="dt">trend</span><span class="op">:</span> <span class="st">"positive"</span><span class="op">,</span> <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Forte (Apparemment...)"</span> })<span class="sc">}</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="20" data-source-offset="-708"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 19;"><span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>ui<span class="op">.</span><span class="fu">plotlyWrapper</span>({</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="vs">`Scène de crime : </span><span class="sc">${</span>selected_case<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">height</span><span class="op">,</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">data</span><span class="op">:</span> [</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> current_data<span class="op">.</span><span class="at">x</span><span class="op">,</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> current_data<span class="op">.</span><span class="at">y</span><span class="op">,</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">mode</span><span class="op">:</span> <span class="st">'markers'</span><span class="op">,</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">type</span><span class="op">:</span> <span class="st">'scatter'</span><span class="op">,</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">name</span><span class="op">:</span> <span class="st">'Points'</span><span class="op">,</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marker</span><span class="op">:</span> { </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="dt">size</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">markerSize</span><span class="op">,</span> </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="dt">color</span><span class="op">:</span> case_colors[selected_case]<span class="op">,</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">line</span><span class="op">:</span> { <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">base03</span><span class="op">,</span> <span class="dt">width</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">markerLineWidth</span> } </span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> [<span class="dv">4</span><span class="op">,</span> <span class="dv">13</span>]<span class="op">,</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">mode</span><span class="op">:</span> <span class="st">'lines'</span><span class="op">,</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">type</span><span class="op">:</span> <span class="st">'scatter'</span><span class="op">,</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">name</span><span class="op">:</span> <span class="st">'Tendance (y = 3 + 0.5x)'</span><span class="op">,</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">line</span><span class="op">:</span> {</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">yellow</span><span class="op">,</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">width</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">lineWidth</span><span class="op">,</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dash</span><span class="op">:</span> <span class="st">'dash'</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">layout</span><span class="op">:</span> {</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="dt">xaxis</span><span class="op">:</span> { <span class="dt">range</span><span class="op">:</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="st">'X'</span> }<span class="op">,</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    <span class="dt">yaxis</span><span class="op">:</span> { <span class="dt">range</span><span class="op">:</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">14</span>]<span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="st">'Y'</span> }<span class="op">,</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    <span class="dt">margin</span><span class="op">:</span> { <span class="dt">t</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">b</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">l</span><span class="op">:</span> <span class="dv">40</span> }<span class="op">,</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    <span class="dt">showlegend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="dt">legend</span><span class="op">:</span> { <span class="dt">orientation</span><span class="op">:</span> <span class="st">'h'</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.2</span> }</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="de-lacquisition-au-mlops" class="level2">
+<h2 class="anchored" data-anchor-id="de-lacquisition-au-mlops">🔄 De l’Acquisition au MLOps</h2>
+<div class="card card-info">
+<div class="card-header">
+<p>💡 Concept Clé : Un Processus Industriel</p>
+</div>
+<div class="card-body">
+<p>L’Intelligence Artificielle n’est pas une intuition magique : c’est le résultat d’un processus industriel extrêmement structuré. Ce pipeline, souvent inspiré de standards comme CRISP-DM ou OSEMN, est ce que l’on appelle le <strong>Cycle de Vie de la Donnée</strong>.</p>
+</div>
+</div>
+<p>Pour éviter que notre projet ne se transforme en un gouffre financier (ou que notre algorithme ne produise des résultats absurdes), tout projet d’Analyse de Données suit <strong>7 étapes séquentielles et itératives</strong> <span class="citation" data-cites="datasciencepm_2026_lifecycle">(<a href="#ref-datasciencepm_2026_lifecycle" role="doc-biblioref">PM, n.d.</a>)</span>.</p>
+<section id="les-7-étapes-de-linvestigation" class="level3">
+<h3 class="anchored" data-anchor-id="les-7-étapes-de-linvestigation">🕰️ Les 7 Étapes de l’Investigation</h3>
+<div class="timeline vertical">
+<div class="event" data-label="Étape 1">
+<p><strong>Acquisition (L’Extraction)</strong> L’objectif est d’extraire le signal brut depuis diverses sources (API, Web Scraping, Capteurs IoT). C’est ici que l’on choisit l’architecture d’ingestion : <strong>Batch</strong> pour l’historique, ou <strong>Streaming</strong> pour le temps réel.</p>
+</div>
+<div class="event" data-label="Étape 2">
+<p><strong>Nettoyage (Le Décrassage)</strong> Étape la plus chronophage (<strong>80 % du temps</strong>). Une donnée “sale” (doublons, formats invalides) condamne l’algorithme au principe du <strong>Garbage In, Garbage Out (GIGO)</strong>.</p>
+</div>
+<div class="event" data-label="Étape 3">
+<p><strong>Analyse Exploratoire (L’Interrogatoire)</strong> Phase d’investigation où l’on cherche des motifs, des corrélations ou des anomalies (Outliers) via des tests statistiques.</p>
+</div>
+<div class="event" data-label="Étape 4">
+<p><strong>Visualisation (Le Témoignage)</strong> Transformer les chiffres indigestes en signaux actionnables visuellement compréhensibles via le <strong>Data Storytelling</strong>.</p>
+</div>
+<div class="event" data-label="Étape 5">
+<p><strong>Modélisation (Le Profilage)</strong> C’est ici que l’IA entre en scène. À partir des données enrichies (<strong>Feature Engineering</strong>), un algorithme apprend à prédire le futur ou à classifier l’information.</p>
+</div>
+<div class="event" data-label="Étape 6">
+<p><strong>Évaluation (L’Audit)</strong> Le modèle est audité via des métriques (F1-Score, RMSE) et des méthodes d’<strong>IA Explicable (XAI)</strong> pour comprendre <em>pourquoi</em> une décision a été prise.</p>
+</div>
+<div class="event" data-label="Étape 7">
+<p><strong>Déploiement (La Mise sous Surveillance)</strong> Le modèle est mis en production. Le <strong>MLOps</strong> assure la surveillance continue pour détecter la dégradation naturelle des performances (<strong>Drift</strong>).</p>
+</div>
+</div>
+<div class="card card-warning">
+<div class="card-header">
+<p>⚠️ Danger : L’Itération Infinie</p>
+</div>
+<div class="card-body">
+<p>Comme le montre ce pipeline, le cycle n’est pas strictement linéaire. Si une dérive (<strong>Drift</strong>) est détectée en production, il faut immédiatement relancer l’acquisition de nouvelles données pour ré-entraîner le modèle.</p>
+</div>
+</div>
+<div class="card card-success">
+<div class="card-header">
+<p>🎒 Astuce Pro : Le MLOps</p>
+</div>
+<div class="card-body">
+<p>Ne considérez jamais le déploiement comme une fin. Un bon “Raffineur” consacre autant d’énergie à la surveillance du modèle qu’à son entraînement initial.</p>
+</div>
+</div>
+<p>et Operations. C’est l’ensemble des pratiques visant à déployer et maintenir des modèles d’IA en production de manière fiable et efficace.</p>
+<div class="card card-info">
+<div class="card-header">
+<p>📈 Simulateur de Dérive (Drift) : Le mythe de l’IA éternelle</p>
+</div>
+<div class="card-body">
+<p>En production, les performances d’un modèle se dégradent naturellement avec le temps (les comportements des utilisateurs changent, l’économie évolue…). C’est ce qu’on appelle la <strong>dérive (Concept Drift)</strong>. Utilisez le curseur pour simuler l’intervention de l’équipe MLOps (ré-entraînement du modèle avec de nouvelles données) et observez l’impact sur la fiabilité de l’IA à la fin de l’année.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="2" data-source-offset="-61"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1;"><span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>viewof intervention_month <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">11</span>]<span class="op">,</span> {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"🛠️ Mois du ré-entraînement MLOps (0 = Jamais) :"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Logique du modèle : Génération de la précision sur 12 mois</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">12</span>}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> i <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>calculate_accuracy <span class="op">=</span> (month<span class="op">,</span> intervention) <span class="kw">=&gt;</span> {</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Dérive initiale (le modèle perd environ 2.5% de précision par mois)</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> base_acc <span class="op">=</span> <span class="dv">95</span> <span class="op">-</span> (month <span class="op">*</span> <span class="fl">2.5</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Si l'équipe intervient, la précision remonte au mois de l'intervention</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (intervention <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> month <span class="op">&gt;=</span> intervention) {</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> months_since_retrain <span class="op">=</span> month <span class="op">-</span> intervention</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      base_acc <span class="op">=</span> <span class="dv">95</span> <span class="op">-</span> (months_since_retrain <span class="op">*</span> <span class="fl">2.5</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">// On s'assure que ça reste réaliste (pas en dessous de 50%)</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">50</span><span class="op">,</span> base_acc)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">// Construction du tableau de données dynamique</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>accuracies <span class="op">=</span> months<span class="op">.</span><span class="fu">map</span>(m <span class="kw">=&gt;</span> <span class="fu">calculate_accuracy</span>(m<span class="op">,</span> intervention_month))</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Extraction de la métrique clé pour la carte de score</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>final_accuracy <span class="op">=</span> accuracies[<span class="dv">11</span>]</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>trend_color <span class="op">=</span> final_accuracy <span class="op">&gt;=</span> <span class="dv">80</span> <span class="op">?</span> <span class="st">"positive"</span> <span class="op">:</span> (final_accuracy <span class="op">&gt;=</span> <span class="dv">65</span> <span class="op">?</span> <span class="st">"warning"</span> <span class="op">:</span> <span class="st">"negative"</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>trend_subtitle <span class="op">=</span> intervention_month <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"Modèle à l'abandon"</span> <span class="op">:</span> (intervention_month <span class="op">&lt;</span> <span class="dv">6</span> <span class="op">?</span> <span class="st">"Intervention trop précoce"</span> <span class="op">:</span> <span class="st">"Modèle maintenu"</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">// 4. Rendu du KPI via ta molécule metricCard</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>ui<span class="op">.</span><span class="fu">render</span>(<span class="vs">`</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="ui-metrics-row"&gt;</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>ui<span class="op">.</span><span class="fu">metricCard</span>({ </span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> <span class="st">"Précision Finale (Mois 12)"</span><span class="op">,</span> </span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> final_accuracy<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) <span class="op">+</span> <span class="st">" %"</span><span class="op">,</span> </span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">trend</span><span class="op">:</span> trend_color<span class="op">,</span> </span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">subtitle</span><span class="op">:</span> trend_subtitle</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    })<span class="sc">}</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-8" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb7-0"><a href="#cb7-0" aria-hidden="true" tabindex="-1"></a><span class="co">// 5. Rendu du Graphique Plotly</span></span>
+<span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ui<span class="op">.</span><span class="fu">plotlyWrapper</span>({</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Surveillance MLOps en Production"</span><span class="op">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">height</span><span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">data</span><span class="op">:</span> [</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Trace 1 : La courbe de précision</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> months<span class="op">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> accuracies<span class="op">,</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">mode</span><span class="op">:</span> <span class="st">'lines+markers'</span><span class="op">,</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">type</span><span class="op">:</span> <span class="st">'scatter'</span><span class="op">,</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">name</span><span class="op">:</span> <span class="st">'Précision'</span><span class="op">,</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">line</span><span class="op">:</span> { <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">blue</span><span class="op">,</span> <span class="dt">width</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">lineWidth</span> }<span class="op">,</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marker</span><span class="op">:</span> { </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">size</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">markerSize</span><span class="op">,</span> </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">blue</span><span class="op">,</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">line</span><span class="op">:</span> { <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">base03</span><span class="op">,</span> <span class="dt">width</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">markerLineWidth</span> }</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Trace 2 (Optionnelle) : La ligne verticale d'intervention</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    intervention_month <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> {</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> [intervention_month<span class="op">,</span> intervention_month]<span class="op">,</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> [<span class="dv">50</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">mode</span><span class="op">:</span> <span class="st">'lines'</span><span class="op">,</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">name</span><span class="op">:</span> <span class="st">'Ré-entraînement'</span><span class="op">,</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">line</span><span class="op">:</span> { <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">orange</span><span class="op">,</span> <span class="dt">width</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">markerLineWidth</span><span class="op">,</span> <span class="dt">dash</span><span class="op">:</span> <span class="st">'dot'</span> }<span class="op">,</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">hoverinfo</span><span class="op">:</span> <span class="st">'none'</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    } <span class="op">:</span> {}</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">.</span><span class="fu">filter</span>(trace <span class="kw">=&gt;</span> trace<span class="op">.</span><span class="at">x</span>)<span class="op">,</span> <span class="co">// Le filter permet d'ignorer la trace 2 si on est à 0</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">layout</span><span class="op">:</span> {</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">xaxis</span><span class="op">:</span> { <span class="dt">title</span><span class="op">:</span> <span class="st">'Temps en production (Mois)'</span><span class="op">,</span> <span class="dt">tickmode</span><span class="op">:</span> <span class="st">'linear'</span><span class="op">,</span> <span class="dt">dtick</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">yaxis</span><span class="op">:</span> { <span class="dt">title</span><span class="op">:</span> <span class="st">'Précision (%)'</span><span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [<span class="dv">50</span><span class="op">,</span> <span class="dv">100</span>] }<span class="op">,</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="dt">margin</span><span class="op">:</span> { <span class="dt">t</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">b</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">l</span><span class="op">:</span> <span class="dv">40</span> }<span class="op">,</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="dt">showlegend</span><span class="op">:</span> <span class="kw">false</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="applications-sectorielles" class="level2">
+<h2 class="anchored" data-anchor-id="applications-sectorielles">🌍 Applications Sectorielles</h2>
+<div class="card card-info">
+<div class="card-header">
+<p>💡 Concept Clé : Du code à l’impact métier</p>
+</div>
+<div class="card-body">
+<p>Maîtriser les outils est essentiel, mais l’objectif final reste de résoudre des énigmes industrielles. La valeur d’un “Enquêteur Numérique” se mesure à sa capacité à traduire un défi métier (“Nos machines tombent en panne”) en un problème de données exploitable.</p>
+</div>
+</div>
+<p>L’analyse de données alimente aujourd’hui des systèmes d’IA critiques dans la quasi-totalité des secteurs économiques.</p>
+<section id="les-scènes-de-crime-par-industrie" class="level3">
+<h3 class="anchored" data-anchor-id="les-scènes-de-crime-par-industrie">🏛️ Les Scènes de Crime par Industrie</h3>
+<ul>
+<li><strong>💸 Banque &amp; Fintech</strong> : Secteur à haute tension où la donnée doit être traitée à la milliseconde.
+<ul>
+<li><strong>Détection de Fraude :</strong> Analyse en temps réel des flux de transactions pour bloquer les “suspects” avant même qu’ils ne quittent la banque.</li>
+<li><strong>Scoring de Crédit :</strong> Profilage statistique pour évaluer la fiabilité d’un emprunteur.</li>
+</ul></li>
+</ul>
+<div class="card card-warning">
+<div class="card-header">
+<p>⚖️ Le Dilemme du Banquier : Le coût d’une décision</p>
+</div>
+<div class="card-body">
+<p>Un modèle d’IA ne dit jamais “Ce client est un fraudeur”, il dit “Ce client a un score de risque de 72%”. C’est à vous, l’Enquêteur, de fixer la frontière (le seuil). Déplacez le curseur ci-dessous pour ajuster la sévérité de l’algorithme. Observez l’impact direct sur les clients légitimes (Faux Positifs) et sur l’argent perdu (Faux Négatifs).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="3" data-source-offset="-131"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 2;"><span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>legit_scores <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">400</span>}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">100</span><span class="op">,</span> <span class="dv">30</span> <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(i) <span class="op">*</span> <span class="dv">15</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">20</span>) <span class="op">-</span> <span class="dv">10</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Fraudeurs : concentrés vers le haut (moyenne ~75)</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>fraud_scores <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">80</span>}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">100</span><span class="op">,</span> <span class="dv">75</span> <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(i) <span class="op">*</span> <span class="dv">12</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">15</span>) <span class="op">-</span> <span class="fl">7.5</span>))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Input interactif : Le seuil de décision du Banquier</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>viewof decision_threshold <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">90</span>]<span class="op">,</span> {</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"🚩 Seuil d'Alerte Fraude (Score) :"</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Calcul des conséquences métier (Matrice de confusion simplifiée)</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Faux Positifs : Légitimes bloqués (Score &gt; seuil)</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>fp_count <span class="op">=</span> legit_scores<span class="op">.</span><span class="fu">filter</span>(s <span class="kw">=&gt;</span> s <span class="op">&gt;=</span> decision_threshold)<span class="op">.</span><span class="at">length</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">// Faux Négatifs : Fraudeurs non détectés (Score &lt; seuil)</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>fn_count <span class="op">=</span> fraud_scores<span class="op">.</span><span class="fu">filter</span>(s <span class="kw">=&gt;</span> s <span class="op">&lt;</span> decision_threshold)<span class="op">.</span><span class="at">length</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">// Vrais Positifs : Fraudeurs bloqués (Score &gt;= seuil)</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>tp_count <span class="op">=</span> fraud_scores<span class="op">.</span><span class="fu">filter</span>(s <span class="kw">=&gt;</span> s <span class="op">&gt;=</span> decision_threshold)<span class="op">.</span><span class="at">length</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">// 4. Rendu des KPI (Impact Métier)</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>ui<span class="op">.</span><span class="fu">render</span>(<span class="vs">`</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="ui-metrics-row"&gt;</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>ui<span class="op">.</span><span class="fu">metricCard</span>({ </span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> <span class="st">"Fraudes Déjouées"</span><span class="op">,</span> </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> tp_count<span class="op">,</span> </span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">trend</span><span class="op">:</span> <span class="st">"positive"</span><span class="op">,</span> </span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Vrais Positifs (Succès)"</span> </span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    })<span class="sc">}</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>ui<span class="op">.</span><span class="fu">metricCard</span>({ </span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> <span class="st">"Clients Mécontents"</span><span class="op">,</span> </span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> fp_count<span class="op">,</span> </span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">trend</span><span class="op">:</span> fp_count <span class="op">&gt;</span> <span class="dv">50</span> <span class="op">?</span> <span class="st">"danger"</span> <span class="op">:</span> (fp_count <span class="op">&gt;</span> <span class="dv">20</span> <span class="op">?</span> <span class="st">"warning"</span> <span class="op">:</span> <span class="st">"positive"</span>)<span class="op">,</span> </span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Bloqués à tort (Faux Positifs)"</span> </span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    })<span class="sc">}</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>ui<span class="op">.</span><span class="fu">metricCard</span>({ </span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> <span class="st">"Fraudes Manquées"</span><span class="op">,</span> </span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>      <span class="dt">value</span><span class="op">:</span> fn_count<span class="op">,</span> </span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>      <span class="dt">trend</span><span class="op">:</span> fn_count <span class="op">&gt;</span> <span class="dv">15</span> <span class="op">?</span> <span class="st">"danger"</span> <span class="op">:</span> (fn_count <span class="op">&gt;</span> <span class="dv">5</span> <span class="op">?</span> <span class="st">"warning"</span> <span class="op">:</span> <span class="st">"positive"</span>)<span class="op">,</span> </span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Pertes €€€ (Faux Négatifs)"</span> </span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    })<span class="sc">}</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb9" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb9-0"><a href="#cb9-0" aria-hidden="true" tabindex="-1"></a><span class="co">// 5. Rendu du Graphique Plotly (Histogrammes superposés)</span></span>
+<span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ui<span class="op">.</span><span class="fu">plotlyWrapper</span>({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Distribution des Scores de Risque"</span><span class="op">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">height</span><span class="op">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">data</span><span class="op">:</span> [</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> legit_scores<span class="op">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">type</span><span class="op">:</span> <span class="st">'histogram'</span><span class="op">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">name</span><span class="op">:</span> <span class="st">'Légitimes'</span><span class="op">,</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marker</span><span class="op">:</span> { <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">green</span> <span class="op">+</span> <span class="st">"99"</span> }<span class="op">,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">xbins</span><span class="op">:</span> { <span class="dt">start</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">end</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">size</span><span class="op">:</span> <span class="dv">2</span> }</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> fraud_scores<span class="op">,</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">type</span><span class="op">:</span> <span class="st">'histogram'</span><span class="op">,</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">name</span><span class="op">:</span> <span class="st">'Fraudeurs'</span><span class="op">,</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marker</span><span class="op">:</span> { <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">red</span> <span class="op">+</span> <span class="st">"b3"</span> }<span class="op">,</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">xbins</span><span class="op">:</span> { <span class="dt">start</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">end</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">size</span><span class="op">:</span> <span class="dv">2</span> }</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">layout</span><span class="op">:</span> {</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">barmode</span><span class="op">:</span> <span class="st">'overlay'</span><span class="op">,</span> <span class="co">// Superposition des histogrammes pour voir le chevauchement</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">xaxis</span><span class="op">:</span> { <span class="dt">title</span><span class="op">:</span> <span class="st">'Score de Risque de la Transaction'</span><span class="op">,</span> <span class="dt">range</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>] }<span class="op">,</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">yaxis</span><span class="op">:</span> { <span class="dt">title</span><span class="op">:</span> <span class="st">'Nombre de Transactions'</span> }<span class="op">,</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">legend</span><span class="op">:</span> { <span class="dt">orientation</span><span class="op">:</span> <span class="st">'h'</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.2</span> }<span class="op">,</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">shapes</span><span class="op">:</span> [</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>      <span class="co">// La ligne verticale représentant le seuil choisi par l'étudiant</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">type</span><span class="op">:</span> <span class="st">'line'</span><span class="op">,</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x0</span><span class="op">:</span> decision_threshold<span class="op">,</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x1</span><span class="op">:</span> decision_threshold<span class="op">,</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y0</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">yref</span><span class="op">:</span> <span class="st">'paper'</span><span class="op">,</span> <span class="co">// La ligne prend toute la hauteur du graphique</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">line</span><span class="op">:</span> { <span class="dt">color</span><span class="op">:</span> ui<span class="op">.</span><span class="at">colors</span><span class="op">.</span><span class="at">yellow</span><span class="op">,</span> <span class="dt">width</span><span class="op">:</span> ui<span class="op">.</span><span class="at">chart</span><span class="op">.</span><span class="at">lineWidth</span><span class="op">,</span> <span class="dt">dash</span><span class="op">:</span> <span class="st">'dash'</span> }</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card card-info">
+<div class="card-header">
+<p>🕵️‍♂️ Le Décodeur de l’Enquêteur : La Matrice de Confusion</p>
+</div>
+<div class="card-body">
+<p>Pour un enquêteur, chaque décision de l’algorithme a une conséquence réelle. Voici la grille de lecture pour interpréter les verdicts du modèle :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Réalité : Fraude (Positif)</strong></th>
+<th style="text-align: left;"><strong>Réalité : Légitime (Négatif)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Prédiction : Bloqué (Positif)</strong></td>
+<td style="text-align: left;"><strong>🟢 Vrais Positifs (TP)</strong><br>L’IA suspecte et bloque une fraude à juste titre.<br>👉 <em>Impact : Argent sauvé !</em></td>
+<td style="text-align: left;"><strong>🔴 Faux Positifs (FP)</strong><br>L’IA suspecte et bloque un client honnête à tort.<br>👉 <em>Impact : Client frustré.</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Prédiction : Autorisé (Négatif)</strong></td>
+<td style="text-align: left;"><strong>⚠️ Faux Négatifs (FN)</strong><br>L’IA ne détecte rien et laisse passer un fraudeur à tort.<br>👉 <em>Impact : Perte financière.</em></td>
+<td style="text-align: left;"><strong>🔵 Vrais Négatifs (TN)</strong><br>L’IA ne détecte rien et laisse passer un client honnête.<br>👉 <em>Impact : Client heureux.</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card card-warning">
+<div class="card-header">
+<p>⚖️ Le Compromis Fondamental : Le Dilemme du Banquier</p>
+</div>
+<div class="card-body">
+<p>Il est statistiquement impossible d’avoir à la fois <span class="math inline">0</span> Faux Positif et <span class="math inline">0</span> Faux Négatif. Ajuster le seuil d’alerte déplace simplement le curseur du compromis : baisser le seuil élimine les fraudes (FN) mais bloque tous vos clients (FP), tandis que l’élever libère vos clients mais ouvre les portes aux fraudeurs. C’est l’essence même du <strong>Dilemme du Banquier</strong>.</p>
+</div>
+</div>
+<ul>
+<li><strong>🏭 Industrie 4.0</strong> : L’usine connectée est une mine d’or d’indices.
+<ul>
+<li><strong>Maintenance Prédictive :</strong> Analyse des vibrations et températures pour prédire une défaillance mécanique avant qu’elle ne paralyse la ligne de production. C’est l’art d’écouter les “murmures” des machines.</li>
+</ul></li>
+<li><strong>🩺 Santé &amp; Génomique</strong> : Ici, l’erreur est fatale. La précision est l’unique règle.
+<ul>
+<li><strong>Aide au diagnostic :</strong> Utilisation de la vision par ordinateur pour repérer des anomalies invisibles à l’œil nu sur des radiographies.</li>
+</ul></li>
+</ul>
+</section>
+<section id="léthique-de-lenquêteur" class="level3">
+<h3 class="anchored" data-anchor-id="léthique-de-lenquêteur">⚖️ L’Éthique de l’Enquêteur</h3>
+<p>Traiter des données réelles impose des responsabilités majeures. La gouvernance n’est pas une option, c’est un serment.</p>
+<div class="card card-warning">
+<div class="card-header">
+<p>⚠️ Danger : Biais et Éthique</p>
+</div>
+<div class="card-body">
+<p>Si vos données d’entraînement sont biaisées, votre IA ne sera pas un juge impartial, mais un amplificateur de préjugés. Le respect du <strong>RGPD</strong> et le principe de <strong>Privacy by Design</strong> sont les garde-fous indispensables de votre mission <span class="citation" data-cites="alharbi_2026_responsible">(<a href="#ref-alharbi_2026_responsible" role="doc-biblioref">Harbi, Tidjon, and Khomh 2026</a>)</span>.</p>
+</div>
+</div>
+<div class="card card-success">
+<div class="card-header">
+<p>🎒 Astuce Pro : Responsible AI</p>
+</div>
+<div class="card-body">
+<p>Documentez toujours la provenance de vos données (<em>Data Lineage</em>). Un verdict sans preuve de la qualité de la source n’a aucune valeur juridique ou métier.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="la-stack-python" class="level2">
+<h2 class="anchored" data-anchor-id="la-stack-python">🛠️ La Stack Python</h2>
+<div class="card card-info">
+<div class="card-header">
+<p>💡 Concept Clé : Pourquoi Python ?</p>
+</div>
+<div class="card-body">
+<p>Python n’est pas le langage le plus rapide au monde, mais il domine l’IA grâce à son <strong>écosystème</strong>. Il agit comme un chef d’orchestre, pilotant des bibliothèques ultra-optimisées (C++/Rust) pour effectuer le travail lourd <span class="citation" data-cites="ibm_2026_eda">(<a href="#ref-ibm_2026_eda" role="doc-biblioref">IBM, n.d.</a>)</span>.</p>
+</div>
+</div>
+<p>Pour extraire la valeur des données, un bon “raffineur” doit maîtriser son équipement. Voici l’arsenal de référence.</p>
+<section id="les-outils-de-manipulation" class="level3">
+<h3 class="anchored" data-anchor-id="les-outils-de-manipulation">🧰 Les Outils de Manipulation</h3>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="card card-primary quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="card-header">
+<p>Pandas &amp; NumPy</p>
+</div>
+<div class="card-body">
+<p><strong>Les Fondations</strong></p>
+<ul>
+<li><strong>NumPy</strong> : Le moteur mathématique pour les calculs matriciels.</li>
+<li><strong>Pandas</strong> : L’établi de travail pour manipuler les <code>DataFrames</code> (tables).</li>
+</ul>
+</div>
+</div>
+<div class="card card-secondary quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="card-header">
+<p>Polars</p>
+</div>
+<div class="card-body">
+<p><strong>La Performance brute</strong> L’alternative moderne écrite en <strong>Rust</strong>. Conçu pour les volumes massifs de données avec une exécution multithreadée.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="modélisation-et-intelligence-artificielle" class="level3">
+<h3 class="anchored" data-anchor-id="modélisation-et-intelligence-artificielle">🧠 Modélisation et Intelligence Artificielle</h3>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="card card-success quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="card-header">
+<p>Scikit-Learn</p>
+</div>
+<div class="card-body">
+<p><strong>Le Couteau Suisse</strong> Idéal pour le Machine Learning classique : classification, régression et détection d’anomalies.</p>
+</div>
+</div>
+<div class="card card-warning quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="card-header">
+<p>PyTorch</p>
+</div>
+<div class="card-body">
+<p><strong>L’Artillerie Lourde</strong> Dédié au Deep Learning et aux réseaux de neurones complexes (Vision, NLP).</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualisation-des-preuves" class="level3">
+<h3 class="anchored" data-anchor-id="visualisation-des-preuves">📊 Visualisation des Preuves</h3>
+<div class="card card-info">
+<div class="card-header">
+<p>Matplotlib, Seaborn &amp; Plotly</p>
+</div>
+<div class="card-body">
+<p>De la preuve statique élégante (Seaborn) au tableau de bord interactif (Plotly), ces outils permettent de transformer des colonnes de chiffres en récits visuels percutants.</p>
+</div>
+</div>
+<div class="card card-success">
+<div class="card-header">
+<p>🎒 Astuce Pro : Le choix de l’outil</p>
+</div>
+<div class="card-body">
+<p>Commencez toujours par <strong>Pandas</strong> pour l’exploration rapide. Si vous atteignez les limites de la RAM ou que les temps de calcul deviennent critiques, passez à <strong>Polars</strong>.</p>
+</div>
+</div>
+<div class="card card-info">
+<div class="card-header">
+<p>💡 Concept Clé : DataFrame</p>
+</div>
+<div class="card-body">
+<p>Structure de données en deux dimensions (lignes et colonnes), centre névralgique de toute l’analyse de données moderne.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion-et-transition" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-et-transition">🌉 Conclusion et Transition</h2>
+<p>Nous avons maintenant une vision globale de ce qu’est la Data Science, de ses outils et de son cycle de vie. Mais avant de pouvoir analyser des données, il faut savoir comment les acquérir et surtout comprendre leur nature profonde.</p>
+<p>C’est ce que nous allons explorer dans le <strong><a href="../../cours/1_acquisition/index.html">Chapitre 1 : Acquisition et Compréhension des Données</a></strong>.</p>
+
+
+<!-- -->
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-alharbi_2026_responsible" class="csl-entry" role="listitem">
+Harbi, Saud Hakem Al, Lionel Nganyewou Tidjon, and Foutse Khomh. 2026. <span>“Responsible Design Patterns for Machine Learning Pipelines.”</span> <em>arXiv Preprint</em>.
+</div>
+<div id="ref-ibm_2026_eda" class="csl-entry" role="listitem">
+IBM. n.d. <span>“What Is Exploratory Data Analysis?”</span> <a href="https://www.ibm.com/think/topics/exploratory-data-analysis">https://www.ibm.com/think/topics/exploratory-data-analysis</a>.
+</div>
+<div id="ref-datasciencepm_2026_lifecycle" class="csl-entry" role="listitem">
+PM, Data Science. n.d. <span>“What Is a Data Science Life Cycle?”</span> <a href="https://www.datascience-pm.com/data-science-life-cycle/">https://www.datascience-pm.com/data-science-life-cycle/</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Fix script running");
+        // Select .ipynb and .html links that are likely notebooks (e.g. in lab/ folder or just generic .html that isn't the current page)
+        // For now, let's target all checking for 'lab/' in href as a heuristic based on user project structure, content folder etc.
+        // Or simpler: target all local .html links that are not anchors?
+        const links = document.querySelectorAll('a[href$=".ipynb"], a[href*="/lab/"][href$=".html"]');
+
+        links.forEach(link => {
+            // Check if the link already has a target
+            if (!link.hasAttribute('target')) {
+                // Force open in new tab
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+                console.log("Fixed link target:", link.href);
+            }
+        });
+    });
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEJsb2NrIGRlIHN0YWJpbGlzYXRpb24gT0pTIHBvdXIgbGUgcHJvamV0IFF1YXJ0b1xuX3N0YWJpbGl6ZSA9IHRydWVcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuLy8gMi4gTGVzIFByZXV2ZXMgOiBBam91dCBkZXMgcGFyZW50aMOoc2VzICgpIGF1dG91ciBkZSBsJ29iamV0IHBvdXIgT0pTXG5kYXRhc2V0cyA9ICh7XG4gIFwizrEgKFN0YW5kYXJkKVwiOiB7IFxuICAgIHg6IFsxMCwgOCwgMTMsIDksIDExLCAxNCwgNiwgNCwgMTIsIDcsIDVdLCBcbiAgICB5OiBbOC4wNCwgNi45NSwgNy41OCwgOC44MSwgOC4zMywgOS45NiwgNy4yNCwgNC4yNiwgMTAuODQsIDQuODIsIDUuNjhdIFxuICB9LFxuICBcIs6yIChOb24tbGluw6lhaXJlKVwiOiB7IFxuICAgIHg6IFsxMCwgOCwgMTMsIDksIDExLCAxNCwgNiwgNCwgMTIsIDcsIDVdLCBcbiAgICB5OiBbOS4xNCwgOC4xNCwgOC43NCwgOC43NywgOS4yNiwgOC4xMCwgNi4xMywgMy4xMCwgOS4xMywgNy4yNiwgNC43NF0gXG4gIH0sXG4gIFwizrMgKE91dGxpZXIgWSlcIjogeyBcbiAgICB4OiBbMTAsIDgsIDEzLCA5LCAxMSwgMTQsIDYsIDQsIDEyLCA3LCA1XSwgXG4gICAgeTogWzcuNDYsIDYuNzcsIDEyLjc0LCA3LjExLCA3LjgxLCA4Ljg0LCA2LjA4LCA1LjM5LCA4LjE1LCA2LjQyLCA1LjczXSBcbiAgfSxcbiAgXCLOtCAoT3V0bGllciBYKVwiOiB7IFxuICAgIHg6IFs4LCA4LCA4LCA4LCA4LCA4LCA4LCAxOSwgOCwgOCwgOF0sIFxuICAgIHk6IFs2LjU4LCA1Ljc2LCA3LjcxLCA4Ljg0LCA4LjQ3LCA3LjA0LCA1LjI1LCAxMi41MCwgNS41NiwgNy45MSwgNi44OV0gXG4gIH1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyAzLiBJbnRlcmZhY2UgZGUgc8OpbGVjdGlvblxudmlld29mIHNlbGVjdGVkX2Nhc2UgPSB1aS50b2dnbGUoe1xuICBvcHRpb25zOiBPYmplY3Qua2V5cyhkYXRhc2V0cyksXG4gIHZhbHVlOiBcIs6xIChTdGFuZGFyZClcIixcbiAgc3RhdGVzOiB7XG4gICAgXCLOsSAoU3RhbmRhcmQpXCI6IFwic3VjY2Vzc1wiLFxuICAgIFwizrIgKE5vbi1saW7DqWFpcmUpXCI6IFwiaW5mb1wiLFxuICAgIFwizrMgKE91dGxpZXIgWSlcIjogXCJ3YXJuaW5nXCIsXG4gICAgXCLOtCAoT3V0bGllciBYKVwiOiBcImRhbmdlclwiXG4gIH1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJjdXJyZW50X2RhdGEgPSBkYXRhc2V0c1tzZWxlY3RlZF9jYXNlXVxuXG5jYXNlX2NvbG9ycyA9ICh7XG4gIFwizrEgKFN0YW5kYXJkKVwiOiB1aS5jb2xvcnMuZ3JlZW4sXG4gIFwizrIgKE5vbi1saW7DqWFpcmUpXCI6IHVpLmNvbG9ycy5ibHVlLFxuICBcIs6zIChPdXRsaWVyIFkpXCI6IHVpLmNvbG9ycy5vcmFuZ2UsXG4gIFwizrQgKE91dGxpZXIgWClcIjogdWkuY29sb3JzLnJlZFxufSlcblxuLy8gNC4gUmVuZHUgZGVzIEtQSSAoTW9sw6ljdWxlcylcbnVpLnJlbmRlcihgXG4gIDxkaXYgY2xhc3M9XCJ1aS1tZXRyaWNzLXJvd1wiIHN0eWxlPVwibWFyZ2luLXRvcDogMTVweDsgbWFyZ2luLWJvdHRvbTogMjVweDtcIj5cbiAgICAke3VpLm1ldHJpY0NhcmQoeyB0aXRsZTogXCJNb3llbm5lIChYKVwiLCB2YWx1ZTogXCI5LjBcIiwgdHJlbmQ6IFwibmV1dHJhbFwiLCBzdWJ0aXRsZTogXCJJbW11YWJsZVwiIH0pfVxuICAgICR7dWkubWV0cmljQ2FyZCh7IHRpdGxlOiBcIk1veWVubmUgKFkpXCIsIHZhbHVlOiBcIjcuNVwiLCB0cmVuZDogXCJuZXV0cmFsXCIsIHN1YnRpdGxlOiBcIkltbXVhYmxlXCIgfSl9XG4gICAgJHt1aS5tZXRyaWNDYXJkKHsgdGl0bGU6IFwiQ29ycsOpbGF0aW9uXCIsIHZhbHVlOiBcIjAuODE2XCIsIHRyZW5kOiBcInBvc2l0aXZlXCIsIHN1YnRpdGxlOiBcIkZvcnRlIChBcHBhcmVtbWVudC4uLilcIiB9KX1cbiAgPC9kaXY+XG5gKVxuXG4vLyA1LiBSZW5kdSBkdSBHcmFwaGlxdWUgKFBsb3RseSB2aWEgbGUgV3JhcHBlcilcbnVpLnBsb3RseVdyYXBwZXIoe1xuICB0aXRsZTogYFNjw6huZSBkZSBjcmltZSA6ICR7c2VsZWN0ZWRfY2FzZX1gLFxuICBoZWlnaHQ6IHVpLmNoYXJ0LmhlaWdodCxcbiAgZGF0YTogW1xuICAgIHtcbiAgICAgIHg6IGN1cnJlbnRfZGF0YS54LFxuICAgICAgeTogY3VycmVudF9kYXRhLnksXG4gICAgICBtb2RlOiAnbWFya2VycycsXG4gICAgICB0eXBlOiAnc2NhdHRlcicsXG4gICAgICBuYW1lOiAnUG9pbnRzJyxcbiAgICAgIG1hcmtlcjogeyBcbiAgICAgICAgc2l6ZTogdWkuY2hhcnQubWFya2VyU2l6ZSwgXG4gICAgICAgIGNvbG9yOiBjYXNlX2NvbG9yc1tzZWxlY3RlZF9jYXNlXSxcbiAgICAgICAgbGluZTogeyBjb2xvcjogdWkuY29sb3JzLmJhc2UwMywgd2lkdGg6IHVpLmNoYXJ0Lm1hcmtlckxpbmVXaWR0aCB9IFxuICAgICAgfVxuICAgIH0sXG4gICAge1xuICAgICAgeDogWzIsIDIwXSxcbiAgICAgIHk6IFs0LCAxM10sXG4gICAgICBtb2RlOiAnbGluZXMnLFxuICAgICAgdHlwZTogJ3NjYXR0ZXInLFxuICAgICAgbmFtZTogJ1RlbmRhbmNlICh5ID0gMyArIDAuNXgpJyxcbiAgICAgIGxpbmU6IHtcbiAgICAgICAgY29sb3I6IHVpLmNvbG9ycy55ZWxsb3csXG4gICAgICAgIHdpZHRoOiB1aS5jaGFydC5saW5lV2lkdGgsXG4gICAgICAgIGRhc2g6ICdkYXNoJ1xuICAgICAgfVxuICAgIH1cbiAgXSxcbiAgbGF5b3V0OiB7XG4gICAgeGF4aXM6IHsgcmFuZ2U6IFsyLCAyMF0sIHRpdGxlOiAnWCcgfSxcbiAgICB5YXhpczogeyByYW5nZTogWzIsIDE0XSwgdGl0bGU6ICdZJyB9LFxuICAgIG1hcmdpbjogeyB0OiA0MCwgcjogMjAsIGI6IDQwLCBsOiA0MCB9LFxuICAgIHNob3dsZWdlbmQ6IHRydWUsXG4gICAgbGVnZW5kOiB7IG9yaWVudGF0aW9uOiAnaCcsIHk6IC0wLjIgfVxuICB9XG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gMS4gSW5wdXQgaW50ZXJhY3RpZiA6IEwnw6l0dWRpYW50IGNob2lzaXQgcXVhbmQgaW50ZXJ2ZW5pclxudmlld29mIGludGVydmVudGlvbl9tb250aCA9IElucHV0cy5yYW5nZShbMCwgMTFdLCB7XG4gIHZhbHVlOiAwLCBcbiAgc3RlcDogMSwgXG4gIGxhYmVsOiBcIvCfm6DvuI8gTW9pcyBkdSByw6ktZW50cmHDrm5lbWVudCBNTE9wcyAoMCA9IEphbWFpcykgOlwiXG59KVxuXG4vLyAyLiBMb2dpcXVlIGR1IG1vZMOobGUgOiBHw6luw6lyYXRpb24gZGUgbGEgcHLDqWNpc2lvbiBzdXIgMTIgbW9pc1xubW9udGhzID0gQXJyYXkuZnJvbSh7bGVuZ3RoOiAxMn0sIChfLCBpKSA9PiBpICsgMSlcblxuY2FsY3VsYXRlX2FjY3VyYWN5ID0gKG1vbnRoLCBpbnRlcnZlbnRpb24pID0+IHtcbiAgLy8gRMOpcml2ZSBpbml0aWFsZSAobGUgbW9kw6hsZSBwZXJkIGVudmlyb24gMi41JSBkZSBwcsOpY2lzaW9uIHBhciBtb2lzKVxuICBsZXQgYmFzZV9hY2MgPSA5NSAtIChtb250aCAqIDIuNSlcbiAgXG4gIC8vIFNpIGwnw6lxdWlwZSBpbnRlcnZpZW50LCBsYSBwcsOpY2lzaW9uIHJlbW9udGUgYXUgbW9pcyBkZSBsJ2ludGVydmVudGlvblxuICBpZiAoaW50ZXJ2ZW50aW9uID4gMCAmJiBtb250aCA+PSBpbnRlcnZlbnRpb24pIHtcbiAgICAgIGxldCBtb250aHNfc2luY2VfcmV0cmFpbiA9IG1vbnRoIC0gaW50ZXJ2ZW50aW9uXG4gICAgICBiYXNlX2FjYyA9IDk1IC0gKG1vbnRoc19zaW5jZV9yZXRyYWluICogMi41KVxuICB9XG4gIFxuICAvLyBPbiBzJ2Fzc3VyZSBxdWUgw6dhIHJlc3RlIHLDqWFsaXN0ZSAocGFzIGVuIGRlc3NvdXMgZGUgNTAlKVxuICByZXR1cm4gTWF0aC5tYXgoNTAsIGJhc2VfYWNjKVxufVxuXG4vLyBDb25zdHJ1Y3Rpb24gZHUgdGFibGVhdSBkZSBkb25uw6llcyBkeW5hbWlxdWVcbmFjY3VyYWNpZXMgPSBtb250aHMubWFwKG0gPT4gY2FsY3VsYXRlX2FjY3VyYWN5KG0sIGludGVydmVudGlvbl9tb250aCkpXG5cbi8vIDMuIEV4dHJhY3Rpb24gZGUgbGEgbcOpdHJpcXVlIGNsw6kgcG91ciBsYSBjYXJ0ZSBkZSBzY29yZVxuZmluYWxfYWNjdXJhY3kgPSBhY2N1cmFjaWVzWzExXVxudHJlbmRfY29sb3IgPSBmaW5hbF9hY2N1cmFjeSA+PSA4MCA/IFwicG9zaXRpdmVcIiA6IChmaW5hbF9hY2N1cmFjeSA+PSA2NSA/IFwid2FybmluZ1wiIDogXCJuZWdhdGl2ZVwiKVxudHJlbmRfc3VidGl0bGUgPSBpbnRlcnZlbnRpb25fbW9udGggPT09IDAgPyBcIk1vZMOobGUgw6AgbCdhYmFuZG9uXCIgOiAoaW50ZXJ2ZW50aW9uX21vbnRoIDwgNiA/IFwiSW50ZXJ2ZW50aW9uIHRyb3AgcHLDqWNvY2VcIiA6IFwiTW9kw6hsZSBtYWludGVudVwiKVxuXG4vLyA0LiBSZW5kdSBkdSBLUEkgdmlhIHRhIG1vbMOpY3VsZSBtZXRyaWNDYXJkXG51aS5yZW5kZXIoYFxuICA8ZGl2IGNsYXNzPVwidWktbWV0cmljcy1yb3dcIj5cbiAgICAke3VpLm1ldHJpY0NhcmQoeyBcbiAgICAgIHRpdGxlOiBcIlByw6ljaXNpb24gRmluYWxlIChNb2lzIDEyKVwiLCBcbiAgICAgIHZhbHVlOiBmaW5hbF9hY2N1cmFjeS50b0ZpeGVkKDEpICsgXCIgJVwiLCBcbiAgICAgIHRyZW5kOiB0cmVuZF9jb2xvciwgXG4gICAgICBzdWJ0aXRsZTogdHJlbmRfc3VidGl0bGVcbiAgICB9KX1cbiAgPC9kaXY+XG5gKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gNS4gUmVuZHUgZHUgR3JhcGhpcXVlIFBsb3RseVxudWkucGxvdGx5V3JhcHBlcih7XG4gIHRpdGxlOiBcIlN1cnZlaWxsYW5jZSBNTE9wcyBlbiBQcm9kdWN0aW9uXCIsXG4gIGhlaWdodDogdWkuY2hhcnQuaGVpZ2h0LFxuICBkYXRhOiBbXG4gICAgLy8gVHJhY2UgMSA6IExhIGNvdXJiZSBkZSBwcsOpY2lzaW9uXG4gICAge1xuICAgICAgeDogbW9udGhzLFxuICAgICAgeTogYWNjdXJhY2llcyxcbiAgICAgIG1vZGU6ICdsaW5lcyttYXJrZXJzJyxcbiAgICAgIHR5cGU6ICdzY2F0dGVyJyxcbiAgICAgIG5hbWU6ICdQcsOpY2lzaW9uJyxcbiAgICAgIGxpbmU6IHsgY29sb3I6IHVpLmNvbG9ycy5ibHVlLCB3aWR0aDogdWkuY2hhcnQubGluZVdpZHRoIH0sXG4gICAgICBtYXJrZXI6IHsgXG4gICAgICAgIHNpemU6IHVpLmNoYXJ0Lm1hcmtlclNpemUsIFxuICAgICAgICBjb2xvcjogdWkuY29sb3JzLmJsdWUsXG4gICAgICAgIGxpbmU6IHsgY29sb3I6IHVpLmNvbG9ycy5iYXNlMDMsIHdpZHRoOiB1aS5jaGFydC5tYXJrZXJMaW5lV2lkdGggfVxuICAgICAgfVxuICAgIH0sXG4gICAgLy8gVHJhY2UgMiAoT3B0aW9ubmVsbGUpIDogTGEgbGlnbmUgdmVydGljYWxlIGQnaW50ZXJ2ZW50aW9uXG4gICAgaW50ZXJ2ZW50aW9uX21vbnRoID4gMCA/IHtcbiAgICAgIHg6IFtpbnRlcnZlbnRpb25fbW9udGgsIGludGVydmVudGlvbl9tb250aF0sXG4gICAgICB5OiBbNTAsIDEwMF0sXG4gICAgICBtb2RlOiAnbGluZXMnLFxuICAgICAgbmFtZTogJ1LDqS1lbnRyYcOubmVtZW50JyxcbiAgICAgIGxpbmU6IHsgY29sb3I6IHVpLmNvbG9ycy5vcmFuZ2UsIHdpZHRoOiB1aS5jaGFydC5tYXJrZXJMaW5lV2lkdGgsIGRhc2g6ICdkb3QnIH0sXG4gICAgICBob3ZlcmluZm86ICdub25lJ1xuICAgIH0gOiB7fVxuICBdLmZpbHRlcih0cmFjZSA9PiB0cmFjZS54KSwgLy8gTGUgZmlsdGVyIHBlcm1ldCBkJ2lnbm9yZXIgbGEgdHJhY2UgMiBzaSBvbiBlc3Qgw6AgMFxuICBcbiAgbGF5b3V0OiB7XG4gICAgeGF4aXM6IHsgdGl0bGU6ICdUZW1wcyBlbiBwcm9kdWN0aW9uIChNb2lzKScsIHRpY2ttb2RlOiAnbGluZWFyJywgZHRpY2s6IDEgfSxcbiAgICB5YXhpczogeyB0aXRsZTogJ1Byw6ljaXNpb24gKCUpJywgcmFuZ2U6IFs1MCwgMTAwXSB9LFxuICAgIG1hcmdpbjogeyB0OiA0MCwgcjogMjAsIGI6IDQwLCBsOiA0MCB9LFxuICAgIHNob3dsZWdlbmQ6IGZhbHNlXG4gIH1cbn0pXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDEuIEfDqW7DqXJhdGlvbiBkZSBkb25uw6llcyBkw6l0ZXJtaW5pc3RlcyAoU2NvcmUgZGUgcmlzcXVlIGRlIDAgw6AgMTAwKVxuLy8gQ2xpZW50cyBsw6lnaXRpbWVzIDogY29uY2VudHLDqXMgdmVycyBsZSBiYXMgKG1veWVubmUgfjMwKVxubGVnaXRfc2NvcmVzID0gQXJyYXkuZnJvbSh7bGVuZ3RoOiA0MDB9LCAoXywgaSkgPT4gXG4gIE1hdGgubWF4KDAsIE1hdGgubWluKDEwMCwgMzAgKyBNYXRoLnNpbihpKSAqIDE1ICsgKGkgJSAyMCkgLSAxMCkpXG4pXG4vLyBGcmF1ZGV1cnMgOiBjb25jZW50csOpcyB2ZXJzIGxlIGhhdXQgKG1veWVubmUgfjc1KVxuZnJhdWRfc2NvcmVzID0gQXJyYXkuZnJvbSh7bGVuZ3RoOiA4MH0sIChfLCBpKSA9PiBcbiAgTWF0aC5tYXgoMCwgTWF0aC5taW4oMTAwLCA3NSArIE1hdGguY29zKGkpICogMTIgKyAoaSAlIDE1KSAtIDcuNSkpXG4pXG5cbi8vIDIuIElucHV0IGludGVyYWN0aWYgOiBMZSBzZXVpbCBkZSBkw6ljaXNpb24gZHUgQmFucXVpZXJcbnZpZXdvZiBkZWNpc2lvbl90aHJlc2hvbGQgPSBJbnB1dHMucmFuZ2UoWzEwLCA5MF0sIHtcbiAgdmFsdWU6IDUwLCBcbiAgc3RlcDogMSwgXG4gIGxhYmVsOiBcIvCfmqkgU2V1aWwgZCdBbGVydGUgRnJhdWRlIChTY29yZSkgOlwiXG59KVxuXG4vLyAzLiBDYWxjdWwgZGVzIGNvbnPDqXF1ZW5jZXMgbcOpdGllciAoTWF0cmljZSBkZSBjb25mdXNpb24gc2ltcGxpZmnDqWUpXG4vLyBGYXV4IFBvc2l0aWZzIDogTMOpZ2l0aW1lcyBibG9xdcOpcyAoU2NvcmUgPiBzZXVpbClcbmZwX2NvdW50ID0gbGVnaXRfc2NvcmVzLmZpbHRlcihzID0+IHMgPj0gZGVjaXNpb25fdGhyZXNob2xkKS5sZW5ndGhcbi8vIEZhdXggTsOpZ2F0aWZzIDogRnJhdWRldXJzIG5vbiBkw6l0ZWN0w6lzIChTY29yZSA8IHNldWlsKVxuZm5fY291bnQgPSBmcmF1ZF9zY29yZXMuZmlsdGVyKHMgPT4gcyA8IGRlY2lzaW9uX3RocmVzaG9sZCkubGVuZ3RoXG4vLyBWcmFpcyBQb3NpdGlmcyA6IEZyYXVkZXVycyBibG9xdcOpcyAoU2NvcmUgPj0gc2V1aWwpXG50cF9jb3VudCA9IGZyYXVkX3Njb3Jlcy5maWx0ZXIocyA9PiBzID49IGRlY2lzaW9uX3RocmVzaG9sZCkubGVuZ3RoXG5cbi8vIDQuIFJlbmR1IGRlcyBLUEkgKEltcGFjdCBNw6l0aWVyKVxudWkucmVuZGVyKGBcbiAgPGRpdiBjbGFzcz1cInVpLW1ldHJpY3Mtcm93XCI+XG4gICAgJHt1aS5tZXRyaWNDYXJkKHsgXG4gICAgICB0aXRsZTogXCJGcmF1ZGVzIETDqWpvdcOpZXNcIiwgXG4gICAgICB2YWx1ZTogdHBfY291bnQsIFxuICAgICAgdHJlbmQ6IFwicG9zaXRpdmVcIiwgXG4gICAgICBzdWJ0aXRsZTogXCJWcmFpcyBQb3NpdGlmcyAoU3VjY8OocylcIiBcbiAgICB9KX1cbiAgICAke3VpLm1ldHJpY0NhcmQoeyBcbiAgICAgIHRpdGxlOiBcIkNsaWVudHMgTcOpY29udGVudHNcIiwgXG4gICAgICB2YWx1ZTogZnBfY291bnQsIFxuICAgICAgdHJlbmQ6IGZwX2NvdW50ID4gNTAgPyBcImRhbmdlclwiIDogKGZwX2NvdW50ID4gMjAgPyBcIndhcm5pbmdcIiA6IFwicG9zaXRpdmVcIiksIFxuICAgICAgc3VidGl0bGU6IFwiQmxvcXXDqXMgw6AgdG9ydCAoRmF1eCBQb3NpdGlmcylcIiBcbiAgICB9KX1cbiAgICAke3VpLm1ldHJpY0NhcmQoeyBcbiAgICAgIHRpdGxlOiBcIkZyYXVkZXMgTWFucXXDqWVzXCIsIFxuICAgICAgdmFsdWU6IGZuX2NvdW50LCBcbiAgICAgIHRyZW5kOiBmbl9jb3VudCA+IDE1ID8gXCJkYW5nZXJcIiA6IChmbl9jb3VudCA+IDUgPyBcIndhcm5pbmdcIiA6IFwicG9zaXRpdmVcIiksIFxuICAgICAgc3VidGl0bGU6IFwiUGVydGVzIOKCrOKCrOKCrCAoRmF1eCBOw6lnYXRpZnMpXCIgXG4gICAgfSl9XG4gIDwvZGl2PlxuYClcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDUuIFJlbmR1IGR1IEdyYXBoaXF1ZSBQbG90bHkgKEhpc3RvZ3JhbW1lcyBzdXBlcnBvc8OpcylcbnVpLnBsb3RseVdyYXBwZXIoe1xuICB0aXRsZTogXCJEaXN0cmlidXRpb24gZGVzIFNjb3JlcyBkZSBSaXNxdWVcIixcbiAgaGVpZ2h0OiB1aS5jaGFydC5oZWlnaHQsXG4gIGRhdGE6IFtcbiAgICB7XG4gICAgICB4OiBsZWdpdF9zY29yZXMsXG4gICAgICB0eXBlOiAnaGlzdG9ncmFtJyxcbiAgICAgIG5hbWU6ICdMw6lnaXRpbWVzJyxcbiAgICAgIG1hcmtlcjogeyBjb2xvcjogdWkuY29sb3JzLmdyZWVuICsgXCI5OVwiIH0sXG4gICAgICB4YmluczogeyBzdGFydDogMCwgZW5kOiAxMDAsIHNpemU6IDIgfVxuICAgIH0sXG4gICAge1xuICAgICAgeDogZnJhdWRfc2NvcmVzLFxuICAgICAgdHlwZTogJ2hpc3RvZ3JhbScsXG4gICAgICBuYW1lOiAnRnJhdWRldXJzJyxcbiAgICAgIG1hcmtlcjogeyBjb2xvcjogdWkuY29sb3JzLnJlZCArIFwiYjNcIiB9LFxuICAgICAgeGJpbnM6IHsgc3RhcnQ6IDAsIGVuZDogMTAwLCBzaXplOiAyIH1cbiAgICB9XG4gIF0sXG4gIGxheW91dDoge1xuICAgIGJhcm1vZGU6ICdvdmVybGF5JywgLy8gU3VwZXJwb3NpdGlvbiBkZXMgaGlzdG9ncmFtbWVzIHBvdXIgdm9pciBsZSBjaGV2YXVjaGVtZW50XG4gICAgeGF4aXM6IHsgdGl0bGU6ICdTY29yZSBkZSBSaXNxdWUgZGUgbGEgVHJhbnNhY3Rpb24nLCByYW5nZTogWzAsIDEwMF0gfSxcbiAgICB5YXhpczogeyB0aXRsZTogJ05vbWJyZSBkZSBUcmFuc2FjdGlvbnMnIH0sXG4gICAgbGVnZW5kOiB7IG9yaWVudGF0aW9uOiAnaCcsIHk6IC0wLjIgfSxcbiAgICBzaGFwZXM6IFtcbiAgICAgIC8vIExhIGxpZ25lIHZlcnRpY2FsZSByZXByw6lzZW50YW50IGxlIHNldWlsIGNob2lzaSBwYXIgbCfDqXR1ZGlhbnRcbiAgICAgIHtcbiAgICAgICAgdHlwZTogJ2xpbmUnLFxuICAgICAgICB4MDogZGVjaXNpb25fdGhyZXNob2xkLFxuICAgICAgICB4MTogZGVjaXNpb25fdGhyZXNob2xkLFxuICAgICAgICB5MDogMCxcbiAgICAgICAgeTE6IDEsXG4gICAgICAgIHlyZWY6ICdwYXBlcicsIC8vIExhIGxpZ25lIHByZW5kIHRvdXRlIGxhIGhhdXRldXIgZHUgZ3JhcGhpcXVlXG4gICAgICAgIGxpbmU6IHsgY29sb3I6IHVpLmNvbG9ycy55ZWxsb3csIHdpZHRoOiB1aS5jaGFydC5saW5lV2lkdGgsIGRhc2g6ICdkYXNoJyB9XG4gICAgICB9XG4gICAgXVxuICB9XG59KVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3NlbGVjdGVkX2Nhc2UnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnaW50ZXJ2ZW50aW9uX21vbnRoJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2RlY2lzaW9uX3RocmVzaG9sZCcpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../cours/0_intro";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../meta/planning.html" class="pagination-link" aria-label="⏳ Chronologie du Module">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">⏳ Chronologie du Module</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../cours/1_acquisition/index.html" class="pagination-link" aria-label="📥 Acquisition et Compréhension des Données">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">📥 Acquisition et Compréhension des Données</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 🚀 Introduction à la Science des Données {.unnumbered}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: false</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">//| output: false</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Block de stabilisation OJS pour le projet Quarto</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>_stabilize <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Présentation Génially</span><span class="co">](https://view.genially.com/692c310a95ba19c812c12b8b)</span>{.embed}</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>{{&lt; include _01_demystification.qmd &gt;}}</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>{{&lt; include _02_cycle_vie.qmd &gt;}}</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>{{&lt; include _04_applications.qmd &gt;}}</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>{{&lt; include _03_boite_outils.qmd &gt;}}</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🌉 Conclusion et Transition</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>Nous avons maintenant une vision globale de ce qu'est la Data Science, de ses outils et de son cycle de vie. Mais avant de pouvoir analyser des données, il faut savoir comment les acquérir et surtout comprendre leur nature profonde.</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>C'est ce que nous allons explorer dans le **[Chapitre 1 : Acquisition et Compréhension des Données](../1_acquisition/index.qmd)**.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -55,6 +55,7 @@ book:
       chapters:
         - cours/6_evaluation/index.qmd
         - cours/7_communication/index.qmd
+    - projet.qmd
     - part: "📚 Annexes"
       chapters:
         - annexes/aides_memoire.qmd

@@ -6,8 +6,8 @@ function Link(el)
       local title = pandoc.utils.stringify(el.content)
       
       -- We return a RawInline to avoid errors when the link is inside a paragraph.
-      -- The CSS .ratio-16x9 will still make it look like a block because it has width: 100%
-      return pandoc.RawInline('html', '<div class="ratio-16x9"><iframe src="' .. url .. '" title="' .. title .. '" allowfullscreen></iframe></div>')
+      -- The CSS .ratio-embed will make it look like a block because it has width: 100% and limited height
+      return pandoc.RawInline('html', '<div class="ratio-embed"><iframe src="' .. url .. '" title="' .. title .. '" allowfullscreen></iframe></div>')
     elseif quarto.doc.is_format('typst') then
       -- Typst: Keep as a link
       return el

@@ -1721,6 +1721,35 @@ div.sourceCode {
     padding: 6px 14px !important;
 }
 
+// ==========================================
+// 8. EMBEDDED IFRAME STYLING (Genially / Slides)
+// ==========================================
+.ratio-embed {
+    width: 100% !important;
+    height: 480px !important;
+    max-height: 65vh !important;
+    margin: 2rem auto !important;
+    border: 1px solid $sol-base2 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba($sol-base03, 0.05) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    background-color: $sol-base3 !important;
+    position: relative !important;
+
+    &:hover {
+        box-shadow: 0 8px 24px rgba($sol-base03, 0.08) !important;
+        transform: translateY(-2px) !important;
+    }
+
+    iframe {
+        width: 100% !important;
+        height: 100% !important;
+        border: none !important;
+    }
+}
+
+
 
 
 
